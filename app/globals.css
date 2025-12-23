@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+/* Light Mode Colors */
+:root {
+  /* Base Colors */
+  --white: #FFFFFF;
+  --black: #000000;
+  --green: #299962;
+  --menu-width: 60vw;
+
+  --brand-gray-secondary: #1D2126;
+
+
+  /* Grayscale */
+  --grayscale-01: #FFFFFF;
+  --grayscale-01-blur-74: rgba(255, 255, 255, 0.8);
+  --grayscale-01-blur-0: rgba(255, 255, 255, 0);
+  --grayscale-02: #F5F4F0;
+  --grayscale-02-blur: rgba(245, 244, 240, 0.28);
+  --grayscale-02-variant: #FFFFFF;
+  --grayscale-03: #EDEEF2;
+  --grayscale-04: #9E9E9E;
+  --grayscale-05: #808080;
+  --grayscale-06: #616161;
+  --grayscale-07: #000000;
+
+  /* Brand Primary */
+  --brand-primary: #0F34F4;
+  --brand-primary-variant: #7B90FF;
+  --brand-primary-container: rgba(15, 91, 244, 0.08);
+
+  /* Brand Secondary */
+  --brand-secondary: #EBC75E;
+  --brand-secondary-variant: #EB9E2A;
+  --brand-secondary-container: rgba(115, 110, 57, 0.12);
+
+  /* Glass Effects */
+  --glass-white-1: rgba(255, 255, 255, 0.01);
+  --glass-white-12: rgba(255, 255, 255, 0.12);
+  --glass-white-24: rgba(255, 255, 255, 0.24);
+  --glass-gray-11: rgba(128, 128, 128, 0.11);
+  --glass-black-1: rgba(0, 0, 0, 0.01);
+  --glass-black-12: rgba(0, 0, 0, 0.12);
+  --glass-black-24: rgba(0, 0, 0, 0.24);
+}
+
+
+
+/* Dark Mode Colors - Disabled (forced to light mode) */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    Base Colors
+    --white: #FFFFFF;
+    --black: #000000;
+    --green: #2FAD6F;  
+    --brand-gray-secondary: #F5F7FA;
+
+    Grayscale
+    --grayscale-01: #121B38;
+    --grayscale-01-blur-74: rgba(18, 27, 56, 0.74);
+    --grayscale-01-blur-0: rgba(18, 27, 56, 0);
+    --grayscale-02: #1B2440;
+    --grayscale-02-blur: rgba(27, 36, 64, 0.28);
+    --grayscale-02-variant: #29324F;
+    --grayscale-03: #242C45;
+    --grayscale-04: #707DAF;
+    --grayscale-05: #C6D2F8;
+    --grayscale-06: #C6D2F8;
+    --grayscale-07: #FFFFFF;
+
+    Brand Primary
+    --brand-primary: #294BFF;
+    --brand-primary-variant: #7B90FF;
+    --brand-primary-container: rgba(123, 144, 255, 0.08);
+
+    Brand Secondary
+    --brand-secondary: #EBC75E;
+    --brand-secondary-variant: #EB9E2A;
+    --brand-secondary-container: rgba(57, 115, 80, 0.25);
+
+    Glass Effects
+    --glass-white-1: rgba(255, 255, 255, 0.01);
+    --glass-white-12: rgba(255, 255, 255, 0.12);
+    --glass-white-24: rgba(255, 255, 255, 0.24);
+    --glass-gray-11: rgba(128, 128, 128, 0.11);
+    --glass-black-1: rgba(0, 0, 0, 0.01);
+    --glass-black-12: rgba(0, 0, 0, 0.12);
+    --glass-black-24: rgba(0, 0, 0, 0.24);
+  }
+} */
+
+@theme inline {
+  /* Base Colors */
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-green: var(--green);
+
+  --color-brand-gray-secondary: var(--brand-gray-secondary);
+
+
+  /* Grayscale */
+  --color-grayscale-01: var(--grayscale-01);
+  --color-grayscale-01-blur-74: var(--grayscale-01-blur-74);
+  --color-grayscale-01-blur-0: var(--grayscale-01-blur-0);
+  --color-grayscale-02: var(--grayscale-02);
+  --color-grayscale-02-blur: var(--grayscale-02-blur);
+  --color-grayscale-02-variant: var(--grayscale-02-variant);
+  --color-grayscale-03: var(--grayscale-03);
+  --color-grayscale-04: var(--grayscale-04);
+  --color-grayscale-05: var(--grayscale-05);
+  --color-grayscale-06: var(--grayscale-06);
+  --color-grayscale-07: var(--grayscale-07);
+
+  /* Brand Primary */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-variant: var(--brand-primary-variant);
+  --color-brand-primary-container: var(--brand-primary-container);
+
+  /* Brand Secondary */
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-variant: var(--brand-secondary-variant);
+  --color-brand-secondary-container: var(--brand-secondary-container);
+
+  /* Glass Effects */
+  --color-glass-white-1: var(--glass-white-1);
+  --color-glass-white-12: var(--glass-white-12);
+  --color-glass-white-24: var(--glass-white-24);
+  --color-glass-gray-11: var(--glass-gray-11);
+  --color-glass-black-1: var(--glass-black-1);
+  --color-glass-black-12: var(--glass-black-12);
+  --color-glass-black-24: var(--glass-black-24);
+
+  /* Legacy support (keeping existing variables) */
+  --color-background: var(--grayscale-01);
+  --color-foreground: var(--grayscale-07);
+  --color-primary: var(--brand-primary);
+  --color-primary-dark: var(--brand-primary-variant);
+  --color-secondary: var(--brand-secondary);
+  --color-accent: var(--green);
+
+  --font-sans: var(--font-vazirmatn);
+
+}
+
+@theme {
+  @keyframes spinAccelDecelIn {
+    0% {
+      transform: rotate(0deg);
+      animation-timing-function: ease-in;
+      opacity: 1;
+    }
+
+    50% {
+      transform: rotate(-2000deg);
+      /* Fast in */
+      animation-timing-function: ease-out;
+      opacity: 0.5;
+    }
+
+    100% {
+      transform: rotate(-2250deg);
+      /* Slow out */
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotateAndExpandIn {
+    0% {
+      transform: translateX(0);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(-100%);
+      opacity: 1;
+    }
+  }
+
+
+  @keyframes spinAccelDecelOut {
+    0% {
+      transform: rotate(-2250deg);
+      /* Slow out */
+      opacity: 1;
+    }
+
+    50% {
+      transform: rotate(-2000deg);
+      /* Fast in */
+      animation-timing-function: ease-out;
+      opacity: 0.5;
+    }
+
+    100% {
+      transform: rotate(0deg);
+      animation-timing-function: ease-in;
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotateAndExpandOut {
+    0% {
+      transform: translateX(-100%);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 0;
+
+    }
+  }
+}
+
+* {
+  direction: rtl;
+  text-align: right;
+}
+
+body {
+  background: var(--grayscale-01);
+  color: var(--grayscale-07);
+  font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", "Arial", sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+html {
+  scroll-behavior: smooth;
+}

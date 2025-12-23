@@ -1,0 +1,46 @@
+{
+  "common": {
+    "brandName": "Eterex",
+    "login": "Account",
+    "search": "Search",
+    "notifications": "Notifications",
+    "moreOptions": "More Options",
+    "settings": "Settings",
+    "toggleTheme": "Toggle Theme"
+  },
+  "nav": {
+    "home": "Home",
+    "markets": "Markets",
+    "trade": "Buy and Sell",
+    "wallet": "Wallet",
+    "blog": "Blog",
+    "about": "About Us",
+    "fees": "Fees",
+    "faq": "FAQ",
+    "contact": "Contact Us"
+  },
+  "mobile": {
+    "downloadApp": "Download App",
+    "account": "Account"
+  },
+  "footer": {
+    "description": "Advanced cryptocurrency trading platform with high security and low fees",
+    "usefulLinks": "Useful Links",
+    "services": "Services",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "rules": "Rules",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contactUs": "Contact Us",
+    "support247": "24/7 Support",
+    "copyright": "All rights reserved."
+  },
+  "metadata": {
+    "title": "Eterex | Cryptocurrency Trading Platform",
+    "titleTemplate": "%s | Eterex",
+    "description": "Advanced cryptocurrency trading platform with high security and low fees",
+    "keywords": ["Cryptocurrency", "Bitcoin", "Crypto", "Trading", "Ethereum"]
+  }
+}
+
