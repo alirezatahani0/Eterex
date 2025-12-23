@@ -41,6 +41,29 @@
     "titleTemplate": "%s | Eterex",
     "description": "Advanced cryptocurrency trading platform with high security and low fees",
     "keywords": ["Cryptocurrency", "Bitcoin", "Crypto", "Trading", "Ethereum"]
+  },
+  "security": {
+    "title": "Eterex Exchange Security",
+    "subtitle": {
+      "prefix": "Secure trading experience with",
+      "highlight": "world-class technologies",
+      "suffix": ""
+    },
+    "intro": "The Eterex cryptocurrency exchange system, by utilizing new technologies and the latest security protocols in the world, has made every effort to protect its users' capital. The Eterex team, while guaranteeing the security of users' assets on the Eterex trading platform and preventing any errors in transactions, always strives to provide the best user experience for buying and selling digital currencies to users.",
+    "dedicatedAddresses": {
+      "title": "Use of Dedicated Addresses",
+      "description": "The Eterex security and blockchain team continuously strives to maintain the security of user assets using the latest security methods. Some user wallet addresses on Eterex are currently dedicated, and these addresses will gradually be provided as unique and dedicated addresses for all supported cryptocurrencies."
+    },
+    "twoFactorAuth": {
+      "title": "Two-Factor Authentication",
+      "description": "Eterex's two-factor authentication (2FA) system, using email, SMS, and Google Authenticator, protects your assets from unauthorized access and loss. By activating this system, you can be assured that the process of withdrawing cryptocurrency and fiat currency from your Eterex account will be verified through predetermined communication channels before execution."
+    },
+    "autoVerification": {
+      "title": "Fully Automatic Identity Verification Process",
+      "description": "In the new version of Eterex, using secure and fully automatic video identity verification technology, while ensuring access by the actual user to the account, we have endeavored to make this process as fast and reliable as possible."
+    },
+    "metaTitle": "Eterex Exchange Security | Cryptocurrency Trading Security",
+    "metaDescription": "Eterex exchange uses the latest security technologies and protocols to fully guarantee the security of users' assets. Dedicated addresses, two-factor authentication, and fully automatic identity verification are among Eterex's security features."
   }
 }
 

@@ -17,6 +17,7 @@ export type TranslationKey =
   | `nav.${keyof typeof faTranslations.nav}`
   | `footer.${keyof typeof faTranslations.footer}`
   | `mobile.${keyof typeof faTranslations.mobile}`
+  | `security.${keyof typeof faTranslations.security}`
   | `metadata.${keyof typeof faTranslations.metadata}`;
 
 /**

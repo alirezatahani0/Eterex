@@ -139,10 +139,39 @@
   --color-accent: var(--green);
 
   --font-sans: var(--font-vazirmatn);
+  --font-pelak: "Pelak", "Vazirmatn", "Tahoma", "Arial", sans-serif;
+
+  /* Text Variants - Font Sizes */
+  --font-size-main-title: 32px;
+  --font-size-content: 16px;
+  --font-size-content-title: 18px;
+  --font-size-title: 32px;
+  --font-size-desc: 14px;
+  --font-size-gradient-center: 20px;
+  --font-size-center-text: 16px;
+
+  /* Text Variants - Line Heights */
+  --line-height-main-title: 48px;
+  --line-height-content: 36px;
+  --line-height-content-title: 32px;
+  --line-height-title: 48px;
+  --line-height-desc: 28px;
+  --line-height-gradient-center: 32px;
+  --line-height-center-text: 24px;
+
+  /* Gradient Backgrounds */
+  --gradient-main-title: linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%);
+  --gradient-center: linear-gradient(180deg, #000000 0%, #808080 100%);
 
 }
 
 @theme {
+  /* Font Family */
+  --font-pelak: var(--font-pelak);
+
+  /* Custom Breakpoint for 1440px */
+  --breakpoint-1440: 1440px;
+
   @keyframes spinAccelDecelIn {
     0% {
       transform: rotate(0deg);

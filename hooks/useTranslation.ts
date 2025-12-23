@@ -34,12 +34,18 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getSecurity = useMemo(
+    () => () => getSection(locale, 'security'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
     common: getCommon(),
     footer: getFooter(),
     mobile: getMobile(),
+    security: getSecurity(),
   };
 }
 
