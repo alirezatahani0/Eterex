@@ -2,7 +2,7 @@
 
 import { ReactNode, useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-
+import Text from './Text';
 interface CollapseProps {
 	header: ReactNode;
 	children: ReactNode;
@@ -88,9 +88,8 @@ export default function Collapse({
 				aria-expanded={isOpen}
 				aria-controls="collapse-content"
 			>
-				<div className="flex-1 text-right text-2xl leading-9 text-[#000]">
-					{header}
-				</div>
+				<Text variant="Main/24px/Regular">{header}</Text>
+
 				<div className="border border-grayscale-03 rounded-full w-9 h-9 flex items-center justify-center">
 					<ChevronIcon isOpen={isOpen} />
 				</div>

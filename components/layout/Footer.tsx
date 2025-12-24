@@ -341,13 +341,7 @@ const BackgroundDecorations = () => (
 // Sub-components
 const Logo = () => (
 	<Link href="/" className="flex items-center mb-6">
-		<Image
-			src="/Logo.png"
-			alt="Eterex logo"
-			width={120}
-			height={36}
-			priority
-		/>
+		<Image src="/Logo.png" alt="Eterex logo" width={120} height={36} priority />
 	</Link>
 );
 
@@ -430,10 +424,8 @@ const LinkColumn = ({
 	links: Array<{ href: string; label: string }>;
 }) => (
 	<div>
-		<div className="flex-1 text-right text-2xl leading-9 text-[#000] mb-6">
-			{title}
-		</div>
-		<div className="flex flex-col gap-2">
+		<Text variant="Main/24px/Regular">{title}</Text>
+		<div className="flex flex-col gap-2 mt-6">
 			{links.map((link) => (
 				<Link key={link.href} href={link.href}>
 					<Text variant="Main/14px/SemiBold" color="#808080">
@@ -530,9 +522,7 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 				>
 					{section.links.map((link) => (
 						<Link key={link.href} href={link.href}>
-							<Text variant="Main/14px/SemiBold" color="#808080">
-								{link.label}
-							</Text>
+							<Text variant="Main/14px/SemiBold">{link.label}</Text>
 						</Link>
 					))}
 				</Collapse>
@@ -553,11 +543,11 @@ export default function Footer() {
 	const { footer, mobile } = useTranslation();
 
 	return (
-		<footer className="border-t border-grayscale-03 lg:border-none pb-7 lg:pb-0 bg-white">
+		<footer className="border-t border-grayscale-03 lg:border-none pb-7 lg:pb-0 bg-grayscale-01">
 			{/* Mobile & Tablet */}
 			<Container className="flex flex-col lg:hidden relative">
 				<BackgroundDecorations />
-				<div className="flex flex-col gap-20 pt-14">
+				<div className="flex flex-col gap-20 pt-14 relative z-30">
 					<div className="flex flex-col">
 						<Logo />
 						<HeaderSection footer={footer} />

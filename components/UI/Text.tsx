@@ -43,18 +43,18 @@ const variantToTag: Record<Variant, Type> = {
 };
 
 const variantStyles: Record<Variant, string> = {
-	'LongText/14px/Regular': 'text-[14px] text-[#616161] leading-[28px]',
-	'LongText/14px/SemiBold': 'text-[14px] text-[#000] leading-[28px] font-[600]',
+	'LongText/14px/Regular': 'text-[14px] text-grayscale-06 leading-[28px]',
+	'LongText/14px/SemiBold': 'text-[14px] text-grayscale-07 leading-[28px] font-[600]',
 	'LongText/16px/Regular':
-		'text-[16px] text-[#616161] leading-[36px] font-[400]',
-	'LongText/18px/Bold': 'text-[18px] text-[#000] leading-[32px] font-[700]',
-	'Main/14px/SemiBold': 'text-[14px] text-[#808080] leading-[20px] font-[700]',
-	'Main/16px/Regular': 'text-[16px] text-[#808080] leading-[24px] font-[400]',
-	'Main/20px/Bold': 'text-[20px] text-[#808080] leading-[32px] font-[700]',
-	'Main/14px/Bold': 'text-[14px] text-[#0F34F4] leading-[20px] font-[600]',
-	'Main/24px/Regular': 'text-[24px] text-[#000] leading-[36px] font-[400]',
+		'text-[16px] text-grayscale-06 leading-[36px] font-[400]',
+	'LongText/18px/Bold': 'text-[18px] text-grayscale-07 leading-[32px] font-[700]',
+	'Main/14px/SemiBold': 'text-[14px] text-grayscale-05 leading-[20px] font-[700]',
+	'Main/16px/Regular': 'text-[16px] text-grayscale-05 leading-[24px] font-[400]',
+	'Main/20px/Bold': 'text-[20px] text-grayscale-05 leading-[32px] font-[700]',
+	'Main/14px/Bold': 'text-[14px] text-brand-primary leading-[20px] font-[600]',
+	'Main/24px/Regular': 'text-[24px] text-grayscale-07 leading-[36px] font-[400]',
 	'Main/32px/Black':
-		'text-[#000] font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
+		'text-grayscale-07 font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
 };
 
 const gradientStyles: Record<'Main/32px/Black' | 'Main/20px/Bold', string> = {
@@ -112,10 +112,7 @@ const Text = ({
 		style.WebkitTextFillColor = 'transparent';
 		style.backgroundClip = 'text';
 		style.color = 'transparent';
-	} else if (color) {
-		// Apply custom color if provided
-		style.color = color;
-	}
+	} 
 
 	if (Tag === 'a') {
 		return (

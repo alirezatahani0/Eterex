@@ -1,5 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Link from 'next/link';
@@ -13,24 +12,22 @@ const HamburgerIcon = (
 		height="16"
 		viewBox="0 0 18 16"
 		fill="none"
+		className="stroke-grayscale-07"
 	>
 		<path
 			d="M0.75 14.75H16.75"
-			stroke="black"
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
 		<path
 			d="M0.75 0.75L16.75 0.750001"
-			stroke="black"
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
 		<path
 			d="M0.75 7.75H16.75"
-			stroke="black"
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
@@ -45,17 +42,16 @@ const CloseIcon = (
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
+		className="stroke-grayscale-07"
 	>
 		<path
 			d="M6 6L18 18"
-			stroke="black"
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
 		<path
 			d="M18 6L6 18"
-			stroke="black"
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
@@ -264,10 +260,12 @@ function MobileThemeToggle() {
 			: 'light';
 		const currentTheme = storedTheme || systemTheme;
 
+		// Remove both classes first to ensure clean state
+		document.documentElement.classList.remove('dark', 'light');
 		if (currentTheme === 'dark') {
 			document.documentElement.classList.add('dark');
 		} else {
-			document.documentElement.classList.remove('dark');
+			document.documentElement.classList.add('light');
 		}
 
 		const timeoutId = setTimeout(() => {
@@ -283,10 +281,12 @@ function MobileThemeToggle() {
 		setTheme(newTheme);
 		localStorage.setItem('theme', newTheme);
 
+		// Remove both classes first, then add the selected one
+		document.documentElement.classList.remove('dark', 'light');
 		if (newTheme === 'dark') {
 			document.documentElement.classList.add('dark');
 		} else {
-			document.documentElement.classList.remove('dark');
+			document.documentElement.classList.add('light');
 		}
 	};
 
@@ -441,9 +441,9 @@ export default function MobileMenu() {
 			{/* Menu Container */}
 			<div
 				ref={menuRef}
-				className="absolute w-[350px] h-auto opacity-0 2xl:hidden rounded-l-[40px] right-0 top-0 overflow-hidden bg-brand-tertiary z-50 transition-all duration-300 ease-in-out translate-x-full"
+				className="absolute w-[350px] h-auto opacity-0 2xl:hidden rounded-l-[40px] right-0 top-0 overflow-hidden bg-grayscale-01 z-50 transition-all duration-300 ease-in-out translate-x-full"
 			>
-				<div className="flex flex-col h-full p-6 bg-white">
+				<div className="flex flex-col h-full p-6 bg-grayscale-01">
 					{/* Header */}
 					<div className="flex items-center justify-between mb-8">
 						{/* Logo */}
