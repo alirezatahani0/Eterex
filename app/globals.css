@@ -163,6 +163,10 @@
   --gradient-main-title: linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%);
   --gradient-center: linear-gradient(180deg, #000000 0%, #808080 100%);
 
+  /* Dotted Line Background Pattern */
+  --dotted-line-bg: radial-gradient(circle, #0000000d 3px, transparent 3px);
+  --dotted-line-bg-size: 40px 40px;
+
 }
 
 @theme {
@@ -256,4 +260,31 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (min-width: 64rem) {
+
+  /* Dotted Line Background Utility */
+  .lg\:bg-dotted {
+    background-image: var(--dotted-line-bg);
+    background-size: var(--dotted-line-bg-size);
+    background-position: 0 0;
+  }
+}
+
+
+/* Dotted Line Background with custom spacing */
+.bg-dotted-sm {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.bg-dotted-md {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-dotted-lg {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 32px 32px;
 }

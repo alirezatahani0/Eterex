@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import MobileMenu from '../UI/MobileMenu';
 import { useTranslation } from '@/hooks/useTranslation';
 import Image from 'next/image';
+import Container from '../UI/Container';
 
 // Icons
 // Sun Icon for Theme Toggle Switch
@@ -177,8 +178,9 @@ export default function Header() {
 		{ href: '/contact', label: nav.contact },
 	];
 	return (
-		<header className="sticky top-0 z-50 w-full border-b border-glass-gray-11 bg-grayscale-01-blur-74 backdrop-blur-xl px-6 py-5 md:px-12 md:py-4 xl:px-[76px] 2xl:px-[156px]">
-			<nav className="flex flex-row-reverse items-center justify-between h-12 md:h-14">
+		<header className="sticky top-0 z-50 w-full border-b border-glass-gray-11 bg-grayscale-01-blur-74 backdrop-blur-xl py-5 md:py-4">
+			<Container>
+				<nav className="flex flex-row-reverse items-center justify-between h-12 md:h-14">
 				{/* Left Side - Mobile: 3 items, Tablet: +2 icons, Desktop: +1 theme toggle */}
 				<div className="flex items-center gap-6">
 					<ThemeToggle />
@@ -289,6 +291,7 @@ export default function Header() {
 					</div>
 				</div>
 			</nav>
+			</Container>
 		</header>
 	);
 }

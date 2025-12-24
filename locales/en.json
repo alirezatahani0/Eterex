@@ -24,17 +24,30 @@
     "account": "Account"
   },
   "footer": {
-    "description": "Advanced cryptocurrency trading platform with high security and low fees",
-    "usefulLinks": "Useful Links",
-    "services": "Services",
-    "pricing": "Pricing",
-    "faq": "FAQ",
-    "rules": "Rules",
-    "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "contactUs": "Contact Us",
-    "support247": "24/7 Support",
-    "copyright": "All rights reserved."
+    "aboutEterex": {
+      "title": "About Eterex",
+      "security": "Security",
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us",
+      "rules": "Rules and Regulations",
+      "userPanel": "User Panel"
+    },
+    "guideSupport": {
+      "title": "Guide & Support",
+      "onlineSupport": "Online Support",
+      "fees": "Fees",
+      "identityVerification": "Identity Verification",
+      "blog": "Eterex Blog",
+      "faq": "FAQ"
+    },
+    "educationNews": {
+      "title": "Education & News",
+      "latestNews": "Latest Digital Currency News",
+      "advancedTrading": "Advanced Trading Education",
+      "depositWithdrawal": "Comprehensive Deposit and Withdrawal Education",
+      "incomeMethods": "Types of Income Generation Methods"
+    },
+    "copyright": "© 2025 Eterax Exchange - All material and intellectual rights of this website belong to Eterex"
   },
   "metadata": {
     "title": "Eterex | Cryptocurrency Trading Platform",

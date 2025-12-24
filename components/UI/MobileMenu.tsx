@@ -441,7 +441,7 @@ export default function MobileMenu() {
 			{/* Menu Container */}
 			<div
 				ref={menuRef}
-				className="absolute w-[350px] h-[66dvh] opacity-0 2xl:hidden rounded-l-[40px] right-0 top-0 overflow-hidden bg-brand-tertiary z-50 transition-all duration-300 ease-in-out translate-x-full"
+				className="absolute w-[350px] h-auto opacity-0 2xl:hidden rounded-l-[40px] right-0 top-0 overflow-hidden bg-brand-tertiary z-50 transition-all duration-300 ease-in-out translate-x-full"
 			>
 				<div className="flex flex-col h-full p-6 bg-white">
 					{/* Header */}

@@ -1,59 +1,113 @@
-import { ReactNode, ElementType } from 'react';
-import { cn } from '@/lib/utils';
+'use client';
+import React from 'react';
 
-type TextVariant = 'main-title' | 'content' | 'content-title' | 'title' | 'desc' | 'gradient-center' | 'center-text';
+type Variant =
+	| 'LongText/14px/Regular'
+	| 'LongText/14px/SemiBold'
+	| 'LongText/16px/Regular'
+	| 'LongText/18px/Bold'
+	| 'Main/14px/Bold'
+	| 'Main/14px/SemiBold'
+	| 'Main/16px/Regular'
+	| 'Main/20px/Bold'
+	| 'Main/24px/Regular'
+	| 'Main/32px/Black';
 
-interface TextProps {
-	variant: TextVariant;
-	children: ReactNode;
-	color?: string;
+type Type = 'span' | 'p' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type Color = 'primary' | 'secondary' | 'muted' | 'danger' | 'inherit' | string;
+type Weight = 'normal' | 'medium' | 'semibold' | 'bold' | number;
+
+interface TextProps extends React.HTMLAttributes<HTMLElement> {
+	variant?: Variant;
+	type?: Type;
+	color?: Color;
+	weight?: Weight;
+	href?: string;
 	className?: string;
-	as?: ElementType;
+	children?: React.ReactNode;
+	i18nKey?: string;
+	i18nParams?: Record<string, string | number>;
 }
 
-const variantClasses: Record<TextVariant, string> = {
-	'main-title': 'font-pelak font-black text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] text-center tracking-[0%]',
-	content: 'font-pelak font-normal text-base leading-[36px] text-justify tracking-[0%] text-grayscale-06',
-	'content-title': 'font-pelak font-bold text-lg leading-[32px] text-justify tracking-[0%] text-grayscale-07',
-	title: 'font-pelak font-bold text-[32px] leading-[48px] text-right tracking-[0%] text-white',
-	desc: 'font-pelak font-normal text-sm leading-[28px] text-right tracking-[0%] text-white',
-	'gradient-center': 'font-pelak font-bold text-[20px] leading-[32px] text-center tracking-[0%]',
-	'center-text': 'font-pelak font-normal text-base leading-[24px] text-center tracking-[0%] text-black',
+const variantToTag: Record<Variant, Type> = {
+	'LongText/14px/Regular': 'span',
+	'LongText/14px/SemiBold': 'span',
+	'LongText/16px/Regular': 'span',
+	'LongText/18px/Bold': 'p',
+	'Main/14px/Bold': 'span',
+	'Main/14px/SemiBold': 'span',
+	'Main/16px/Regular': 'span',
+	'Main/20px/Bold': 'span',
+	'Main/24px/Regular': 'span',
+	'Main/32px/Black': 'h1',
 };
 
-const gradientStyles: Record<'main-title' | 'gradient-center', string> = {
-	'main-title': 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
-	'gradient-center': 'linear-gradient(180deg, #000000 0%, #808080 100%)',
+const variantStyles: Record<Variant, string> = {
+	'LongText/14px/Regular': 'text-[14px] text-[#616161] leading-[28px]',
+	'LongText/14px/SemiBold': 'text-[14px] text-[#000] leading-[28px] font-[600]',
+	'LongText/16px/Regular':
+		'text-[16px] text-[#616161] leading-[36px] font-[400]',
+	'LongText/18px/Bold': 'text-[18px] text-[#000] leading-[32px] font-[700]',
+	'Main/14px/SemiBold': 'text-[14px] text-[#808080] leading-[20px] font-[700]',
+	'Main/16px/Regular': 'text-[16px] text-[#808080] leading-[24px] font-[400]',
+	'Main/20px/Bold': 'text-[20px] text-[#808080] leading-[32px] font-[700]',
+	'Main/14px/Bold': 'text-[14px] text-[#0F34F4] leading-[20px] font-[600]',
+	'Main/24px/Regular': 'text-[24px] text-[#000] leading-[36px] font-[400]',
+	'Main/32px/Black':
+		'text-[#000] font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
 };
 
-export default function Text({
-	variant,
+const gradientStyles: Record<'Main/32px/Black' | 'Main/20px/Bold', string> = {
+	'Main/32px/Black': 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
+	'Main/20px/Bold': 'linear-gradient(180deg, #000000 0%, #808080 100%)',
+};
+
+const colorMap: Record<string, string> = {
+	primary: '!text-[#0A7CFF]',
+	secondary: '!text-[#141414]',
+	muted: '!text-gray-600',
+	danger: '!text-red-500',
+};
+
+const weightMap: Record<Weight, string> = {
+	normal: 'font-normal',
+	medium: 'font-medium',
+	semibold: 'font-semibold',
+	bold: 'font-bold',
+	400: 'font-normal',
+	500: 'font-medium',
+	600: 'font-semibold',
+	700: 'font-bold',
+};
+
+const Text = ({
+	variant = 'Main/24px/Regular',
+	type = 'span',
+	color = '',
+	weight,
+	href,
+	className = '',
 	children,
-	color,
-	className,
-	as = 'span',
-}: TextProps) {
-	const Tag = as as ElementType;
-	
-	// Check if this is a gradient variant
-	const isGradient = (variant === 'main-title' || variant === 'gradient-center') && !color;
-	
-	// Get base classes and remove color classes if custom color is provided
-	let baseClasses = variantClasses[variant];
-	if (color && !isGradient) {
-		// Remove default color classes when custom color is provided
-		baseClasses = baseClasses.split(' ').filter(c => !c.startsWith('text-')).join(' ');
-	}
-	
-	// Build the className
-	const classes = cn(baseClasses, className);
-	
+	...props
+}: TextProps) => {
+	// Use i18n translation if key is provided, otherwise use children
+	const content = children;
+	const Tag = type || variantToTag[variant];
+	const variantClass = variantStyles[variant] || '';
+	const colorClass = colorMap[color] || color;
+	const weightClass = weight ? weightMap[weight] || 'font-normal' : '';
+	const allClass =
+		`${className} ${weightClass} ${colorClass} ${variantClass}`.trim();
+
 	// Build style object
 	const style: React.CSSProperties = {};
-	
+	const isGradient =
+		(variant === 'Main/32px/Black' || variant === 'Main/20px/Bold') && !color;
+
 	if (isGradient) {
 		// Apply gradient styles for gradient variants
-		style.background = gradientStyles[variant as 'main-title' | 'gradient-center'];
+		style.background =
+			gradientStyles[variant as 'Main/32px/Black' | 'Main/20px/Bold'];
 		style.WebkitBackgroundClip = 'text';
 		style.WebkitTextFillColor = 'transparent';
 		style.backgroundClip = 'text';
@@ -63,9 +117,22 @@ export default function Text({
 		style.color = color;
 	}
 
-	return (
-		<Tag className={classes} style={Object.keys(style).length > 0 ? style : undefined}>
-			{children}
-		</Tag>
+	if (Tag === 'a') {
+		return (
+			<a href={href} className={allClass} {...props}>
+				{content}
+			</a>
+		);
+	}
+	return React.createElement(
+		Tag,
+		{
+			className: allClass,
+			style: Object.keys(style).length > 0 ? style : undefined,
+			...props,
+		},
+		content,
 	);
-}
+};
+
+export default Text;
