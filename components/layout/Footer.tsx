@@ -177,8 +177,136 @@ export default function Footer() {
 	const { footer, mobile } = useTranslation();
 
 	return (
-		<footer className="border-t border-grayscale-03 lg:border-none pt-14 pb-7 lg:pb-0 bg-[linear-gradient(130deg,rgba(235,158,42,0.27)_0%,rgba(15,52,244,0.09)_25%,rgba(255,255,255,1)_56%,rgba(15,52,244,0.14)_100%)] lg:bg-none">
-			<Container className="flex flex-col gap-20 lg:grid lg:grid-cols-[1fr_2fr] lg:pl-0">
+		<footer className="border-t border-grayscale-03 lg:border-none pt-14 pb-7 lg:pb-0 bg-white">
+			<Container className="flex flex-col gap-20 lg:grid lg:grid-cols-[1fr_2fr] lg:pl-0 relative">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="100%"
+					height="100%"
+					viewBox="0 0 100% 100%"
+					fill="none"
+					className="absolute -top-14 left-0 z-0"
+				>
+					<g opacity="0.08" filter="url(#filter0_f_2676_47036)">
+						<path
+							d="M415.496 -49.5002L-457.004 444L206.496 -303L415.496 -49.5002Z"
+							fill="#EB9E2A"
+						/>
+					</g>
+					<defs>
+						<filter
+							id="filter0_f_2676_47036"
+							x="-588.508"
+							y="-434.5"
+							width="1135.5"
+							height="1010"
+							filterUnits="userSpaceOnUse"
+							color-interpolation-filters="sRGB"
+						>
+							<feFlood flood-opacity="0" result="BackgroundImageFix" />
+							<feBlend
+								mode="normal"
+								in="SourceGraphic"
+								in2="BackgroundImageFix"
+								result="shape"
+							/>
+							<feGaussianBlur
+								stdDeviation="65.75"
+								result="effect1_foregroundBlur_2676_47036"
+							/>
+						</filter>
+					</defs>
+				</svg>
+
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="100%"
+					height="100%"
+					viewBox="0 0 100% 100%"
+					fill="none"
+					className="absolute -top-14 left-0 z-0"
+				>
+					<g opacity="0.08" filter="url(#filter0_f_2676_47037)">
+						<path
+							d="M519.496 30.4998L-353.004 524L310.496 -223L519.496 30.4998Z"
+							fill="url(#paint0_linear_2676_47037)"
+						/>
+					</g>
+					<defs>
+						<filter
+							id="filter0_f_2676_47037"
+							x="-484.508"
+							y="-354.5"
+							width="1135.5"
+							height="1010"
+							filterUnits="userSpaceOnUse"
+							color-interpolation-filters="sRGB"
+						>
+							<feFlood flood-opacity="0" result="BackgroundImageFix" />
+							<feBlend
+								mode="normal"
+								in="SourceGraphic"
+								in2="BackgroundImageFix"
+								result="shape"
+							/>
+							<feGaussianBlur
+								stdDeviation="65.75"
+								result="effect1_foregroundBlur_2676_47037"
+							/>
+						</filter>
+						<linearGradient
+							id="paint0_linear_2676_47037"
+							x1="-329.553"
+							y1="550.977"
+							x2="418.232"
+							y2="-99.0635"
+							gradientUnits="userSpaceOnUse"
+						>
+							<stop stop-color="#EB9E2A" />
+							<stop offset="1" stop-color="#0F34F4" />
+						</linearGradient>
+					</defs>
+				</svg>
+
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="100%"
+					height="100%"
+					viewBox="0 0 100% 100%"
+					fill="none"
+					className="absolute -bottom-7 left-0 z-0"
+				>
+					<g opacity="0.15" filter="url(#filter0_f_2676_47035)">
+						<path
+							d="M716.318 435.813L76.7846 797.543L563.123 250L716.318 435.813Z"
+							fill="#0F34F4"
+						/>
+					</g>
+					<defs>
+						<filter
+							id="filter0_f_2676_47035"
+							x="-173.219"
+							y="0"
+							width="1139.54"
+							height="1047.54"
+							filterUnits="userSpaceOnUse"
+							color-interpolation-filters="sRGB"
+						>
+							<feFlood flood-opacity="0" result="BackgroundImageFix" />
+							<feBlend
+								mode="normal"
+								in="SourceGraphic"
+								in2="BackgroundImageFix"
+								result="shape"
+							/>
+							<feGaussianBlur
+								stdDeviation="125"
+								result="effect1_foregroundBlur_2676_47035"
+							/>
+						</filter>
+					</defs>
+				</svg>
+
 				{/* Header */}
 				<div className="flex flex-col gap-20 lg:col-start-1 lg:row-start-1 lg:row-end-2">
 					<div className="flex flex-col lg:col-start-1 lg:row-start-1">

@@ -25,33 +25,26 @@ export default function SecurityContent() {
 
 	return (
 		<div className="min-h-screen bg-grayscale-01">
-			<Container className="py-12 md:py-16 lg:py-20">
-				{/* Header Section */}
-				<div className="text-center mb-6 md:mb-12 bg-[url('/assets/security/Background.png')] w-full h-[400px] bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center">
-					<Image
-						src="/assets/security/Header.png"
-						alt="Security Header"
-						width={200}
-						height={200}
-					/>
-					{/* Title */}
-					<Text variant="Main/32px/Black" className="mb-4" >
-						{security.title}
+			{/* Header Section */}
+			<div className="text-center mt-12 py-10 relative z-10 bg-[url('/assets/security/Header.png')] md:bg-[url('/assets/security/Header-MD.png')] lg:bg-[url('/assets/security/Header-LG.png')] 2xl:bg-[url('/assets/security/Header-XL.png')] w-full h-[400px] md:h-[480px] lg:h-[582px] 2xl:h-[640px] bg-cover bg-center bg-no-repeat flex flex-col items-center justify-end">
+				{/* Title */}
+				<Text variant="Main/32px/Black" className="mb-4">
+					{security.title}
+				</Text>
+
+				{/* Subtitle */}
+				<div className="text-center">
+					<Text variant="Main/16px/Regular" color="#616161">
+						{security.subtitle.prefix}{' '}
 					</Text>
-
-					{/* Subtitle */}
-					<div className="text-center">
-						<Text variant="Main/16px/Regular" color="#616161">
-							{security.subtitle.prefix}{' '}
-						</Text>
-						<Text variant="Main/20px/Bold">{security.subtitle.highlight}</Text>
-						<Text variant="Main/16px/Regular" color="#616161">
-							{' '}
-							{security.subtitle.suffix}
-						</Text>
-					</div>
+					<Text variant="Main/20px/Bold">{security.subtitle.highlight}</Text>
+					<Text variant="Main/16px/Regular" color="#616161">
+						{' '}
+						{security.subtitle.suffix}
+					</Text>
 				</div>
-
+			</div>
+			<Container className="py-12 md:py-16 lg:py-20">
 				{/* Introductory Paragraph */}
 				<div className="mb-32">
 					<Text variant="LongText/16px/Regular" color="#616161">

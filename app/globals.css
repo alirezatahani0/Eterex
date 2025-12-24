@@ -272,6 +272,11 @@ html {
   }
 }
 
+.bg-dotted {
+  background-image: var(--dotted-line-bg);
+  background-size: var(--dotted-line-bg-size);
+  background-position: 0 0;
+}
 
 /* Dotted Line Background with custom spacing */
 .bg-dotted-sm {
