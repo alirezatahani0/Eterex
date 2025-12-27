@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
 import MobileMenu from '../UI/MobileMenu';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useTheme } from '@/hooks/useTheme';
 import Image from 'next/image';
 import Container from '../UI/Container';
 
@@ -53,8 +53,8 @@ const UserIcon = () => (
 			strokeLinejoin="round"
 		/>
 		<path
-			fill-rule="evenodd"
-			clip-rule="evenodd"
+			fillRule="evenodd"
+			clipRule="evenodd"
 			d="M9.57747 4.18692C9.57747 6.08515 8.03721 7.6238 6.13695 7.6238C4.23753 7.6238 2.69727 6.08515 2.69727 4.18692C2.69727 2.28866 4.23753 0.75 6.13695 0.75C8.03721 0.75 9.57747 2.28866 9.57747 4.18692Z"
 			className="stroke-grayscale-01"
 			strokeWidth="1.5"
@@ -66,52 +66,7 @@ const UserIcon = () => (
 
 // Theme Toggle Switch Component
 function ThemeToggle() {
-	const [theme, setTheme] = useState<'light' | 'dark'>('light');
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => {
-		// Check system preference or stored theme
-		const storedTheme = localStorage.getItem('theme') as
-			| 'light'
-			| 'dark'
-			| null;
-		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-			.matches
-			? 'dark'
-			: 'light';
-		const currentTheme = storedTheme || systemTheme;
-
-		// Update DOM first (external system)
-		// Remove both classes first to ensure clean state
-		document.documentElement.classList.remove('dark', 'light');
-		if (currentTheme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.add('light');
-		}
-
-		// Defer state updates to avoid cascading renders
-		const timeoutId = setTimeout(() => {
-			setMounted(true);
-			setTheme(currentTheme);
-		}, 0);
-
-		return () => clearTimeout(timeoutId);
-	}, []);
-
-	const toggleTheme = () => {
-		const newTheme = theme === 'light' ? 'dark' : 'light';
-		setTheme(newTheme);
-		localStorage.setItem('theme', newTheme);
-
-		// Remove both classes first, then add the selected one
-		document.documentElement.classList.remove('dark', 'light');
-		if (newTheme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.add('light');
-		}
-	};
+	const { theme, mounted, toggleTheme } = useTheme();
 
 	if (!mounted) {
 		return (
@@ -169,7 +124,7 @@ const ActiveIndicator = () => (
 );
 
 export default function Header() {
-	const { t, nav, common } = useTranslation();
+	const { nav, common } = useTranslation();
 	const pathname = usePathname();
 
 	// Navigation Links (for desktop)
@@ -198,8 +153,8 @@ export default function Header() {
 									fill="none"
 								>
 									<path
-										fill-rule="evenodd"
-										clip-rule="evenodd"
+										fillRule="evenodd"
+										clipRule="evenodd"
 										d="M13.3944 15.0244L13.3934 4.26039C13.3934 2.26288 11.7734 0.642883 9.77586 0.642883H4.2601C2.26258 0.642883 0.642578 2.26288 0.642578 4.26137L0.643558 15.0254C0.643558 17.0229 2.26356 18.6429 4.26107 18.6429H9.77586C11.7744 18.6429 13.3944 17.0229 13.3944 15.0244Z"
 										stroke="black"
 										strokeWidth="1.28571"

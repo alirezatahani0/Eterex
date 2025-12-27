@@ -67,7 +67,7 @@ const variantStyles: Record<Variant, string> = {
 
 const gradientStyles: Record<'Main/32px/Black' | 'Main/20px/Bold', string> = {
 	'Main/32px/Black': 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
-	'Main/20px/Bold': 'linear-gradient(180deg, #000000 0%, #808080 100%)',
+	'Main/20px/Bold': 'linear-gradient(180deg, var(--grayscale-07) 0%, var(--grayscale-05) 100%)',
 };
 
 const colorMap: Record<string, string> = {
