@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslation } from '@/hooks/useTranslation';
-import Image from 'next/image';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
+import { DownloadSection } from '../UI/DownloadSection';
 
 export default function SecurityContent() {
 	const { security } = useTranslation();
@@ -73,6 +73,8 @@ export default function SecurityContent() {
 						</div>
 					))}
 				</div>
+
+				<DownloadSection />
 			</Container>
 		</div>
 	);

@@ -8,17 +8,18 @@ export const locales: Locale[] = ['fa', 'en'];
 export const defaultLocale: Locale = 'fa';
 
 const translations = {
-  fa: faTranslations,
-  en: enTranslations,
+	fa: faTranslations,
+	en: enTranslations,
 } as const;
 
-export type TranslationKey = 
-  | `common.${keyof typeof faTranslations.common}`
-  | `nav.${keyof typeof faTranslations.nav}`
-  | `footer.${keyof typeof faTranslations.footer}`
-  | `mobile.${keyof typeof faTranslations.mobile}`
-  | `security.${keyof typeof faTranslations.security}`
-  | `metadata.${keyof typeof faTranslations.metadata}`;
+export type TranslationKey =
+	| `common.${keyof typeof faTranslations.common}`
+	| `nav.${keyof typeof faTranslations.nav}`
+	| `footer.${keyof typeof faTranslations.footer}`
+	| `mobile.${keyof typeof faTranslations.mobile}`
+	| `security.${keyof typeof faTranslations.security}`
+	| `metadata.${keyof typeof faTranslations.metadata}`
+	| `DownloadAppSection.${keyof typeof faTranslations.DownloadAppSection}`;
 
 /**
  * Get translation for a given key
@@ -27,15 +28,15 @@ export type TranslationKey =
  * @returns The translated string
  */
 export function t(locale: Locale, key: TranslationKey): string {
-  const keys = key.split('.') as [string, string];
-  const [section, item] = keys;
-  
-  const translation = translations[locale];
-  const sectionTranslations = translation[section as keyof typeof translation];
-  if (sectionTranslations && typeof sectionTranslations === 'object') {
-    return (sectionTranslations as Record<string, string>)[item] || key;
-  }
-  return key;
+	const keys = key.split('.') as [string, string];
+	const [section, item] = keys;
+
+	const translation = translations[locale];
+	const sectionTranslations = translation[section as keyof typeof translation];
+	if (sectionTranslations && typeof sectionTranslations === 'object') {
+		return (sectionTranslations as Record<string, string>)[item] || key;
+	}
+	return key;
 }
 
 /**
@@ -45,16 +46,15 @@ export function t(locale: Locale, key: TranslationKey): string {
  * @returns The section translations object
  */
 export function getSection<T extends keyof typeof faTranslations>(
-  locale: Locale,
-  section: T
-): typeof faTranslations[T] {
-  return translations[locale][section];
+	locale: Locale,
+	section: T,
+): (typeof translations)[Locale][T] {
+	return translations[locale][section];
 }
 
 /**
  * Get metadata translations
  */
 export function getMetadata(locale: Locale) {
-  return translations[locale].metadata;
+	return translations[locale].metadata;
 }
-

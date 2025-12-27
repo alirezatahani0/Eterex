@@ -39,6 +39,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getDownloadAppSection = useMemo(
+    () => () => getSection(locale, 'DownloadAppSection'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -46,6 +51,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     footer: getFooter(),
     mobile: getMobile(),
     security: getSecurity(),
+    DownloadAppSection: getDownloadAppSection(),
   };
 }
 

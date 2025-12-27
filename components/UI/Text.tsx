@@ -11,6 +11,7 @@ type Variant =
 	| 'Main/16px/Regular'
 	| 'Main/20px/Bold'
 	| 'Main/24px/Regular'
+	| 'Main/24px/Bold'
 	| 'Main/32px/Black';
 
 type Type = 'span' | 'p' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -39,20 +40,27 @@ const variantToTag: Record<Variant, Type> = {
 	'Main/16px/Regular': 'span',
 	'Main/20px/Bold': 'span',
 	'Main/24px/Regular': 'span',
+	'Main/24px/Bold': 'span',
 	'Main/32px/Black': 'h1',
 };
 
 const variantStyles: Record<Variant, string> = {
 	'LongText/14px/Regular': 'text-[14px] text-grayscale-06 leading-[28px]',
-	'LongText/14px/SemiBold': 'text-[14px] text-grayscale-07 leading-[28px] font-[600]',
+	'LongText/14px/SemiBold':
+		'text-[14px] text-grayscale-07 leading-[28px] font-[600]',
 	'LongText/16px/Regular':
 		'text-[16px] text-grayscale-06 leading-[36px] font-[400]',
-	'LongText/18px/Bold': 'text-[18px] text-grayscale-07 leading-[32px] font-[700]',
-	'Main/14px/SemiBold': 'text-[14px] text-grayscale-05 leading-[20px] font-[700]',
-	'Main/16px/Regular': 'text-[16px] text-grayscale-05 leading-[24px] font-[400]',
+	'LongText/18px/Bold':
+		'text-[18px] text-grayscale-07 leading-[32px] font-[700]',
+	'Main/14px/SemiBold':
+		'text-[14px] text-grayscale-05 leading-[20px] font-[700]',
+	'Main/16px/Regular':
+		'text-[16px] text-grayscale-05 leading-[24px] font-[400]',
 	'Main/20px/Bold': 'text-[20px] text-grayscale-05 leading-[32px] font-[700]',
 	'Main/14px/Bold': 'text-[14px] text-brand-primary leading-[20px] font-[600]',
-	'Main/24px/Regular': 'text-[24px] text-grayscale-07 leading-[36px] font-[400]',
+	'Main/24px/Regular':
+		'text-[24px] text-grayscale-07 leading-[36px] font-[400]',
+	'Main/24px/Bold': 'text-[24px] text-grayscale-07 leading-[36px] font-[700]',
 	'Main/32px/Black':
 		'text-grayscale-07 font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
 };
@@ -112,7 +120,7 @@ const Text = ({
 		style.WebkitTextFillColor = 'transparent';
 		style.backgroundClip = 'text';
 		style.color = 'transparent';
-	} 
+	}
 
 	if (Tag === 'a') {
 		return (
