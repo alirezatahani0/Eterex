@@ -46,7 +46,7 @@ export default function SecurityContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" className="mb-4">
+				<Text variant="Main/32px/Black" gradient="primary" className="mb-4">
 					{security.title}
 				</Text>
 
@@ -55,7 +55,7 @@ export default function SecurityContent() {
 					<Text variant="Main/16px/Regular" color="#616161">
 						{security.subtitle.prefix}{' '}
 					</Text>
-					<Text variant="Main/20px/Bold">{security.subtitle.highlight}</Text>
+					<Text variant="Main/20px/Bold" gradient="grayscale">{security.subtitle.highlight}</Text>
 					<Text variant="Main/16px/Regular" color="#616161">
 						{' '}
 						{security.subtitle.suffix}

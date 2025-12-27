@@ -19,7 +19,8 @@ export type TranslationKey =
 	| `mobile.${keyof typeof faTranslations.mobile}`
 	| `security.${keyof typeof faTranslations.security}`
 	| `metadata.${keyof typeof faTranslations.metadata}`
-	| `DownloadAppSection.${keyof typeof faTranslations.DownloadAppSection}`;
+	| `DownloadAppSection.${keyof typeof faTranslations.DownloadAppSection}`
+	| `aboutUs.${keyof typeof faTranslations.aboutUs}`;
 
 /**
  * Get translation for a given key

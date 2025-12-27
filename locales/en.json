@@ -94,5 +94,36 @@
 		"successDownload": "Successful download of the application",
 		"Count": "+15,000",
 		"desc2": "Easy and fast transactions, unlimited deposits and withdrawals, advanced trading markets, ability to deposit Riyal cards and Shaba, no need to verify deposit identity, competitive transaction fees, transparent hidden fees, complete transparency in pricing, professional tools for asset management, advanced transaction history filters"
+	},
+	"aboutUs": {
+		"title": "About Us",
+		"subtitle": {
+			"prefix": "The story of",
+			"highlight": "Eterex",
+			"suffix": "formation"
+		},
+		"intro": "At Eterex, we are passionately pursuing the creation of a secure and reliable platform for cryptocurrency trading. Our journey began with a simple goal: to facilitate access for Iranians to the world of cryptocurrencies and financial markets. Every step we take on this path is based on three key principles: positive impact on society, customer focus, and commitment to excellence. We know that the success of Eterex's customers is our success, and we are always striving to provide a reliable and intelligent experience for our users.",
+		"whatDoesEterexMean": {
+			"title": "What does Eterex mean?",
+			"description": "The name Eterex is derived from two English words: Eternity, meaning immortality, and Exchange, meaning exchange, which signifies the everlasting nature of Eterex's services for its customers."
+		},
+		"beHeroes": {
+			"title": "Let's be heroes",
+			"description": "We are seeking to create a secure and reliable platform for Iranians to access financial markets. In this journey, all members of the Eterex family are united in their efforts to provide the best services in the world of digital currencies."
+		},
+		"beCustomerCentric": {
+			"title": "Let's be customer-centric",
+			"description": "Eterex cryptocurrency exchange system is an organization based on innovation and customer-centricity, striving to provide a reliable and secure platform for Iranian users' cryptocurrency transactions. We aim to create a positive impact on society and sustainable growth in the digital financial world."
+		},
+		"beUsefulToSociety": {
+			"title": "Let's be useful to society",
+			"description": "When we make a decision at Eterex, we think about society, not profit. All efforts of the Eterex team are aimed at providing services that bring more financial freedom to Iranian users."
+		},
+		"foundation": {
+			"title": "Foundation",
+			"description": "Eterex Exchange began its operations in 2018 (1397 in the Persian calendar) under the brand name Perfect Crypto, to meet the needs of e-commerce and international payments in the form of buying and selling digital currencies. This platform continues its activities in line with cryptocurrency market trends by offering various services such as diverse cryptocurrency trading and 24-hour support."
+		},
+		"metaTitle": "About Us | Eterex",
+		"metaDescription": "The story of Eterex's formation and our path forward. At Eterex, we are passionately pursuing the creation of a secure and reliable platform for cryptocurrency trading."
 	}
 }

@@ -44,6 +44,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getAboutUs = useMemo(
+    () => () => getSection(locale, 'aboutUs'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -52,6 +57,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     mobile: getMobile(),
     security: getSecurity(),
     DownloadAppSection: getDownloadAppSection(),
+    aboutUs: getAboutUs(),
   };
 }
 

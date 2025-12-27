@@ -368,7 +368,7 @@ export default function MobileMenu() {
 		{ href: '/markets', label: nav.markets },
 		{ href: '/trade', label: nav.trade },
 		{ href: '/blog', label: nav.blog },
-		{ href: '/about', label: nav.about },
+		{ href: '/about-us', label: nav.about },
 		{ href: '/fees', label: nav.fees },
 		{ href: '/faq', label: nav.faq },
 	];

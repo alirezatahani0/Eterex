@@ -12,17 +12,20 @@ type Variant =
 	| 'Main/20px/Bold'
 	| 'Main/24px/Regular'
 	| 'Main/24px/Bold'
+	| 'Main/32px/Bold'
 	| 'Main/32px/Black';
 
 type Type = 'span' | 'p' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type Color = 'primary' | 'secondary' | 'muted' | 'danger' | 'inherit' | string;
 type Weight = 'normal' | 'medium' | 'semibold' | 'bold' | number;
+type GradientType = 'primary' | 'grayscale' | string;
 
 interface TextProps extends React.HTMLAttributes<HTMLElement> {
 	variant?: Variant;
 	type?: Type;
 	color?: Color;
 	weight?: Weight;
+	gradient?: GradientType | boolean;
 	href?: string;
 	className?: string;
 	children?: React.ReactNode;
@@ -41,6 +44,7 @@ const variantToTag: Record<Variant, Type> = {
 	'Main/20px/Bold': 'span',
 	'Main/24px/Regular': 'span',
 	'Main/24px/Bold': 'span',
+	'Main/32px/Bold': 'h2',
 	'Main/32px/Black': 'h1',
 };
 
@@ -61,13 +65,15 @@ const variantStyles: Record<Variant, string> = {
 	'Main/24px/Regular':
 		'text-[24px] text-grayscale-07 leading-[36px] font-[400]',
 	'Main/24px/Bold': 'text-[24px] text-grayscale-07 leading-[36px] font-[700]',
+	'Main/32px/Bold': 'text-grayscale-07 font-[700] text-[32px] leading-[48px] ',
 	'Main/32px/Black':
 		'text-grayscale-07 font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
 };
 
-const gradientStyles: Record<'Main/32px/Black' | 'Main/20px/Bold', string> = {
-	'Main/32px/Black': 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
-	'Main/20px/Bold': 'linear-gradient(180deg, var(--grayscale-07) 0%, var(--grayscale-05) 100%)',
+const gradientStyles: Record<string, string> = {
+	primary: 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
+	grayscale:
+		'linear-gradient(180deg, var(--grayscale-07) 0%, var(--grayscale-05) 100%)',
 };
 
 const colorMap: Record<string, string> = {
@@ -93,6 +99,7 @@ const Text = ({
 	type = 'span',
 	color = '',
 	weight,
+	gradient,
 	href,
 	className = '',
 	children,
@@ -104,18 +111,32 @@ const Text = ({
 	const variantClass = variantStyles[variant] || '';
 	const colorClass = colorMap[color] || color;
 	const weightClass = weight ? weightMap[weight] || 'font-normal' : '';
+
+	// Remove color class if gradient is applied
+	const shouldApplyGradient = gradient !== undefined && gradient !== false;
+	const finalColorClass = shouldApplyGradient ? '' : colorClass;
+
 	const allClass =
-		`${className} ${weightClass} ${colorClass} ${variantClass}`.trim();
+		`${className} ${weightClass} ${finalColorClass} ${variantClass}`.trim();
 
 	// Build style object
 	const style: React.CSSProperties = {};
-	const isGradient =
-		(variant === 'Main/32px/Black' || variant === 'Main/20px/Bold') && !color;
 
-	if (isGradient) {
-		// Apply gradient styles for gradient variants
-		style.background =
-			gradientStyles[variant as 'Main/32px/Black' | 'Main/20px/Bold'];
+	if (shouldApplyGradient) {
+		// Determine gradient value
+		let gradientValue: string;
+		if (gradient === true) {
+			// Default to primary gradient if boolean true
+			gradientValue = gradientStyles.primary;
+		} else if (typeof gradient === 'string') {
+			// Use predefined gradient or custom gradient string
+			gradientValue = gradientStyles[gradient] || gradient;
+		} else {
+			gradientValue = gradientStyles.primary;
+		}
+
+		// Apply gradient styles
+		style.background = gradientValue;
 		style.WebkitBackgroundClip = 'text';
 		style.WebkitTextFillColor = 'transparent';
 		style.backgroundClip = 'text';

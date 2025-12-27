@@ -134,11 +134,10 @@ export default function Header() {
 		{ href: '/markets', label: nav.markets },
 		{ href: '/trade', label: nav.trade },
 		{ href: '/wallet', label: nav.wallet },
-		{ href: '/about', label: nav.about },
+		{ href: '/about-us', label: nav.about },
 		{ href: '/contact', label: nav.contact },
 	];
 
-	console.log(theme, 'theme');
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-glass-gray-11 bg-grayscale-01-blur-74 backdrop-blur-xl py-5 md:py-4">
 			<Container>
