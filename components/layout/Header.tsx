@@ -126,6 +126,7 @@ const ActiveIndicator = () => (
 export default function Header() {
 	const { nav, common } = useTranslation();
 	const pathname = usePathname();
+	const { theme, mounted } = useTheme();
 
 	// Navigation Links (for desktop)
 	const navLinks = [
@@ -136,6 +137,8 @@ export default function Header() {
 		{ href: '/about', label: nav.about },
 		{ href: '/contact', label: nav.contact },
 	];
+
+	console.log(theme, 'theme');
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-glass-gray-11 bg-grayscale-01-blur-74 backdrop-blur-xl py-5 md:py-4">
 			<Container>
@@ -143,58 +146,60 @@ export default function Header() {
 					{/* Left Side - Mobile: 3 items, Tablet: +2 icons, Desktop: +1 theme toggle */}
 					<div className="flex items-center gap-6">
 						<ThemeToggle />
-						<div className="flex items-center justify-center gap-2">
-							<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full ">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="15"
-									height="20"
-									viewBox="0 0 15 20"
-									fill="none"
-								>
-									<path
-										fillRule="evenodd"
-										clipRule="evenodd"
-										d="M13.3944 15.0244L13.3934 4.26039C13.3934 2.26288 11.7734 0.642883 9.77586 0.642883H4.2601C2.26258 0.642883 0.642578 2.26288 0.642578 4.26137L0.643558 15.0254C0.643558 17.0229 2.26356 18.6429 4.26107 18.6429H9.77586C11.7744 18.6429 13.3944 17.0229 13.3944 15.0244Z"
-										stroke="black"
-										strokeWidth="1.28571"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-									<path
-										d="M6.91962 14.3004V14.2329M6.91962 13.8786C6.72614 13.8786 6.56934 14.0354 6.56934 14.2283C6.56934 14.4218 6.72614 14.5786 6.91962 14.5786C7.11324 14.5786 7.27004 14.4218 7.27004 14.2283C7.27004 14.0354 7.11324 13.8786 6.91962 13.8786Z"
-										stroke="black"
-										strokeWidth="1.28571"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</button>
-							<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="19"
-									height="20"
-									viewBox="0 0 19 20"
-									fill="none"
-								>
-									<path
-										d="M14.7797 15.2267L18.2026 18.6429M9.05498 0.642883C13.7011 0.642883 17.4673 4.41135 17.4673 9.06038C17.4673 13.7095 13.7011 17.4789 9.05498 17.4789C4.40874 17.4789 0.642578 13.7095 0.642578 9.06038C0.642578 4.41135 4.40874 0.642883 9.05498 0.642883Z"
-										stroke="black"
-										strokeWidth="1.28571"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-									<path
-										d="M10.7559 4.38373C12.1532 4.80894 13.2579 5.89676 13.7062 7.2833"
-										stroke="black"
-										strokeWidth="1.28571"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</button>
-						</div>
+						{mounted && (
+							<div className="flex items-center justify-center gap-2">
+								<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full ">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="15"
+										height="20"
+										viewBox="0 0 15 20"
+										fill="none"
+									>
+										<path
+											fillRule="evenodd"
+											clipRule="evenodd"
+											d="M13.3944 15.0244L13.3934 4.26039C13.3934 2.26288 11.7734 0.642883 9.77586 0.642883H4.2601C2.26258 0.642883 0.642578 2.26288 0.642578 4.26137L0.643558 15.0254C0.643558 17.0229 2.26356 18.6429 4.26107 18.6429H9.77586C11.7744 18.6429 13.3944 17.0229 13.3944 15.0244Z"
+											stroke={theme === 'dark' ? 'white' : 'black'}
+											strokeWidth="1.28571"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+										<path
+											d="M6.91962 14.3004V14.2329M6.91962 13.8786C6.72614 13.8786 6.56934 14.0354 6.56934 14.2283C6.56934 14.4218 6.72614 14.5786 6.91962 14.5786C7.11324 14.5786 7.27004 14.4218 7.27004 14.2283C7.27004 14.0354 7.11324 13.8786 6.91962 13.8786Z"
+											stroke={theme === 'dark' ? 'white' : 'black'}
+											strokeWidth="1.28571"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								</button>
+								<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="19"
+										height="20"
+										viewBox="0 0 19 20"
+										fill="none"
+									>
+										<path
+											d="M14.7797 15.2267L18.2026 18.6429M9.05498 0.642883C13.7011 0.642883 17.4673 4.41135 17.4673 9.06038C17.4673 13.7095 13.7011 17.4789 9.05498 17.4789C4.40874 17.4789 0.642578 13.7095 0.642578 9.06038C0.642578 4.41135 4.40874 0.642883 9.05498 0.642883Z"
+											stroke={theme === 'dark' ? 'white' : 'black'}
+											strokeWidth="1.28571"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+										<path
+											d="M10.7559 4.38373C12.1532 4.80894 13.2579 5.89676 13.7062 7.2833"
+											stroke={theme === 'dark' ? 'white' : 'black'}
+											strokeWidth="1.28571"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								</button>
+							</div>
+						)}
 
 						{/* Login Button - Always visible */}
 						<Link
