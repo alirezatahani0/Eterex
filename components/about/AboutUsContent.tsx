@@ -8,43 +8,6 @@ import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { DownloadSection } from '../UI/DownloadSection';
 
-// Information Icon Component with glowing effect
-const InfoIcon = () => (
-	<div className="mb-8 flex items-center justify-center">
-		<svg
-			width="120"
-			height="120"
-			viewBox="0 0 120 120"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			className="drop-shadow-[0_0_40px_rgba(123,144,255,0.6)]"
-		>
-			{/* Outer glow */}
-			<circle cx="60" cy="60" r="58" fill="url(#infoGradient)" opacity="0.3" />
-			{/* Main circle */}
-			<circle cx="60" cy="60" r="55" fill="url(#infoGradient)" />
-			<defs>
-				<linearGradient id="infoGradient" x1="0" y1="0" x2="120" y2="120">
-					<stop offset="0%" stopColor="#7B90FF" />
-					<stop offset="100%" stopColor="#0F34F4" />
-				</linearGradient>
-			</defs>
-			<text
-				x="60"
-				y="85"
-				fontSize="72"
-				fontWeight="bold"
-				fill="white"
-				textAnchor="middle"
-				dominantBaseline="middle"
-				fontFamily="Arial, sans-serif"
-			>
-				i
-			</text>
-		</svg>
-	</div>
-);
-
 export default function AboutUsContent() {
 	const { aboutUs } = useTranslation();
 	const { theme, mounted } = useTheme();
@@ -53,8 +16,8 @@ export default function AboutUsContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/security/Header-Dark.png')] md:bg-[url('/assets/security/Header-MD-Dark.png')] lg:bg-[url('/assets/security/Header-LG-Dark.png')] 2xl:bg-[url('/assets/security/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/security/Header.png')] md:bg-[url('/assets/security/Header-MD.png')] lg:bg-[url('/assets/security/Header-LG.png')] 2xl:bg-[url('/assets/security/Header-XL.png')] ";
+			? "bg-[url('/assets/aboutUs/Header-Dark.png')] md:bg-[url('/assets/aboutUs/Header-MD-Dark.png')] lg:bg-[url('/assets/aboutUs/Header-LG-Dark.png')] 2xl:bg-[url('/assets/aboutUs/Header-XL-Dark.png')] "
+			: "bg-[url('/assets/aboutUs/Header.png')] md:bg-[url('/assets/aboutUs/Header-MD.png')] lg:bg-[url('/assets/aboutUs/Header-LG.png')] 2xl:bg-[url('/assets/aboutUs/Header-XL.png')] ";
 	}, [theme, mounted]);
 
 	const twoColumnSections = [

@@ -1,6 +1,9 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import Text from './Text';
 import Link from 'next/link';
+import { useMemo } from 'react';
+import { useTheme } from '@/hooks/useTheme';
+import { cn } from '@/lib/utils';
 
 // Icons
 const AndroidIcon = ({ fill = '#EB9E2A' }: { fill?: string }) => (
@@ -232,7 +235,7 @@ const RightFrame = () => {
 	const { DownloadAppSection, common } = useTranslation();
 
 	return (
-		<div className="bg-[url('/assets/DownloadApp/RightFrame.png')] h-[620px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
+		<div className="bg-[url('/assets/DownloadApp/RightFrame.png')] h-[640px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
 			<Badge icon={<SparkleIcon />} className="bg-white">
 				<Text variant="Main/14px/Bold" color="text-[#000]!" className="mr-1.5">
 					{common.simpler}
@@ -289,9 +292,22 @@ const RightFrame = () => {
 // Desktop View - Left Frame
 const LeftFrame = () => {
 	const { DownloadAppSection, common } = useTranslation();
+	const { theme, mounted } = useTheme();
+
+	const bgUrl = useMemo(() => {
+		if (!mounted) return '';
+		return theme === 'dark'
+			? "bg-[url('/assets/DownloadApp/LeftFrameDark.png')]"
+			: "bg-[url('/assets/DownloadApp/LeftFrame.png')]";
+	}, [mounted, theme]);
 
 	return (
-		<div className="bg-[url('/assets/DownloadApp/LeftFrame.png')] h-[620px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start px-14 py-20 2xl:py-32 2xl:px-20">
+		<div
+			className={cn(
+				'h-[555px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start px-14 py-20 2xl:py-32 2xl:px-20',
+				bgUrl,
+			)}
+		>
 			<Badge icon={<SparkleIcon />} className="bg-grayscale-02-variant mb-9">
 				<Text variant="Main/14px/Bold" className="mr-1.5 text-grayscale-05!">
 					{common.now}

@@ -16,8 +16,8 @@ export default function TermsAndConditionsContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/security/Header-Dark.png')] md:bg-[url('/assets/security/Header-MD-Dark.png')] lg:bg-[url('/assets/security/Header-LG-Dark.png')] 2xl:bg-[url('/assets/security/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/security/Header.png')] md:bg-[url('/assets/security/Header-MD.png')] lg:bg-[url('/assets/security/Header-LG.png')] 2xl:bg-[url('/assets/security/Header-XL.png')] ";
+			? "bg-[url('/assets/terms/Header-Dark.png')] md:bg-[url('/assets/terms/Header-MD-Dark.png')] lg:bg-[url('/assets/terms/Header-LG-Dark.png')] 2xl:bg-[url('/assets/terms/Header-XL-Dark.png')] "
+			: "bg-[url('/assets/terms/Header.png')] md:bg-[url('/assets/terms/Header-MD.png')] lg:bg-[url('/assets/terms/Header-LG.png')] 2xl:bg-[url('/assets/terms/Header-XL.png')] ";
 	}, [theme, mounted]);
 
 	return (

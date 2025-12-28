@@ -21,7 +21,8 @@ export type TranslationKey =
 	| `metadata.${keyof typeof faTranslations.metadata}`
 	| `DownloadAppSection.${keyof typeof faTranslations.DownloadAppSection}`
 	| `aboutUs.${keyof typeof faTranslations.aboutUs}`
-	| `rules.${keyof typeof faTranslations.rules}`;
+	| `rules.${keyof typeof faTranslations.rules}`
+	| `identityVerification.${keyof typeof faTranslations.identityVerification}`;
 
 /**
  * Get translation for a given key

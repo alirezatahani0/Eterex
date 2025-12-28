@@ -179,5 +179,53 @@
 		},
 		"metaTitle": "Laws and Regulations | Eterex",
 		"metaDescription": "Eterex Laws and Regulations - Transparent principles for an organized and reliable experience in Eterex. Terms and conditions for using the Eterex cryptocurrency exchange platform services."
+	},
+	"identityVerification": {
+		"title": "Identity Verification in Eterex",
+		"subtitle": {
+			"prefix": "Fast and secure start with",
+			"highlight": "automatic",
+			"suffix": "identity verification system"
+		},
+		"introQuestion": "How does identity verification work in Eterex?",
+		"intro": "To access all Eterex features, identity verification is necessary; however, if you only wish to use cryptocurrency deposit, withdrawal, and conversion, you will not need to complete the identity verification process. Nevertheless, this operation is very simple and can be done in two ways: classic identity verification (sending an image of your national ID card or birth certificate) and video identity verification.",
+		"requirements": {
+			"title": "What documents are required for identity verification?",
+			"intro": "For basic identity verification, in the first step, you just need to enter your national ID, phone number, and date of birth. Then, complete your identity verification using one of the two methods below:",
+			"method1": {
+				"title": "Identity verification by submitting documents",
+				"description": "In this method of identity verification, in the first step, you must send images of your documents, including the commitment letter provided in the panel, your new national ID card, and your bank card; then, in another image, take a selfie with the mentioned documents and upload it to the panel.",
+				"note1": "If you do not have access to your new national ID card, you can use an image of your new series birth certificate.",
+				"note2": "If none of these items are available to you, you can use your smart service completion card or your driver's license card alongside one of your old documents, or send both old documents in one photo."
+			},
+			"method2": {
+				"title": "Video identity verification",
+				"description": "If you choose this method of identity verification, you just need to turn on your mobile phone camera and repeat the displayed sentence with a clear voice; after recording and sending the video, your identity verification will be automatically reviewed within 10 minutes, and if all points are observed, your identity verification will be completed."
+			},
+			"tutorial": {
+				"question": "How can I receive a visual identity verification tutorial?",
+				"answer": "If you have any questions about any of the identity verification methods in Eterex, you can get complete information about identity verification through the visual identity verification tutorial in Eterex."
+			}
+		},
+		"faq": {
+			"question1": {
+				"question": "How long does it take to review documents for identity verification?",
+				"answer": "The information sent for identity verification for all esteemed Eterex users will be reviewed in turn. Typically, after submitting the information, the review response will be sent within 1 to a maximum of 6 business hours. If the review hours exceed the announced time, the reason is the system's failure to receive a response to your documents from the civil registration inquiry system, and as soon as the information is received, the result will be communicated to you."
+			},
+			"question2": {
+				"question": "Are identity verification videos and user documents adequately secure?",
+				"answer": "The technical team of the collection, with precise and unique design, protects user information confidentially and encrypted to prevent any potential data leakage."
+			},
+			"question3": {
+				"question": "Is it possible to register a landline phone number belonging to another person in the system?",
+				"answer": "If you do not have a landline phone, you can use your workplace's landline phone or use the address and postal code option instead of registering a landline phone."
+			},
+			"question4": {
+				"question": "What should I do if there is a problem with identity verification?",
+				"answer": "If, after several attempts with any of the provided identity verification methods, you are unable to achieve a result, be sure to contact online support on the website at any time of day or night so that Eterex experts can guide you on the reason for the identity verification rejection and how to solve the problem."
+			}
+		},
+		"metaTitle": "Identity Verification in Eterex | Complete Identity Verification Guide",
+		"metaDescription": "Complete guide to identity verification in Eterex - Fast and secure start with automatic identity verification system. Classic and video identity verification methods, required documents, and answers to frequently asked questions."
 	}
 }

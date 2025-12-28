@@ -454,7 +454,7 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
 				{ href: '/login', label: footer.guideSupport.fees },
-				{ href: '/login', label: footer.guideSupport.identityVerification },
+				{ href: '/identity-verification', label: footer.guideSupport.identityVerification },
 				{ href: '/login', label: footer.guideSupport.blog },
 				{ href: '/login', label: footer.guideSupport.faq },
 			],
@@ -495,7 +495,7 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
 				{ href: '/login', label: footer.guideSupport.fees },
-				{ href: '/login', label: footer.guideSupport.identityVerification },
+				{ href: '/identity-verification', label: footer.guideSupport.identityVerification },
 				{ href: '/login', label: footer.guideSupport.blog },
 				{ href: '/login', label: footer.guideSupport.faq },
 			],

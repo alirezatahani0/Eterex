@@ -54,6 +54,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getIdentityVerification = useMemo(
+    () => () => getSection(locale, 'identityVerification'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -64,6 +69,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     DownloadAppSection: getDownloadAppSection(),
     aboutUs: getAboutUs(),
     rules: getRules(),
+    identityVerification: getIdentityVerification(),
   };
 }
 
