@@ -445,7 +445,7 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact', label: footer.aboutEterex.contactUs },
-				{ href: '/login', label: footer.aboutEterex.rules },
+				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
 				{ href: '/login', label: footer.aboutEterex.userPanel },
 			],
 		},
@@ -506,7 +506,7 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact', label: footer.aboutEterex.contactUs },
-				{ href: '/login', label: footer.aboutEterex.rules },
+				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
 				{ href: '/login', label: footer.aboutEterex.userPanel },
 			],
 		},
@@ -583,7 +583,7 @@ export default function Footer() {
 
 				<div className="relative lg:bg-dotted rounded-tr-[120px] lg:border-2 lg:border-grayscale-03">
 					<BackgroundDecorations />
-					<div className="flex flex-col w-full gap-20 lg:py-[144px] lg:px-[76px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px]">
+					<div className="relative flex flex-col w-full gap-20 lg:py-[144px] lg:px-[76px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px] z-30">
 						<LinkColumns footer={footer} />
 						<Copyright footer={footer} />
 					</div>

@@ -31,6 +31,14 @@
 		"account": "Account"
 	},
 	"footer": {
+		"header": {
+			"title": "Eterex Exchange; The future starts here!",
+			"desc": "With open trading capabilities and the lowest trading fees, we provide a different and professional experience for you."
+		},
+		"desc": {
+			"title": "At Eterex cryptocurrency exchange system, we are passionately pursuing the creation of a secure and reliable platform for cryptocurrency trading and moving forward with three key values:",
+			"desc": "To be impactful for society, always prioritize the customer, and be the best in our work."
+		},
 		"aboutEterex": {
 			"title": "About Eterex",
 			"security": "Security",
@@ -125,5 +133,51 @@
 		},
 		"metaTitle": "About Us | Eterex",
 		"metaDescription": "The story of Eterex's formation and our path forward. At Eterex, we are passionately pursuing the creation of a secure and reliable platform for cryptocurrency trading."
+	},
+	"rules": {
+		"title": "Laws and Regulations",
+		"subtitle": {
+			"prefix": "Transparent principles for an",
+			"highlight": "organized and reliable",
+			"suffix": "experience in Eterex"
+		},
+		"intro": {
+			"paragraph1": "Eterex is an online cryptocurrency exchange platform provided by Block Aryatrin (Private Joint Stock Company). Users can trade cryptocurrencies at suggested rates on this platform. Eterex operates in accordance with the laws and regulations of the Islamic Republic of Iran, including the Electronic Commerce Law (2003) and the Computer Crimes Law. Using the services of this platform requires compliance with specific terms and conditions.",
+			"paragraph2": "These terms and conditions, drafted with reference to Articles 10 and 219 of the Civil Code of the Islamic Republic of Iran, have been agreed upon and prepared in Tehran. This agreement includes all terms and conditions for using Eterex services, and users, by registering or using the services, fully accept and commit to this agreement.",
+			"paragraph3": "The parties to this agreement are: Block Aryatrin (Private Joint Stock Company), also known by the trade name Eterex (First Party), and any natural or legal person who has a user account on the Eterex platform (User or Second Party). The parties are jointly referred to as \"Parties\"."
+		},
+		"definitions": {
+			"title": "1. Definitions",
+			"intro": "Terms used in these laws and contracts have the following detailed meanings.",
+			"eterxPlatform": {
+				"title": "Eterex Platform",
+				"description": "Eterex Platform refers to Eterex Block Chain Company, which operates under all laws of the Islamic Republic of Iran, including (but not limited to) the Cybercrime Law, E-commerce Law, Consumer Rights Protection Law, and all legal regulations governing the contract, including FATA Police requirements. The platform encompasses the website (Eterex.com), all its subdomains, Android and iOS applications (Eterex API), and smart bots on social networks. It provides online services related to cryptocurrencies, such as education, research, buying, selling, converting, and transferring."
+			},
+			"cryptocurrencyConversion": {
+				"title": "Cryptocurrency Conversion",
+				"description": "Cryptocurrency Conversion refers to the process of converting one cryptocurrency to another at a specified ratio, which is performed with the payment of a fee."
+			},
+			"iranianLaws": {
+				"title": "Laws and Regulations of the Islamic Republic of Iran",
+				"description": "Laws and Regulations of the Islamic Republic of Iran include the Constitutional Law, ordinary laws, executive regulations, circulars, general and specific directives, the Cybercrime Law, E-commerce Law, Consumer Rights Law, and all legal regulations governing the subject of the contract, including FATA Police requirements."
+			},
+			"identityVerification": {
+				"title": "Identity Verification",
+				"description": "Identity Verification is a mandatory requirement based on the laws of the Islamic Republic of Iran, particularly the Cybercrime Law, E-commerce Law, and FATA Police requirements, which are imposed on users/sellers in the virtual space. The Eterex platform obliges its applicants to verify their identity for every purchase and sale transaction. To fulfill this, Eterex is required to collect identity documents and personal information from its users."
+			}
+		},
+		"serviceProvision": {
+			"title": "2. Service Provision Process, User Account, and User Obligations",
+			"points": {
+				"point1": "User account creation must be done by the individual or a valid representative of the individual.",
+				"point2": "To use Eterex services, every user must create a user account on the Eterex platform. Only individuals who are 18 years old and have legal capacity can proceed with creating a user account on the Eterex platform. If the user, as a special guardian or legal guardian, creates a user account for a person under their guardianship, they must inform Eterex about this and provide the requested documents to Eterex. Otherwise, Eterex can suspend the user account upon notification, and the user will have no right to object.",
+				"point3": "Conditions for creating a user account for legal entities: To complete a legal entity's user account in Eterex, providing a letter of introduction for the company's representative to open the legal entity's account is mandatory. The letter of introduction must be presented on the company's official letterhead, accompanied by the company's seal and signed by all authorized signatories of the company.",
+				"point4": "The phrase \"for opening a legal account for the company with the Eterex exchange platform and providing all necessary information, documents, commitments, and supporting documents for that purpose\" must include the company's bank account number and IBAN, corporate email, representative's mobile phone number, and the representative's national ID number in the text of the introduction letter.",
+				"point5": "Identity verification is carried out in accordance with Eterex's terms and conditions governing the contract on the Eterex platform. Eterex requests the necessary information for identity verification from the applicant before acceptance. Therefore, in this case, until the identity verification process is fully completed, the applicant will not be recognized as a user and will not be able to use Eterex services. Eterex reserves the right to request additional information and documents for identity verification at the time of user account creation or during the use of services, at its discretion or to comply with regulations. Furthermore, the identity verification process may change over time. Ultimately, the decision regarding the success or failure of the identity verification process rests solely with Eterex, and Eterex may accept or reject the outcome of the identity verification process at its discretion.",
+				"point6": "The user confirms and acknowledges that they are responsible for the accuracy, precision, and conformity of the information provided with reality during the user account creation process, identity verification, or other instances where providing essential information is the user's responsibility. In case of any fraud or submission of incorrect information by the user, the offending user will be held responsible, and Eterex will have the right to suspend the account and refer the matter to the competent authorities."
+			}
+		},
+		"metaTitle": "Laws and Regulations | Eterex",
+		"metaDescription": "Eterex Laws and Regulations - Transparent principles for an organized and reliable experience in Eterex. Terms and conditions for using the Eterex cryptocurrency exchange platform services."
 	}
 }
