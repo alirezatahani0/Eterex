@@ -23,7 +23,8 @@ export type TranslationKey =
 	| `aboutUs.${keyof typeof faTranslations.aboutUs}`
 	| `rules.${keyof typeof faTranslations.rules}`
 	| `identityVerification.${keyof typeof faTranslations.identityVerification}`
-	| `contact.${keyof typeof faTranslations.contact}`;
+	| `contact.${keyof typeof faTranslations.contact}`
+	| `faq.${keyof typeof faTranslations.faq}`;
 
 /**
  * Get translation for a given key

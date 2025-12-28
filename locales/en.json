@@ -258,5 +258,55 @@
 		},
 		"metaTitle": "Contact Us | Eterex",
 		"metaDescription": "Contact Eterex - We are at your service 24 hours a day, second by second. Contact number, support email, company address, and Eterex social networks."
+	},
+	"faq": {
+		"title": "Your Frequently Asked Questions",
+		"subtitle": {
+			"prefix": " در مسیر همراهی با اتراکس،  ",
+			"highlight": "هیچ سوالی",
+			"suffix": "   بی‌پاسخ نمی‌ماند "
+		},
+		"categories": {
+			"aboutEterex": {
+				"title": "About Eterex",
+				"questions": [
+					{
+						"question": "What currencies are supported in Eterex?",
+						"answer": "Eterex supports a wide range of cryptocurrencies. To view the complete list of supported currencies, you can refer to the Markets section in your user panel."
+					},
+					{
+						"question": "What is a rental account?",
+						"answer": "A rental account is a type of user account that allows you to use Eterex services under specific conditions. For more information about rental accounts, you can contact support."
+					},
+					{
+						"question": "What is Eterex P2P market?",
+						"answer": "Eterex P2P market is a trading platform that allows users to buy and sell cryptocurrencies directly without intermediaries. This market ensures security and transparency of transactions."
+					}
+				]
+			},
+			"rialDepositWithdrawal": {
+				"title": "Rial Deposit and Withdrawal",
+				"questions": [
+					{
+						"question": "I have deposited with a card other than the registered card, the amount has been deducted, what will be its status?",
+						"answer": "If you deposit with a card other than the registered card, the deducted amount will not be deposited into your account. Please contact support immediately so your issue can be reviewed and resolved."
+					},
+					{
+						"question": "My transaction in the bank portal was unsuccessful, but the amount has been deducted; what should I do?",
+						"answer": "If an amount is deducted from your account without a successful transaction, the amount is usually refunded to your account within 24 to 72 business hours. Otherwise, contact support."
+					},
+					{
+						"question": "How long does it take to withdraw Rial from Eterex wallet?",
+						"answer": "Withdrawing Rial from Eterex wallet usually takes 1 to 3 business hours. In some cases, this time may take up to 24 business hours."
+					},
+					{
+						"question": "What is the limit for Rial deposit?",
+						"answer": "The Rial deposit limit varies depending on your identity verification level. To find out your exact deposit limit, refer to your user account settings section."
+					}
+				]
+			}
+		},
+		"metaTitle": "Frequently Asked Questions | Eterex",
+		"metaDescription": "Eterex Frequently Asked Questions - On the path of accompanying Eterex, no question remains unanswered. Answers to common questions about Eterex, Rial deposit and withdrawal, and platform services."
 	}
 }
