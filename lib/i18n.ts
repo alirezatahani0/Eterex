@@ -24,7 +24,8 @@ export type TranslationKey =
 	| `rules.${keyof typeof faTranslations.rules}`
 	| `identityVerification.${keyof typeof faTranslations.identityVerification}`
 	| `contact.${keyof typeof faTranslations.contact}`
-	| `faq.${keyof typeof faTranslations.faq}`;
+	| `faq.${keyof typeof faTranslations.faq}`
+	| `Download.${keyof typeof faTranslations.Download}`;
 
 /**
  * Get translation for a given key

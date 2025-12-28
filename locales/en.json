@@ -308,5 +308,15 @@
 		},
 		"metaTitle": "Frequently Asked Questions | Eterex",
 		"metaDescription": "Eterex Frequently Asked Questions - On the path of accompanying Eterex, no question remains unanswered. Answers to common questions about Eterex, Rial deposit and withdrawal, and platform services."
+	},
+	"Download": {
+		"title": "Download Eterex App",
+		"subtitle": {
+			"prefix": "Register and verify your identity in less than ",
+			"highlight": "5 minutes",
+			"suffix": ""
+		},
+		"metaTitle": "Download Eterex App | اتراکس",
+		"metaDescription": "Download Eterex mobile app - Register and verify your identity in less than 5 minutes. Available for Android, iOS, and Web."
 	}
 }
