@@ -82,7 +82,7 @@ function ThemeToggle() {
 	return (
 		<button
 			onClick={toggleTheme}
-			className={`hidden 2xl:flex relative w-17 h-10 p-1.5 items-center gap-0.5 rounded-[65px] transition-colors duration-300 ease-in-out ${
+			className={`hidden lg:flex relative w-17 h-10 p-1.5 items-center gap-0.5 rounded-[65px] transition-colors duration-300 ease-in-out ${
 				theme !== 'light' ? 'bg-brand-secondary' : 'bg-brand-primary'
 			}`}
 			aria-label="Toggle theme"
@@ -135,7 +135,7 @@ export default function Header() {
 		{ href: '/trade', label: nav.trade },
 		{ href: '/wallet', label: nav.wallet },
 		{ href: '/about-us', label: nav.about },
-		{ href: '/contact', label: nav.contact },
+		{ href: '/contact-us', label: nav.contact },
 	];
 
 	return (
@@ -213,7 +213,7 @@ export default function Header() {
 					{/* Right Side - Logo and Menu */}
 					<div className="flex items-center gap-4 md:gap-6 2xl:gap-20">
 						{/* Mobile Menu - Hamburger */}
-						<div className="2xl:hidden">
+						<div className="lg:hidden">
 							<MobileMenu />
 						</div>
 
@@ -229,7 +229,7 @@ export default function Header() {
 						</Link>
 
 						{/* Desktop Navigation Links (>= 1440px) */}
-						<div className="hidden 2xl:flex items-center gap-12">
+						<div className="hidden lg:flex items-center gap-12">
 							{navLinks.map((link) => {
 								const isActive =
 									link.href === '/'

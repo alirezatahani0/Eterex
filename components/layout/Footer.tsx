@@ -444,7 +444,7 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
-				{ href: '/contact', label: footer.aboutEterex.contactUs },
+				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
 				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
 				{ href: '/login', label: footer.aboutEterex.userPanel },
 			],
@@ -505,7 +505,7 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
-				{ href: '/contact', label: footer.aboutEterex.contactUs },
+				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
 				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
 				{ href: '/login', label: footer.aboutEterex.userPanel },
 			],

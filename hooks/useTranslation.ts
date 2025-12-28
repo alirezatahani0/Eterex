@@ -59,6 +59,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getContact = useMemo(
+    () => () => getSection(locale, 'contact'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -70,6 +75,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     aboutUs: getAboutUs(),
     rules: getRules(),
     identityVerification: getIdentityVerification(),
+    contact: getContact(),
   };
 }
 

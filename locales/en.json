@@ -227,5 +227,36 @@
 		},
 		"metaTitle": "Identity Verification in Eterex | Complete Identity Verification Guide",
 		"metaDescription": "Complete guide to identity verification in Eterex - Fast and secure start with automatic identity verification system. Classic and video identity verification methods, required documents, and answers to frequently asked questions."
+	},
+	"contact": {
+		"title": "Contact Us",
+		"subtitle": {
+			"prefix": "",
+			"highlight": " ثانیه به ثانیه",
+			"suffix": "پاسخ‌گوی شما هستیم"
+		},
+		"phone": {
+			"label": "Contact Number",
+			"number": "+98-2192002088",
+			"copyButton": "Copy Number"
+		},
+		"email": {
+			"label": "Support Email",
+			"address": "info@eterex.com",
+			"sendButton": "Send Email"
+		},
+		"address": {
+			"label": "Company Address",
+			"text": "Tehran, Yousef Abad, Asadabadi Street, Plaque 449, Unit 101"
+		},
+		"socialNetworks": {
+			"label": "Social Networks",
+			"linkedin": "LinkedIn",
+			"instagram": "Instagram",
+			"telegram": "Telegram",
+			"twitter": "Twitter"
+		},
+		"metaTitle": "Contact Us | Eterex",
+		"metaDescription": "Contact Eterex - We are at your service 24 hours a day, second by second. Contact number, support email, company address, and Eterex social networks."
 	}
 }

@@ -191,7 +191,7 @@ const MobileView = () => {
 	const { DownloadAppSection } = useTranslation();
 
 	return (
-		<div className="lg:hidden bg-[url('/assets/DownloadApp/Mobile.png')] md:bg-[url('/assets/DownloadApp/Tablet.png')] bg-cover bg-center bg-no-repeat h-[700px] md:h-[650px] pt-12 px-7 flex flex-col items-center my-[120px]">
+		<div className="lg:hidden bg-[url('/assets/DownloadApp/Mobile.png')] md:bg-[url('/assets/DownloadApp/Tablet.png')] bg-cover bg-center bg-no-repeat h-[700px] md:h-[644px] pt-12 px-7 flex flex-col items-center my-[120px]">
 			<Text
 				variant="Main/24px/Bold"
 				type="p"
@@ -235,7 +235,7 @@ const RightFrame = () => {
 	const { DownloadAppSection, common } = useTranslation();
 
 	return (
-		<div className="bg-[url('/assets/DownloadApp/RightFrame.png')] h-[640px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
+		<div className="bg-[url('/assets/DownloadApp/RightFrame.png')] h-[600px] 2xl:h-[696px] bg-contain bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
 			<Badge icon={<SparkleIcon />} className="bg-white">
 				<Text variant="Main/14px/Bold" color="text-[#000]!" className="mr-1.5">
 					{common.simpler}
@@ -304,7 +304,7 @@ const LeftFrame = () => {
 	return (
 		<div
 			className={cn(
-				'h-[555px] 2xl:h-[800px] bg-cover bg-center bg-no-repeat flex flex-col items-start justify-start px-14 py-20 2xl:py-32 2xl:px-20',
+				'h-[600px] 2xl:h-[696px] bg-contain bg-center bg-no-repeat flex flex-col items-start justify-start px-14 py-20 2xl:py-32 2xl:px-20',
 				bgUrl,
 			)}
 		>
