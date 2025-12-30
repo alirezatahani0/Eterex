@@ -330,5 +330,140 @@
 		},
 		"metaTitle": "Download Eterex App | اتراکس",
 		"metaDescription": "Download Eterex mobile app - Register and verify your identity in less than 5 minutes. Available for Android, iOS, and Web."
+	},
+	"fees": {
+		"title": "Fees in Eterex",
+		"subtitle": {
+			"prefix": "شفافیت و صرفه‌جویی با کارمزدهای",
+			"highlight": "فوق رقابتی"
+		},
+		"intro": {
+			"prefix": "صرافی اتراکس",
+			"highlight": "هیچ کارمزدی برای واریز و برداشت ریال ندارد",
+			"suffix": "اما شبکه بانکی و پرداخت‌یاری بسته به شیوه واریز شما، کارمزدهای متفاوتی به شرح زیر دریافت می‌کند:"
+		},
+		"rialDeposit": {
+			"title": "Rial Deposit Fees",
+			"description": "Details of these fees are visible in the table below.",
+			"table": {
+				"headers": ["Payment Method", "Deposit Amount", "Fee"],
+				"rows": [
+					{
+						"method": "Online Payment Gateway",
+						"amount": "Up to 235 million Tomans",
+						"fee": "From 120 Tomans to 2000 Tomans"
+					},
+					{
+						"method": "Paya",
+						"amount": "More than 24 million Tomans",
+						"fee": "Maximum 250 Tomans"
+					},
+					{
+						"method": "Sata",
+						"amount": "More than 24 million Tomans",
+						"fee": "0 percent"
+					},
+					{
+						"method": "Bridge",
+						"amount": "Up to 15 million Tomans",
+						"fee": "From 50 Tomans to 300 Tomans"
+					},
+					{
+						"method": "Direct Deposit",
+						"amount": "More than 24 million Tomans",
+						"fee": "From 150 Tomans to 200 Tomans"
+					}
+				]
+			}
+		},
+		"rialWithdrawal": {
+			"title": "Rial Withdrawal Fees",
+			"description": {
+				"prefix": "برداشت ریالی در صرافی رمزارز اتراکس به شماره شبا و از طریق چرخه‌های پایا انجام می‌شود و شبکه بانکی (به ازای هر ۱۰۰ میلیون تومان برداشت) کارمزدی معادل ۱۰۰۰ تومان تا حداکثر ۶۶۰۰ تومان دریافت می‌کند.",
+				"highlight": "مجددا تاکید می‌شود که مبالغ بالا، تماما توسط شبکه بانکی اخذ می‌شود و اتراکس هیچ انتفاعی از کارمزدهای واریز و برداشت تومانی کاربران ندارد."
+			}
+		},
+		"cryptoWithdrawal": {
+			"title": "Cryptocurrency Withdrawal Fees",
+			"description": "Cryptocurrency withdrawal fees from your wallet in Eterex depend on the network type and token, as shown in the table below.",
+			"table": {
+				"headers": ["Cryptocurrency", "Network", "Fee"],
+				"rows": [
+					{
+						"crypto": "Toncoin (TON)",
+						"network": "TON",
+						"fee": "0.03 (TON)"
+					},
+					{
+						"crypto": "Notcoin (NOT)",
+						"network": "TON",
+						"fee": "37.8 (NOT)"
+					},
+					{
+						"crypto": "Tether (USDT)",
+						"network": "TON",
+						"fee": "0.5 (USDT)"
+					},
+					{
+						"crypto": "Dogecoin (DOGE)",
+						"network": "TON",
+						"fee": "250 (DOGE)"
+					},
+					{
+						"crypto": "Purev (PUREV)",
+						"network": "TON",
+						"fee": "0 (PUREV)"
+					},
+					{
+						"crypto": "Hamster Kombat (HMST)",
+						"network": "TON",
+						"fee": "0 (HMST)"
+					},
+					{
+						"crypto": "Binance Coin (BNB)",
+						"network": "BSC",
+						"fee": "0.0004 (BNB)"
+					},
+					{
+						"crypto": "Tether (USDT)",
+						"network": "BSC",
+						"fee": "0.5 (USDT)"
+					},
+					{
+						"crypto": "Tether (USDT)",
+						"network": "TRC20",
+						"fee": "0 (USDT)"
+					},
+					{
+						"crypto": "Tron (TRX)",
+						"network": "TRX",
+						"fee": "0.5 (TRX)"
+					},
+					{
+						"crypto": "Tether (USDT)",
+						"network": "TRX",
+						"fee": "1 (USDT)"
+					}
+				]
+			}
+		},
+		"cryptoDeposit": {
+			"title": "Cryptocurrency Deposit Fees",
+			"description": {
+				"prefix": "برای واریز رمزارز به کیف پول خود در اتراکس",
+				"highlight": "هیچ کارمزدی وجود ندارد؛",
+				"suffix": "تنها هزینه‌ای که برای این مورد پرداخت می‌کنید همان فی شبکه بلاک‌چینی است که ارتباطی با اتراکس ندارد. در واقع کیف پول شما دقیقا به اندازه همان مبلغی که در تراکنش ارسال می‌کنید، شارژ می‌شود."
+			}
+		},
+		"coinToCoin": {
+			"title": "Cryptocurrency Conversion Fees (Coin To Coin)",
+			"description": {
+				"prefix": "کارمزد تبدیل رمزارز به رمزارز در اتراکس",
+				"highlight": "0.1٪ ارز مبداء",
+				"suffix": "است؛ یعنی مثلا به ازای هزینه تبدیل 1000 تتر به هر رمزارزی برابر با 1 دلار است. در صورت هرگونه سوال و ابهام در مورد نرخ کارمزدها، لطفا با پشتیبانی آنلاین اتراکس ارتباط برقرار کنید."
+			}
+		},
+		"metaTitle": "Fees in Eterex | اتراکس",
+		"metaDescription": "Fees in Eterex - Transparency and savings with highly competitive fees. Details of Rial and cryptocurrency deposit and withdrawal fees in Eterex exchange."
 	}
 }

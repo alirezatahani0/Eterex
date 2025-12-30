@@ -74,6 +74,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getFees = useMemo(
+    () => () => getSection(locale, 'fees'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -88,6 +93,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     contact: getContact(),
     faq: getFaq(),
     Download: getDownload(),
+    fees: getFees(),
   };
 }
 
