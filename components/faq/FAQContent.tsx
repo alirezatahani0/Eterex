@@ -7,7 +7,7 @@ import { DownloadSection } from '../UI/DownloadSection';
 import { useTheme } from '@/hooks/useTheme';
 import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import Collapse from '../UI/Collapse';
+import Collapse from '../UI/QACollapse';
 
 export default function FAQContent() {
 	const { faq } = useTranslation();

@@ -13,7 +13,9 @@
 		"now": "now",
 		"available": "available",
 		"yours": "yours",
-		"downlaod": "downlaod"
+		"downlaod": "downlaod",
+		"android": "Android",
+		"ios": "iOS"
 	},
 	"nav": {
 		"home": "Home",
@@ -98,6 +100,16 @@
 		"desc": "Trade anytime, anywhere with ease; from tracking prices to instant buying and selling, everything is at your fingertips",
 		"android": "Android version",
 		"ios": "iOS version",
+		"sibche": "دانلود از سیب‌چه",
+		"sibirani": "دانلود از سیب ایرانی",
+		"sibapp": "دانلود از سیب اپ",
+		"pwa": "وب اپلیکیشن",
+		"iapps": "دانلود از آی اپس",
+		"appStar": "دانلود از اپ استار",
+		"googlePlay": "دانلود از گوگل پلی",
+		"direct": "دانلود مستقیم",
+		"myket": "دانلود از مایکت",
+		"bazar": "دانلود از بازار",
 		"web": "Web app version",
 		"successDownload": "Successful download of the application",
 		"Count": "+15,000",
