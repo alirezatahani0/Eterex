@@ -465,5 +465,57 @@
 		},
 		"metaTitle": "Fees in Eterex | اتراکس",
 		"metaDescription": "Fees in Eterex - Transparency and savings with highly competitive fees. Details of Rial and cryptocurrency deposit and withdrawal fees in Eterex exchange."
+	},
+	"market": {
+		"title": "Market, Real-time Price of Digital Currencies",
+		"subtitle": {
+			"suffix": "را از دست ندهید؛ همین حالا وارد معامله شوید",
+			"highlight": "فرصت‌ها"
+		},
+		"cards": {
+			"mostLosing": {
+				"title": "Most Losing"
+			},
+			"mostProfitable": {
+				"title": "Most Profitable"
+			},
+			"newest": {
+				"title": "Newest"
+			},
+			"mostPopular": {
+				"title": "Most Popular in Eterex"
+			}
+		},
+		"filters": {
+			"baseTransaction": "Base transactions :",
+			"searchPlaceholder": "Search cryptocurrency...",
+			"categories": {
+				"web3": "WEB3",
+				"memecoins": "Memecoins",
+				"nft": "NFT",
+				"ai": "AI",
+				"gaming": "Gaming",
+				"decentralized": "Decentralized Currency",
+				"iot": "IoT"
+			}
+		},
+		"table": {
+			"headers": [
+				"Cryptocurrency",
+				"Last Price (USD)",
+				"Trading Volume (USD)",
+				"24h Changes",
+				"Market Cap (USD)",
+				"Operations"
+			],
+			"operations": "Operations",
+			"chart": "Chart"
+		},
+		"pagination": {
+			"page": "Page",
+			"of": "of"
+		},
+		"metaTitle": "Digital Currency Market | Real-time Prices | اتراکس",
+		"metaDescription": "Eterex Digital Currency Market - Real-time prices, trading volume and 24-hour changes of all cryptocurrencies. Don't miss trading opportunities."
 	}
 }

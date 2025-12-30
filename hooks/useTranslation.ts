@@ -79,6 +79,11 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getMarket = useMemo(
+    () => () => getSection(locale, 'market'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -94,6 +99,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
     faq: getFaq(),
     Download: getDownload(),
     fees: getFees(),
+    market: getMarket(),
   };
 }
 

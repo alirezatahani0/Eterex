@@ -26,7 +26,8 @@ export type TranslationKey =
 	| `contact.${keyof typeof faTranslations.contact}`
 	| `faq.${keyof typeof faTranslations.faq}`
 	| `Download.${keyof typeof faTranslations.Download}`
-	| `fees.${keyof typeof faTranslations.fees}`;
+	| `fees.${keyof typeof faTranslations.fees}`
+	| `market.${keyof typeof faTranslations.market}`;
 
 /**
  * Get translation for a given key
