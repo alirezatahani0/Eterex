@@ -556,5 +556,67 @@
 			],
 			"buySell": "Buy and Sell"
 		}
+	},
+	"coins": {
+		"tagline": {
+			"prefix": "با بهترین",
+			"highlight": "صرافی",
+			"suffix": "معامله کن"
+		},
+		"title": {
+			"prefix": "هر معامله آغازی برای",
+			"highlight": "فرصت های نو"
+		},
+		"table": {
+			"headers": [
+				"نام رمز ارز",
+				"تاریخ لیست",
+				"خرید از اتراکس",
+				"خرید از ما / تغییرات 24h"
+			],
+			"headers2": ["رمز ارز", "آخرین قیمت", "حجم معاملات 24h"],
+			"buySell": "خرید و فروش"
+		},
+		"filters": {
+			"baseTransaction": "پایه معاملات :",
+			"searchPlaceholder": "جستجوی رمز ارز ...",
+			"categories": {
+				"favorits": "محبوب‌ترین‌ها",
+				"newest": "جدیدترین‌ها",
+				"mostProfitable": "بیشترین رشد",
+				"mostLost": "بیشترین کاهش",
+				"recommend": "پیشنهاد اتراکس"
+			},
+			"tabs": {
+				"volume": "حجم معاملات",
+				"marketCap": "مارکت‌کپ",
+				"spot": "معاملات اسپات"
+			}
+		}
+	},
+	"statistics": {
+		"tagline": {
+			"prefix": "دنیای اتراکس، انتخابی ",
+			"highlight": "مطمئن"
+		},
+		"title": {
+			"prefix": "Real growth, lasting trust;",
+			"highlight": "a story that continues"
+		},
+		"weeklyVolume": {
+			"value": "+189,723,001",
+			"label": "Weekly Transaction Volume",
+			"description": "More than 2500 successful transactions are carried out daily on Atrax, a number that indicates the dynamism and trust of users in this platform."
+		},
+		"activeTraders": {
+			"value": "+3500",
+			"label": "Active Traders",
+			"description": "3500+ active traders on Atrax is not just a number; it indicates the trust that is built on this platform every day and shapes a vibrant and growing market."
+		},
+		"listedCryptos": {
+			"value": "+470",
+			"label": "Listed Cryptocurrencies",
+			"description": "With support for over 470 diverse and popular cryptocurrencies, Atrax has provided users with the opportunity to trade in one of Iran's most diverse cryptocurrency markets."
+		}
 	}
 }

@@ -95,7 +95,7 @@ export default function LatestEvents() {
 			<Swiper
 				modules={[Navigation, EffectCoverflow]}
 				spaceBetween={32}
-				slidesPerView={3}
+				slidesPerView={1}
 				effect={'coverflow'}
 				grabCursor={true}
 				centeredSlides={true}

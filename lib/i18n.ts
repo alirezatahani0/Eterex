@@ -30,7 +30,9 @@ export type TranslationKey =
 	| `market.${keyof typeof faTranslations.market}`
 	| `hero.${keyof typeof faTranslations.hero}`
 	| `latestEvents.${keyof typeof faTranslations.latestEvents}`
-	| `listedCryptos.${keyof typeof faTranslations.listedCryptos}`;
+	| `coins.${keyof typeof faTranslations.coins}`
+	| `listedCryptos.${keyof typeof faTranslations.listedCryptos}`
+	| `statistics.${keyof typeof faTranslations.statistics}`;
 
 /**
  * Get translation for a given key

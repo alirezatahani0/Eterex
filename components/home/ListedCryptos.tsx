@@ -50,7 +50,7 @@ export default function ListedCryptos() {
 	];
 
 	return (
-		<Container className="py-12 md:py-16 lg:py-20 lg:pr-0 xl:pr-0 2xl:pr-0">
+		<Container className="py-12 md:py-16 lg:py-20 lg:pr-0 xl:pr-0 2xl:pr-0 hidden lg:block">
 			<div className="mb-14">
 				{/* Tagline */}
 				<div className="inline-flex items-center gap-2 px-4 py-2 bg-grayscale-02 rounded-2xl border border-grayscale-03 w-fit mb-10">
@@ -136,7 +136,7 @@ export default function ListedCryptos() {
 										)}
 									>
 										{/* Cryptocurrency Name */}
-										<td className={cn('h-14')}>
+										<td className={cn('h-18')}>
 											<div className="flex items-center gap-3">
 												{crypto.icon && (
 													<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
