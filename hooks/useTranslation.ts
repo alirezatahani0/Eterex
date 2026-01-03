@@ -84,6 +84,21 @@ export function useTranslation(locale: Locale = defaultLocale) {
     [locale]
   );
 
+  const getHero = useMemo(
+    () => () => getSection(locale, 'hero'),
+    [locale]
+  );
+
+  const getLatestEvents = useMemo(
+    () => () => getSection(locale, 'latestEvents'),
+    [locale]
+  );
+
+  const getListedCryptos = useMemo(
+    () => () => getSection(locale, 'listedCryptos'),
+    [locale]
+  );
+
   return {
     t: translate,
     nav: getNav(),
@@ -100,6 +115,9 @@ export function useTranslation(locale: Locale = defaultLocale) {
     Download: getDownload(),
     fees: getFees(),
     market: getMarket(),
+    hero: getHero(),
+    latestEvents: getLatestEvents(),
+    listedCryptos: getListedCryptos(),
   };
 }
 

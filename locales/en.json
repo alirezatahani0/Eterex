@@ -517,5 +517,44 @@
 		},
 		"metaTitle": "Digital Currency Market | Real-time Prices | اتراکس",
 		"metaDescription": "Eterex Digital Currency Market - Real-time prices, trading volume and 24-hour changes of all cryptocurrencies. Don't miss trading opportunities."
+	},
+	"hero": {
+		"tagline": "The future starts here",
+		"exchange": "صرافی",
+		"eterex": "اتراکس",
+		"description": {
+			"suffix": "، محیطی امن، سریع و شفاف برای خرید و فروش ارزهای دیجیتال فراهم کرده است. اتراکس انتخابی هوشمندانه برای معامله‌گران حرفه‌ای و تازه‌کار است که به دنبال تجربه‌ای مطمئن و کم‌هزینه هستند",
+			"highlight": "معاملات باز و کمترین کارمزد معاملاتی",
+			"prefix": "صرافی اتراکس با پشتیبانی از"
+		},
+		"registerButton": "Register",
+		"phonePlaceholder": "Enter your mobile number ..."
+	},
+	"latestEvents": {
+		"tagline": "Most Important Announcements",
+		"mostImportant": "مهمترین",
+		"announcements": "اطلاعیه‌ها",
+		"title": {
+			"prefix": "Latest",
+			"highlight": "Events"
+		},
+		"viewNews": "View News"
+	},
+	"listedCryptos": {
+		"tagline": "های بازار اتراکس",
+		"newest": "جدیدترین‌",
+		"title": {
+			"prefix": "Listed",
+			"highlight": "Cryptocurrencies"
+		},
+		"table": {
+			"headers": [
+				"Cryptocurrency Name",
+				"Listing Date",
+				"Buy from Eterex",
+				"Operations"
+			],
+			"buySell": "Buy and Sell"
+		}
 	}
 }
