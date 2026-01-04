@@ -4,7 +4,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 export default function StatisticsSection() {
 	const { statistics } = useTranslation();

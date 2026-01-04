@@ -618,5 +618,70 @@
 			"label": "Listed Cryptocurrencies",
 			"description": "With support for over 470 diverse and popular cryptocurrencies, Atrax has provided users with the opportunity to trade in one of Iran's most diverse cryptocurrency markets."
 		}
+	},
+	"features": {
+		"tagline": {
+			"prefix": "برترین",
+			"highlight": "خدمات",
+			"suffix": "معاملاتی"
+		},
+		"title": {
+			"prefix": "A complete and flawless experience;",
+			"highlight": "the difference starts here"
+		},
+		"cards": {
+			"autoVerification": {
+				"title": "Automatic and Instant Identity Verification",
+				"description": "Identity verification in Atrax takes only a few minutes, completely automatic and instant, so you can be ready to use the services without wasting time."
+			},
+			"instantTrading": {
+				"title": "Instant and Advanced Trading",
+				"description": "Whether you are looking for quick trades at market price or want to set your desired price in advance, the Atrax platform provides you with this freedom."
+			},
+			"support24": {
+				"title": "24-Hour Support",
+				"description": "Atrax means our team is ready to accompany you non-stop, 24 hours a day, to be by your side whenever needed and provide a reliable response."
+			},
+			"directPayment": {
+				"title": "Fast and Hassle-Free Direct Payment",
+				"description": "With Direct Debit capability, your Atrax account can be charged directly, quickly, and completely securely, without the need for dynamic passwords or bank portals."
+			},
+			"unlimitedDeposit": {
+				"title": "Unlimited Deposits and Withdrawals",
+				"description": "There is no limit to transactions; you can easily make billions in deposits and withdrawals without restrictions."
+			},
+			"lowFee": {
+				"title": "Only 0.1% Commission! Transparent and Unrivaled",
+				"description": "The lowest commission among Iranian exchanges for converting cryptocurrencies, Atrax is a reliable way to increase your trading profits."
+			}
+		}
+	},
+	"steps": {
+		"tagline": {
+			"suffix": "شروع معاملات",
+			"highlight": "راهنمای"
+		},
+		"title": {
+			"prefix": "A simple start, a different experience;",
+			"highlight": "Trading steps in Eterex"
+		},
+		"items": {
+			"verification": {
+				"number": "1",
+				"title": "Identity Verification",
+				"description": "With automatic identity verification, your access becomes active immediately."
+			},
+			"topup": {
+				"number": "2",
+				"title": "Account Top-up",
+				"description": "Use a bank portal, IBAN number, or even direct deposit to top up your wallet in the fastest time."
+			},
+			"trading": {
+				"number": "3",
+				"title": "Start Trading",
+				"description": "Now you can trade your desired cryptocurrencies instantly and P2P on Eterex; fast, secure, and without limitations."
+			}
+		},
+		"button": "Let's go"
 	}
 }

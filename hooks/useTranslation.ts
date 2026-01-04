@@ -79,6 +79,16 @@ export function useTranslation(locale: Locale = defaultLocale) {
 		[locale],
 	);
 
+	const getFeatures = useMemo(
+		() => () => getSection(locale, 'features'),
+		[locale],
+	);
+
+	const getSteps = useMemo(
+		() => () => getSection(locale, 'steps'),
+		[locale],
+	);
+
 	return {
 		t: translate,
 		nav: getNav(),
@@ -100,5 +110,7 @@ export function useTranslation(locale: Locale = defaultLocale) {
 		listedCryptos: getListedCryptos(),
 		coins: getCoins(),
 		statistics: getStatistics(),
+		features: getFeatures(),
+		steps: getSteps(),
 	};
 }

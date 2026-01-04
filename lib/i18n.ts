@@ -32,7 +32,9 @@ export type TranslationKey =
 	| `latestEvents.${keyof typeof faTranslations.latestEvents}`
 	| `coins.${keyof typeof faTranslations.coins}`
 	| `listedCryptos.${keyof typeof faTranslations.listedCryptos}`
-	| `statistics.${keyof typeof faTranslations.statistics}`;
+	| `statistics.${keyof typeof faTranslations.statistics}`
+	| `features.${keyof typeof faTranslations.features}`
+	| `steps.${keyof typeof faTranslations.steps}`;
 
 /**
  * Get translation for a given key
