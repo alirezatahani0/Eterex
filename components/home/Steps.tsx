@@ -96,8 +96,8 @@ export default function StepsSection() {
 								className="w-14 h-14 min-w-14 min-h-14 rounded-full border-2 border-[#ffffff3d] flex items-center justify-center"
 								style={{
 									background:
-										'linear-gradient(180deg, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 0%, var(--glass-white-glass-1, rgba(255, 255, 255, 0.01)) 100%);',
-								}}
+										'linear-gradient(180deg, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 0%, var(--glass-white-glass-1, rgba(255, 255, 255, 0.01)) 100%)',
+								} as React.CSSProperties}
 							>
 								<Text variant="Main/24px/Bold" gradient="primary">
 									{index + 1}
@@ -141,9 +141,9 @@ export default function StepsSection() {
 											<path
 												d="M18.3493 15.2422L3.65234 6.75684M3.65234 6.75684L5.37781 13.1964M3.65234 6.75684L10.0919 5.03137"
 												stroke="#121B38"
-												stroke-width="1.5"
-												stroke-linecap="round"
-												stroke-linejoin="round"
+												strokeWidth="1.5"
+												strokeLinecap="round"
+												strokeLinejoin="round"
 											/>
 										</svg>
 									</button>

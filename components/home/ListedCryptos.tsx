@@ -104,8 +104,8 @@ export default function ListedCryptos() {
 				className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-9"
 				style={{
 					background:
-						'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%);',
-				}}
+						'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
+				} as React.CSSProperties}
 			>
 				<div className="overflow-x-auto">
 					<table className="w-full">

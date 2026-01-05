@@ -33,7 +33,7 @@ export default function MarketCard({
 			style={{
 				background:
 					'linear-gradient(180deg, rgba(18, 27, 56, 0.00) 50%, rgba(255, 255, 255, 0.12) 100%)',
-			}}
+			} as React.CSSProperties}
 		>
 			<Text variant="Main/14px/SemiBold" className="text-grayscale-07! ">
 				{title}

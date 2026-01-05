@@ -112,8 +112,8 @@ export default function StatisticsSection() {
 								y2="-67.0438"
 								gradientUnits="userSpaceOnUse"
 							>
-								<stop stop-color="#294BFF" />
-								<stop offset="1" stop-color="#1B2440" />
+								<stop stopColor="#294BFF" />
+								<stop offset="1" stopColor="#1B2440" />
 							</linearGradient>
 						</defs>
 					</svg>
@@ -140,8 +140,8 @@ export default function StatisticsSection() {
 								y2="-144.706"
 								gradientUnits="userSpaceOnUse"
 							>
-								<stop stop-color="#294BFF" />
-								<stop offset="1" stop-color="#1B2440" />
+								<stop stopColor="#294BFF" />
+								<stop offset="1" stopColor="#1B2440" />
 							</linearGradient>
 						</defs>
 					</svg>
@@ -156,8 +156,8 @@ export default function StatisticsSection() {
 						<path
 							d="M2.5 242.5C18.6818 242.5 18.6818 206.741 34.8636 206.741C51.0454 206.741 51.0454 184.156 67.2273 184.156C83.4091 184.156 83.4091 193.566 99.5909 193.566C115.773 193.566 115.773 212.387 131.955 212.387C148.136 212.387 148.136 170.981 164.318 170.981C180.5 170.981 180.5 131.458 196.682 131.458C212.864 131.458 212.864 165.383 229.045 165.383C245.227 165.383 245.227 76.8835 261.409 76.8835C277.591 76.8835 277.591 133.377 293.773 133.377C309.955 133.377 309.955 156.031 326.136 156.031C342.318 156.031 342.318 185.534 358.5 185.534C374.682 185.534 374.682 133.96 390.864 133.96C407.045 133.96 407.045 160.895 423.227 160.895C439.409 160.895 439.409 96.0366 455.591 96.0366C471.773 96.0366 471.773 49.8596 487.955 49.8596C504.136 49.8596 504.136 82.5798 520.318 82.5798C536.5 82.5798 536.5 43.0565 552.682 43.0565C568.864 43.0565 568.864 56.6995 585.045 56.6995C601.227 56.6995 601.227 2.5 617.409 2.5C633.591 2.5 633.591 92.3248 649.773 92.3248C665.955 92.3248 665.955 114.302 682.136 114.302C698.318 114.302 698.318 57.6898 714.5 57.6898"
 							stroke="url(#paint0_linear_2304_8457)"
-							stroke-width="5"
-							stroke-linecap="round"
+							strokeWidth="5"
+							strokeLinecap="round"
 						/>
 						<defs>
 							<linearGradient
@@ -168,8 +168,8 @@ export default function StatisticsSection() {
 								y2="-200.758"
 								gradientUnits="userSpaceOnUse"
 							>
-								<stop stop-color="#294BFF" />
-								<stop offset="1" stop-color="#1B2440" />
+								<stop stopColor="#294BFF" />
+								<stop offset="1" stopColor="#1B2440" />
 							</linearGradient>
 						</defs>
 					</svg>

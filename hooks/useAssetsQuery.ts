@@ -24,7 +24,7 @@ export function useAssetsListQuery(
 	const {
 		pageSize = 10000,
 		enabled = true,
-		refetchInterval = 0, // No polling by default
+		refetchInterval = 32000, // 32 seconds default (same as other queries)
 	} = options;
 
 	return useQuery<AssetsListResponse, Error>({
@@ -32,10 +32,10 @@ export function useAssetsListQuery(
 		queryFn: () => fetchAssetsList(pageSize),
 		enabled,
 		refetchInterval,
-		// Stale time: 5 minutes (assets list doesn't change frequently)
-		staleTime: 5 * 60 * 1000,
-		// Keep data in cache for 10 minutes
-		gcTime: 10 * 60 * 1000,
+		// Stale time: 30 seconds (data should be fresh)
+		staleTime: 30 * 1000,
+		// Keep data in cache for 5 minutes
+		gcTime: 5 * 60 * 1000,
 		// Retry failed requests
 		retry: 2,
 		// Don't refetch on window focus

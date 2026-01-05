@@ -212,9 +212,10 @@ const BackgroundDecorations = () => (
 			xmlns="http://www.w3.org/2000/svg"
 			width="100%"
 			height="100%"
-			viewBox="0 0 100% 100%"
+			viewBox="0 0 100 100"
 			fill="none"
 			className="absolute top-0 left-0 z-0"
+			preserveAspectRatio="none"
 		>
 			<g opacity="0.08" filter="url(#filter0_f_2676_47036)">
 				<path
@@ -251,9 +252,10 @@ const BackgroundDecorations = () => (
 			xmlns="http://www.w3.org/2000/svg"
 			width="100%"
 			height="100%"
-			viewBox="0 0 100% 100%"
+			viewBox="0 0 100 100"
 			fill="none"
 			className="absolute top-0 left-0 z-0"
+			preserveAspectRatio="none"
 		>
 			<g opacity="0.08" filter="url(#filter0_f_2676_47037)">
 				<path
@@ -301,7 +303,8 @@ const BackgroundDecorations = () => (
 			xmlns="http://www.w3.org/2000/svg"
 			width="100%"
 			height="100%"
-			viewBox="0 0 100% 100%"
+			viewBox="0 0 100 100"
+			preserveAspectRatio="none"
 			fill="none"
 			className="absolute bottom-0 left-0 z-0"
 		>
@@ -426,8 +429,8 @@ const LinkColumn = ({
 	<div>
 		<Text variant="Main/24px/Regular">{title}</Text>
 		<div className="flex flex-col gap-2 mt-6">
-			{links.map((link) => (
-				<Link key={link.href} href={link.href}>
+			{links.map((link, index) => (
+				<Link key={`${link.href}-${index}-${link.label}`} href={link.href}>
 					<Text variant="Main/14px/SemiBold" color="#808080">
 						{link.label}
 					</Text>
@@ -520,8 +523,8 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 					header={section.title}
 					contentClassName="flex flex-col gap-2"
 					>
-					{section.links.map((link) => (
-						<Link key={link.href} href={link.href}>
+					{section.links.map((link, linkIndex) => (
+						<Link key={`${link.href}-${linkIndex}-${link.label}`} href={link.href}>
 							<Text variant="Main/14px/SemiBold">{link.label}</Text>
 					</Link>
 					))}

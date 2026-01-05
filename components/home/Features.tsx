@@ -111,8 +111,8 @@ export default function FeaturesSection() {
 							)}
 							style={{
 								background:
-									'linear-gradient(104deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 0%, rgba(15, 52, 244, 0.08) 100%), linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 100%), linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%);',
-							}}
+									'linear-gradient(104deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 0%, rgba(15, 52, 244, 0.08) 100%), linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 100%), linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
+							} as React.CSSProperties}
 						>
 							<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0" />
 
@@ -175,8 +175,8 @@ export default function FeaturesSection() {
 								)}
 								style={{
 									background:
-										'linear-gradient(104deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 0%, rgba(15, 52, 244, 0.08) 100%), linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 100%), linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%);',
-								}}
+										'linear-gradient(104deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 0%, rgba(15, 52, 244, 0.08) 100%), linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 100%), linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
+								} as React.CSSProperties}
 							>
 								<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0" />
 								<Image

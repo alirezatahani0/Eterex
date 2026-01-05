@@ -155,10 +155,11 @@ export default function MarketContent({
 		refetchInterval: 32000, // 32 seconds
 	});
 
-	// Fetch assets list and prices
+	// Fetch assets list and prices (all update every 32 seconds)
 	const { data: assetsData } = useAssetsListQuery({
 		pageSize: 10000,
 		enabled: true,
+		refetchInterval: 32000, // 32 seconds
 	});
 
 	const { data: pricesData } = useAssetsPriceListQuery({

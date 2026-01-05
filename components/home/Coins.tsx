@@ -163,8 +163,8 @@ export default function Coins() {
 					className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-6 lg:p-8"
 					style={{
 						background:
-							'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%);',
-					}}
+							'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
+					} as React.CSSProperties}
 				>
 					{/* Category Filters */}
 					<div className="mb-6 flex flex-row gap-2 overflow-x-auto overflow-y-hidden ">
