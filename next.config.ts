@@ -5,17 +5,21 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Production optimizations
+  output: 'standalone', // Enable standalone output for Docker
+  
   // Image optimization
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
+    unoptimized: false,
   },
 
   // Experimental features for performance
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "@tanstack/react-query"],
   },
 
   // Headers for SEO and security
@@ -40,9 +44,42 @@ const nextConfig: NextConfig = {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",
           },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+        ],
+      },
+      {
+        // Cache static assets
+        source: "/assets/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // Cache images
+        source: "/:path*\\.(jpg|jpeg|png|gif|ico|svg|webp|avif)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
+  },
+
+  // Redirects (if needed)
+  async redirects() {
+    return [];
   },
 };
 

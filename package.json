@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker:build": "docker build -t eterex:latest .",
+    "docker:run": "docker run -p 3000:3000 eterex:latest",
+    "docker:compose": "docker-compose up -d"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.16",
