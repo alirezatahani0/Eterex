@@ -55,25 +55,13 @@ export async function getMarketBySymbol(symbol: string): Promise<Market | null> 
 /**
  * Client-side function to fetch markets (for use in client components)
  * This function can be used with polling hooks
+ * Uses the API client which respects NEXT_PUBLIC_API_URL
  */
 export async function fetchMarkets(showAll = true): Promise<Market[]> {
 	try {
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL || 'https://api.eterex.com/api'}/Market?showall=${showAll}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				cache: 'no-store',
-			},
-		);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-
-		const data = await response.json();
+		const data = await apiClient.get<Market[]>('/Market', {
+			showall: showAll.toString(),
+		});
 		return data;
 	} catch (error) {
 		console.error('Error fetching markets:', error);

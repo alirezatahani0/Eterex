@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const nextConfig: NextConfig = {
+  // Base path configuration (for subdirectory deployment)
+  basePath: basePath,
+  
+  // Asset prefix (if using CDN)
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined,
+  
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
