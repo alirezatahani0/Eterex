@@ -34,6 +34,7 @@ export type TranslationKey =
 	| `listedCryptos.${keyof typeof faTranslations.listedCryptos}`
 	| `statistics.${keyof typeof faTranslations.statistics}`
 	| `features.${keyof typeof faTranslations.features}`
+	| `blog.${keyof typeof faTranslations.blog}`
 	| `steps.${keyof typeof faTranslations.steps}`;
 
 /**

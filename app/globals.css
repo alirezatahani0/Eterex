@@ -394,3 +394,36 @@ html {
   background-size: 32px 32px;
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-40%);
+  }
+}
+
+.ticker-content {
+  animation: scroll 15s linear infinite;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 80px;
+}
+
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  padding: 0 2rem;
+  min-width: max-content;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.ticker-separator {
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 0.5rem;
+}

@@ -84,10 +84,9 @@ export function useTranslation(locale: Locale = defaultLocale) {
 		[locale],
 	);
 
-	const getSteps = useMemo(
-		() => () => getSection(locale, 'steps'),
-		[locale],
-	);
+	const getSteps = useMemo(() => () => getSection(locale, 'steps'), [locale]);
+
+	const getBlog = useMemo(() => () => getSection(locale, 'blog'), [locale]);
 
 	return {
 		t: translate,
@@ -112,5 +111,6 @@ export function useTranslation(locale: Locale = defaultLocale) {
 		statistics: getStatistics(),
 		features: getFeatures(),
 		steps: getSteps(),
+		blog: getBlog(),
 	};
 }
