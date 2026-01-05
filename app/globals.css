@@ -427,3 +427,23 @@ html {
   color: rgba(255, 255, 255, 0.5);
   padding: 0 0.5rem;
 }
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none; /* Chrome, Safari and Opera */
+}
+
+/* Show scrollbar on desktop (override) */
+.scrollbar-default {
+	-ms-overflow-style: auto;
+	scrollbar-width: auto;
+}
+
+.scrollbar-default::-webkit-scrollbar {
+	display: block;
+}

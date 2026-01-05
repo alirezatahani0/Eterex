@@ -1,3 +1,4 @@
+'use client';
 import { useTranslation } from '@/hooks/useTranslation';
 import Text from './Text';
 import Link from 'next/link';

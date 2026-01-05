@@ -44,3 +44,64 @@ export interface ApiResponse<T> {
 	error?: ApiError;
 }
 
+/**
+ * Asset/Coin data types
+ */
+export interface AssetLabel {
+	0: string; // category/industry/platform/others
+	1: string; // value
+}
+
+export interface Asset {
+	id: number;
+	updated_at: string;
+	created_at: string;
+	metadata: string;
+	graph: number;
+	name: string;
+	active: boolean;
+	full_name: string;
+	deposit_enabled: boolean;
+	withdraw_enabled: boolean;
+	trading_enabled: boolean;
+	convert_enabled: boolean;
+	transfer_max_decimals: number;
+	convert_max_decimals: number;
+	admin_deposit_enabled: boolean;
+	admin_withdraw_enabled: boolean;
+	admin_trading_enabled: boolean;
+	admin_convert_enabled: boolean;
+	admin_buy_enabled: boolean;
+	admin_sell_enabled: boolean;
+	labels: AssetLabel[];
+}
+
+export interface AssetsListResponse {
+	coins: Asset[];
+}
+
+/**
+ * Asset Price data types
+ */
+export interface AssetPrice {
+	symbol: string; // e.g., "0GUSDT", "BTCIRT"
+	price: string;
+	type: 'sell' | 'buy';
+	exprires_at: string; // Note: API has typo "exprires_at" instead of "expires_at"
+	price_change: number;
+	price_change_percentage: number;
+	volume: number;
+	quote_volume: number;
+}
+
+// The prices API returns an array directly, not an object
+export type AssetsPriceListResponse = AssetPrice[];
+
+export type PaginationType = {
+	hasNextPage: boolean;
+	hasPreviousPage: boolean;
+	itemCount: number;
+	limit: number;
+	page: number;
+	pageCount: number;
+};

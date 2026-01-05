@@ -45,7 +45,7 @@ export default function MarketCard({
 							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center">
 								<Image src="/BTC.png" width={36} height={36} alt="BTC" />
 							</div>
-							<div className="flex-1">
+							<div className="flex-1 max-w-16 overflow-x-hidden whitespace-nowrap text-ellipsis">
 								<Text variant="Main/14px/Bold" className="text-grayscale-07!">
 									{item.symbol}
 								</Text>
