@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import AboutUsContent from '@/components/about/AboutUsContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const aboutUs = getSection('fa', 'aboutUs');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: aboutUs.metaTitle,
-		description: aboutUs.metaDescription,
+		title: 'درباره ما | معرفی صرافی اتراکس',
+		description:
+			'درباره صرافی اتراکس، تیم ما و اهدافمان برای ارائه خدمات امن و سریع ارز دیجیتال بخوانید.',
 		keywords: [
 			'درباره ما',
 			'اتریوم',
@@ -23,8 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: aboutUs.metaTitle,
-			description: aboutUs.metaDescription,
+			title: 'درباره ما | معرفی صرافی اتراکس',
+			description:
+				'درباره صرافی اتراکس، تیم ما و اهدافمان برای ارائه خدمات امن و سریع ارز دیجیتال بخوانید.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/about-us`,
@@ -32,8 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: aboutUs.metaTitle,
-			description: aboutUs.metaDescription,
+			title: 'درباره ما | معرفی صرافی اتراکس',
+			description:
+				'درباره صرافی اتراکس، تیم ما و اهدافمان برای ارائه خدمات امن و سریع ارز دیجیتال بخوانید.',
 		},
 		robots: {
 			index: true,
@@ -66,8 +68,9 @@ export default function AboutUs() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: aboutUs.metaTitle,
-		description: aboutUs.metaDescription,
+		name: 'درباره ما | معرفی صرافی اتراکس',
+		description:
+			'درباره صرافی اتراکس، تیم ما و اهدافمان برای ارائه خدمات امن و سریع ارز دیجیتال بخوانید.',
 		url: `${siteUrl}/about-us`,
 		inLanguage: 'fa-IR',
 		about: {

@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import FeesContent from '@/components/fees/FeesContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const fees = getSection('fa', 'fees');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: fees.metaTitle,
-		description: fees.metaDescription,
+		title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
+		description:
+			'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
 		keywords: [
 			'کارمزدها',
 			'کارمزد اتراکس',
@@ -25,8 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: fees.metaTitle,
-			description: fees.metaDescription,
+			title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
+			description:
+				'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/fees`,
@@ -34,8 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: fees.metaTitle,
-			description: fees.metaDescription,
+			title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
+			description:
+				'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
 		},
 		robots: {
 			index: true,
@@ -68,8 +70,9 @@ export default function Fees() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: fees.metaTitle,
-		description: fees.metaDescription,
+		name: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
+		description:
+			'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
 		url: `${siteUrl}/fees`,
 		inLanguage: 'fa-IR',
 		about: {

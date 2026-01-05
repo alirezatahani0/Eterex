@@ -1,4 +1,4 @@
-'use client';
+import type { Metadata } from 'next';
 import BlogSection from '@/components/home/Blog';
 import Coins from '@/components/home/Coins';
 import FeaturesSection from '@/components/home/Features';
@@ -10,6 +10,51 @@ import StepsSection from '@/components/home/Steps';
 import BrandTicker from '@/components/UI/BrandTicker';
 import Container from '@/components/UI/Container';
 import { DownloadSection } from '@/components/UI/DownloadSection';
+
+export const metadata: Metadata = {
+	title: 'صرافی اتراکس | معتبرترین صرافی ارز دیجیتال ایرانی',
+	description:
+		'صرافی اتراکس، بستر امن و سریع خرید و فروش ارز دیجیتال با پشتیبانی ۲۴ ساعته و کارمزد رقابتی',
+	keywords: [
+		'صرافی ارز دیجیتال',
+		'خرید ارز دیجیتال',
+		'فروش ارز دیجیتال',
+		'بیت کوین',
+		'اتریوم',
+		'کریپتو',
+		'صرافی اتراکس',
+		'معاملات رمزارز',
+	],
+	authors: [{ name: 'Eterex' }],
+	creator: 'Eterex',
+	publisher: 'Eterex',
+	openGraph: {
+		title: 'صرافی اتراکس | معتبرترین صرافی ارز دیجیتال ایرانی',
+		description:
+			'صرافی اتراکس، بستر امن و سریع خرید و فروش ارز دیجیتال با پشتیبانی ۲۴ ساعته و کارمزد رقابتی',
+		type: 'website',
+		locale: 'fa_IR',
+		url: '/',
+		siteName: 'اترکس',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'صرافی اتراکس | معتبرترین صرافی ارز دیجیتال ایرانی',
+		description:
+			'صرافی اتراکس، بستر امن و سریع خرید و فروش ارز دیجیتال با پشتیبانی ۲۴ ساعته و کارمزد رقابتی',
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-video-preview': -1,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+		},
+	},
+};
 
 export default function Home() {
 	return (

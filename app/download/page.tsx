@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import DownloadContent from '@/components/download/DownloadContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const download = getSection('fa', 'Download');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: download.metaTitle,
-		description: download.metaDescription,
+		title: 'دانلود اپلیکیشن صرافی ارز دیجیتال اتراکس',
+		description:
+			'اپلیکیشن صرافی اتراکس را دانلود کنید و با خیالی راحت اقدام به خرید و فروش ارز دیجیتال کنید.',
 		keywords: [
 			'دانلود اپلیکیشن اتراکس',
 			'اپلیکیشن موبایل',
@@ -24,8 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: download.metaTitle,
-			description: download.metaDescription,
+			title: 'دانلود اپلیکیشن صرافی ارز دیجیتال اتراکس',
+			description:
+				'اپلیکیشن صرافی اتراکس را دانلود کنید و با خیالی راحت اقدام به خرید و فروش ارز دیجیتال کنید.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/download`,
@@ -33,8 +34,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: download.metaTitle,
-			description: download.metaDescription,
+			title: 'دانلود اپلیکیشن صرافی ارز دیجیتال اتراکس',
+			description:
+				'اپلیکیشن صرافی اتراکس را دانلود کنید و با خیالی راحت اقدام به خرید و فروش ارز دیجیتال کنید.',
 		},
 		robots: {
 			index: true,
@@ -67,8 +69,9 @@ export default function Download() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: download.metaTitle,
-		description: download.metaDescription,
+		name: 'دانلود اپلیکیشن صرافی ارز دیجیتال اتراکس',
+		description:
+			'اپلیکیشن صرافی اتراکس را دانلود کنید و با خیالی راحت اقدام به خرید و فروش ارز دیجیتال کنید.',
 		url: `${siteUrl}/download`,
 		inLanguage: 'fa-IR',
 		about: {

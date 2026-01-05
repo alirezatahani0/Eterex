@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import SecurityContent from '@/components/security/SecurityContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const security = getSection('fa', 'security');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: security.metaTitle,
-		description: security.metaDescription,
+		title: 'امنیت دارایی های دیجیتال شما در اتراکس',
+		description:
+			'امنیت حساب، دارایی و معاملات شما با پیشرفته‌ترین امکانات امنیتی در صرافی اتراکس.',
 		keywords: [
 			'امنیت صرافی',
 			'امنیت ارز دیجیتال',
@@ -26,8 +26,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: security.metaTitle,
-			description: security.metaDescription,
+			title: 'امنیت دارایی های دیجیتال شما در اتراکس',
+			description:
+				'امنیت حساب، دارایی و معاملات شما با پیشرفته‌ترین امکانات امنیتی در صرافی اتراکس.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/security`,
@@ -35,8 +36,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: security.metaTitle,
-			description: security.metaDescription,
+			title: 'امنیت دارایی های دیجیتال شما در اتراکس',
+			description:
+				'امنیت حساب، دارایی و معاملات شما با پیشرفته‌ترین امکانات امنیتی در صرافی اتراکس.',
 		},
 		robots: {
 			index: true,
@@ -69,8 +71,9 @@ export default function Security() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: security.metaTitle,
-		description: security.metaDescription,
+		name: 'امنیت دارایی های دیجیتال شما در اتراکس',
+		description:
+			'امنیت حساب، دارایی و معاملات شما با پیشرفته‌ترین امکانات امنیتی در صرافی اتراکس.',
 		url: `${siteUrl}/security`,
 		inLanguage: 'fa-IR',
 		about: {

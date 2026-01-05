@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import ContactContent from '@/components/contact/ContactContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const contact = getSection('fa', 'contact');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: contact.metaTitle,
-		description: contact.metaDescription,
+		title: 'تماس با ما | تماس با پشتیبانی اتراکس',
+		description:
+			'اتراکس در کنار شماست. برای رفع سوالات خود با پشتیبانی صرافی اتراکس تماس بگیرید.',
 		keywords: [
 			'تماس با ما',
 			'پشتیبانی اتراکس',
@@ -25,8 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: contact.metaTitle,
-			description: contact.metaDescription,
+			title: 'تماس با ما | تماس با پشتیبانی اتراکس',
+			description:
+				'اتراکس در کنار شماست. برای رفع سوالات خود با پشتیبانی صرافی اتراکس تماس بگیرید.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/contact-us`,
@@ -34,8 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: contact.metaTitle,
-			description: contact.metaDescription,
+			title: 'تماس با ما | تماس با پشتیبانی اتراکس',
+			description:
+				'اتراکس در کنار شماست. برای رفع سوالات خود با پشتیبانی صرافی اتراکس تماس بگیرید.',
 		},
 		robots: {
 			index: true,
@@ -68,8 +70,9 @@ export default function Contact() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: contact.metaTitle,
-		description: contact.metaDescription,
+		name: 'تماس با ما | تماس با پشتیبانی اتراکس',
+		description:
+			'اتراکس در کنار شماست. برای رفع سوالات خود با پشتیبانی صرافی اتراکس تماس بگیرید.',
 		url: `${siteUrl}/contact-us`,
 		inLanguage: 'fa-IR',
 		about: {

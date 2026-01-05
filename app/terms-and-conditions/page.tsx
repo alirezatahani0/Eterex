@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import TermsAndConditionsContent from '@/components/rules/TermsAndConditionsContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const rules = getSection('fa', 'rules');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: rules.metaTitle,
-		description: rules.metaDescription,
+		title: 'قوانین و مقررات صرافی اتراکس',
+		description:
+			'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
 		keywords: [
 			'قوانین و مقررات',
 			'شرایط استفاده',
@@ -24,8 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: rules.metaTitle,
-			description: rules.metaDescription,
+			title: 'قوانین و مقررات صرافی اتراکس',
+			description:
+				'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/terms-and-conditions`,
@@ -33,8 +34,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: rules.metaTitle,
-			description: rules.metaDescription,
+			title: 'قوانین و مقررات صرافی اتراکس',
+			description:
+				'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
 		},
 		robots: {
 			index: true,
@@ -67,8 +69,9 @@ export default function TermsAndConditions() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: rules.metaTitle,
-		description: rules.metaDescription,
+		name: 'قوانین و مقررات صرافی اتراکس',
+		description:
+			'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
 		url: `${siteUrl}/terms-and-conditions`,
 		inLanguage: 'fa-IR',
 		about: {

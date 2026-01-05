@@ -3,12 +3,12 @@ import { getSection } from '@/lib/i18n';
 import FAQContent from '@/components/faq/FAQContent';
 
 export async function generateMetadata(): Promise<Metadata> {
-	const faq = getSection('fa', 'faq');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: faq.metaTitle,
-		description: faq.metaDescription,
+		title: 'سوالات متداول ارز دیجیتال و حساب کاربری صرافی اتراکس',
+		description:
+			'پاسخ کامل به سوالات رایج درباره ارز دیجیتال، ترید و حساب کاربری در صرافی اتراکس.',
 		keywords: [
 			'سوالات متداول',
 			'FAQ',
@@ -25,8 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: faq.metaTitle,
-			description: faq.metaDescription,
+			title: 'سوالات متداول ارز دیجیتال و حساب کاربری صرافی اتراکس',
+			description:
+				'پاسخ کامل به سوالات رایج درباره ارز دیجیتال، ترید و حساب کاربری در صرافی اتراکس.',
 			type: 'website',
 			locale: 'fa_IR',
 			url: `${siteUrl}/faq`,
@@ -34,8 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: faq.metaTitle,
-			description: faq.metaDescription,
+			title: 'سوالات متداول ارز دیجیتال و حساب کاربری صرافی اتراکس',
+			description:
+				'پاسخ کامل به سوالات رایج درباره ارز دیجیتال، ترید و حساب کاربری در صرافی اتراکس.',
 		},
 		robots: {
 			index: true,
@@ -68,8 +70,9 @@ export default function FAQ() {
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: faq.metaTitle,
-		description: faq.metaDescription,
+		name: 'سوالات متداول ارز دیجیتال و حساب کاربری صرافی اتراکس',
+		description:
+			'پاسخ کامل به سوالات رایج درباره ارز دیجیتال، ترید و حساب کاربری در صرافی اتراکس.',
 		url: `${siteUrl}/faq`,
 		inLanguage: 'fa-IR',
 		about: {
