@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { getSection } from '@/lib/i18n';
+import { getMarkets } from '@/lib/api/market';
 import MarketContent from '@/components/market/MarketContent';
+import type { Market } from '@/types/api';
 
 export async function generateMetadata(): Promise<Metadata> {
 	const market = getSection('fa', 'market');
@@ -58,9 +60,18 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export default function Market() {
+export default async function Market() {
 	const market = getSection('fa', 'market');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
+
+	// Fetch markets data on the server
+	let initialMarkets: Market[] = [];
+	try {
+		initialMarkets = await getMarkets(true);
+	} catch (error) {
+		console.error('Error fetching markets:', error);
+		// Continue with empty array if fetch fails
+	}
 
 	// Structured Data for SEO and AI Crawlers
 	const structuredData = {
@@ -100,7 +111,7 @@ export default function Market() {
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
 			/>
-			<MarketContent />
+			<MarketContent initialMarkets={initialMarkets} />
 		</>
 	);
 }

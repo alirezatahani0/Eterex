@@ -340,20 +340,20 @@ const BackgroundDecorations = () => (
 
 // Sub-components
 const Logo = () => (
-	<Link href="/" className="flex items-center mb-6">
+				<Link href="/" className="flex items-center mb-6">
 		<Image src="/Logo.png" alt="Eterex logo" width={120} height={36} priority />
-	</Link>
+				</Link>
 );
 
 const HeaderSection = ({ footer }: { footer: FooterData }) => (
-	<div className="mb-10">
+				<div className="mb-10">
 		<Text variant="LongText/14px/SemiBold" color="#000">
-			{footer.header.title}
-		</Text>
+						{footer.header.title}
+					</Text>
 		<Text variant="LongText/14px/Regular" color="#616161">
-			{footer.header.desc}
-		</Text>
-	</div>
+						{footer.header.desc}
+					</Text>
+				</div>
 );
 
 const SocialIcons = () => {
@@ -365,18 +365,18 @@ const SocialIcons = () => {
 	];
 
 	return (
-		<div className="flex items-center justify-end flex-row-reverse gap-3">
+				<div className="flex items-center justify-end flex-row-reverse gap-3">
 			{socialLinks.map(({ href, icon: Icon, label }) => (
-				<Link
+					<Link
 					key={href}
 					href={href}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="w-14 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="w-14 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
 					aria-label={label}
-				>
+					>
 					<Icon />
-				</Link>
+					</Link>
 			))}
 		</div>
 	);
@@ -384,16 +384,16 @@ const SocialIcons = () => {
 
 const ActionButtons = ({ mobile }: { mobile: MobileData }) => (
 	<div className="flex items-center justify-center md:justify-start gap-3">
-		<Link
+					<Link
 			href="/login"
 			className="flex items-center justify-center gap-2 w-[180px] pr-3 pl-4 h-14 rounded-[40px] bg-brand-primary-container"
-		>
+					>
 			<UserIcon />
 			<span className="font-bold text-sm leading-5 text-primary">
 				{mobile.account}
 			</span>
-		</Link>
-		<Link
+					</Link>
+					<Link
 			href="/download"
 			className="flex items-center justify-center gap-2 w-[180px] pr-3 pl-4 h-14 rounded-[40px] bg-brand-primary-container"
 		>
@@ -431,7 +431,7 @@ const LinkColumn = ({
 					<Text variant="Main/14px/SemiBold" color="#808080">
 						{link.label}
 					</Text>
-				</Link>
+					</Link>
 			))}
 		</div>
 	</div>
@@ -519,11 +519,11 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 					key={index}
 					header={section.title}
 					contentClassName="flex flex-col gap-2"
-				>
+					>
 					{section.links.map((link) => (
 						<Link key={link.href} href={link.href}>
 							<Text variant="Main/14px/SemiBold">{link.label}</Text>
-						</Link>
+					</Link>
 					))}
 				</Collapse>
 			))}

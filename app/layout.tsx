@@ -3,6 +3,7 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -70,9 +71,11 @@ export default function RootLayout({
         className={`${vazirmatn.variable} font-sans antialiased bg-white`}
         dir="rtl"
       >
-        <Header />
-        {children}
-        <Footer />
+        <QueryProvider>
+          <Header />
+          {children}
+          <Footer />
+        </QueryProvider>
       </body>
     </html>
   );

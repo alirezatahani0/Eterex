@@ -38,30 +38,30 @@ export default function SecurityContent() {
 
 	return (
 		<div className="min-h-screen bg-grayscale-01">
-			{/* Header Section */}
+				{/* Header Section */}
 			<div
 				className={cn(
 					'text-center mt-12 py-10 relative z-10 w-full h-[400px] md:h-[480px] lg:h-[582px] 2xl:h-[640px] bg-cover bg-center bg-no-repeat flex flex-col items-center justify-end',
 					bgUrls,
 				)}
 			>
-				{/* Title */}
+					{/* Title */}
 				<Text variant="Main/32px/Black" gradient="primary" className="mb-4">
-					{security.title}
-				</Text>
-
-				{/* Subtitle */}
-				<div className="text-center">
-					<Text variant="Main/16px/Regular" color="#616161">
-						{security.subtitle.prefix}{' '}
+						{security.title}
 					</Text>
+
+					{/* Subtitle */}
+					<div className="text-center">
+					<Text variant="Main/16px/Regular" color="#616161">
+							{security.subtitle.prefix}{' '}
+						</Text>
 					<Text variant="Main/20px/Bold" gradient="grayscale">{security.subtitle.highlight}</Text>
 					<Text variant="Main/16px/Regular" color="#616161">
-						{' '}
-						{security.subtitle.suffix}
-					</Text>
+							{' '}
+							{security.subtitle.suffix}
+						</Text>
+					</div>
 				</div>
-			</div>
 			<Container className="py-12 md:py-16 lg:py-20">
 				{/* Introductory Paragraph */}
 				<div className="mb-32">

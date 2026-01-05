@@ -8,14 +8,54 @@ import { useMemo, useState } from 'react';
 import { cn } from '@/lib/utils';
 import MarketCard from '@/components/UI/MarketCard';
 import MarketTable from '@/components/UI/MarketTable';
+import { useMarketsQuery } from '@/hooks/useMarketsQuery';
+import type { Market } from '@/types/api';
 
-export default function MarketContent() {
+interface MarketContentProps {
+	initialMarkets?: Market[];
+}
+
+export default function MarketContent({
+	initialMarkets = [],
+}: MarketContentProps) {
 	const { market } = useTranslation();
 	const { theme, mounted } = useTheme();
 	const [selectedCategory, setSelectedCategory] = useState('web3');
 	const [searchQuery, setSearchQuery] = useState('');
-	const [baseTransaction, setBaseTransaction] = useState('dollar');
+	const [baseTransaction, setBaseTransaction] = useState<"IRT" | "USDT">("USDT");
 
+	// Use React Query for client-side polling (updates every 32 seconds)
+	const { data: clientMarkets = [] } = useMarketsQuery({
+		showAll: true,
+		enabled: true,
+		refetchInterval: 32000, // 32 seconds
+	});
+
+	// Use client-side markets if available, otherwise fall back to initial server-side data
+	const allMarkets = clientMarkets.length > 0 ? clientMarkets : initialMarkets;
+
+	// Filter markets based on baseTransaction (quoteAsset) and search query
+	const filteredMarkets = useMemo(() => {
+		let filtered = allMarkets.filter(
+			(market) => market.quoteAsset === baseTransaction,
+		);
+
+		// Apply search filter if search query exists
+		if (searchQuery.trim()) {
+			const query = searchQuery.toLowerCase().trim();
+			filtered = filtered.filter(
+				(market) =>
+					market.symbol.toLowerCase().includes(query) ||
+					market.name.toLowerCase().includes(query) ||
+					market.baseAsset.toLowerCase().includes(query),
+			);
+		}
+
+		return filtered;
+	}, [allMarkets, baseTransaction, searchQuery]);
+
+
+	console.log(filteredMarkets, 'markets');
 	// Use light theme as default for SSR, only use actual theme after mount
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
@@ -282,14 +322,35 @@ export default function MarketContent() {
 						<Text variant="Main/16px/Regular" className="text-grayscale-07!">
 							{market.filters.baseTransaction}
 						</Text>
-						<select
-							value={baseTransaction}
-							onChange={(e) => setBaseTransaction(e.target.value)}
-							className="px-6 py-3 rounded-4xl border border-grayscale-03 bg-grayscale-02 text-grayscale-07 focus:outline-none focus:border-brand-primary"
-						>
-							<option value="dollar">دلار</option>
-							<option value="toman">تومان</option>
-						</select>
+						<div className="relative">
+							<select
+								name="quoteAsset"
+								value={baseTransaction}
+								onChange={(e) => setBaseTransaction(e.target.value as "IRT" | "USDT")}
+								className="px-6 py-3 rounded-4xl border border-grayscale-03 bg-grayscale-02 text-grayscale-07 focus:outline-none focus:border-brand-primary appearance-none cursor-pointer"
+							>
+								<option value="USDT">دلار</option>
+								<option value="IRT">تومان</option>
+							</select>
+							<div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+								>
+									<path
+										d="M17.1431 9.42894L12.0003 14.5718L6.85742 9.42894"
+										stroke="currentColor"
+										strokeWidth="1.28571"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										className="text-grayscale-07"
+									/>
+								</svg>
+							</div>
+						</div>
 					</div>
 				</div>
 
