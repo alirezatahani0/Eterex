@@ -45,9 +45,9 @@ export default function CircularCarousel({
 			} else if (width < 1024) {
 				// Tablets
 				setSizes({
-					logo: logoSize * 0.8,
-					coins: coinsSize * 0.8,
-					border: borderDistance * 0.9,
+					logo: logoSize,
+					coins: coinsSize,
+					border: borderDistance,
 				});
 			} else if (width < 1280) {
 				// Small laptops

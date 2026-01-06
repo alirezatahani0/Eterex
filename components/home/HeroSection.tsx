@@ -153,8 +153,11 @@ export default function HeroSection() {
 						</div>
 					</div>
 				</Container>
-				<div className="flex flex-col items-center justify-center absolute -bottom-[180px] md:-bottom-[190px] right-0 left-0">
-					<CircularCarousel />
+				<div className="flex flex-col items-center justify-center absolute -bottom-[160px] right-0 left-0 md:hidden">
+					<CircularCarousel logoSize={280} coinsSize={140} borderDistance={50}/>
+				</div>
+				<div className="hidden flex-col items-center justify-center absolute -bottom-[320px] right-0 left-0 md:flex">
+					<CircularCarousel logoSize={400} coinsSize={200} borderDistance={120}/>
 				</div>
 			</div>
 
