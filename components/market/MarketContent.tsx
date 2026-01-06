@@ -150,22 +150,19 @@ export default function MarketContent({
 	};
 
 	// Use React Query for client-side polling (updates every 32 seconds)
-	const {
-		data: clientMarkets = [],
-		isLoading: isLoadingMarkets,
-	} = useMarketsQuery({
-		showAll: true,
-		enabled: true,
-		refetchInterval: 32000, // 32 seconds
-	});
-
-	// Fetch assets list and prices (all update every 32 seconds)
-	const { data: assetsData, isLoading: isLoadingAssets } =
-		useAssetsListQuery({
-			pageSize: 10000,
+	const { data: clientMarkets = [], isLoading: isLoadingMarkets } =
+		useMarketsQuery({
+			showAll: true,
 			enabled: true,
 			refetchInterval: 32000, // 32 seconds
 		});
+
+	// Fetch assets list and prices (all update every 32 seconds)
+	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery({
+		pageSize: 10000,
+		enabled: true,
+		refetchInterval: 32000, // 32 seconds
+	});
 
 	const { data: pricesData, isLoading: isLoadingPrices } =
 		useAssetsPriceListQuery({
@@ -174,8 +171,7 @@ export default function MarketContent({
 		});
 
 	// Check if any data is loading
-	const isLoadingCards =
-		isLoadingMarkets || isLoadingAssets || isLoadingPrices;
+	const isLoadingCards = isLoadingMarkets || isLoadingAssets || isLoadingPrices;
 
 	// Use client-side markets if available, otherwise fall back to initial server-side data
 	const allMarkets = clientMarkets.length > 0 ? clientMarkets : initialMarkets;
@@ -284,7 +280,13 @@ export default function MarketContent({
 		}
 
 		return enriched;
-	}, [filteredMarkets, assetsData, pricesData, selectedCategory, baseTransaction]);
+	}, [
+		filteredMarkets,
+		assetsData,
+		pricesData,
+		selectedCategory,
+		baseTransaction,
+	]);
 
 	// Transform enriched markets to table rows
 	const allMarketTableRows = useMemo(() => {
@@ -524,6 +526,14 @@ export default function MarketContent({
 			: "bg-[url('/assets/Download/Header.png')] md:bg-[url('/assets/Download/Header-MD.png')] lg:bg-[url('/assets/Download/Header-LG.png')] 2xl:bg-[url('/assets/Download/Header-XL.png')] ";
 	}, [theme, mounted]);
 
+	// Calculate table headers (outside conditional to avoid hook rule violation)
+	const tableHeaders = useMemo(() => {
+		// Replace USD with the selected baseTransaction (IRT or USD)
+		return market.table.headers.map((header) =>
+			header.replace(/USD/g, baseTransaction),
+		);
+	}, [market.table.headers, baseTransaction]);
+
 	return (
 		<div className="min-h-screen bg-grayscale-01">
 			{/* Header Section */}
@@ -561,9 +571,7 @@ export default function MarketContent({
 								<MarketCardSkeleton title={market.cards.newest.title} />
 							</div>
 							<div className="min-w-[380px] xl:min-w-0">
-								<MarketCardSkeleton
-									title={market.cards.mostProfitable.title}
-								/>
+								<MarketCardSkeleton title={market.cards.mostProfitable.title} />
 							</div>
 							<div className="min-w-[380px] xl:min-w-0">
 								<MarketCardSkeleton title={market.cards.mostLosing.title} />
@@ -724,21 +732,20 @@ export default function MarketContent({
 				</div>
 
 				{/* Market Table */}
-				<MarketTable
-					headers={useMemo(() => {
-						// Replace USD with the selected baseTransaction (IRT or USD)
-						return market.table.headers.map((header) =>
-							header.replace(/USD/g, baseTransaction),
-						);
-					}, [market.table.headers, baseTransaction])}
-					rows={marketTableRows}
-					onOperations={(row) => {
-						console.log('Operations clicked for:', row);
-					}}
-					onChart={(row) => {
-						console.log('Chart clicked for:', row);
-					}}
-				/>
+				{isLoadingCards ? (
+					<MarketTableSkeleton headers={tableHeaders} />
+				) : (
+					<MarketTable
+						headers={tableHeaders}
+						rows={marketTableRows}
+						onOperations={(row) => {
+							console.log('Operations clicked for:', row);
+						}}
+						onChart={(row) => {
+							console.log('Chart clicked for:', row);
+						}}
+					/>
+				)}
 
 				{/* Pagination */}
 				{pagination.pageCount > 1 && (
@@ -775,10 +782,7 @@ function MarketCardSkeleton({ title }: MarketCardSkeletonProps) {
 			</Text>
 			<div className="flex flex-col gap-6 w-full">
 				{Array.from({ length: 3 }).map((_, index) => (
-					<div
-						key={index}
-						className="flex items-center justify-between gap-4"
-					>
+					<div key={index} className="flex items-center justify-between gap-4">
 						<div className="flex items-center gap-3 flex-1">
 							<Skeleton className="w-9 h-9 rounded-full bg-grayscale-03" />
 							<Skeleton className="h-5 w-12 bg-grayscale-03" />
@@ -787,6 +791,131 @@ function MarketCardSkeleton({ title }: MarketCardSkeletonProps) {
 						<Skeleton className="h-5 w-16 bg-grayscale-03" />
 					</div>
 				))}
+			</div>
+		</div>
+	);
+}
+
+// MarketTable Skeleton Component
+interface MarketTableSkeletonProps {
+	headers: string[];
+}
+
+function MarketTableSkeleton({ headers }: MarketTableSkeletonProps) {
+	const rowsToShow = 10; // Show 10 skeleton rows
+
+	return (
+		<div className="mb-14">
+			<div className="min-h-[400px]">
+				<table className="w-full">
+					<thead>
+						<tr>
+							{/* رمز ارز - Always visible */}
+							<th className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[0]}
+								</Text>
+							</th>
+							{/* آخرین قیمت - Always visible */}
+							<th className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[1]}
+								</Text>
+							</th>
+							{/* تغییرات 24h - Visible on tablet and above */}
+							<th className="hidden md:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[3]}
+								</Text>
+							</th>
+							{/* حجم معاملات - Visible on XL and above */}
+							<th className="hidden xl:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[2]}
+								</Text>
+							</th>
+							{/* حجم بازار - Visible on XL and above */}
+							<th className="hidden xl:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[4]}
+								</Text>
+							</th>
+							{/* عملیات ها - Always visible */}
+							<th className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4 text-right">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-04! text-[14px]"
+								>
+									{headers[5]}
+								</Text>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{Array.from({ length: rowsToShow }).map((_, index) => {
+							const isLastRow = index === rowsToShow - 1;
+							return (
+								<tr
+									key={index}
+									className="border-b border-grayscale-03 last:border-0"
+								>
+									{/* Cryptocurrency - Always visible */}
+									<td
+										className={cn(
+											'px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4',
+											isLastRow && 'border-b-0',
+										)}
+									>
+										<div className="flex items-center gap-3 flex-1">
+											<Skeleton className="w-9 h-9 rounded-full bg-grayscale-03" />
+											<Skeleton className="h-5 w-12 bg-grayscale-03" />
+										</div>
+									</td>
+									{/* Last Price - Always visible */}
+									<td className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
+										<Skeleton className="h-5 w-20 bg-grayscale-03" />
+									</td>
+									{/* 24h Changes - Visible on tablet and above */}
+									<td className="hidden md:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
+										<Skeleton className="h-5 w-16 bg-grayscale-03" />
+									</td>
+									{/* Volume - Visible on XL and above */}
+									<td className="hidden xl:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
+										<Skeleton className="h-5 w-24 bg-grayscale-03" />
+									</td>
+									{/* Market Cap - Visible on XL and above */}
+									<td className="hidden xl:table-cell px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
+										<Skeleton className="h-5 w-20 bg-grayscale-03" />
+									</td>
+									{/* Operations - Always visible */}
+									<td className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
+										<div className="flex items-center gap-2">
+											{/* Chart Button Skeleton */}
+											<Skeleton className="h-14 w-14 xl:w-[140px] rounded-[40px] bg-grayscale-03" />
+											{/* Operations Button Skeleton */}
+											<Skeleton className="h-14 w-14 md:w-[140px] rounded-[40px] bg-grayscale-03" />
+										</div>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);

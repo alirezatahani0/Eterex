@@ -1,5 +1,94 @@
 @import "tailwindcss";
 
+/* Pelak Font Face Declarations */
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-Thin.eot');
+  src: url('/font/pelak/eot/Pelak-Thin.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-Thin.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-light.eot');
+  src: url('/font/pelak/eot/Pelak-light.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-light.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-Regular.eot');
+  src: url('/font/pelak/eot/Pelak-Regular.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-Regular.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-Medium.eot');
+  src: url('/font/pelak/eot/Pelak-Medium.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-Medium.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-SemiBold.eot');
+  src: url('/font/pelak/eot/Pelak-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-SemiBold.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-Bold.eot');
+  src: url('/font/pelak/eot/Pelak-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-Bold.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-ExtraBold.eot');
+  src: url('/font/pelak/eot/Pelak-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-ExtraBold.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pelak';
+  src: url('/font/pelak/eot/Pelak-Black.eot');
+  src: url('/font/pelak/eot/Pelak-Black.eot?#iefix') format('embedded-opentype'),
+    url('/font/pelak/woff2/Pelak-Black.woff2') format('woff2'),
+    url('/font/pelak/woff/Pelak-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Light Mode Colors */
 :root {
   /* Base Colors */
@@ -353,7 +442,7 @@ html.light {
 body {
   background: var(--grayscale-01);
   color: var(--grayscale-07);
-  font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", "Arial", sans-serif;
+  font-family: "Pelak", "Vazirmatn", "Tahoma", "Arial", sans-serif;
   direction: rtl;
   text-align: right;
 }
@@ -396,21 +485,15 @@ html {
 
 /* Feature Card Multi-Layer Gradient */
 .bg-feature-card {
-  background: linear-gradient(
-      104deg,
+  background: linear-gradient(104deg,
       var(--grayscale-01-blur-0) 0%,
-      rgba(15, 52, 244, 0.08) 100%
-    ),
-    linear-gradient(
-      105deg,
+      rgba(15, 52, 244, 0.08) 100%),
+    linear-gradient(105deg,
       var(--grayscale-02, #1B2440) 0%,
-      var(--grayscale-01-blur-0) 100%
-    ),
-    linear-gradient(
-      180deg,
+      var(--grayscale-01-blur-0) 100%),
+    linear-gradient(180deg,
       var(--grayscale-01-blur-0) 50%,
-      var(--glass-white-12) 100%
-    );
+      var(--glass-white-12) 100%);
 }
 
 @keyframes scroll {
@@ -449,20 +532,23 @@ html {
 
 /* Hide scrollbar but keep functionality */
 .scrollbar-hide {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-	display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 /* Show scrollbar on desktop (override) */
 .scrollbar-default {
-	-ms-overflow-style: auto;
-	scrollbar-width: auto;
+  -ms-overflow-style: auto;
+  scrollbar-width: auto;
 }
 
 .scrollbar-default::-webkit-scrollbar {
-	display: block;
+  display: block;
 }
