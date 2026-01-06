@@ -219,13 +219,23 @@ export default function Header() {
 
 						{/* Logo */}
 						<Link href="/" className="flex items-center">
-							<Image
-								src="/Logo.png"
-								alt="Eterex logo"
-								width={120}
-								height={36}
-								priority
-							/>
+							{mounted ? (
+								<Image
+									src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
+									alt="Eterex logo"
+									width={120}
+									height={36}
+									priority
+								/>
+							) : (
+								<Image
+									src="/Logo-Black.png"
+									alt="Eterex logo"
+									width={120}
+									height={36}
+									priority
+								/>
+							)}
 						</Link>
 
 						{/* Desktop Navigation Links (>= 1440px) */}

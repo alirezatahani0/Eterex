@@ -6,6 +6,7 @@ import Text from '@/components/UI/Text';
 import Image from 'next/image';
 import Collapse from '../UI/Collapse';
 import Container from '../UI/Container';
+import { useTheme } from '@/hooks/useTheme';
 
 // Type definitions for footer data
 type FooterData = {
@@ -205,148 +206,31 @@ const TwitterIcon = () => (
 	</svg>
 );
 
-// Background Decorations Component
-const BackgroundDecorations = () => (
-	<>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="100%"
-			height="100%"
-			viewBox="0 0 100 100"
-			fill="none"
-			className="absolute top-0 left-0 z-0"
-			preserveAspectRatio="none"
-		>
-			<g opacity="0.08" filter="url(#filter0_f_2676_47036)">
-				<path
-					d="M415.496 -49.5002L-457.004 444L206.496 -303L415.496 -49.5002Z"
-					fill="#EB9E2A"
-				/>
-			</g>
-			<defs>
-				<filter
-					id="filter0_f_2676_47036"
-					x="-588.508"
-					y="-434.5"
-					width="1135.5"
-					height="1010"
-					filterUnits="userSpaceOnUse"
-					colorInterpolationFilters="sRGB"
-				>
-					<feFlood floodOpacity="0" result="BackgroundImageFix" />
-					<feBlend
-						mode="normal"
-						in="SourceGraphic"
-						in2="BackgroundImageFix"
-						result="shape"
-					/>
-					<feGaussianBlur
-						stdDeviation="65.75"
-						result="effect1_foregroundBlur_2676_47036"
-					/>
-				</filter>
-			</defs>
-		</svg>
-
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="100%"
-			height="100%"
-			viewBox="0 0 100 100"
-			fill="none"
-			className="absolute top-0 left-0 z-0"
-			preserveAspectRatio="none"
-		>
-			<g opacity="0.08" filter="url(#filter0_f_2676_47037)">
-				<path
-					d="M519.496 30.4998L-353.004 524L310.496 -223L519.496 30.4998Z"
-					fill="url(#paint0_linear_2676_47037)"
-				/>
-			</g>
-			<defs>
-				<filter
-					id="filter0_f_2676_47037"
-					x="-484.508"
-					y="-354.5"
-					width="1135.5"
-					height="1010"
-					filterUnits="userSpaceOnUse"
-					colorInterpolationFilters="sRGB"
-				>
-					<feFlood floodOpacity="0" result="BackgroundImageFix" />
-					<feBlend
-						mode="normal"
-						in="SourceGraphic"
-						in2="BackgroundImageFix"
-						result="shape"
-					/>
-					<feGaussianBlur
-						stdDeviation="65.75"
-						result="effect1_foregroundBlur_2676_47037"
-					/>
-				</filter>
-				<linearGradient
-					id="paint0_linear_2676_47037"
-					x1="-329.553"
-					y1="550.977"
-					x2="418.232"
-					y2="-99.0635"
-					gradientUnits="userSpaceOnUse"
-				>
-					<stop stopColor="#EB9E2A" />
-					<stop offset="1" stopColor="#0F34F4" />
-				</linearGradient>
-			</defs>
-		</svg>
-
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="100%"
-			height="100%"
-			viewBox="0 0 100 100"
-			preserveAspectRatio="none"
-			fill="none"
-			className="absolute bottom-0 left-0 z-0"
-		>
-			<g opacity="0.15" filter="url(#filter0_f_2676_47035)">
-				<path
-					d="M716.318 435.813L76.7846 797.543L563.123 250L716.318 435.813Z"
-					fill="#0F34F4"
-				/>
-			</g>
-			<defs>
-				<filter
-					id="filter0_f_2676_47035"
-					x="-173.219"
-					y="0"
-					width="1139.54"
-					height="1047.54"
-					filterUnits="userSpaceOnUse"
-					colorInterpolationFilters="sRGB"
-				>
-					<feFlood floodOpacity="0" result="BackgroundImageFix" />
-					<feBlend
-						mode="normal"
-						in="SourceGraphic"
-						in2="BackgroundImageFix"
-						result="shape"
-					/>
-					<feGaussianBlur
-						stdDeviation="125"
-						result="effect1_foregroundBlur_2676_47035"
-					/>
-				</filter>
-			</defs>
-		</svg>
-	</>
-);
-
 // Sub-components
-const Logo = () => (
-	<Link href="/" className="flex items-center mb-6">
-		<Image src="/Logo.png" alt="Eterex logo" width={120} height={36} priority />
-	</Link>
-);
+const Logo = () => {
+	const { theme, mounted } = useTheme();
+	return (
+		<Link href="/" className="flex items-center mb-6">
+			{mounted ? (
+				<Image
+					src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
+					alt="Eterex logo"
+					width={120}
+					height={36}
+					priority
+				/>
+			) : (
+				<Image
+					src="/Logo-Black.png"
+					alt="Eterex logo"
+					width={120}
+					height={36}
+					priority
+				/>
+			)}
+		</Link>
+	);
+};
 
 const HeaderSection = ({ footer }: { footer: FooterData }) => (
 	<div className="mb-10">
