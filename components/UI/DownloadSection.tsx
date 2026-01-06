@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 // Icons
 const AndroidIcon = ({ fill = '#EB9E2A' }: { fill?: string }) => (
@@ -192,7 +193,7 @@ const MobileView = () => {
 	const { DownloadAppSection } = useTranslation();
 
 	return (
-		<div className="lg:hidden bg-[url('/assets/DownloadApp/Mobile.png')] md:bg-[url('/assets/DownloadApp/Tablet.png')] bg-cover bg-center bg-no-repeat h-[700px] md:h-[644px] pt-12 px-7 flex flex-col items-center my-[120px]">
+		<div className="lg:hidden relative bg-brand-primary rounded-[40px] pt-12 px-7 flex flex-col items-center my-[120px]">
 			<Text
 				variant="Main/24px/Bold"
 				type="p"
@@ -208,7 +209,7 @@ const MobileView = () => {
 			>
 				{DownloadAppSection.desc}
 			</Text>
-			<div className="gap-4 grid grid-cols-2 md:grid-cols-3 w-full">
+			<div className="gap-4 grid grid-cols-2 md:grid-cols-3 w-full mb-10">
 				<DownloadButton
 					href={DownloadAppSection.android}
 					icon={<AndroidIcon />}
@@ -227,6 +228,15 @@ const MobileView = () => {
 					/>
 				</div>
 			</div>
+			<div className="bg-[url('/assets/main/Vector.png')] bg-no-repeat bg-center bg-contain absolute top-0 -right-2/5 w-full h-[250px] z-0" />
+
+			<Image
+				src="/assets/DownloadApp/MobileFrame.png"
+				alt="download"
+				width={270}
+				height={350}
+				className="min-w-[380px] min-h-[350px] relative -bottom-3 -right-2"
+			/>
 		</div>
 	);
 };
