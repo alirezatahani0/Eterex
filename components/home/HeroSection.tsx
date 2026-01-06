@@ -90,7 +90,8 @@ export default function HeroSection() {
 									value={phoneNumber}
 									onChange={(e) => setPhoneNumber(e.target.value)}
 									placeholder={hero.phonePlaceholder}
-									className="w-full h-14 p-4 pr-12 rounded-[40px] border border-glass-gray-11 bg-glass-white-1 text-[14px] text-grayscale-07 leading-[20px] font-bold focus:outline-none focus:border-brand-primary transition-colors"
+									id="phone"
+									className="w-full h-14 p-4 pr-12 rounded-[40px] border border-glass-gray-11 bg-glass-white-1 text-[14px] text-grayscale-07! placeholder:text-grayscale-07! leading-[20px] font-bold focus:outline-none focus:border-brand-primary transition-colors"
 								/>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +99,7 @@ export default function HeroSection() {
 									height="24"
 									viewBox="0 0 24 24"
 									fill="none"
-									className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-grayscale-05"
+									className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5"
 								>
 									<path
 										fillRule="evenodd"
@@ -228,10 +229,11 @@ export default function HeroSection() {
 						<div className="relative flex flex-row items-start gap-2 w-full">
 							<input
 								type="tel"
+								id="phone"
 								value={phoneNumber}
 								onChange={(e) => setPhoneNumber(e.target.value)}
 								placeholder={hero.phonePlaceholder}
-								className="w-full h-14 p-4 pr-12 rounded-[40px] border border-glass-gray-11 bg-glass-white-1 text-[14px] text-grayscale-07 leading-[20px] font-bold focus:outline-none focus:border-brand-primary transition-colors"
+								className="w-full h-14 p-4 pr-12 rounded-[40px] border border-glass-gray-11 bg-glass-white-1 text-[14px] text-grayscale-07! placeholder:text-grayscale-07! leading-[20px] font-bold focus:outline-none focus:border-brand-primary transition-colors"
 							/>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -239,28 +241,28 @@ export default function HeroSection() {
 								height="24"
 								viewBox="0 0 24 24"
 								fill="none"
-								className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-grayscale-05"
+								className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5"
 							>
 								<path
-									fillRule="evenodd"
-									clipRule="evenodd"
+									fill-rule="evenodd"
+									clip-rule="evenodd"
 									d="M12.7101 12.7136C8.9312 16.4916 7.8077 11.8542 5.4015 14.2584C3.0813 16.5776 1.7481 17.0424 4.6864 19.9807C5.0553 20.2764 7.3943 23.8368 15.6148 15.6183C23.8353 7.39977 20.2788 5.05784 19.9831 4.68994C17.0369 1.74374 16.58 3.08481 14.2598 5.403C11.8546 7.80922 16.489 8.93568 12.7101 12.7136Z"
-									stroke="url(#paint0_linear_2822_52564)"
-									strokeWidth="1.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
+									stroke="url(#paint0_linear_2893_78040)"
+									stroke-width="1.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
 								/>
 								<defs>
 									<linearGradient
-										id="paint0_linear_2822_52564"
+										id="paint0_linear_2893_78040"
 										x1="12"
 										y1="3"
 										x2="12"
 										y2="20.9996"
 										gradientUnits="userSpaceOnUse"
 									>
-										<stop stopColor="#7B90FF" />
-										<stop offset="1" stopColor="#294BFF" />
+										<stop stop-color="#7B90FF" />
+										<stop offset="1" stop-color="#294BFF" />
 									</linearGradient>
 								</defs>
 							</svg>

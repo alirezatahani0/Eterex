@@ -394,6 +394,25 @@ html {
   background-size: 32px 32px;
 }
 
+/* Feature Card Multi-Layer Gradient */
+.bg-feature-card {
+  background: linear-gradient(
+      104deg,
+      var(--grayscale-01-blur-0) 0%,
+      rgba(15, 52, 244, 0.08) 100%
+    ),
+    linear-gradient(
+      105deg,
+      var(--grayscale-02, #1B2440) 0%,
+      var(--grayscale-01-blur-0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      var(--grayscale-01-blur-0) 50%,
+      var(--glass-white-12) 100%
+    );
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0);

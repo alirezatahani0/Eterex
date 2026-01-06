@@ -202,7 +202,7 @@ export default function Header() {
 
 						{/* Login Button - Always visible */}
 						<Link
-							href="/login"
+							href='https://app.eterex.com/login'
 							className="bg-grayscale-07 rounded-[40px] h-12 md:h-14 px-4 md:px-6 text-[12px] md:text-base font-bold text-grayscale-01 flex items-center justify-center gap-2"
 						>
 							<UserIcon />

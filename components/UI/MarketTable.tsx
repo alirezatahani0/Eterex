@@ -129,12 +129,13 @@ export default function MarketTable({
 										{/* Cryptocurrency - Always visible */}
 										<td className={cn('px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4', isLastRow && 'border-b-0')}>
 											<div className="flex items-center gap-3 flex-1">
-												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center">
+												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 													<Image
-														src="/BTC.png"
+														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${row.symbol.toLowerCase()}_.svg`}
 														width={36}
 														height={36}
-														alt="BTC"
+														alt={row.symbol}
+														className="w-full h-full object-cover"
 													/>
 												</div>
 												<div className="flex-1">

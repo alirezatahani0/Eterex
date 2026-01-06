@@ -343,20 +343,20 @@ const BackgroundDecorations = () => (
 
 // Sub-components
 const Logo = () => (
-				<Link href="/" className="flex items-center mb-6">
+	<Link href="/" className="flex items-center mb-6">
 		<Image src="/Logo.png" alt="Eterex logo" width={120} height={36} priority />
-				</Link>
+	</Link>
 );
 
 const HeaderSection = ({ footer }: { footer: FooterData }) => (
-				<div className="mb-10">
+	<div className="mb-10">
 		<Text variant="LongText/14px/SemiBold" color="#000">
-						{footer.header.title}
-					</Text>
+			{footer.header.title}
+		</Text>
 		<Text variant="LongText/14px/Regular" color="#616161">
-						{footer.header.desc}
-					</Text>
-				</div>
+			{footer.header.desc}
+		</Text>
+	</div>
 );
 
 const SocialIcons = () => {
@@ -368,18 +368,18 @@ const SocialIcons = () => {
 	];
 
 	return (
-				<div className="flex items-center justify-end flex-row-reverse gap-3">
+		<div className="flex items-center justify-end flex-row-reverse gap-3">
 			{socialLinks.map(({ href, icon: Icon, label }) => (
-					<Link
+				<Link
 					key={href}
 					href={href}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="w-14 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="w-14 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
 					aria-label={label}
-					>
+				>
 					<Icon />
-					</Link>
+				</Link>
 			))}
 		</div>
 	);
@@ -387,16 +387,16 @@ const SocialIcons = () => {
 
 const ActionButtons = ({ mobile }: { mobile: MobileData }) => (
 	<div className="flex items-center justify-center md:justify-start gap-3">
-					<Link
-			href="/login"
+		<Link
+			href="https://app.eterex.com/login"
 			className="flex items-center justify-center gap-2 w-[180px] pr-3 pl-4 h-14 rounded-[40px] bg-brand-primary-container"
-					>
+		>
 			<UserIcon />
 			<span className="font-bold text-sm leading-5 text-primary">
 				{mobile.account}
 			</span>
-					</Link>
-					<Link
+		</Link>
+		<Link
 			href="/download"
 			className="flex items-center justify-center gap-2 w-[180px] pr-3 pl-4 h-14 rounded-[40px] bg-brand-primary-container"
 		>
@@ -434,7 +434,7 @@ const LinkColumn = ({
 					<Text variant="Main/14px/SemiBold" color="#808080">
 						{link.label}
 					</Text>
-					</Link>
+				</Link>
 			))}
 		</div>
 	</div>
@@ -449,7 +449,10 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
 				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
-				{ href: '/login', label: footer.aboutEterex.userPanel },
+				{
+					href: 'https://app.eterex.com/login',
+					label: footer.aboutEterex.userPanel,
+				},
 			],
 		},
 		{
@@ -457,18 +460,33 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
 				{ href: '/fees', label: footer.guideSupport.fees },
-				{ href: '/identity-verification', label: footer.guideSupport.identityVerification },
-				{ href: '/login', label: footer.guideSupport.blog },
+				{
+					href: '/identity-verification',
+					label: footer.guideSupport.identityVerification,
+				},
+				{ href: 'https://eterex.com/blog/', label: footer.guideSupport.blog },
 				{ href: '/faq', label: footer.guideSupport.faq },
 			],
 		},
 		{
 			title: footer.educationNews.title,
 			links: [
-				{ href: '/login', label: footer.educationNews.latestNews },
-				{ href: '/login', label: footer.educationNews.advancedTrading },
-				{ href: '/login', label: footer.educationNews.depositWithdrawal },
-				{ href: '/login', label: footer.educationNews.advancedTrading },
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.latestNews,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.advancedTrading,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.depositWithdrawal,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.advancedTrading,
+				},
 			],
 		},
 	];
@@ -487,10 +505,22 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 		{
 			title: footer.educationNews.title,
 			links: [
-				{ href: '/login', label: footer.educationNews.latestNews },
-				{ href: '/login', label: footer.educationNews.advancedTrading },
-				{ href: '/login', label: footer.educationNews.depositWithdrawal },
-				{ href: '/login', label: footer.educationNews.advancedTrading },
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.latestNews,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.advancedTrading,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.depositWithdrawal,
+				},
+				{
+					href: 'https://eterex.com/blog/',
+					label: footer.educationNews.advancedTrading,
+				},
 			],
 		},
 		{
@@ -498,8 +528,11 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
 				{ href: '/fees', label: footer.guideSupport.fees },
-				{ href: '/identity-verification', label: footer.guideSupport.identityVerification },
-				{ href: '/login', label: footer.guideSupport.blog },
+				{
+					href: '/identity-verification',
+					label: footer.guideSupport.identityVerification,
+				},
+				{ href: 'https://eterex.com/blog/', label: footer.guideSupport.blog },
 				{ href: '/faq', label: footer.guideSupport.faq },
 			],
 		},
@@ -510,7 +543,10 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
 				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
-				{ href: '/login', label: footer.aboutEterex.userPanel },
+				{
+					href: 'https://app.eterex.com/login',
+					label: footer.aboutEterex.userPanel,
+				},
 			],
 		},
 	];
@@ -522,11 +558,14 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 					key={index}
 					header={section.title}
 					contentClassName="flex flex-col gap-2"
-					>
+				>
 					{section.links.map((link, linkIndex) => (
-						<Link key={`${link.href}-${linkIndex}-${link.label}`} href={link.href}>
+						<Link
+							key={`${link.href}-${linkIndex}-${link.label}`}
+							href={link.href}
+						>
 							<Text variant="Main/14px/SemiBold">{link.label}</Text>
-					</Link>
+						</Link>
 					))}
 				</Collapse>
 			))}

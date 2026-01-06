@@ -30,10 +30,12 @@ export default function MarketCard({
 				'rounded-[28px] border-2 border-grayscale-03 p-8 flex flex-col justify-center items-start gap-6',
 				className,
 			)}
-			style={{
-				background:
-					'linear-gradient(180deg, rgba(18, 27, 56, 0.00) 50%, rgba(255, 255, 255, 0.12) 100%)',
-			} as React.CSSProperties}
+			style={
+				{
+					background:
+						'linear-gradient(180deg, rgba(18, 27, 56, 0.00) 50%, rgba(255, 255, 255, 0.12) 100%)',
+				} as React.CSSProperties
+			}
 		>
 			<Text variant="Main/14px/SemiBold" className="text-grayscale-07! ">
 				{title}
@@ -43,7 +45,14 @@ export default function MarketCard({
 					<div key={index} className="flex items-center justify-between gap-4">
 						<div className="flex items-center gap-3 flex-1">
 							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center">
-								<Image src="/BTC.png" width={36} height={36} alt="BTC" />
+								<Image
+									src={`${
+										process.env.NEXT_PUBLIC_ICON_BASE_URL
+									}/${item.symbol.toLowerCase()}_.svg`}
+									width={36}
+									height={36}
+									alt="BTC"
+								/>
 							</div>
 							<div className="flex-1 max-w-16 overflow-x-hidden whitespace-nowrap text-ellipsis">
 								<Text variant="Main/14px/Bold" className="text-grayscale-07!">
@@ -62,9 +71,7 @@ export default function MarketCard({
 						<Text
 							variant="Main/14px/Bold"
 							className={cn(
-								item.changeType === 'positive'
-									? 'text-green'
-									: 'text-red-500!',
+								item.changeType === 'positive' ? 'text-green' : 'text-red-500!',
 							)}
 						>
 							{item.change}

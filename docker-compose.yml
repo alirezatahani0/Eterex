@@ -11,6 +11,7 @@ services:
         - NEXT_PUBLIC_PUBLIC_API_URL=${NEXT_PUBLIC_PUBLIC_API_URL:-https://publicv2.eterex.com/public/api}
         - NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-}
         - NEXT_PUBLIC_ASSET_PREFIX=${NEXT_PUBLIC_ASSET_PREFIX:-}
+        - NEXT_PUBLIC_ICON_BASE_URL=${NEXT_PUBLIC_ICON_BASE_URL:-https://static-dl.eterex.com/icons-v2/svg}
         - GOOGLE_VERIFICATION=${GOOGLE_VERIFICATION:-}
     ports:
       - "${PORT:-3000}:3000"
@@ -21,6 +22,7 @@ services:
       - NEXT_PUBLIC_PUBLIC_API_URL=${NEXT_PUBLIC_PUBLIC_API_URL:-https://publicv2.eterex.com/public/api}
       - NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-}
       - NEXT_PUBLIC_ASSET_PREFIX=${NEXT_PUBLIC_ASSET_PREFIX:-}
+      - NEXT_PUBLIC_ICON_BASE_URL=${NEXT_PUBLIC_ICON_BASE_URL:-https://static-dl.eterex.com/icons-v2/svg}
       - GOOGLE_VERIFICATION=${GOOGLE_VERIFICATION:-}
     restart: unless-stopped
     healthcheck:

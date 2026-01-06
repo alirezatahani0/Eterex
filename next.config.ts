@@ -23,6 +23,13 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     unoptimized: false,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'static-dl.eterex.com',
+        pathname: '/icons-v2/svg/**',
+      },
+    ],
   },
 
   // Experimental features for performance
