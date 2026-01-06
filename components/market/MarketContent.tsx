@@ -15,6 +15,7 @@ import {
 } from '@/hooks/useAssetsQuery';
 import type { Market, PaginationType } from '@/types/api';
 import Pagination from '@/components/UI/Pagination';
+import Skeleton from '@/components/UI/Skeleton';
 
 interface MarketContentProps {
 	initialMarkets?: Market[];
@@ -149,23 +150,32 @@ export default function MarketContent({
 	};
 
 	// Use React Query for client-side polling (updates every 32 seconds)
-	const { data: clientMarkets = [] } = useMarketsQuery({
+	const {
+		data: clientMarkets = [],
+		isLoading: isLoadingMarkets,
+	} = useMarketsQuery({
 		showAll: true,
 		enabled: true,
 		refetchInterval: 32000, // 32 seconds
 	});
 
 	// Fetch assets list and prices (all update every 32 seconds)
-	const { data: assetsData } = useAssetsListQuery({
-		pageSize: 10000,
-		enabled: true,
-		refetchInterval: 32000, // 32 seconds
-	});
+	const { data: assetsData, isLoading: isLoadingAssets } =
+		useAssetsListQuery({
+			pageSize: 10000,
+			enabled: true,
+			refetchInterval: 32000, // 32 seconds
+		});
 
-	const { data: pricesData } = useAssetsPriceListQuery({
-		enabled: true,
-		refetchInterval: 32000, // 32 seconds
-	});
+	const { data: pricesData, isLoading: isLoadingPrices } =
+		useAssetsPriceListQuery({
+			enabled: true,
+			refetchInterval: 32000, // 32 seconds
+		});
+
+	// Check if any data is loading
+	const isLoadingCards =
+		isLoadingMarkets || isLoadingAssets || isLoadingPrices;
 
 	// Use client-side markets if available, otherwise fall back to initial server-side data
 	const allMarkets = clientMarkets.length > 0 ? clientMarkets : initialMarkets;
@@ -542,30 +552,51 @@ export default function MarketContent({
 			<Container className="py-12 md:py-16 lg:py-20">
 				{/* Overview Cards */}
 				<div className="flex xl:grid xl:grid-cols-4 gap-6 mb-14 overflow-x-auto xl:overflow-x-visible pb-2 xl:pb-0 -mx-6 xl:mx-0 px-6 xl:px-0 scrollbar-hide xl:scrollbar-default">
-					<div className="min-w-[380px] xl:min-w-0">
-						<MarketCard
-							title={market.cards.mostPopular.title}
-							items={cardItems.mostPopular}
-						/>
-					</div>
-					<div className="min-w-[380px] xl:min-w-0">
-						<MarketCard
-							title={market.cards.newest.title}
-							items={cardItems.newest}
-						/>
-					</div>
-					<div className="min-w-[380px] xl:min-w-0">
-						<MarketCard
-							title={market.cards.mostProfitable.title}
-							items={cardItems.mostProfitable}
-						/>
-					</div>
-					<div className="min-w-[380px] xl:min-w-0">
-						<MarketCard
-							title={market.cards.mostLosing.title}
-							items={cardItems.mostLosing}
-						/>
-					</div>
+					{isLoadingCards ? (
+						<>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCardSkeleton title={market.cards.mostPopular.title} />
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCardSkeleton title={market.cards.newest.title} />
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCardSkeleton
+									title={market.cards.mostProfitable.title}
+								/>
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCardSkeleton title={market.cards.mostLosing.title} />
+							</div>
+						</>
+					) : (
+						<>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCard
+									title={market.cards.mostPopular.title}
+									items={cardItems.mostPopular}
+								/>
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCard
+									title={market.cards.newest.title}
+									items={cardItems.newest}
+								/>
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCard
+									title={market.cards.mostProfitable.title}
+									items={cardItems.mostProfitable}
+								/>
+							</div>
+							<div className="min-w-[380px] xl:min-w-0">
+								<MarketCard
+									title={market.cards.mostLosing.title}
+									items={cardItems.mostLosing}
+								/>
+							</div>
+						</>
+					)}
 				</div>
 
 				{/* Filters and Search Section */}
@@ -719,6 +750,44 @@ export default function MarketContent({
 					</div>
 				)}
 			</Container>
+		</div>
+	);
+}
+
+// MarketCard Skeleton Component
+interface MarketCardSkeletonProps {
+	title: string;
+}
+
+function MarketCardSkeleton({ title }: MarketCardSkeletonProps) {
+	return (
+		<div
+			className="rounded-[28px] border-2 border-grayscale-03 p-8 flex flex-col justify-center items-start gap-6"
+			style={
+				{
+					background:
+						'linear-gradient(180deg, rgba(18, 27, 56, 0.00) 50%, rgba(255, 255, 255, 0.12) 100%)',
+				} as React.CSSProperties
+			}
+		>
+			<Text variant="Main/14px/SemiBold" className="text-grayscale-07! ">
+				{title}
+			</Text>
+			<div className="flex flex-col gap-6 w-full">
+				{Array.from({ length: 3 }).map((_, index) => (
+					<div
+						key={index}
+						className="flex items-center justify-between gap-4"
+					>
+						<div className="flex items-center gap-3 flex-1">
+							<Skeleton className="w-9 h-9 rounded-full bg-grayscale-03" />
+							<Skeleton className="h-5 w-12 bg-grayscale-03" />
+						</div>
+						<Skeleton className="h-4 w-20 bg-grayscale-03" />
+						<Skeleton className="h-5 w-16 bg-grayscale-03" />
+					</div>
+				))}
+			</div>
 		</div>
 	);
 }
