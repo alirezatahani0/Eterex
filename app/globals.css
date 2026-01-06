@@ -552,3 +552,22 @@ html {
 .scrollbar-default::-webkit-scrollbar {
   display: block;
 }
+
+/* Circular Carousel Animations */
+@keyframes circularCarouselRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes circularCarouselCounterRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
