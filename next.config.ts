@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
         hostname: 'static-dl.eterex.com',
         pathname: '/icons-v2/svg/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'eterex.com',
+        pathname: '/blog/wp-content/uploads/**',
+      },
     ],
   },
 

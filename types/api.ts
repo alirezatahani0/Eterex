@@ -105,3 +105,32 @@ export type PaginationType = {
 	page: number;
 	pageCount: number;
 };
+
+/**
+ * Blog Post data types
+ */
+export interface BlogPost {
+	id: number | string;
+	title: string;
+	slug: string;
+	excerpt?: string;
+	content?: string;
+	date: string;
+	modified?: string;
+	author?: {
+		name: string;
+		slug?: string;
+	};
+	featured_image?: string;
+	categories?: Array<{
+		id: number;
+		name: string;
+		slug: string;
+	}>;
+	tags?: Array<{
+		id: number;
+		name: string;
+		slug: string;
+	}>;
+	link?: string;
+}

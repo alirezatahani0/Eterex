@@ -10,75 +10,42 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import Image from 'next/image';
 
-interface EventCard {
-	date: string;
-	title: string;
-	description?: string;
-}
+import { useBlogQuery } from '@/hooks/useBlogQuery';
+import { useMemo } from 'react';
+import Link from 'next/link';
 
 export default function BlogSection() {
 	const { blog } = useTranslation();
+	const { data: blogPosts = [], isLoading } = useBlogQuery({ limit: 10 });
 
-	// Mock data
-	const events: EventCard[] = [
-		{
-			date: '۲۳ خرداد ۱۴۰۴',
-			title: 'محمد نوری برنده خوش شانس قرعه کشی یک واحد اتریوم شد!',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۲۰ خرداد ۱۴۰۴',
-			title:
-				'وبینار رایگان هاوینگ بیت کوین: روایتی از نوسانات و تاثیرات اقتصادی آن',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۱۸ خرداد ۱۴۰۴',
-			title: 'بهترین استراتژی های معاملاتی در بازار نزولی',
-			description:
-				'آموزش تکنیک‌های پیشرفته برای حفظ سرمایه و کسب سود در شرایط نزولی بازار',
-		},
-		{
-			date: '۲۳ خرداد ۱۴۰۴',
-			title: 'محمد نوری برنده خوش شانس قرعه کشی یک واحد اتریوم شد!',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۲۰ خرداد ۱۴۰۴',
-			title:
-				'وبینار رایگان هاوینگ بیت کوین: روایتی از نوسانات و تاثیرات اقتصادی آن',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۱۸ خرداد ۱۴۰۴',
-			title: 'بهترین استراتژی های معاملاتی در بازار نزولی',
-			description:
-				'آموزش تکنیک‌های پیشرفته برای حفظ سرمایه و کسب سود در شرایط نزولی بازار',
-		},
-		{
-			date: '۲۳ خرداد ۱۴۰۴',
-			title: 'محمد نوری برنده خوش شانس قرعه کشی یک واحد اتریوم شد!',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۲۰ خرداد ۱۴۰۴',
-			title:
-				'وبینار رایگان هاوینگ بیت کوین: روایتی از نوسانات و تاثیرات اقتصادی آن',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۱۸ خرداد ۱۴۰۴',
-			title: 'بهترین استراتژی های معاملاتی در بازار نزولی',
-			description:
-				'آموزش تکنیک‌های پیشرفته برای حفظ سرمایه و کسب سود در شرایط نزولی بازار',
-		},
-	];
+	// Transform blog posts to event card format
+	const events = useMemo(() => {
+		if (!blogPosts.length) return [];
+
+		return blogPosts.map((post) => {
+			// Format date to Persian format (you might want to use a date library for this)
+			const date = new Date(post.date);
+			const formattedDate = date.toLocaleDateString('fa-IR', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+			});
+
+			// Strip HTML from excerpt
+			const excerpt = post.excerpt
+				? post.excerpt.replace(/<[^>]*>/g, '').trim()
+				: '';
+
+			return {
+				id: post.id,
+				date: formattedDate,
+				title: post.title,
+				description: excerpt,
+				link: post.link || `/blog/${post.slug}`,
+				featured_image: post.featured_image || '/assets/main/PostImage.png',
+			};
+		});
+	}, [blogPosts]);
 
 	return (
 		<Container className="py-12 md:py-16 lg:py-20 px-0! max-w-[2000px]">
@@ -165,78 +132,116 @@ export default function BlogSection() {
 					slideShadows: false,
 				}}
 			>
-				{events.map((event, index) => (
-					<SwiperSlide key={index}>
-						<div className="h-full rounded-[28px] border-2 border-grayscale-03 flex flex-col justify-start relative overflow-hidden">
-							<Image
-								src={'/assets/main/PostImage.png'}
-								alt="post image"
-								width={392}
-								height={206}
-								className="w-full"
-							/>
-							{/* Date */}
-							<div className="absolute top-4 right-4">
-								<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
-									<Text
-										variant="Main/14px/SemiBold"
-										className="text-grayscale-07!"
-									>
-										{event.date}
-									</Text>
+				{isLoading ? (
+					// Loading skeleton
+					<>
+						{Array.from({ length: 3 }).map((_, index) => (
+							<SwiperSlide key={index}>
+								<div className="h-full rounded-[28px] border-2 border-grayscale-03 flex flex-col justify-start relative overflow-hidden animate-pulse">
+									<div className="w-full h-[206px] bg-grayscale-03" />
+									<div className="flex flex-col gap-4 p-7 justify-between items-start h-[260px]">
+										<div className="w-full">
+											<div className="h-6 bg-grayscale-03 rounded mb-4" />
+											<div className="h-4 bg-grayscale-03 rounded w-3/4" />
+										</div>
+										<div className="h-12 w-32 bg-grayscale-03 rounded-[40px]" />
+									</div>
 								</div>
-							</div>
-
-							{/* Title and Description and CTA Button */}
-							<div className="flex flex-col gap-4 p-7 justify-between items-start h-[260px]">
-								<div>
-									<div className="line-clamp-1">
+							</SwiperSlide>
+						))}
+					</>
+				) : events.length > 0 ? (
+					events.map((event) => (
+						<SwiperSlide key={event.id}>
+							<div className="h-full rounded-[28px] border-2 border-grayscale-03 flex flex-col justify-start relative overflow-hidden">
+								<Image
+									src={event.featured_image}
+									alt={event.title}
+									width={392}
+									height={206}
+									className="w-full object-cover"
+									onError={(e) => {
+										// Fallback to default image on error
+										e.currentTarget.src = '/assets/main/PostImage.png';
+									}}
+								/>
+								{/* Date */}
+								<div className="absolute top-4 right-4">
+									<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
 										<Text
-											type="p"
-											variant="LongText/18px/Bold"
-											className="text-grayscale-07! mb-4"
+											variant="Main/14px/SemiBold"
+											className="text-grayscale-07!"
 										>
-											{event.title}
+											{event.date}
 										</Text>
 									</div>
-									{event.description && (
-										<div className="line-clamp-3">
+								</div>
+
+								{/* Title and Description and CTA Button */}
+								<div className="flex flex-col gap-4 p-7 justify-between items-start h-[260px]">
+									<div>
+										<div className="line-clamp-1">
 											<Text
-												variant="LongText/14px/Regular"
-												className="text-grayscale-06! hidden lg:block"
+												type="p"
+												variant="LongText/18px/Bold"
+												className="text-grayscale-07! mb-4"
 											>
-												{event.description}
+												{event.title}
 											</Text>
 										</div>
-									)}
+										{event.description && (
+											<div className="line-clamp-3">
+												<Text
+													variant="LongText/14px/Regular"
+													className="text-grayscale-06! hidden lg:block"
+												>
+													{event.description}
+												</Text>
+											</div>
+										)}
+									</div>
+									<Link
+										href={event.link}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
+									>
+										<Text
+											variant="Main/14px/Bold"
+											className="text-brand-primary!"
+										>
+											{blog.viewNews}
+										</Text>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+										>
+											<path
+												d="M21 12H3M3 12L8 7M3 12L8 17"
+												stroke="#294BFF"
+												strokeWidth="1.5"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</Link>
 								</div>
-								<button className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors">
-									<Text
-										variant="Main/14px/Bold"
-										className="text-brand-primary!"
-									>
-										{blog.viewNews}
-									</Text>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-									>
-										<path
-											d="M21 12H3M3 12L8 7M3 12L8 17"
-											stroke="#294BFF"
-											strokeWidth="1.5"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-										/>
-									</svg>
-								</button>
 							</div>
+						</SwiperSlide>
+					))
+				) : (
+					// Empty state
+					<SwiperSlide>
+						<div className="h-full rounded-[28px] border-2 border-grayscale-03 flex flex-col justify-center items-center p-8">
+							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
+								هیچ پستی یافت نشد
+							</Text>
 						</div>
 					</SwiperSlide>
-				))}
+				)}
 			</Swiper>
 		</Container>
 	);

@@ -213,7 +213,7 @@ export default function Header() {
 					{/* Right Side - Logo and Menu */}
 					<div className="flex items-center gap-4 md:gap-6 2xl:gap-20">
 						{/* Mobile Menu - Hamburger */}
-						<div className="lg:hidden">
+						<div className="xl:hidden">
 							<MobileMenu />
 						</div>
 
@@ -239,7 +239,7 @@ export default function Header() {
 						</Link>
 
 						{/* Desktop Navigation Links (>= 1440px) */}
-						<div className="hidden lg:flex items-center gap-12">
+						<div className="hidden xl:flex items-center gap-12">
 							{navLinks.map((link) => {
 								const isActive =
 									link.href === '/'
