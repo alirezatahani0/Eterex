@@ -13,6 +13,20 @@ services:
         - NEXT_PUBLIC_ASSET_PREFIX=${NEXT_PUBLIC_ASSET_PREFIX:-}
         - NEXT_PUBLIC_ICON_BASE_URL=${NEXT_PUBLIC_ICON_BASE_URL:-https://static-dl.eterex.com/icons-v2/svg}
         - GOOGLE_VERIFICATION=${GOOGLE_VERIFICATION:-}
+        - NEXT_PUBLIC_DOWNLOAD_BAZAR=${NEXT_PUBLIC_DOWNLOAD_BAZAR:-https://cafebazaar.ir/app/?id=com.eterex&ref=share}
+        - NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY=${NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY:-https://play.google.com/store/apps/details?id=com.eterex}
+        - NEXT_PUBLIC_DOWNLOAD_MYKET=${NEXT_PUBLIC_DOWNLOAD_MYKET:-https://myket.ir/app/com.eterex}
+        - NEXT_PUBLIC_DOWNLOAD_DIRECT=${NEXT_PUBLIC_DOWNLOAD_DIRECT:-https://static-dl.eterex.com/eterex.apk}
+        - NEXT_PUBLIC_DOWNLOAD_SIBAPP=${NEXT_PUBLIC_DOWNLOAD_SIBAPP:-https://sibapp.com/applications/Eterex_cryptocurrencyexchange?from=search}
+        - NEXT_PUBLIC_DOWNLOAD_APPSTAR=${NEXT_PUBLIC_DOWNLOAD_APPSTAR:-https://app-star.store/app.php?id=eterex}
+        - NEXT_PUBLIC_DOWNLOAD_IAPPS=${NEXT_PUBLIC_DOWNLOAD_IAPPS:-https://iapps.ir/app/%D8%A7%D8%AA%D8%B1%D8%A7%DA%A9%D8%B3-%D8%B5%D8%B1%D8%A7%D9%81%DB%8C-%D8%B1%D9%85%D8%B2%D8%A7%D8%B1%D8%B2%D9%87%D8%A7/594739716}
+        - NEXT_PUBLIC_DOWNLOAD_SIBIRANI=${NEXT_PUBLIC_DOWNLOAD_SIBIRANI:-https://sibirani.com/apps/eterex/}
+        - NEXT_PUBLIC_DOWNLOAD_SIBCHE=${NEXT_PUBLIC_DOWNLOAD_SIBCHE:-https://sibche.com/applications/eterax}
+        - NEXT_PUBLIC_DOWNLOAD_PWA=${NEXT_PUBLIC_DOWNLOAD_PWA:-https://app.eterex.com}
+        - NEXT_PUBLIC_SOCIAL_INSTAGRAM=${NEXT_PUBLIC_SOCIAL_INSTAGRAM:-https://www.instagram.com/eterexchange?utm_medium=copy_link}
+        - NEXT_PUBLIC_SOCIAL_TELEGRAM=${NEXT_PUBLIC_SOCIAL_TELEGRAM:-https://t.me/eterex}
+        - NEXT_PUBLIC_SOCIAL_LINKEDIN=${NEXT_PUBLIC_SOCIAL_LINKEDIN:-https://www.linkedin.com/company/eterexchange}
+        - NEXT_PUBLIC_SOCIAL_TWITTER=${NEXT_PUBLIC_SOCIAL_TWITTER:-https://x.com/eterex_official}
     ports:
       - "${PORT:-3000}:3000"
     environment:
@@ -24,6 +38,20 @@ services:
       - NEXT_PUBLIC_ASSET_PREFIX=${NEXT_PUBLIC_ASSET_PREFIX:-}
       - NEXT_PUBLIC_ICON_BASE_URL=${NEXT_PUBLIC_ICON_BASE_URL:-https://static-dl.eterex.com/icons-v2/svg}
       - GOOGLE_VERIFICATION=${GOOGLE_VERIFICATION:-}
+      - NEXT_PUBLIC_DOWNLOAD_BAZAR=${NEXT_PUBLIC_DOWNLOAD_BAZAR:-https://cafebazaar.ir/app/?id=com.eterex&ref=share}
+      - NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY=${NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY:-https://play.google.com/store/apps/details?id=com.eterex}
+      - NEXT_PUBLIC_DOWNLOAD_MYKET=${NEXT_PUBLIC_DOWNLOAD_MYKET:-https://myket.ir/app/com.eterex}
+      - NEXT_PUBLIC_DOWNLOAD_DIRECT=${NEXT_PUBLIC_DOWNLOAD_DIRECT:-https://static-dl.eterex.com/eterex.apk}
+      - NEXT_PUBLIC_DOWNLOAD_SIBAPP=${NEXT_PUBLIC_DOWNLOAD_SIBAPP:-https://sibapp.com/applications/Eterex_cryptocurrencyexchange?from=search}
+      - NEXT_PUBLIC_DOWNLOAD_APPSTAR=${NEXT_PUBLIC_DOWNLOAD_APPSTAR:-https://app-star.store/app.php?id=eterex}
+      - NEXT_PUBLIC_DOWNLOAD_IAPPS=${NEXT_PUBLIC_DOWNLOAD_IAPPS:-https://iapps.ir/app/%D8%A7%D8%AA%D8%B1%D8%A7%DA%A9%D8%B3-%D8%B5%D8%B1%D8%A7%D9%81%DB%8C-%D8%B1%D9%85%D8%B2%D8%A7%D8%B1%D8%B2%D9%87%D8%A7/594739716}
+      - NEXT_PUBLIC_DOWNLOAD_SIBIRANI=${NEXT_PUBLIC_DOWNLOAD_SIBIRANI:-https://sibirani.com/apps/eterex/}
+      - NEXT_PUBLIC_DOWNLOAD_SIBCHE=${NEXT_PUBLIC_DOWNLOAD_SIBCHE:-https://sibche.com/applications/eterax}
+      - NEXT_PUBLIC_DOWNLOAD_PWA=${NEXT_PUBLIC_DOWNLOAD_PWA:-https://app.eterex.com}
+      - NEXT_PUBLIC_SOCIAL_INSTAGRAM=${NEXT_PUBLIC_SOCIAL_INSTAGRAM:-https://www.instagram.com/eterexchange?utm_medium=copy_link}
+      - NEXT_PUBLIC_SOCIAL_TELEGRAM=${NEXT_PUBLIC_SOCIAL_TELEGRAM:-https://t.me/eterex}
+      - NEXT_PUBLIC_SOCIAL_LINKEDIN=${NEXT_PUBLIC_SOCIAL_LINKEDIN:-https://www.linkedin.com/company/eterexchange}
+      - NEXT_PUBLIC_SOCIAL_TWITTER=${NEXT_PUBLIC_SOCIAL_TWITTER:-https://x.com/eterex_official}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000${NEXT_PUBLIC_BASE_PATH:-}/"]

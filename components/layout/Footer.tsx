@@ -361,10 +361,32 @@ const HeaderSection = ({ footer }: { footer: FooterData }) => (
 
 const SocialIcons = () => {
 	const socialLinks = [
-		{ href: 'https://instagram.com', icon: InstagramIcon, label: 'Instagram' },
-		{ href: 'https://telegram.org', icon: TelegramIcon, label: 'Telegram' },
-		{ href: 'https://linkedin.com', icon: LinkedInIcon, label: 'LinkedIn' },
-		{ href: 'https://twitter.com', icon: TwitterIcon, label: 'Twitter' },
+		{
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM ||
+				'https://www.instagram.com/eterexchange?utm_medium=copy_link',
+			icon: InstagramIcon,
+			label: 'Instagram',
+		},
+		{
+			href: process.env.NEXT_PUBLIC_SOCIAL_TELEGRAM || 'https://t.me/eterex',
+			icon: TelegramIcon,
+			label: 'Telegram',
+		},
+		{
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ||
+				'https://www.linkedin.com/company/eterexchange',
+			icon: LinkedInIcon,
+			label: 'LinkedIn',
+		},
+		{
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_TWITTER ||
+				'https://x.com/eterex_official',
+			icon: TwitterIcon,
+			label: 'Twitter',
+		},
 	];
 
 	return (
@@ -587,8 +609,7 @@ export default function Footer() {
 	return (
 		<footer className="border-t border-grayscale-03 lg:border-none pb-7 lg:pb-0 bg-grayscale-01">
 			{/* Mobile & Tablet */}
-			<Container className="flex flex-col lg:hidden relative">
-				<BackgroundDecorations />
+			<Container className="flex flex-col lg:hidden relative bg-[url('/assets/footer/Frame-SM.png')] z-20 bg-cover bg-center bg-no-repeat overflow-hidden">
 				<div className="flex flex-col gap-20 pt-14 relative z-30">
 					<div className="flex flex-col">
 						<Logo />
@@ -623,9 +644,8 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="relative lg:bg-dotted rounded-tr-[120px] lg:border-2 lg:border-grayscale-03">
-					<BackgroundDecorations />
-					<div className="relative flex flex-col w-full gap-20 lg:py-[144px] lg:px-[76px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px] z-30">
+				<div className="relative rounded-tr-[120px] lg:border-2 lg:border-grayscale-03 overflow-hidden ">
+					<div className="relative flex flex-col w-full gap-20 lg:py-[144px] lg:px-[76px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px] z-20 bg-[url('/assets/footer/Frame.png')] bg-cover bg-center bg-no-repeat overflow-hidden ">
 						<LinkColumns footer={footer} />
 						<Copyright footer={footer} />
 					</div>

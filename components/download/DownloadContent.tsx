@@ -151,7 +151,10 @@ export default function DownloadContent() {
 						{device === 'android' && (
 							<>
 								<DownloadButton
-									href={DownloadAppSection.bazar}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_BAZAR ||
+										'https://cafebazaar.ir/app/?id=com.eterex&ref=share'
+									}
 									icon={
 										<Image
 											src="/assets/Download/bazar.png"
@@ -164,7 +167,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.bazar}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.myket}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_MYKET ||
+										'https://myket.ir/app/com.eterex'
+									}
 									icon={
 										<Image
 											src="/assets/Download/myket.png"
@@ -177,7 +183,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.myket}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.direct}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_DIRECT ||
+										'https://static-dl.eterex.com/eterex.apk'
+									}
 									icon={
 										<Image
 											src="/assets/Download/direct.png"
@@ -190,7 +199,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.direct}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.googlePlay}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY ||
+										'https://play.google.com/store/apps/details?id=com.eterex'
+									}
 									icon={
 										<Image
 											src="/assets/Download/googlePlay.png"
@@ -207,7 +219,10 @@ export default function DownloadContent() {
 						{device === 'ios' && (
 							<>
 								<DownloadButton
-									href={DownloadAppSection.appStar}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_APPSTAR ||
+										'https://app-star.store/app.php?id=eterex'
+									}
 									icon={
 										<Image
 											src="/assets/Download/appStar.png"
@@ -220,7 +235,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.appStar}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.iapps}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_IAPPS ||
+										'https://iapps.ir/app/%D8%A7%D8%AA%D8%B1%D8%A7%DA%A9%D8%B3-%D8%B5%D8%B1%D8%A7%D9%81%DB%8C-%D8%B1%D9%85%D8%B2%D8%A7%D8%B1%D8%B2%D9%87%D8%A7/594739716'
+									}
 									icon={
 										<Image
 											src="/assets/Download/iapps.png"
@@ -233,7 +251,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.iapps}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.pwa}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_PWA ||
+										'https://app.eterex.com'
+									}
 									icon={
 										<Image
 											src="/assets/Download/direct.png"
@@ -246,7 +267,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.pwa}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.sibapp}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_SIBAPP ||
+										'https://sibapp.com/applications/Eterex_cryptocurrencyexchange?from=search'
+									}
 									icon={
 										<Image
 											src="/assets/Download/sibapp.png"
@@ -259,7 +283,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.sibapp}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.sibirani}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_SIBIRANI ||
+										'https://sibirani.com/apps/eterex/'
+									}
 									icon={
 										<Image
 											src="/assets/Download/sibirani.png"
@@ -272,7 +299,10 @@ export default function DownloadContent() {
 									label={DownloadAppSection.sibirani}
 								/>
 								<DownloadButton
-									href={DownloadAppSection.sibche}
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_SIBCHE ||
+										'https://sibche.com/applications/eterax'
+									}
 									icon={
 										<Image
 											src="/assets/Download/sibche.png"

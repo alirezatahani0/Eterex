@@ -44,7 +44,7 @@ export default function ContactContent() {
 			>
 				<path
 					d="M9.94773 2.81102C9.75698 1.58067 8.87098 0.75 7.53582 0.75H3.20487C1.69715 0.75 0.75 1.82091 0.75 3.33373V8.91283C0.75 10.2909 1.53772 11.3065 2.82922 11.4667"
-					stroke='white'
+					stroke="white"
 					strokeWidth="1.5"
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -53,7 +53,7 @@ export default function ContactContent() {
 					fillRule="evenodd"
 					clipRule="evenodd"
 					d="M11.7609 5.01108H7.43145C5.92295 5.01108 4.97656 6.07908 4.97656 7.59118V13.1703C4.97656 14.6823 5.91786 15.7503 7.43145 15.7503H11.7602C13.2745 15.7503 14.2158 14.6823 14.2158 13.1703V7.59118C14.2158 6.07908 13.2745 5.01108 11.7609 5.01108Z"
-					stroke='white'
+					stroke="white"
 					strokeWidth="1.5"
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -74,14 +74,14 @@ export default function ContactContent() {
 			>
 				<path
 					d="M14.1667 3.33333H5.83333C3.33333 3.33333 1.66667 4.58333 1.66667 7.5V12.5C1.66667 15.4167 3.33333 16.6667 5.83333 16.6667H14.1667C16.6667 16.6667 18.3333 15.4167 18.3333 12.5V7.5C18.3333 4.58333 16.6667 3.33333 14.1667 3.33333Z"
-					stroke='white'
+					stroke="white"
 					strokeWidth="1.5"
 					strokeLinecap="round"
 					strokeLinejoin="round"
 				/>
 				<path
 					d="M14.1667 7.5L11.5583 9.58333C10.7 10.2667 9.29167 10.2667 8.43333 9.58333L5.83333 7.5"
-					stroke='white'
+					stroke="white"
 					strokeWidth="1.5"
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -216,22 +216,22 @@ export default function ContactContent() {
 		{
 			name: contact.socialNetworks.linkedin,
 			icon: LinkedInIcon,
-			href: 'https://linkedin.com',
+			href: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN || 'https://www.linkedin.com/company/eterexchange',
 		},
 		{
 			name: contact.socialNetworks.instagram,
 			icon: InstagramIcon,
-			href: 'https://instagram.com',
+			href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || 'https://www.instagram.com/eterexchange?utm_medium=copy_link',
 		},
 		{
 			name: contact.socialNetworks.telegram,
 			icon: TelegramIcon,
-			href: 'https://telegram.org',
+			href: process.env.NEXT_PUBLIC_SOCIAL_TELEGRAM || 'https://t.me/eterex',
 		},
 		{
 			name: contact.socialNetworks.twitter,
 			icon: TwitterIcon,
-			href: 'https://twitter.com',
+			href: process.env.NEXT_PUBLIC_SOCIAL_TWITTER || 'https://x.com/eterex_official',
 		},
 	];
 

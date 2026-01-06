@@ -480,7 +480,7 @@ export default function MobileMenu() {
 					{/* Social Media Icons */}
 					<div className="flex items-center justify-center flex-row-reverse gap-4 pt-10">
 						<a
-							href="https://instagram.com"
+							href={process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="w-20 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
@@ -489,7 +489,7 @@ export default function MobileMenu() {
 							<InstagramIcon />
 						</a>
 						<a
-							href="https://telegram.org"
+							href={process.env.NEXT_PUBLIC_SOCIAL_TELEGRAM}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="w-20 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
@@ -498,7 +498,7 @@ export default function MobileMenu() {
 							<TelegramIcon />
 						</a>
 						<a
-							href="https://linkedin.com"
+							href={process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="w-20 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
@@ -507,7 +507,7 @@ export default function MobileMenu() {
 							<LinkedInIcon />
 						</a>
 						<a
-							href="https://twitter.com"
+							href={process.env.NEXT_PUBLIC_SOCIAL_TWITTER}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="w-20 h-14 flex items-center justify-center rounded-full bg-grayscale-02 hover:bg-grayscale-03 transition-colors"
