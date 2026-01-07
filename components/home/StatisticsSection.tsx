@@ -5,6 +5,7 @@ import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/hooks/useTheme';
+import Image from 'next/image';
 
 export default function StatisticsSection() {
 	const { statistics } = useTranslation();
@@ -225,26 +226,34 @@ export default function StatisticsSection() {
 							{/* Crypto Icons */}
 							<div className="flex items-center">
 								{/* Placeholder for crypto icons - will be replaced with actual images */}
-								<div className="w-10 h-10 rounded-full bg-black flex items-center justify-center border border-grayscale-03 -ml-4 z-30">
-									<Text variant="Main/14px/Bold" className="text-white!">
-										X
-									</Text>
-								</div>
-								<div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center -ml-4 z-20">
-									<Text variant="Main/14px/Bold" className="text-white!">
-										E
-									</Text>
-								</div>
-								<div className="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center -ml-4 z-10">
-									<Text variant="Main/14px/Bold" className="text-white!">
-										B
-									</Text>
-								</div>
-								<div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center">
-									<Text variant="Main/14px/Bold" className="text-white!">
-										A
-									</Text>
-								</div>
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/xrp_.svg`}
+									alt={'XRP'}
+									width={40}
+									height={40}
+									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-30 rounded-full"
+								/>
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/btc_.svg`}
+									alt={'BTC'}
+									width={40}
+									height={40}
+									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-20 rounded-full"
+								/>
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/eth_.svg`}
+									alt={'ETH'}
+									width={40}
+									height={40}
+									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-10 rounded-full"
+								/>
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/usdt_.svg`}
+									alt={'USDT'}
+									width={40}
+									height={40}
+									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 rounded-full z-0"
+								/>
 							</div>
 						</div>
 						<Text

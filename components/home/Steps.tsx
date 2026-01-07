@@ -4,10 +4,11 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function StepsSection() {
 	const { steps } = useTranslation();
-
+	const { theme } = useTheme();
 	const _steps = [
 		{
 			title: steps.items.verification.title,
@@ -94,10 +95,12 @@ export default function StepsSection() {
 						>
 							<div
 								className="w-14 h-14 min-w-14 min-h-14 rounded-full border-2 border-[#ffffff3d] flex items-center justify-center"
-								style={{
-									background:
-										'linear-gradient(180deg, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 0%, var(--glass-white-glass-1, rgba(255, 255, 255, 0.01)) 100%)',
-								} as React.CSSProperties}
+								style={
+									{
+										background:
+											'linear-gradient(180deg, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 0%, var(--glass-white-glass-1, rgba(255, 255, 255, 0.01)) 100%)',
+									} as React.CSSProperties
+								}
 							>
 								<Text variant="Main/24px/Bold" gradient="primary">
 									{index + 1}
@@ -140,7 +143,7 @@ export default function StepsSection() {
 										>
 											<path
 												d="M18.3493 15.2422L3.65234 6.75684M3.65234 6.75684L5.37781 13.1964M3.65234 6.75684L10.0919 5.03137"
-												stroke="#121B38"
+												stroke={theme === 'dark' ? 'black' : 'white'}
 												strokeWidth="1.5"
 												strokeLinecap="round"
 												strokeLinejoin="round"

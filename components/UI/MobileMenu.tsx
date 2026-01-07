@@ -61,7 +61,7 @@ const CloseIcon = (
 );
 
 // Chevron Icon for navigation links
-const ChevronIcon = () => (
+const ChevronIcon = ({ stroke = 'black' }: { stroke?: string }) => (
 	<svg
 		width="24"
 		height="24"
@@ -71,7 +71,7 @@ const ChevronIcon = () => (
 	>
 		<path
 			d="M14.5703 17.1433L9.42746 12.0004L14.5703 6.85754"
-			stroke="black"
+			stroke={stroke}
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
@@ -448,7 +448,9 @@ export default function MobileMenu() {
 											<span className="font-semibold text-base leading-6 text-right text-grayscale-07">
 												{link.label}
 											</span>{' '}
-											<ChevronIcon />
+											<ChevronIcon
+												stroke={theme === 'dark' ? 'white' : 'black'}
+											/>
 										</Link>
 									</li>
 								);
@@ -457,7 +459,7 @@ export default function MobileMenu() {
 					</nav>
 
 					{/* Action Buttons */}
-					<div className="border-t border-grayscale-03 pt-10 flex flex-row items-center gap-4">
+					<div className="border-t border-grayscale-03 pt-10 flex flex-row items-center gap-2">
 						{/* Account Button */}
 						<Link
 							href="/login"
@@ -474,7 +476,7 @@ export default function MobileMenu() {
 						<Link
 							href="/download"
 							onClick={handleClick}
-							className="flex items-center justify-between w-full pr-3 pl-4 h-14 rounded-[40px] bg-brand-primary-container"
+							className="flex items-center justify-between w-full pr-3 pl-2 h-14 rounded-[40px] bg-brand-primary-container"
 						>
 							<DownloadIcon />
 							<span className="font-bold text-sm leading-5 text-primary">

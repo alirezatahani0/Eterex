@@ -37,7 +37,12 @@ export default function DownloadContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{download.title}
 				</Text>
 
@@ -56,7 +61,7 @@ export default function DownloadContent() {
 			</div>
 
 			<Container className="py-12 md:py-16 lg:py-20">
-				<div className="bg-[url('/assets/DownloadApp/Mobile.png')] md:bg-[url('/assets/DownloadApp/Tablet.png')] lg:bg-[url('/assets/Download/Frame.png')] xl:bg-[url('/assets/Download/Frame-LG.png')] bg-cover bg-center bg-no-repeat h-[700px] md:h-[644px] lg:h-[840px] 2xl:h-[1200px] pt-12 px-7 flex flex-col items-center mb-[120px]">
+				<div className="bg-brand-primary rounded-[40px] pt-12 px-3 flex flex-col items-center mb-[120px] relative overflow-hidden">
 					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10">
 						<div
 							className={cn(
@@ -317,6 +322,35 @@ export default function DownloadContent() {
 							</>
 						)}
 					</div>
+
+					<Image
+						src="/assets/Download/Mobiles.png"
+						alt="Download"
+						width={318}
+						height={323}
+						className="w-[318px] h-[323px] md:hidden object-cover -mb-6 mt-20 z-10"
+					/>
+					<Image
+						src="/assets/Download/Mobiles-2XL.png"
+						alt="Download"
+						width={1000}
+						height={450}
+						className="hidden md:flex w-full h-full object-cover mt-20"
+					/>
+					<Image
+						src="/assets/Download/VectorLeft.png"
+						alt="Download"
+						width={200}
+						height={200}
+						className="w-[200px] h-[200px] object-cover absolute left-0 bottom-0"
+					/>
+					<Image
+						src="/assets/Download/VectorRight.png"
+						alt="Download"
+						width={200}
+						height={200}
+						className="w-[200px] h-[200px] object-cover absolute right-0 top-0"
+					/>
 				</div>
 			</Container>
 		</div>
