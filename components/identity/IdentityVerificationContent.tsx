@@ -16,8 +16,8 @@ export default function IdentityVerificationContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/identity/Header-Dark.png')] md:bg-[url('/assets/identity/Header-MD-Dark.png')] lg:bg-[url('/assets/identity/Header-LG-Dark.png')] 2xl:bg-[url('/assets/identity/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/identity/Header.png')] md:bg-[url('/assets/identity/Header-MD.png')] lg:bg-[url('/assets/identity/Header-LG.png')] 2xl:bg-[url('/assets/identity/Header-XL.png')] ";
+			? "bg-[url('/assets/identity/Header-Dark.avif')] md:bg-[url('/assets/identity/Header-MD-Dark.avif')] lg:bg-[url('/assets/identity/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/identity/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/identity/Header.avif')] md:bg-[url('/assets/identity/Header-MD.avif')] lg:bg-[url('/assets/identity/Header-LG.avif')] 2xl:bg-[url('/assets/identity/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	const faqQuestions = [

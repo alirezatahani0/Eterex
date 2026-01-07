@@ -23,8 +23,8 @@ export default function DownloadContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/Download/Header-Dark.png')] md:bg-[url('/assets/Download/Header-MD-Dark.png')] lg:bg-[url('/assets/Download/Header-LG-Dark.png')] 2xl:bg-[url('/assets/Download/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/Download/Header.png')] md:bg-[url('/assets/Download/Header-MD.png')] lg:bg-[url('/assets/Download/Header-LG.png')] 2xl:bg-[url('/assets/Download/Header-XL.png')] ";
+			? "bg-[url('/assets/Download/Header-Dark.avif')] md:bg-[url('/assets/Download/Header-MD-Dark.avif')] lg:bg-[url('/assets/Download/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/Download/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/Download/Header.avif')] md:bg-[url('/assets/Download/Header-MD.avif')] lg:bg-[url('/assets/Download/Header-LG.avif')] 2xl:bg-[url('/assets/Download/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	return (

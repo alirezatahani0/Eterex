@@ -16,7 +16,7 @@ export default function HeroSection() {
 			<div
 				className={cn(
 					'bg-cover bg-center bg-no-repeat h-[calc(100vh-89px)] lg:hidden overflow-hidden relative',
-					"bg-[url('/assets/main/Header.png')] md:bg-[url('/assets/main/Header-MD.png')] lg:bg-[url('/assets/main/Header-LG.png')] 2xl:bg-[url('/assets/main/Header-XL.png')]",
+					"bg-[url('/assets/main/Header.avif')] md:bg-[url('/assets/main/Header-MD.avif')] lg:bg-[url('/assets/main/Header-LG.avif')] 2xl:bg-[url('/assets/main/Header-XL.avif')]",
 				)}
 			>
 				<Container className="relative z-10 py-12 md:py-16 lg:py-20">
@@ -168,7 +168,7 @@ export default function HeroSection() {
 					className={cn(
 						'bg-cover bg-center bg-no-repeat h-full',
 						'grid grid-cols-2 border-2 border-grayscale-03 rounded-3xl',
-						"bg-[url('/assets/main/Header.png')] md:bg-[url('/assets/main/Header-MD.png')] lg:bg-[url('/assets/main/Header-LG.png')] 2xl:bg-[url('/assets/main/Header-XL.png')]",
+						"bg-[url('/assets/main/Header.avif')] md:bg-[url('/assets/main/Header-MD.avif')] lg:bg-[url('/assets/main/Header-LG.avif')] 2xl:bg-[url('/assets/main/Header-XL.avif')]",
 					)}
 				>
 					<div className="flex flex-col items-start justify-center pr-[96px]">

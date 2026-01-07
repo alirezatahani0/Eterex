@@ -18,8 +18,8 @@ export default function ContactContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/contactUs/Header-Dark.png')] md:bg-[url('/assets/contactUs/Header-MD-Dark.png')] lg:bg-[url('/assets/contactUs/Header-LG-Dark.png')] 2xl:bg-[url('/assets/contactUs/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/contactUs/Header.png')] md:bg-[url('/assets/contactUs/Header-MD.png')] lg:bg-[url('/assets/contactUs/Header-LG.png')] 2xl:bg-[url('/assets/contactUs/Header-XL.png')] ";
+			? "bg-[url('/assets/contactUs/Header-Dark.avif')] md:bg-[url('/assets/contactUs/Header-MD-Dark.avif')] lg:bg-[url('/assets/contactUs/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/contactUs/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/contactUs/Header.avif')] md:bg-[url('/assets/contactUs/Header-MD.avif')] lg:bg-[url('/assets/contactUs/Header-LG.avif')] 2xl:bg-[url('/assets/contactUs/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	const handleCopyPhone = () => {
@@ -324,8 +324,8 @@ export default function ContactContent() {
 					className={cn(
 						'rounded-3xl p-8 flex flex-col items-center justify-start gap-8 bg-cover bg-center bg-no-repeat relative lg:col-start-5 lg:col-end-7 lg:row-start-1 lg:row-end-3',
 						theme === 'dark' && mounted
-							? "bg-[url('/assets/contactUs/AddressContainerDark.png')]"
-							: "bg-[url('/assets/contactUs/AddressContainer.png')]",
+							? "bg-[url('/assets/contactUs/AddressContainerDark.avif')]"
+							: "bg-[url('/assets/contactUs/AddressContainer.avif')]",
 					)}
 				>
 					<Text variant="Main/20px/Bold" gradient="primary" className="w-fit">
@@ -347,8 +347,8 @@ export default function ContactContent() {
 					className={cn(
 						'rounded-3xl px-8 py-16 flex flex-col items-center justify-center gap-8 bg-cover bg-center bg-no-repeat relative lg:col-start-7 lg:col-end-9 lg:row-start-1 lg:row-end-3',
 						theme === 'dark' && mounted
-							? "bg-[url('/assets/contactUs/SocialMediaContainerDark.png')]"
-							: "bg-[url('/assets/contactUs/SocialMediaContainer.png')]",
+							? "bg-[url('/assets/contactUs/SocialMediaContainerDark.avif')]"
+							: "bg-[url('/assets/contactUs/SocialMediaContainer.avif')]",
 					)}
 				>
 					<Text variant="Main/20px/Bold" gradient="primary" className="w-fit">

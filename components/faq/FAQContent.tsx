@@ -17,8 +17,8 @@ export default function FAQContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/QA/Header-Dark.png')] md:bg-[url('/assets/QA/Header-MD-Dark.png')] lg:bg-[url('/assets/QA/Header-LG-Dark.png')] 2xl:bg-[url('/assets/QA/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/QA/Header.png')] md:bg-[url('/assets/QA/Header-MD.png')] lg:bg-[url('/assets/QA/Header-LG.png')] 2xl:bg-[url('/assets/QA/Header-XL.png')] ";
+			? "bg-[url('/assets/QA/Header-Dark.avif')] md:bg-[url('/assets/QA/Header-MD-Dark.avif')] lg:bg-[url('/assets/QA/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/QA/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/QA/Header.avif')] md:bg-[url('/assets/QA/Header-MD.avif')] lg:bg-[url('/assets/QA/Header-LG.avif')] 2xl:bg-[url('/assets/QA/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	const categories = [

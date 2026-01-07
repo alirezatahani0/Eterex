@@ -228,10 +228,10 @@ const MobileView = () => {
 					/>
 				</div>
 			</div>
-			<div className="bg-[url('/assets/main/Vector.png')] bg-no-repeat bg-center bg-contain absolute top-0 -right-2/5 w-full h-[250px] z-0" />
+			<div className="bg-[url('/assets/main/Vector.avif')] bg-no-repeat bg-center bg-contain absolute top-0 -right-2/5 w-full h-[250px] z-0" />
 
 			<Image
-				src="/assets/DownloadApp/MobileFrame.png"
+				src="/assets/DownloadApp/MobileFrame.avif"
 				alt="download"
 				width={270}
 				height={350}
@@ -246,7 +246,7 @@ const RightFrame = () => {
 	const { DownloadAppSection, common } = useTranslation();
 
 	return (
-		<div className="bg-[url('/assets/DownloadApp/RightFrame.png')] h-[600px] 2xl:h-[696px] bg-contain bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
+		<div className="bg-[url('/assets/DownloadApp/RightFrame.avif')] h-[600px] 2xl:h-[696px] bg-contain bg-center bg-no-repeat flex flex-col items-start justify-start gap-10 px-14 py-20 2xl:py-32 2xl:px-20">
 			<Badge icon={<SparkleIcon />} className="bg-white">
 				<Text variant="Main/14px/Bold" color="text-[#000]!" className="mr-1.5">
 					{common.simpler}
@@ -308,8 +308,8 @@ const LeftFrame = () => {
 	const bgUrl = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/DownloadApp/LeftFrameDark.png')]"
-			: "bg-[url('/assets/DownloadApp/LeftFrame.png')]";
+			? "bg-[url('/assets/DownloadApp/LeftFrameDark.avif')]"
+			: "bg-[url('/assets/DownloadApp/LeftFrame.avif')]";
 	}, [mounted, theme]);
 
 	return (

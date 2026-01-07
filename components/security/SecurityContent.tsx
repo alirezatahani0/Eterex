@@ -31,8 +31,8 @@ export default function SecurityContent() {
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/security/Header-Dark.png')] md:bg-[url('/assets/security/Header-MD-Dark.png')] lg:bg-[url('/assets/security/Header-LG-Dark.png')] 2xl:bg-[url('/assets/security/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/security/Header.png')] md:bg-[url('/assets/security/Header-MD.png')] lg:bg-[url('/assets/security/Header-LG.png')] 2xl:bg-[url('/assets/security/Header-XL.png')] ";
+			? "bg-[url('/assets/security/Header-Dark.avif')] md:bg-[url('/assets/security/Header-MD-Dark.avif')] lg:bg-[url('/assets/security/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/security/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/security/Header.avif')] md:bg-[url('/assets/security/Header-MD.avif')] lg:bg-[url('/assets/security/Header-LG.avif')] 2xl:bg-[url('/assets/security/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 
