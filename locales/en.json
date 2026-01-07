@@ -655,6 +655,14 @@
 			"lowFee": {
 				"title": "Only 0.1% Commission! Transparent and Unrivaled",
 				"description": "The lowest commission among Iranian exchanges for converting cryptocurrencies, Atrax is a reliable way to increase your trading profits."
+			},
+			"smartFee": {
+				"title": "سطوح کارمزدی پلکانی و هوشمند",
+				"description": "با افزایش حجم معاملات، کارمزد شما به‌صورت خودکار کاهش پیدا می‌کند. در اتراکس، کاربران فعال پاداش می‌گیرند و هرچه بیشتر معامله کنید، هزینه کمتری می‌پردازید."
+			},
+			"staking": {
+				"title": "استیکینگ امن با سود شفاف",
+				"description": "دارایی‌های خود را استیک کنید و بدون معامله، درآمد غیرفعال داشته باشید. استیکینگ در اتراکس با نرخ سود مشخص، دوره‌های متنوع و امکان مدیریت کامل دارایی انجام می‌شود."
 			}
 		}
 	},

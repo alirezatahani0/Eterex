@@ -13,18 +13,6 @@ import {
 	useAssetsPriceListQuery,
 } from '@/hooks/useAssetsQuery';
 
-interface CryptoItem {
-	symbol: string;
-	name: string;
-	listDate: string;
-	price: string;
-	icon?: string;
-	change24h: string;
-	changeType: 'positive' | 'negative';
-	volume?: number;
-	volumeFormatted?: string;
-	marketCap?: number;
-}
 
 export default function Coins() {
 	const { coins } = useTranslation();
@@ -514,10 +502,10 @@ export default function Coins() {
 					</div>
 				</div>
 				{/* Coins */}
-				<div className="bg-brand-primary rounded-3xl p-4 2xl:p-8 relative overflow-hidden z-10">
+				<div className="bg-brand-primary rounded-3xl px-2 py-4 2xl:p-8 relative overflow-hidden z-10">
 					<div className="bg-[url('/assets/main/Vector.png')] bg-no-repeat bg-center bg-contain absolute top-0 -right-1/4 w-full h-[450px] z-0" />
 					{/* Category Filters */}
-					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] md:max-w-full bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-2 mb-4 relative z-10">
+					<div className="border-2 border-[#ffffff3d] rounded-4xl p-1 max-w-[400px] md:max-w-full bg-[#2649FF] h-14 flex flex-row items-center justify-center gap-2 mb-4 relative z-10">
 						{tabs.map((tab) => (
 							<button
 								key={tab.key}

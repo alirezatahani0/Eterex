@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -28,22 +29,31 @@ interface EventCardProps {
 function EventCard({ event, latestEvents }: EventCardProps) {
 	return (
 		<div
-			className="h-full rounded-[28px] border border-grayscale-03 p-5 flex flex-col justify-between relative overflow-hidden bg-cover bg-center bg-no-repeat min-h-[420px]"
-			style={{
-				backgroundImage: `url(${event.featured_image})`,
-			}}
+			className="h-full rounded-[28px] border border-grayscale-03 flex flex-col justify-between relative overflow-hidden min-h-[420px]"
+
 		>
+			<Image
+				src={event.featured_image}
+				alt={event.title}
+				width={392}
+				height={206}
+				className="w-full object-cover"
+				onError={(e) => {
+					// Fallback to default image on error
+					e.currentTarget.src = '/assets/main/PostImage.png';
+				}}
+			/>
 			{/* Date */}
-			<div className="self-start">
+			{/* <div className="self-start">
 				<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
 					<Text variant="Main/14px/SemiBold" className="text-grayscale-07!">
 						{event.date}
 					</Text>
 				</div>
-			</div>
+			</div> */}
 
 			{/* Title and Description and CTA Button */}
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-4 ">
 				<div className="p-6 bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl ">
 					<Text variant="LongText/14px/SemiBold" className="text-grayscale-07!">
 						{event.title}

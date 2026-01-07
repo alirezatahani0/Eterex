@@ -81,7 +81,7 @@ const WebIcon = ({ fill = '#EB9E2A' }: { fill?: string }) => (
 	</svg>
 );
 
-const DownloadArrowIcon = () => (
+const DownloadArrowIcon = ({ stroke = 'white' }: { stroke?: string }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="24"
@@ -91,7 +91,7 @@ const DownloadArrowIcon = () => (
 	>
 		<path
 			d="M18.3493 15.2422L3.65234 6.75684M3.65234 6.75684L5.37781 13.1964M3.65234 6.75684L10.0919 5.03137"
-			stroke="white"
+			stroke={stroke}
 			strokeWidth="1.5"
 			strokeLinecap="round"
 			strokeLinejoin="round"
@@ -135,6 +135,8 @@ const DownloadButton = ({
 	downloadLabel,
 	variant = 'mobile',
 }: DownloadButtonProps) => {
+	const { theme } = useTheme();
+
 	if (variant === 'mobile') {
 		return (
 			<Link
@@ -156,7 +158,7 @@ const DownloadButton = ({
 		>
 			<div className="flex flex-row justify-between items-center w-full">
 				{icon}
-				<DownloadArrowIcon />
+				<DownloadArrowIcon stroke={theme === 'dark' ? 'white' : 'black'} />
 			</div>
 			<div className="flex flex-col items-start gap-2 w-full">
 				{downloadLabel && (
@@ -344,21 +346,21 @@ const LeftFrame = () => {
 			<div className="gap-5 grid grid-cols-3 w-full">
 				<DownloadButton
 					href="/download"
-					icon={<IOSIcon fill="white" />}
+					icon={<IOSIcon fill={theme === 'dark' ? 'white' : 'black'} />}
 					label={DownloadAppSection.ios}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
 					href="/download"
-					icon={<AndroidIcon fill="white" />}
+					icon={<AndroidIcon fill={theme === 'dark' ? 'white' : 'black'} />}
 					label={DownloadAppSection.android}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
 					href="/download"
-					icon={<WebIcon fill="white" />}
+					icon={<WebIcon fill={theme === 'dark' ? 'white' : 'black'} />}
 					label={DownloadAppSection.web}
 					downloadLabel={common.downlaod}
 					variant="desktop"

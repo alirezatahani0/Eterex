@@ -135,7 +135,7 @@ export default function BlogSection() {
 				{isLoading ? (
 					// Loading skeleton
 					<>
-						{Array.from({ length: 3 }).map((_, index) => (
+						{Array.from({ length: 5 }).map((_, index) => (
 							<SwiperSlide key={index}>
 								<div className="h-full rounded-[28px] border-2 border-grayscale-03 flex flex-col justify-start relative overflow-hidden animate-pulse">
 									<div className="w-full h-[206px] bg-grayscale-03" />
@@ -166,7 +166,7 @@ export default function BlogSection() {
 									}}
 								/>
 								{/* Date */}
-								<div className="absolute top-4 right-4">
+								{/* <div className="absolute top-4 right-4">
 									<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
 										<Text
 											variant="Main/14px/SemiBold"
@@ -175,12 +175,12 @@ export default function BlogSection() {
 											{event.date}
 										</Text>
 									</div>
-								</div>
+								</div> */}
 
 								{/* Title and Description and CTA Button */}
 								<div className="flex flex-col gap-4 p-7 justify-between items-start h-[260px]">
 									<div>
-										<div className="line-clamp-1">
+										<div className="line-clamp-3 md:line-clamp-2">
 											<Text
 												type="p"
 												variant="LongText/18px/Bold"
@@ -190,7 +190,7 @@ export default function BlogSection() {
 											</Text>
 										</div>
 										{event.description && (
-											<div className="line-clamp-3">
+											<div className="line-clamp-2">
 												<Text
 													variant="LongText/14px/Regular"
 													className="text-grayscale-06! hidden lg:block"
@@ -205,7 +205,7 @@ export default function BlogSection() {
 										target="_blank"
 										rel="noopener noreferrer"
 										aria-label={`${blog.viewNews}: ${event.title}`}
-										className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
+										className="w-fit h-12 min-h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
 									>
 										<Text
 											variant="Main/14px/Bold"

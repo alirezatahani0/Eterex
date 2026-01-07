@@ -45,6 +45,16 @@ export default function FeaturesSection() {
 			label: features.cards.unlimitedDeposit.title,
 			desc: features.cards.unlimitedDeposit.description,
 		},
+		{
+			key: 'smartFee',
+			label: features.cards.smartFee.title,
+			desc: features.cards.smartFee.description,
+		},
+		{
+			key: 'staking',
+			label: features.cards.staking.title,
+			desc: features.cards.staking.description,
+		},
 	];
 	return (
 		<Container className="py-12 md:py-16 lg:py-20">
@@ -128,7 +138,7 @@ export default function FeaturesSection() {
 							</div>
 							<Image
 								className="relative z-10"
-								src={`/assets/main/${card.key}.png`}
+								src={`/assets/main/${card.key}.avif`}
 								alt={card.key}
 								width={176}
 								height={176}
@@ -167,13 +177,13 @@ export default function FeaturesSection() {
 							<div
 								key={card.key}
 								className={cn(
-									'rounded-[36px] p-10 relative overflow-hidden z-10 flex flex-col gap-4 items-center bg-feature-card',
+									'rounded-[36px] p-10 relative overflow-hidden z-10 flex flex-col gap-4 items-center bg-feature-card min-h-[530px]',
 								)}
 							>
 								<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0 opacity-10" />
 								<Image
 									className="relative z-10"
-									src={`/assets/main/${card.key}.png`}
+									src={`/assets/main/${card.key}.avif`}
 									alt={card.key}
 									width={176}
 									height={176}
