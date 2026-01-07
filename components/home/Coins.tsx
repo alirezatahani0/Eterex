@@ -5,8 +5,13 @@ import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useMarketsQuery } from '@/hooks/useMarketsQuery';
+import {
+	useAssetsListQuery,
+	useAssetsPriceListQuery,
+} from '@/hooks/useAssetsQuery';
 
 interface CryptoItem {
 	symbol: string;
@@ -15,92 +20,166 @@ interface CryptoItem {
 	price: string;
 	icon?: string;
 	change24h: string;
-	changeType: string;
+	changeType: 'positive' | 'negative';
+	volume?: number;
+	volumeFormatted?: string;
+	marketCap?: number;
 }
 
 export default function Coins() {
 	const { coins } = useTranslation();
-	const [selectedCategory, setSelectedCategory] = useState('web3');
+	const [selectedCategory, setSelectedCategory] = useState('newest');
+	const [selectedTab, setSelectedTab] = useState('volume');
 
-	// Mock data
-	const cryptos: CryptoItem[] = [
-		{
-			symbol: 'BTC',
-			name: 'Bitcoin',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'ETH',
-			name: 'Ethereum',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'XRP',
-			name: 'Ripple',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'USDT',
-			name: 'Tether',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'USDT',
-			name: 'Tether',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'USDT',
-			name: 'Tether',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-		{
-			symbol: 'USDT',
-			name: 'Tether',
-			listDate: '125,000,000 IRT',
-			price: '231,245,000 IRT',
-			icon: '/BTC.png',
-			change24h: '+1.6',
-			changeType: 'positive' as const,
-		},
-	];
+	const { data: marketsData = [], isLoading: isLoadingMarkets } =
+		useMarketsQuery({ showAll: true });
+	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery();
+	const { data: pricesData = [], isLoading: isLoadingPrices } =
+		useAssetsPriceListQuery();
+
+	const isLoading = isLoadingMarkets || isLoadingAssets || isLoadingPrices;
+
+	// Base data transformation (no sorting)
+	const baseCryptos = useMemo(() => {
+		if (!marketsData.length || !assetsData?.coins || !pricesData.length) {
+			return [];
+		}
+
+		// Create maps for quick lookup
+		const assetsMap = new Map(
+			assetsData.coins.map((asset) => [asset.name.toUpperCase(), asset]),
+		);
+		const pricesMap = new Map(
+			pricesData.map((price) => [price.symbol.toUpperCase(), price]),
+		);
+
+		// Filter markets that have USD/USDT pairs and are active
+		const usdMarkets = marketsData.filter(
+			(market) =>
+				(market.quoteAsset === 'USDT' || market.quoteAsset === 'USD') &&
+				market.status === 'Open',
+		);
+
+		// Combine markets with assets and prices
+		return usdMarkets
+			.map((market) => {
+				const asset = assetsMap.get(market.baseAsset.toUpperCase());
+				const price = pricesMap.get(market.symbol.toUpperCase());
+
+				if (!asset || !price) return null;
+
+				if (price.type === 'buy') return null;
+
+				// Format price with decimal places from market
+				const priceNum = parseFloat(price.price);
+				const decimalPlaces = parseInt(market.priceDecimalPlaces) || 2;
+				const priceText = isNaN(priceNum)
+					? '—'
+					: priceNum.toLocaleString('fa-IR', {
+							minimumFractionDigits: decimalPlaces,
+							maximumFractionDigits: decimalPlaces,
+					  });
+
+				// Calculate 24h change
+				const change24h = price.price_change_percentage || 0;
+				const changeType: 'positive' | 'negative' =
+					change24h >= 0 ? 'positive' : 'negative';
+				const changeText = `${change24h >= 0 ? '+' : ''}${change24h.toFixed(
+					2,
+				)}%`;
+
+				// Get icon URL
+				const iconUrl = asset.name
+					? `${
+							process.env.NEXT_PUBLIC_ICON_BASE_URL
+					  }/${asset.name.toLowerCase()}_.svg`
+					: undefined;
+
+				// Format created_at date
+				const date = new Date(asset.created_at);
+				const formattedDate = date.toLocaleDateString('fa-IR', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				});
+
+				return {
+					symbol: market.baseAsset.toUpperCase(),
+					name: asset.full_name || asset.name,
+					listDate: formattedDate,
+					price: priceText,
+					icon: iconUrl,
+					change24h: changeText,
+					changeType,
+					volume: price.volume || 0,
+					volumeFormatted: (price.volume || 0).toLocaleString('fa-IR'),
+					marketCap: priceNum * (price.volume || 0),
+					created_at: asset.created_at,
+					priceChange: change24h,
+				};
+			})
+			.filter(
+				(
+					item,
+				): item is NonNullable<typeof item> & {
+					created_at: string;
+					priceChange: number;
+				} => item !== null,
+			);
+	}, [marketsData, assetsData, pricesData]);
+
+	// Left table data - filtered by category only
+	const leftTableCryptos = useMemo(() => {
+		if (!baseCryptos.length) return [];
+
+		let filtered = [...baseCryptos];
+		if (selectedCategory === 'newest') {
+			filtered = [...baseCryptos].sort((a, b) => {
+				const dateA = new Date(a.created_at).getTime();
+				const dateB = new Date(b.created_at).getTime();
+				return dateB - dateA;
+			});
+		} else if (selectedCategory === 'mostProfit') {
+			filtered = [...baseCryptos].sort((a, b) => b.priceChange - a.priceChange);
+		} else if (selectedCategory === 'mostLost') {
+			filtered = [...baseCryptos].sort((a, b) => a.priceChange - b.priceChange);
+		}
+
+		return filtered.slice(0, 7);
+	}, [baseCryptos, selectedCategory]);
+
+	// Right table data - sorted by tab only
+	const rightTableCryptos = useMemo(() => {
+		if (!baseCryptos.length) return [];
+
+		let filtered = [...baseCryptos];
+		if (selectedTab === 'volume') {
+			filtered = [...baseCryptos].sort(
+				(a, b) => (b.volume || 0) - (a.volume || 0),
+			);
+		} else if (selectedTab === 'marketCap') {
+			filtered = [...baseCryptos].sort(
+				(a, b) => (b.marketCap || 0) - (a.marketCap || 0),
+			);
+		} else if (selectedTab === 'spotTrades') {
+			filtered = [...baseCryptos].sort(
+				(a, b) => (b.volume || 0) - (a.volume || 0),
+			);
+		}
+
+		return filtered.slice(0, 7);
+	}, [baseCryptos, selectedTab]);
 
 	const categories = [
-		{ key: 'web3', label: coins.filters.categories.favorits },
-		{ key: 'memecoins', label: coins.filters.categories.newest },
-		{ key: 'nft', label: coins.filters.categories.mostProfitable },
-		{ key: 'ai', label: coins.filters.categories.mostLost },
-		{ key: 'gaming', label: coins.filters.categories.recommend },
+		{ key: 'newest', label: coins.filters.categories.newest },
+		{ key: 'mostProfit', label: coins.filters.categories.mostProfitable },
+		{ key: 'mostLost', label: coins.filters.categories.mostLost },
 	];
 
 	const tabs = [
-		{ key: 'web3', label: coins.filters.tabs.volume },
-		{ key: 'memecoins', label: coins.filters.tabs.marketCap },
-		{ key: 'nft', label: coins.filters.tabs.spot },
+		{ key: 'volume', label: coins.filters.tabs.volume },
+		{ key: 'marketCap', label: coins.filters.tabs.marketCap },
+		{ key: 'spotTrades', label: coins.filters.tabs.spot },
 	];
 
 	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff3d]';
@@ -162,10 +241,12 @@ export default function Coins() {
 				{/* Table */}
 				<div
 					className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-6 lg:p-8"
-					style={{
-						background:
-							'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
-					} as React.CSSProperties}
+					style={
+						{
+							background:
+								'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%)',
+						} as React.CSSProperties
+					}
 				>
 					{/* Category Filters */}
 					<div className="mb-6 flex flex-row gap-2 overflow-x-auto overflow-y-hidden ">
@@ -236,158 +317,198 @@ export default function Coins() {
 								</tr>
 							</thead>
 							<tbody>
-								{cryptos.map((crypto, index) => {
-									const isLastRow = index === cryptos.length - 1;
-
-									return (
+								{isLoading ? (
+									Array.from({ length: 7 }).map((_, i) => (
 										<tr
-											key={index}
+											key={i}
 											className={cn(
 												'hover:bg-grayscale-02 border-b border-grayscale-03',
-												isLastRow ? 'border-b-0' : '',
+												i === 6 ? 'border-b-0' : '',
 											)}
 										>
-											<td className={cn('h-18 w-[190px]')}>
-												<Link
-													href={`/coin/${crypto.symbol.toLowerCase()}`}
-													className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-												>
-													{crypto.icon && (
-														<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
-															<Image
-																src={crypto.icon}
-																alt={crypto.symbol}
-																width={36}
-																height={36}
-																className="w-full h-full object-cover"
-															/>
-														</div>
-													)}
-													<Text
-														variant="Main/16px/Regular"
-														className="text-grayscale-07! "
-													>
-														{crypto.symbol}
-													</Text>
-												</Link>
+											<td className="h-18 w-[190px]">
+												<div className="flex items-center gap-3">
+													<div className="w-9 h-9 rounded-full bg-grayscale-03 animate-pulse" />
+													<div className="h-5 w-16 bg-grayscale-03 rounded animate-pulse" />
+												</div>
 											</td>
 											<td className="w-[170px] hidden md:table-cell">
-												<Text
-													variant="Main/16px/Regular"
-													className="text-grayscale-07!"
-												>
-													{crypto.listDate}
-												</Text>
+												<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse" />
 											</td>
 											<td className="w-[170px] hidden md:table-cell">
-												<Text
-													variant="LongText/16px/Regular"
-													className={cn(
-														crypto.changeType === 'positive'
-															? 'text-green'
-															: 'text-red-500!',
-													)}
-												>
-													{crypto.change24h}
-												</Text>
+												<div className="h-5 w-16 bg-grayscale-03 rounded animate-pulse" />
 											</td>
 											<td className="w-[170px] flex flex-col md:hidden items-end pl-4 justify-center h-18">
-												<Text
-													variant="Main/16px/Regular"
-													className="text-grayscale-07!"
-												>
-													{crypto.listDate}
-												</Text>
-												<Text
-													variant="LongText/16px/Regular"
-													className={cn(
-														'leading-5',
-														crypto.changeType === 'positive'
-															? 'text-green'
-															: 'text-red-500!',
-													)}
-												>
-													{crypto.change24h}
-												</Text>
+												<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse mb-2" />
+												<div className="h-5 w-16 bg-grayscale-03 rounded animate-pulse" />
 											</td>
 											<td>
 												<div className="flex items-center gap-2">
-													<button
-														// onClick={() => onChart?.(row)}
-														className="hidden md:flex h-14 w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2"
-													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="20"
-															height="19"
-															viewBox="0 0 20 19"
-															fill="none"
-														>
-															<path
-																d="M6.75076 7.95422H2.55496C1.55747 7.95422 0.75 8.76164 0.75 9.75913V17.8657H6.75076V7.95422V7.95422Z"
-																stroke="#294BFF"
-																strokeWidth="1.5"
-																strokeMiterlimit="10"
-																strokeLinecap="round"
-																strokeLinejoin="round"
-															/>
-															<path
-																d="M10.9499 0.75H8.54325C7.54575 0.75 6.73828 1.55752 6.73828 2.55501V17.85H12.7391V2.55501C12.7391 1.55752 11.9474 0.75 10.9499 0.75Z"
-																stroke="#294BFF"
-																strokeWidth="1.5"
-																strokeMiterlimit="10"
-																strokeLinecap="round"
-																strokeLinejoin="round"
-															/>
-															<path
-																d="M16.9458 10.6459H12.75V17.8501H18.7508V12.4509C18.735 11.4534 17.9275 10.6459 16.9458 10.6459Z"
-																stroke="#294BFF"
-																strokeWidth="1.5"
-																strokeMiterlimit="10"
-																strokeLinecap="round"
-																strokeLinejoin="round"
-															/>
-														</svg>
-														<Text
-															variant="Main/14px/Bold"
-															color="text-brand-primary!"
-															className="hidden 2xl:block"
-														>
-															نمودار
-														</Text>
-													</button>
-													<button
-														// onClick={() => onOperations?.(row)}
-														className="h-14 w-14 2xl:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
-													>
-														<Text
-															variant="Main/14px/Bold"
-															color="text-white!"
-															className="hidden 2xl:block"
-														>
-															خرید و فروش
-														</Text>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="20"
-															height="12"
-															viewBox="0 0 20 12"
-															fill="none"
-														>
-															<path
-																d="M18.75 5.75H0.75M0.75 5.75L5.75 0.75M0.75 5.75L5.75 10.75"
-																stroke="white"
-																strokeWidth="1.5"
-																strokeLinecap="round"
-																strokeLinejoin="round"
-															/>
-														</svg>
-													</button>
+													<div className="h-14 w-14 bg-grayscale-03 rounded-[40px] animate-pulse" />
+													<div className="h-14 w-14 bg-grayscale-03 rounded-[40px] animate-pulse" />
 												</div>
 											</td>
 										</tr>
-									);
-								})}
+									))
+								) : leftTableCryptos.length > 0 ? (
+									leftTableCryptos.map((crypto, index) => {
+										const isLastRow = index === leftTableCryptos.length - 1;
+
+										return (
+											<tr
+												key={crypto.symbol}
+												className={cn(
+													'hover:bg-grayscale-02 border-b border-grayscale-03',
+													isLastRow ? 'border-b-0' : '',
+												)}
+											>
+												<td className={cn('h-18 w-[190px]')}>
+													<Link
+														href={`/coin/${crypto.symbol.toLowerCase()}`}
+														className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+													>
+														{crypto.icon && (
+															<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
+																<Image
+																	src={crypto.icon}
+																	alt={crypto.symbol}
+																	width={36}
+																	height={36}
+																	className="w-full h-full object-cover"
+																/>
+															</div>
+														)}
+														<Text
+															variant="Main/16px/Regular"
+															className="text-grayscale-07! "
+														>
+															{crypto.symbol}
+														</Text>
+													</Link>
+												</td>
+												<td className="w-[170px] hidden md:table-cell">
+													<Text
+														variant="Main/16px/Regular"
+														className="text-grayscale-07!"
+													>
+														{crypto.price}
+													</Text>
+												</td>
+												<td className="w-[170px] hidden md:table-cell">
+													<Text
+														variant="LongText/16px/Regular"
+														className={cn(
+															crypto.changeType === 'positive'
+																? 'text-green'
+																: 'text-red-500!',
+														)}
+													>
+														{crypto.change24h}
+													</Text>
+												</td>
+												<td className="w-[170px] flex flex-col md:hidden items-end pl-4 justify-center h-18">
+													<Text
+														variant="Main/16px/Regular"
+														className="text-grayscale-07!"
+													>
+														{crypto.listDate}
+													</Text>
+													<Text
+														variant="LongText/16px/Regular"
+														className={cn(
+															'leading-5',
+															crypto.changeType === 'positive'
+																? 'text-green'
+																: 'text-red-500!',
+														)}
+													>
+														{crypto.change24h}
+													</Text>
+												</td>
+												<td>
+													<div className="flex items-center gap-2">
+														<button className="hidden md:flex h-14 w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2">
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="20"
+																height="19"
+																viewBox="0 0 20 19"
+																fill="none"
+															>
+																<path
+																	d="M6.75076 7.95422H2.55496C1.55747 7.95422 0.75 8.76164 0.75 9.75913V17.8657H6.75076V7.95422V7.95422Z"
+																	stroke="#294BFF"
+																	strokeWidth="1.5"
+																	strokeMiterlimit="10"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+																<path
+																	d="M10.9499 0.75H8.54325C7.54575 0.75 6.73828 1.55752 6.73828 2.55501V17.85H12.7391V2.55501C12.7391 1.55752 11.9474 0.75 10.9499 0.75Z"
+																	stroke="#294BFF"
+																	strokeWidth="1.5"
+																	strokeMiterlimit="10"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+																<path
+																	d="M16.9458 10.6459H12.75V17.8501H18.7508V12.4509C18.735 11.4534 17.9275 10.6459 16.9458 10.6459Z"
+																	stroke="#294BFF"
+																	strokeWidth="1.5"
+																	strokeMiterlimit="10"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+															</svg>
+															<Text
+																variant="Main/14px/Bold"
+																color="text-brand-primary!"
+																className="hidden 2xl:block"
+															>
+																نمودار
+															</Text>
+														</button>
+														<button className="h-14 w-14 2xl:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2">
+															<Text
+																variant="Main/14px/Bold"
+																color="text-white!"
+																className="hidden 2xl:block"
+															>
+																خرید و فروش
+															</Text>
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="20"
+																height="12"
+																viewBox="0 0 20 12"
+																fill="none"
+															>
+																<path
+																	d="M18.75 5.75H0.75M0.75 5.75L5.75 0.75M0.75 5.75L5.75 10.75"
+																	stroke="white"
+																	strokeWidth="1.5"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+															</svg>
+														</button>
+													</div>
+												</td>
+											</tr>
+										);
+									})
+								) : (
+									<tr>
+										<td colSpan={5} className="text-center py-8">
+											<Text
+												variant="Main/16px/Regular"
+												className="text-grayscale-05!"
+											>
+												هیچ داده‌ای یافت نشد
+											</Text>
+										</td>
+									</tr>
+								)}
 							</tbody>
 						</table>
 					</div>
@@ -397,24 +518,24 @@ export default function Coins() {
 					<div className="bg-[url('/assets/main/Vector.png')] bg-no-repeat bg-center bg-contain absolute top-0 -right-1/4 w-full h-[450px] z-0" />
 					{/* Category Filters */}
 					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] md:max-w-full bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-2 mb-4 relative z-10">
-						{tabs.map((category) => (
+						{tabs.map((tab) => (
 							<button
-								key={category.key}
-								onClick={() => setSelectedCategory(category.key)}
+								key={tab.key}
+								onClick={() => setSelectedTab(tab.key)}
 								className={cn(
 									'p-1 2xl:p-3 h-full flex flex-row items-center justify-center gap-2 rounded-4xl w-1/3',
-									selectedCategory === category.key ? activeStyle : baseStyle,
+									selectedTab === tab.key ? activeStyle : baseStyle,
 								)}
 							>
 								<Text
 									variant="Main/14px/SemiBold"
 									className={
-										selectedCategory === category.key
+										selectedTab === tab.key
 											? 'text-black! font-normal'
 											: 'text-white! font-light'
 									}
 								>
-									{category.label}
+									{tab.label}
 								</Text>
 							</button>
 						))}
@@ -436,60 +557,94 @@ export default function Coins() {
 								</tr>
 							</thead>
 							<tbody>
-								{cryptos.map((crypto, index) => {
-									const isLastRow = index === cryptos.length - 1;
-
-									return (
+								{isLoading ? (
+									// Loading skeleton
+									Array.from({ length: 7 }).map((_, i) => (
 										<tr
-											key={index}
+											key={i}
 											className={cn(
 												'hover:bg-grayscale-02 border-b border-grayscale-03',
-												isLastRow ? 'border-b-0' : '',
+												i === 6 ? 'border-b-0' : '',
 											)}
 										>
-											<td className={cn('h-18')}>
-												<Link
-													href={`/coin/${crypto.symbol.toLowerCase()}`}
-													className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-												>
-													{crypto.icon && (
-														<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
-															<Image
-																src={crypto.icon}
-																alt={crypto.symbol}
-																width={36}
-																height={36}
-																className="w-full h-full object-cover"
-															/>
-														</div>
-													)}
-													<Text
-														variant="Main/16px/Regular"
-														className="text-white! "
-													>
-														{crypto.symbol}
-													</Text>
-												</Link>
+											<td className="h-18">
+												<div className="flex items-center gap-3">
+													<div className="w-9 h-9 rounded-full bg-grayscale-03 animate-pulse" />
+													<div className="h-5 w-16 bg-grayscale-03 rounded animate-pulse" />
+												</div>
 											</td>
 											<td>
-												<Text
-													variant="Main/16px/Regular"
-													className="text-white!"
-												>
-													{crypto.listDate}
-												</Text>
+												<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse" />
 											</td>
 											<td>
-												<Text
-													variant="Main/16px/Regular"
-													className="text-white!"
-												>
-													{crypto.price}
-												</Text>
+												<div className="h-5 w-32 bg-grayscale-03 rounded animate-pulse" />
 											</td>
 										</tr>
-									);
-								})}
+									))
+								) : rightTableCryptos.length > 0 ? (
+									rightTableCryptos.map((crypto, index) => {
+										const isLastRow = index === rightTableCryptos.length - 1;
+
+										return (
+											<tr
+												key={crypto.symbol}
+												className={cn(
+													'hover:bg-grayscale-02 border-b border-grayscale-03',
+													isLastRow ? 'border-b-0' : '',
+												)}
+											>
+												<td className={cn('h-18')}>
+													<Link
+														href={`/coin/${crypto.symbol.toLowerCase()}`}
+														className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+													>
+														{crypto.icon && (
+															<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
+																<Image
+																	src={crypto.icon}
+																	alt={crypto.symbol}
+																	width={36}
+																	height={36}
+																	className="w-full h-full object-cover"
+																/>
+															</div>
+														)}
+														<Text
+															variant="Main/16px/Regular"
+															className="text-white! "
+														>
+															{crypto.symbol}
+														</Text>
+													</Link>
+												</td>
+												<td>
+													<Text
+														variant="Main/16px/Regular"
+														className="text-white!"
+													>
+														{crypto.price}
+													</Text>
+												</td>
+												<td>
+													<Text
+														variant="Main/16px/Regular"
+														className="text-white!"
+													>
+														{crypto.volumeFormatted || '—'}
+													</Text>
+												</td>
+											</tr>
+										);
+									})
+								) : (
+									<tr>
+										<td colSpan={3} className="text-center py-8">
+											<Text variant="Main/16px/Regular" className="text-white!">
+												هیچ داده‌ای یافت نشد
+											</Text>
+										</td>
+									</tr>
+								)}
 							</tbody>
 						</table>
 					</div>
