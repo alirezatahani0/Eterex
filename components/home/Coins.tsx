@@ -6,6 +6,7 @@ import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface CryptoItem {
 	symbol: string;
@@ -247,7 +248,10 @@ export default function Coins() {
 											)}
 										>
 											<td className={cn('h-18 w-[190px]')}>
-												<div className="flex items-center gap-3">
+												<Link
+													href={`/coin/${crypto.symbol.toLowerCase()}`}
+													className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+												>
 													{crypto.icon && (
 														<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
 															<Image
@@ -265,7 +269,7 @@ export default function Coins() {
 													>
 														{crypto.symbol}
 													</Text>
-												</div>
+												</Link>
 											</td>
 											<td className="w-[170px] hidden md:table-cell">
 												<Text
@@ -444,7 +448,10 @@ export default function Coins() {
 											)}
 										>
 											<td className={cn('h-18')}>
-												<div className="flex items-center gap-3">
+												<Link
+													href={`/coin/${crypto.symbol.toLowerCase()}`}
+													className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+												>
 													{crypto.icon && (
 														<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
 															<Image
@@ -462,7 +469,7 @@ export default function Coins() {
 													>
 														{crypto.symbol}
 													</Text>
-												</div>
+												</Link>
 											</td>
 											<td>
 												<Text

@@ -88,6 +88,8 @@ export function useTranslation(locale: Locale = defaultLocale) {
 
 	const getBlog = useMemo(() => () => getSection(locale, 'blog'), [locale]);
 
+	const getCoin = useMemo(() => () => getSection(locale, 'coin'), [locale]);
+
 	return {
 		t: translate,
 		nav: getNav(),
@@ -112,5 +114,6 @@ export function useTranslation(locale: Locale = defaultLocale) {
 		features: getFeatures(),
 		steps: getSteps(),
 		blog: getBlog(),
+		coin: getCoin(),
 	};
 }

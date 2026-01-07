@@ -13,6 +13,8 @@
 		"now": "now",
 		"available": "available",
 		"yours": "yours",
+		"buy": "خرید",
+		"sell": "فروش",
 		"downlaod": "downlaod",
 		"android": "Android",
 		"ios": "iOS"
@@ -694,5 +696,36 @@
 			"highlight": "مراحل معامله در اتراکس"
 		},
 		"viewNews": "بیشتر بخوانید"
+	},
+	"coin": {
+		"tagline": "اطلاعات بازار",
+		"title": {
+			"prefix": "اطلاعات بازار",
+			"highlight": ""
+		},
+		"marketInfo": {
+			"title": "اطلاعات بازار",
+			"description": "Market information will be displayed here"
+		},
+		"howToBuy": {
+			"title": "نحوه خرید",
+			"description": "How to buy instructions will be displayed here"
+		},
+		"howToSell": {
+			"title": "نحوه فروش",
+			"description": "How to sell instructions will be displayed here"
+		},
+		"transactionFee": {
+			"title": "کارمزد معامله",
+			"description": "Transaction fee information will be displayed here"
+		},
+		"wallets": {
+			"title": "کیف پول‌های ارزی",
+			"description": "Supported wallets will be displayed here"
+		},
+		"learning": {
+			"title": "آموزش خرید ارزان",
+			"description": "Learning content will be displayed here"
+		}
 	}
 }

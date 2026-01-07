@@ -3,43 +3,123 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
+import { useBlogQuery } from '@/hooks/useBlogQuery';
+import { useMemo } from 'react';
+import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, EffectCoverflow } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/effect-coverflow';
 
-interface EventCard {
-	date: string;
-	title: string;
-	description?: string;
+interface EventCardProps {
+	event: {
+		id: number | string;
+		date: string;
+		title: string;
+		description?: string;
+		link: string;
+		featured_image: string;
+	};
+	latestEvents: {
+		viewNews: string;
+	};
+}
+
+function EventCard({ event, latestEvents }: EventCardProps) {
+	return (
+		<div
+			className="h-full rounded-[28px] border border-grayscale-03 p-5 flex flex-col justify-between relative overflow-hidden bg-cover bg-center bg-no-repeat min-h-[420px]"
+			style={{
+				backgroundImage: `url(${event.featured_image})`,
+			}}
+		>
+			{/* Date */}
+			<div className="self-start">
+				<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
+					<Text variant="Main/14px/SemiBold" className="text-grayscale-07!">
+						{event.date}
+					</Text>
+				</div>
+			</div>
+
+			{/* Title and Description and CTA Button */}
+			<div className="flex flex-col gap-4">
+				<div className="p-6 bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl ">
+					<Text variant="LongText/14px/SemiBold" className="text-grayscale-07!">
+						{event.title}
+					</Text>
+					{event.description && (
+						<div className="line-clamp-2">
+							<Text
+								variant="LongText/14px/Regular"
+								className="text-grayscale-06! hidden lg:block"
+							>
+								{event.description}
+							</Text>
+						</div>
+					)}
+
+					<Link
+						href={event.link}
+						className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary flex items-center justify-center gap-2 hover:bg-[#0A7CFF] transition-colors mt-5"
+					>
+						<Text variant="Main/14px/Bold" className="text-white!">
+							{latestEvents.viewNews}
+						</Text>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 20 20"
+							fill="none"
+						>
+							<path
+								d="M17.5 10H2.5M2.5 10L6.66667 5.83334M2.5 10L6.66667 14.1667"
+								stroke="white"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+					</Link>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default function LatestEvents() {
 	const { latestEvents } = useTranslation();
+	const { data: blogPosts = [], isLoading } = useBlogQuery({ limit: 10 });
 
-	// Mock data
-	const events: EventCard[] = [
-		{
-			date: '۲۳ خرداد ۱۴۰۴',
-			title: 'محمد نوری برنده خوش شانس قرعه کشی یک واحد اتریوم شد!',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۲۰ خرداد ۱۴۰۴',
-			title:
-				'وبینار رایگان هاوینگ بیت کوین: روایتی از نوسانات و تاثیرات اقتصادی آن',
-			description:
-				'بررسی رویداد هاوینگ تاثیراتش بر قیمت و اقتصاد بیت کوین و همچنین فرصت های پیش رو',
-		},
-		{
-			date: '۱۸ خرداد ۱۴۰۴',
-			title: 'بهترین استراتژی های معاملاتی در بازار نزولی',
-			description:
-				'آموزش تکنیک‌های پیشرفته برای حفظ سرمایه و کسب سود در شرایط نزولی بازار',
-		},
-	];
+	// Get the two most important blog posts (first 2)
+	const events = useMemo(() => {
+		if (!blogPosts.length) return [];
+
+		return blogPosts.slice(0, 2).map((post) => {
+			// Format date to Persian format
+			const date = new Date(post.date);
+			const formattedDate = date.toLocaleDateString('fa-IR', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+			});
+
+			// Strip HTML from excerpt
+			const excerpt = post.excerpt
+				? post.excerpt.replace(/<[^>]*>/g, '').trim()
+				: '';
+
+			return {
+				id: post.id,
+				date: formattedDate,
+				title: post.title,
+				description: excerpt,
+				link: post.link || `/blog/${post.slug}`,
+				featured_image: post.featured_image || '/assets/main/News.png',
+			};
+		});
+	}, [blogPosts]);
 
 	return (
 		<Container className="py-12 md:py-16 lg:py-20 lg:pl-0 xl:pl-0 2xl:pl-0">
@@ -91,91 +171,77 @@ export default function LatestEvents() {
 				</div>
 			</div>
 
-			{/* Swiper */}
-			<Swiper
-				modules={[Navigation, EffectCoverflow]}
-				spaceBetween={32}
-				slidesPerView={1}
-				effect={'coverflow'}
-				grabCursor={true}
-				centeredSlides={true}
-				breakpoints={{
-					640: {
-						slidesPerView: 1.5,
-					},
-					1024: {
-						slidesPerView: 2,
-					},
-				}}
-				coverflowEffect={{
-					rotate: 0,
-					stretch: 0,
-					depth: 100,
-					modifier: 1,
-					slideShadows: true,
-				}}
-			>
-				{events.map((event, index) => (
-					<SwiperSlide key={index}>
-						<div className="h-full rounded-[28px] border border-grayscale-03 p-5 flex flex-col justify-between relative overflow-hidden bg-[url('/assets/main/News.png')] bg-cover bg-center bg-no-repeat min-h-[420px]">
-							{/* Date */}
-							<div className="self-start">
-								<div className="px-5 py-2 bg-grayscale-01-blur-74 rounded-4xl">
-									<Text
-										variant="Main/14px/SemiBold"
-										className="text-grayscale-07!"
-									>
-										{event.date}
-									</Text>
+			{/* Blog Posts - Mobile Swiper (hidden on md and up) */}
+			{isLoading ? (
+				<>
+					{/* Mobile Loading Skeleton */}
+					<div className="md:hidden">
+						<div className="grid grid-cols-1 gap-8">
+							{[1, 2].map((i) => (
+								<div
+									key={i}
+									className="h-full rounded-[28px] border border-grayscale-03 p-5 flex flex-col justify-between relative overflow-hidden bg-grayscale-02 min-h-[420px] animate-pulse"
+								>
+									<div className="h-8 w-32 bg-grayscale-03 rounded-4xl" />
+									<div className="p-6 bg-grayscale-02 rounded-3xl space-y-4">
+										<div className="h-6 bg-grayscale-03 rounded w-3/4" />
+										<div className="h-4 bg-grayscale-03 rounded w-full" />
+										<div className="h-4 bg-grayscale-03 rounded w-2/3" />
+										<div className="h-12 w-32 bg-grayscale-03 rounded-[40px] mt-5" />
+									</div>
 								</div>
-							</div>
-
-							{/* Title and Description and CTA Button */}
-							<div className="flex flex-col gap-4">
-								<div className="p-6 bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl ">
-									<Text
-										variant="LongText/14px/SemiBold"
-										className="text-grayscale-07!"
-									>
-										{event.title}
-									</Text>
-									{event.description && (
-										<div className="line-clamp-2">
-											<Text
-												variant="LongText/14px/Regular"
-												className="text-grayscale-06! hidden lg:block"
-											>
-												{event.description}
-											</Text>
-										</div>
-									)}
-
-									<button className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary flex items-center justify-center gap-2 hover:bg-[#0A7CFF] transition-colors mt-5">
-										<Text variant="Main/14px/Bold" className="text-white!">
-											{latestEvents.viewNews}
-										</Text>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="20"
-											height="20"
-											viewBox="0 0 20 20"
-											fill="none"
-										>
-											<path
-												d="M17.5 10H2.5M2.5 10L6.66667 5.83334M2.5 10L6.66667 14.1667"
-												stroke="white"
-												strokeWidth="1.5"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
-									</button>
-								</div>
-							</div>
+							))}
 						</div>
-					</SwiperSlide>
-				))}
-			</Swiper>
+					</div>
+					{/* Desktop Loading Skeleton */}
+					<div className="hidden md:grid md:grid-cols-2 gap-8">
+						{[1, 2].map((i) => (
+							<div
+								key={i}
+								className="h-full rounded-[28px] border border-grayscale-03 p-5 flex flex-col justify-between relative overflow-hidden bg-grayscale-02 min-h-[420px] animate-pulse"
+							>
+								<div className="h-8 w-32 bg-grayscale-03 rounded-4xl" />
+								<div className="p-6 bg-grayscale-02 rounded-3xl space-y-4">
+									<div className="h-6 bg-grayscale-03 rounded w-3/4" />
+									<div className="h-4 bg-grayscale-03 rounded w-full" />
+									<div className="h-4 bg-grayscale-03 rounded w-2/3" />
+									<div className="h-12 w-32 bg-grayscale-03 rounded-[40px] mt-5" />
+								</div>
+							</div>
+						))}
+					</div>
+				</>
+			) : events.length > 0 ? (
+				<>
+					{/* Mobile Swiper (visible only on mobile) */}
+					<div className="md:hidden">
+						<Swiper
+							modules={[Navigation]}
+							spaceBetween={16}
+							slidesPerView={1}
+							navigation={false}
+							className="latest-events-swiper"
+						>
+							{events.map((event) => (
+								<SwiperSlide key={event.id}>
+									<EventCard event={event} latestEvents={latestEvents} />
+								</SwiperSlide>
+							))}
+						</Swiper>
+					</div>
+
+					{/* Desktop Grid (visible only on md and up) */}
+					<div className="hidden md:grid md:grid-cols-2 gap-8">
+						{events.map((event) => (
+							<EventCard
+								key={event.id}
+								event={event}
+								latestEvents={latestEvents}
+							/>
+						))}
+					</div>
+				</>
+			) : null}
 		</Container>
 	);
 }

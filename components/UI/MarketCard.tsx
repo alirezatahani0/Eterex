@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import Text from './Text';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CryptoItem {
 	symbol: string;
@@ -42,7 +43,11 @@ export default function MarketCard({
 			</Text>
 			<div className="flex flex-col gap-6 w-full">
 				{items.map((item, index) => (
-					<div key={index} className="flex items-center justify-between gap-4">
+					<Link
+						key={index}
+						href={`/coin/${item.symbol.toLowerCase()}`}
+						className="flex items-center justify-between gap-4 hover:opacity-80 transition-opacity"
+					>
 						<div className="flex items-center gap-3 flex-1">
 							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center">
 								<Image
@@ -51,7 +56,7 @@ export default function MarketCard({
 									}/${item.symbol.toLowerCase()}_.svg`}
 									width={36}
 									height={36}
-									alt="BTC"
+									alt={item.symbol}
 								/>
 							</div>
 							<div className="flex-1 max-w-16 overflow-x-hidden whitespace-nowrap text-ellipsis">
@@ -76,7 +81,7 @@ export default function MarketCard({
 						>
 							{item.change}
 						</Text>
-					</div>
+					</Link>
 				))}
 			</div>
 		</div>

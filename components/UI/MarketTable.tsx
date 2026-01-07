@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import Text from './Text';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface MarketTableRow {
 	crypto: string;
@@ -128,7 +129,10 @@ export default function MarketTable({
 									>
 										{/* Cryptocurrency - Always visible */}
 										<td className={cn('px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4', isLastRow && 'border-b-0')}>
-											<div className="flex items-center gap-3 flex-1">
+											<Link
+												href={`/coin/${row.symbol.toLowerCase()}`}
+												className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
+											>
 												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 													<Image
 														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${row.symbol.toLowerCase()}_.svg`}
@@ -146,7 +150,7 @@ export default function MarketTable({
 														{row.symbol}
 													</Text>
 												</div>
-											</div>
+											</Link>
 										</td>
 										{/* Last Price - Always visible */}
 										<td className="px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4">
