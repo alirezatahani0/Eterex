@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/providers/QueryProvider";
+import ScrollToTop from "@/components/UI/ScrollToTop";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -72,6 +73,7 @@ export default function RootLayout({
         dir="rtl"
       >
         <QueryProvider>
+          <ScrollToTop />
           <Header />
           {children}
           <Footer />

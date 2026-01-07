@@ -211,18 +211,18 @@ const MobileView = () => {
 			</Text>
 			<div className="gap-4 grid grid-cols-2 md:grid-cols-3 w-full mb-10">
 				<DownloadButton
-					href={DownloadAppSection.android}
+					href="/download"
 					icon={<AndroidIcon />}
 					label={DownloadAppSection.android}
 				/>
 				<DownloadButton
-					href={DownloadAppSection.ios}
+					href="/download"
 					icon={<IOSIcon />}
 					label={DownloadAppSection.ios}
 				/>
 				<div className="hidden md:flex w-full">
 					<DownloadButton
-						href={DownloadAppSection.web}
+						href="/download"
 						icon={<WebIcon />}
 						label={DownloadAppSection.web}
 					/>
@@ -343,21 +343,21 @@ const LeftFrame = () => {
 
 			<div className="gap-5 grid grid-cols-3 w-full">
 				<DownloadButton
-					href={DownloadAppSection.ios}
+					href="/download"
 					icon={<IOSIcon fill="white" />}
 					label={DownloadAppSection.ios}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
-					href={DownloadAppSection.android}
+					href="/download"
 					icon={<AndroidIcon fill="white" />}
 					label={DownloadAppSection.android}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
-					href={DownloadAppSection.web}
+					href="/download"
 					icon={<WebIcon fill="white" />}
 					label={DownloadAppSection.web}
 					downloadLabel={common.downlaod}

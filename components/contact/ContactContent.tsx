@@ -245,7 +245,7 @@ export default function ContactContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4">
+				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
 					{contact.title}
 				</Text>
 

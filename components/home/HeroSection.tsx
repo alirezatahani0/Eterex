@@ -53,10 +53,11 @@ export default function HeroSection() {
 						</div>
 
 						{/* Main Title */}
-						<div className="flex flex-row items-center gap-1 mt-8 mb-6">
+						<h1 className="flex flex-row items-center gap-1 mt-8 mb-6">
 							<Text
 								variant="Main/32px/Black"
 								className="w-fit text-grayscale-07!"
+								type="span"
 							>
 								{hero.exchange}
 							</Text>
@@ -64,10 +65,11 @@ export default function HeroSection() {
 								variant="Main/32px/Black"
 								gradient="primary"
 								className="w-fit"
+								type="span"
 							>
 								{hero.eterex}
 							</Text>
-						</div>
+						</h1>
 
 						{/* Description */}
 						<div className="text-center mb-8">
@@ -202,10 +204,11 @@ export default function HeroSection() {
 						</div>
 
 						{/* Main Title */}
-						<div className="flex flex-row items-center gap-1 mt-8 mb-6">
+						<h1 className="flex flex-row items-center gap-1 mt-8 mb-6">
 							<Text
 								variant="Main/32px/Black"
 								className="w-fit text-grayscale-07!"
+								type="span"
 							>
 								{hero.exchange}
 							</Text>
@@ -213,10 +216,11 @@ export default function HeroSection() {
 								variant="Main/32px/Black"
 								gradient="primary"
 								className="w-fit"
+								type="span"
 							>
 								{hero.eterex}
 							</Text>
-						</div>
+						</h1>
 
 						{/* Description */}
 						<div className="text-center mb-8">

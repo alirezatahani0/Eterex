@@ -38,7 +38,7 @@ export default function CoinPageContent() {
 			>
 				<div className="flex flex-row items-center gap-6 justify-center">
 					{/* Title */}
-					<Text variant="Main/32px/Black" gradient="primary">
+					<Text variant="Main/32px/Black" gradient="primary" type="h1">
 						{String(symbol).toUpperCase()}
 					</Text>
 

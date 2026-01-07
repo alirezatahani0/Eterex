@@ -147,7 +147,10 @@ export default function Header() {
 						<ThemeToggle />
 						{mounted && (
 							<div className="flex items-center justify-center gap-2">
-								<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full ">
+								<Link
+									href="/download"
+									className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full hover:opacity-80 transition-opacity"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="15"
@@ -172,8 +175,11 @@ export default function Header() {
 											strokeLinejoin="round"
 										/>
 									</svg>
-								</button>
-								<button className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full">
+								</Link>
+								<Link
+									href="/markets"
+									className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full hover:opacity-80 transition-opacity"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="19"
@@ -196,7 +202,7 @@ export default function Header() {
 											strokeLinejoin="round"
 										/>
 									</svg>
-								</button>
+								</Link>
 							</div>
 						)}
 

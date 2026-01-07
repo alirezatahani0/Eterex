@@ -31,7 +31,7 @@ export default function FeesContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4">
+				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
 					{fees.title}
 				</Text>
 

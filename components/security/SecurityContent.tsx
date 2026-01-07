@@ -46,7 +46,7 @@ export default function SecurityContent() {
 				)}
 			>
 					{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4">
+				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
 						{security.title}
 					</Text>
 
