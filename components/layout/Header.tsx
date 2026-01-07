@@ -149,6 +149,7 @@ export default function Header() {
 							<div className="flex items-center justify-center gap-2">
 								<Link
 									href="/download"
+									aria-label="دانلود اپلیکیشن"
 									className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full hover:opacity-80 transition-opacity"
 								>
 									<svg
@@ -178,6 +179,7 @@ export default function Header() {
 								</Link>
 								<Link
 									href="/markets"
+									aria-label="بازارها"
 									className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full hover:opacity-80 transition-opacity"
 								>
 									<svg
@@ -224,7 +226,7 @@ export default function Header() {
 						</div>
 
 						{/* Logo */}
-						<Link href="/" className="flex items-center">
+						<Link href="/" aria-label="صفحه اصلی" className="flex items-center">
 							{mounted ? (
 								<Image
 									src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}

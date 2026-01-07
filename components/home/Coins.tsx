@@ -427,7 +427,7 @@ export default function Coins() {
 												</td>
 												<td>
 													<div className="flex items-center gap-2">
-														<button className="hidden md:flex h-14 w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2">
+														<button aria-label="نمودار" className="hidden md:flex h-14 w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2">
 															<svg
 																xmlns="http://www.w3.org/2000/svg"
 																width="20"
@@ -468,7 +468,7 @@ export default function Coins() {
 																نمودار
 															</Text>
 														</button>
-														<button className="h-14 w-14 2xl:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2">
+														<button aria-label="خرید و فروش" className="h-14 w-14 2xl:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2">
 															<Text
 																variant="Main/14px/Bold"
 																color="text-white!"

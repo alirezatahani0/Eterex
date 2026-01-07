@@ -210,7 +210,7 @@ const TwitterIcon = () => (
 const Logo = () => {
 	const { theme, mounted } = useTheme();
 	return (
-		<Link href="/" className="flex items-center mb-6">
+		<Link href="/" aria-label="صفحه اصلی" className="flex items-center mb-6">
 			{mounted ? (
 				<Image
 					src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}

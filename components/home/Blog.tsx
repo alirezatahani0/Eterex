@@ -204,6 +204,7 @@ export default function BlogSection() {
 										href={event.link}
 										target="_blank"
 										rel="noopener noreferrer"
+										aria-label={`${blog.viewNews}: ${event.title}`}
 										className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
 									>
 										<Text

@@ -198,6 +198,7 @@ export default function MarketTable({
 												{/* Chart Button - Icon only on mobile and tablet, text on XL+ */}
 												<button
 													onClick={() => onChart?.(row)}
+													aria-label="نمودار"
 													className={cn(
 														'h-14 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex flex-row items-center justify-center gap-2',
 														// Mobile & Tablet: icon only (w-14), XL+: with text (w-[140px])
@@ -247,6 +248,7 @@ export default function MarketTable({
 												{/* Operations Button */}
 												<button
 													onClick={() => onOperations?.(row)}
+													aria-label="خرید و فروش"
 													className={cn(
 														'h-14 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2',
 														// Mobile: icon only, Tablet+: with text

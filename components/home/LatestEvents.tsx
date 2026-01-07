@@ -61,6 +61,7 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 
 					<Link
 						href={event.link}
+						aria-label={`${latestEvents.viewNews}: ${event.title}`}
 						className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary flex items-center justify-center gap-2 hover:bg-[#0A7CFF] transition-colors mt-5"
 					>
 						<Text variant="Main/14px/Bold" className="text-white!">

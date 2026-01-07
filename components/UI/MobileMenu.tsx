@@ -312,7 +312,7 @@ export default function MobileMenu() {
 	const btnRef = useRef<HTMLButtonElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const { nav, mobile } = useTranslation();
-
+	const { theme, mounted } = useTheme();
 	const handleClick = () => {
 		if (animating) return;
 		setAnimating(true);
@@ -379,6 +379,7 @@ export default function MobileMenu() {
 				<button
 					ref={btnRef}
 					onClick={handleClick}
+					aria-label="باز کردن منو"
 					className="relative 2xl:hidden z-30 rounded-[40px] flex items-center justify-center bg-brand-tertiary w-12 h-12 md:w-14 md:h-14"
 				>
 					{HamburgerIcon}
@@ -409,13 +410,18 @@ export default function MobileMenu() {
 						<div className="flex flex-row items-center gap-2">
 							<button
 								onClick={handleClick}
+								aria-label="بستن منو"
 								className="relative 2xl:hidden z-30 flex items-center justify-center bg-brand-tertiary w-12 h-12 border border-grayscale-03 rounded-full "
 							>
 								{CloseIcon}
 							</button>
-							<Link href="/" className="flex items-center">
+							<Link
+								href="/"
+								aria-label="صفحه اصلی"
+								className="flex items-center"
+							>
 								<Image
-									src="/Logo.png"
+									src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
 									alt="Eterex logo"
 									width={120}
 									height={36}

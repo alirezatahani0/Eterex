@@ -157,6 +157,7 @@ export default function ListedCryptos() {
 						<button
 							onClick={handlePreviousPage}
 							disabled={isFirstPage || isLoading}
+							aria-label="صفحه قبلی"
 							className={cn(
 								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
 								isFirstPage || isLoading
@@ -186,6 +187,7 @@ export default function ListedCryptos() {
 						<button
 							onClick={handleNextPage}
 							disabled={isLastPage || isLoading}
+							aria-label="صفحه بعدی"
 							className={cn(
 								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
 								isLastPage || isLoading
@@ -327,7 +329,7 @@ export default function ListedCryptos() {
 											</td>
 											{/* Operations */}
 											<td>
-												<button className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2">
+												<button aria-label="خرید و فروش" className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2">
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														width="24"
