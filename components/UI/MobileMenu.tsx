@@ -298,10 +298,11 @@ function MobileThemeToggle() {
 				className="absolute w-7 h-7 z-20 bg-white rounded-full transition-transform duration-300 ease-in-out"
 				style={{
 					left: '6px',
-					transform: theme === 'light' ? 'translateX(28px)' : 'translateX(0)',
+					transform:
+						mounted && theme === 'light' ? 'translateX(28px)' : 'translateX(0)',
 				}}
 			/>
-			{theme === 'dark' && <div className="shrink-0 w-[21px]" />}
+			{mounted && theme === 'dark' && <div className="shrink-0 w-[21px]" />}
 		</button>
 	);
 }
@@ -421,7 +422,11 @@ export default function MobileMenu() {
 								className="flex items-center"
 							>
 								<Image
-									src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
+									src={
+										mounted && theme === 'light'
+											? '/Logo-Black.png'
+											: '/Logo.png'
+									}
 									alt="Eterex logo"
 									width={120}
 									height={36}
@@ -449,7 +454,7 @@ export default function MobileMenu() {
 												{link.label}
 											</span>{' '}
 											<ChevronIcon
-												stroke={theme === 'dark' ? 'white' : 'black'}
+												stroke={mounted && theme === 'dark' ? 'white' : 'black'}
 											/>
 										</Link>
 									</li>
