@@ -134,3 +134,28 @@ export interface BlogPost {
 	}>;
 	link?: string;
 }
+
+/**
+ * Configs API data types
+ */
+export interface PriceGroup {
+	name: string;
+	prices: {
+		usdtIrt: number;
+		irtUsdt: number;
+	};
+	coins: string[];
+}
+
+export interface UtopiaNetworkRates {
+	deposit: number;
+	withdrawal: number;
+}
+
+export interface ConfigsResponse {
+	priceGroups: PriceGroup[];
+	assetPrices: unknown[];
+	utopiaNetworkRates: UtopiaNetworkRates;
+	fiatDepositGatewayMin: number;
+	fiatDepositGatewayMax: number;
+}

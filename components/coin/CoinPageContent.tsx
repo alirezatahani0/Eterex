@@ -5,23 +5,176 @@ import Text from '@/components/UI/Text';
 import { cn } from '@/lib/utils';
 import { useParams } from 'next/navigation';
 import { useTheme } from '@/hooks/useTheme';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useConfigsQuery } from '@/hooks/useConfigsQuery';
+import { useAssetsPriceListQuery } from '@/hooks/useAssetsQuery';
+import { useMarketsQuery } from '@/hooks/useMarketsQuery';
 
 export default function CoinPageContent() {
-	const { coin, common } = useTranslation();
+	const { common } = useTranslation();
 	const params = useParams();
 	const { theme, mounted } = useTheme();
 	const [buyOrSell, setBuyOrSell] = useState<'buy' | 'sell'>('buy');
+	const [coinAmount, setCoinAmount] = useState<string>('1'); // Store raw value (without commas)
+	const [irtAmount, setIrtAmount] = useState<string>(''); // Store raw value (without commas)
+	const initializedRef = useRef(false);
 
 	const symbol = params?.symbol ?? '';
+	const symbolUpper = String(symbol).toUpperCase();
+
+	// Fetch configs, prices, and markets
+	const { data: configs, isLoading: isLoadingConfigs } = useConfigsQuery();
+	const { data: pricesData = [], isLoading: isLoadingPrices } =
+		useAssetsPriceListQuery();
+	const { data: marketsData = [], isLoading: isLoadingMarkets } =
+		useMarketsQuery();
+
+	// Find which price group the coin belongs to
+	const priceGroup = useMemo(() => {
+		if (!configs?.priceGroups || !symbolUpper) return null;
+
+		return (
+			configs.priceGroups.find((group) =>
+				group.coins.some((coin) => coin.toUpperCase() === symbolUpper),
+			) || null
+		);
+	}, [configs, symbolUpper]);
+
+	// Get market data for this coin (to get decimal places)
+	const marketData = useMemo(() => {
+		if (!marketsData.length || !symbolUpper) return null;
+
+		// Try to find market with this coin as base asset (e.g., "BTCIRT" or "BTCUSDT")
+		const market = marketsData.find(
+			(market) =>
+				market.baseAsset.toUpperCase() === symbolUpper &&
+				(market.quoteAsset.toUpperCase() === 'IRT' ||
+					market.quoteAsset.toUpperCase() === 'USDT'),
+		);
+
+		return market || null;
+	}, [marketsData, symbolUpper]);
+
+	// Get decimal places allowed for coin amount (base quantity decimal places)
+	const coinDecimalPlaces = useMemo(() => {
+		if (marketData?.baseQuantityDecimalPlaces) {
+			return parseInt(marketData.baseQuantityDecimalPlaces, 10) || 8;
+		}
+		// Default to 8 decimal places if not found
+		return 8;
+	}, [marketData]);
+
+	// Get coin price in USDT
+	const coinPriceInUsdt = useMemo(() => {
+		if (!pricesData.length || !symbolUpper) return null;
+
+		// Try to find USDT pair (e.g., "BTCUSDT")
+		const usdtPair = pricesData.find(
+			(price) =>
+				price.symbol.toUpperCase() === `${symbolUpper}USDT` &&
+				price.type === 'sell',
+		);
+
+		if (usdtPair) {
+			return parseFloat(usdtPair.price);
+		}
+
+		return null;
+	}, [pricesData, symbolUpper]);
+
+	// Calculate price in IRT based on buy/sell mode
+	const priceInIrt = useMemo(() => {
+		if (!priceGroup || !coinPriceInUsdt) return null;
+
+		const exchangeRate =
+			buyOrSell === 'buy'
+				? priceGroup.prices.irtUsdt // Use irtUsdt for buy
+				: priceGroup.prices.usdtIrt; // Use usdtIrt for sell
+
+		// Calculate: coin price in USDT * exchange rate = price in IRT
+		// For buy: if irtUsdt = 149200, it means 1 USDT costs 149200 IRT
+		// For sell: if usdtIrt = 148000, it means 1 USDT = 148000 IRT
+		return coinPriceInUsdt * exchangeRate;
+	}, [priceGroup, coinPriceInUsdt, buyOrSell]);
+	// Helper function to format number with commas (for coin amount - allows decimals)
+	const formatNumberWithCommas = (value: string | number): string => {
+		if (value === '' || value === null || value === undefined) return '';
+		const numStr = String(value);
+
+		// If the string ends with a decimal point, preserve it (user is still typing)
+		const endsWithDot = numStr.trim().endsWith('.');
+
+		// Remove all non-digit and non-decimal characters (but preserve the structure)
+		const cleaned = numStr.replace(/[^\d.]/g, '');
+		if (!cleaned) return '';
+
+		// Handle cases where user types just "." or starts with "."
+		if (cleaned === '.') {
+			return '0.';
+		}
+
+		// Split by decimal point
+		const parts = cleaned.split('.');
+		let integerPart = parts[0] || '';
+		const decimalPart = parts[1] || '';
+
+		// If integer part is empty but we have a decimal, use '0'
+		if (!integerPart && (decimalPart || endsWithDot)) {
+			integerPart = '0';
+		}
+
+		// Add commas to integer part (only if not empty)
+		const formattedInteger = integerPart
+			? integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			: '0';
+
+		// Return formatted number with decimal part if it exists or ends with dot
+		if (decimalPart || endsWithDot) {
+			return `${formattedInteger}.${decimalPart}`;
+		}
+
+		return formattedInteger;
+	};
+
+	// Helper function to format integer with commas (for IRT - no decimals)
+	const formatIntegerWithCommas = (value: string | number): string => {
+		if (!value && value !== 0) return '';
+		const numStr =
+			typeof value === 'number' ? Math.floor(value).toString() : value;
+		// Remove all non-digit characters (no decimals for IRT)
+		const cleaned = numStr.replace(/[^\d]/g, '');
+		if (!cleaned) return '';
+
+		// Add commas
+		return cleaned.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
+
+	// Initialize IRT amount when price is first loaded or buy/sell mode changes
+	useEffect(() => {
+		if (priceInIrt && !initializedRef.current) {
+			const calculatedIrt = 1 * priceInIrt;
+			// Store raw integer value (without commas, no decimals)
+			setIrtAmount(Math.floor(calculatedIrt).toString());
+			initializedRef.current = true;
+		} else if (priceInIrt && initializedRef.current) {
+			// Update when buy/sell mode changes
+			const coinNum = parseFloat(coinAmount) || 1;
+			const calculatedIrt = coinNum * priceInIrt;
+			// Store raw integer value (without commas, no decimals)
+			setIrtAmount(Math.floor(calculatedIrt).toString());
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [priceInIrt, buyOrSell]);
+
+	const isLoading = isLoadingConfigs || isLoadingPrices || isLoadingMarkets;
 
 	// Use light theme as default for SSR, only use actual theme after mount
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/Download/Header-Dark.png')] md:bg-[url('/assets/Download/Header-MD-Dark.png')] lg:bg-[url('/assets/Download/Header-LG-Dark.png')] 2xl:bg-[url('/assets/Download/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/Download/Header.png')] md:bg-[url('/assets/Download/Header-MD.png')] lg:bg-[url('/assets/Download/Header-LG.png')] 2xl:bg-[url('/assets/Download/Header-XL.png')] ";
+			? "bg-[url('/assets/Download/Header-Dark.avif')] md:bg-[url('/assets/Download/Header-MD-Dark.avif')] lg:bg-[url('/assets/Download/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/Download/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/Download/Header.avif')] md:bg-[url('/assets/Download/Header-MD.avif')] lg:bg-[url('/assets/Download/Header-LG.avif')] 2xl:bg-[url('/assets/Download/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff3d]';
@@ -50,36 +203,48 @@ export default function CoinPageContent() {
 							width={56}
 							height={56}
 							alt={String(symbol) ?? 'Coin'}
+							onError={(e) => {
+								// Hide the image on error, gray background will show
+								e.currentTarget.style.display = 'none';
+							}}
 						/>
 					</div>
 				</div>
 
 				<div className="flex flex-row-reverse items-center justify-center gap-3">
-					<div className="flex flex-row items-center justify-center gap-3">
+					{isLoading ? (
 						<Text variant="Main/24px/Bold" gradient="grayscale">
-							۹۹,۵۰۰
+							...
 						</Text>
-						<Text variant="Main/16px/Regular" gradient="grayscale">
-							تومان
-						</Text>
-					</div>
-					<div>
-						<Text
-							variant="Main/20px/Bold"
-							className="font-normal"
-							gradient="grayscale"
-						>
-							=
-						</Text>
-					</div>
-					<div className="flex flex-row items-center justify-center gap-3">
-						<Text variant="Main/16px/Regular" gradient="grayscale">
-							{String(symbol).toUpperCase()}
-						</Text>
-						<Text variant="Main/24px/Bold" gradient="grayscale">
-							1
-						</Text>
-					</div>
+					) : priceInIrt ? (
+						<>
+							<div className="flex flex-row items-center justify-center gap-3">
+								<Text variant="Main/24px/Bold" gradient="grayscale">
+									{formatIntegerWithCommas(Math.floor(priceInIrt))}
+								</Text>
+								<Text variant="Main/16px/Regular" gradient="grayscale">
+									تومان
+								</Text>
+							</div>
+							<div>
+								<Text
+									variant="Main/20px/Bold"
+									className="font-normal"
+									gradient="grayscale"
+								>
+									=
+								</Text>
+							</div>
+							<div className="flex flex-row items-center justify-center gap-3">
+								<Text variant="Main/16px/Regular" gradient="grayscale">
+									{symbolUpper}
+								</Text>
+								<Text variant="Main/24px/Bold" gradient="grayscale">
+									1
+								</Text>
+							</div>
+						</>
+					) : null}
 				</div>
 			</div>
 
@@ -88,16 +253,16 @@ export default function CoinPageContent() {
 					<Image
 						src="/Frame.png"
 						width={700}
-						height={400}
+						height={300}
 						alt="chart"
 						className="w-full"
 					/>
 				</div>
-				<div className="bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start">
+				<div className="overflow-hidden relative bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start h-fit">
 					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10">
 						<div
 							className={cn(
-								'p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
+								'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
 								buyOrSell === 'buy' ? activeStyle : baseStyle,
 							)}
 							onClick={() => setBuyOrSell('buy')}
@@ -152,7 +317,7 @@ export default function CoinPageContent() {
 						</div>
 						<div
 							className={cn(
-								' p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
+								'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
 								buyOrSell === 'sell' ? activeStyle : baseStyle,
 							)}
 							onClick={() => setBuyOrSell('sell')}
@@ -226,48 +391,184 @@ export default function CoinPageContent() {
 					</div>
 					<div className="w-full relative mb-4">
 						<input
-							id="pairAmount"
-							type="number"
+							id="coinAmount"
+							type="text"
 							inputMode="decimal"
-							min={0}
-							className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-base text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+							value={formatNumberWithCommas(coinAmount)}
+							onChange={(e) => {
+								const value = e.target.value;
+
+								// Allow only numbers and decimal point
+								const cleaned = value.replace(/[^\d.]/g, '');
+
+								// If empty, allow it
+								if (cleaned === '') {
+									setCoinAmount('');
+									setIrtAmount('');
+									return;
+								}
+
+								// Ensure only one decimal point
+								const parts = cleaned.split('.');
+								let rawValue =
+									parts.length > 2
+										? `${parts[0]}.${parts.slice(1).join('')}`
+										: cleaned;
+
+								// Limit decimal places based on coinDecimalPlaces
+								if (rawValue.includes('.')) {
+									const [integerPart, decimalPart] = rawValue.split('.');
+									if (decimalPart && decimalPart.length > coinDecimalPlaces) {
+										rawValue = `${integerPart}.${decimalPart.slice(
+											0,
+											coinDecimalPlaces,
+										)}`;
+									}
+								}
+
+								// Store raw value (without commas)
+								setCoinAmount(rawValue);
+
+								if (priceInIrt && rawValue) {
+									const coinNum = parseFloat(rawValue) || 0;
+									if (coinNum > 0) {
+										const calculatedIrt = coinNum * priceInIrt;
+										// Store raw integer value (without commas, no decimals)
+										setIrtAmount(Math.floor(calculatedIrt).toString());
+									} else {
+										setIrtAmount('');
+									}
+								} else {
+									setIrtAmount('');
+								}
+							}}
+							className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
 							placeholder="مقدار را وارد کنید"
 						/>
 						<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
-							<Image
-								src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${String(
-									symbol,
-								).toLowerCase()}_.svg`}
-								width={36}
-								height={36}
-								alt={String(symbol) ?? 'Coin'}
-							/>
-							<Text variant="Main/16px/Regular" className='text-white!'>
-								{String(symbol).toUpperCase()}
+							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${String(
+										symbol,
+									).toLowerCase()}_.svg`}
+									width={36}
+									height={36}
+									alt={symbolUpper ?? 'Coin'}
+									className="w-full h-full object-cover"
+									onError={(e) => {
+										e.currentTarget.style.display = 'none';
+									}}
+								/>
+							</div>
+							<Text variant="Main/16px/Regular" className="text-white!">
+								{symbolUpper}
 							</Text>
 						</div>
 					</div>
 					<div className="w-full relative mb-6">
 						<input
-							id="pairAmount"
-							type="number"
-							inputMode="decimal"
-							min={0}
-							className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-base text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+							id="irtAmount"
+							type="text"
+							inputMode="numeric"
+							value={formatIntegerWithCommas(irtAmount)}
+							onChange={(e) => {
+								const value = e.target.value;
+								// Allow only numbers (no decimal point for IRT)
+								const rawValue = value.replace(/[^\d]/g, '');
+
+								// Store raw integer value (without commas)
+								setIrtAmount(rawValue);
+
+								if (priceInIrt && rawValue) {
+									const irtNum = parseInt(rawValue, 10) || 0;
+									const calculatedCoin = irtNum / priceInIrt;
+									const coinValue = calculatedCoin
+										.toFixed(8)
+										.replace(/\.?0+$/, '');
+									// Store raw value for coin amount
+									setCoinAmount(coinValue || '');
+								} else {
+									setCoinAmount('');
+								}
+							}}
+							className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
 							placeholder="مقدار را وارد کنید"
 						/>
 						<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
-							<Image
-								src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/irt_.svg`}
-								width={36}
-								height={36}
-								alt={String(symbol) ?? 'Coin'}
-							/>
-							<Text variant="Main/16px/Regular" className='text-white!'>
+							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+								<Image
+									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/irt_.svg`}
+									width={36}
+									height={36}
+									alt="IRT"
+									className="w-full h-full object-cover"
+									onError={(e) => {
+										e.currentTarget.style.display = 'none';
+									}}
+								/>
+							</div>
+							<Text variant="Main/16px/Regular" className="text-white!">
 								IRT
 							</Text>
 						</div>
 					</div>
+					<div className="flex flex-row items-center justify-between w-full mb-6">
+						<Text variant="Main/14px/SemiBold" className="text-white">
+							نرخ تبدیل
+						</Text>
+						<div className="flex flex-row-reverse items-center justify-center gap-3">
+							{isLoading ? (
+								<Text variant="Main/24px/Bold" className="text-white">
+									...
+								</Text>
+							) : priceInIrt ? (
+								<>
+									<div className="flex flex-row items-center justify-center gap-2">
+										<Text variant="Main/16px/Regular" className="text-white">
+											USDT
+										</Text>
+										<Text variant="Main/20px/Bold" className="text-white">
+											1
+										</Text>
+									</div>
+									<div>
+										<Text
+											variant="Main/16px/Regular"
+											className="font-normal text-white"
+										>
+											=
+										</Text>
+									</div>
+									<div className="flex flex-row items-center justify-center gap-2">
+										<Text variant="Main/16px/Regular" className="text-white">
+											IRT
+										</Text>
+										<Text variant="Main/20px/Bold" className="text-white">
+											{
+												buyOrSell === 'buy'
+													? Number(priceGroup?.prices.irtUsdt).toLocaleString() // Use irtUsdt for buy
+													: Number(priceGroup?.prices.usdtIrt).toLocaleString() // Use usdtIrt for sell
+											}
+										</Text>
+									</div>
+								</>
+							) : null}
+						</div>
+					</div>
+					<div className="flex flex-row items-center justify-between w-full">
+						<button className="h-14 w-full bg-white flex flex-row items-center justify-center rounded-[40px] ">
+							<Text variant="Main/14px/Bold" className="text-black!">
+								معامله
+							</Text>
+						</button>
+					</div>
+					<Image
+						src="/assets/Download/VectorRight.png"
+						alt="Download"
+						width={200}
+						height={200}
+						className="w-[200px] h-[200px] object-cover absolute right-0 -top-18"
+					/>
 				</div>
 			</div>
 		</div>

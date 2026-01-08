@@ -8,7 +8,7 @@ import { useTheme } from '@/hooks/useTheme';
 
 export default function StepsSection() {
 	const { steps } = useTranslation();
-	const { theme } = useTheme();
+	const { theme, mounted } = useTheme();
 	const _steps = [
 		{
 			title: steps.items.verification.title,
@@ -143,7 +143,7 @@ export default function StepsSection() {
 										>
 											<path
 												d="M18.3493 15.2422L3.65234 6.75684M3.65234 6.75684L5.37781 13.1964M3.65234 6.75684L10.0919 5.03137"
-												stroke={theme === 'dark' ? 'black' : 'white'}
+												stroke={mounted && theme === 'dark' ? 'black' : 'white'}
 												strokeWidth="1.5"
 												strokeLinecap="round"
 												strokeLinejoin="round"
