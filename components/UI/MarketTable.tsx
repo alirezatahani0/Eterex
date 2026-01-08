@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Text from './Text';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface MarketTableRow {
 	crypto: string;
@@ -33,6 +34,7 @@ export default function MarketTable({
 	className,
 	emptyMessage = 'هیچ داده‌ای یافت نشد',
 }: MarketTableProps) {
+	const router = useRouter();
 	// Determine which columns to show based on headers
 	// Headers order: [رمز ارز, آخرین قیمت, حجم معاملات, تغییرات 24h, حجم بازار, عملیات ها]
 	const cryptoIndex = 0;
@@ -201,7 +203,10 @@ export default function MarketTable({
 											<div className="flex items-center gap-2">
 												{/* Chart Button - Icon only on mobile and tablet, text on XL+ */}
 												<button
-													onClick={() => onChart?.(row)}
+													onClick={() => {
+														router.push(`/coin/${row.symbol.toLowerCase()}`);
+														onChart?.(row);
+													}}
 													aria-label="نمودار"
 													className={cn(
 														'h-14 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex flex-row items-center justify-center gap-2',
