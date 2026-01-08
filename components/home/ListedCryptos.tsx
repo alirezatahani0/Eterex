@@ -35,7 +35,7 @@ export default function ListedCryptos() {
 				const dateA = new Date(a.created_at).getTime();
 				const dateB = new Date(b.created_at).getTime();
 				return dateB - dateA; // Descending (newest first)
-			})
+			});
 
 		// Map to CryptoItem format
 		return sortedAssets.map((asset) => {
@@ -59,7 +59,7 @@ export default function ListedCryptos() {
 			if (assetPrice) {
 				const priceNum = parseFloat(assetPrice.price);
 				if (!isNaN(priceNum)) {
-					priceText = `${priceNum.toLocaleString('fa-IR')} IRT`;
+					priceText = `${priceNum.toLocaleString('en-US')} IRT`;
 				}
 			}
 
@@ -290,17 +290,21 @@ export default function ListedCryptos() {
 													href={`/coin/${crypto.symbol.toLowerCase()}`}
 													className="flex items-center gap-3 hover:opacity-80 transition-opacity"
 												>
-													{crypto.icon && (
-														<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
+													<div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-grayscale-03 relative">
+														{crypto.icon && (
 															<Image
 																src={crypto.icon}
 																alt={crypto.symbol}
 																width={36}
 																height={36}
 																className="w-full h-full object-cover"
+																onError={(e) => {
+																	// Hide the image on error, gray background will show
+																	e.currentTarget.style.display = 'none';
+																}}
 															/>
-														</div>
-													)}
+														)}
+													</div>
 													<Text
 														variant="Main/16px/Regular"
 														className="text-grayscale-07! "
@@ -329,7 +333,10 @@ export default function ListedCryptos() {
 											</td>
 											{/* Operations */}
 											<td>
-												<button aria-label="خرید و فروش" className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2">
+												<button
+													aria-label="خرید و فروش"
+													className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2"
+												>
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														width="24"

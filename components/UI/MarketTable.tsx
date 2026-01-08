@@ -133,13 +133,17 @@ export default function MarketTable({
 												href={`/coin/${row.symbol.toLowerCase()}`}
 												className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
 											>
-												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
+												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 													<Image
 														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${row.symbol.toLowerCase()}_.svg`}
 														width={36}
 														height={36}
 														alt={row.symbol}
 														className="w-full h-full object-cover"
+														onError={(e) => {
+															// Hide the image on error, gray background will show
+															e.currentTarget.style.display = 'none';
+														}}
 													/>
 												</div>
 												<div className="flex-1">

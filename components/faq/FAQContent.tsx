@@ -42,7 +42,12 @@ export default function FAQContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{faq.title}
 				</Text>
 
@@ -82,7 +87,7 @@ export default function FAQContent() {
 										key={questionIndex}
 										header={
 											<>
-												{Number(questionIndex + 1).toLocaleString("fa-IR")}.
+												{Number(questionIndex + 1).toLocaleString('fa-IR')}.
 												{item.question}
 											</>
 										}
@@ -107,4 +112,3 @@ export default function FAQContent() {
 		</div>
 	);
 }
-

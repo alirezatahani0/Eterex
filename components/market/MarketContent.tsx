@@ -202,108 +202,165 @@ export default function MarketContent({
 	}, [allMarkets, baseTransaction, searchQuery]);
 
 	// Combine markets with assets and prices data (for cards - no filters)
+	// Include all assets from assetsData, even if not in market data
 	const enrichedMarketsForCards = useMemo(() => {
-		if (
-			!baseFilteredMarkets.length ||
-			!assetsData?.coins ||
-			!pricesData?.length
-		) {
+		if (!assetsData?.coins) {
 			return [];
 		}
 
 		// Filter prices by quote pair (USDT or IRT) - prices should end with the selected baseTransaction
-		const filteredPrices = pricesData.filter((price) => {
-			const priceSymbolUpper = price.symbol.toUpperCase();
-			return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
-		});
+		const filteredPrices =
+			pricesData?.filter((price) => {
+				const priceSymbolUpper = price.symbol.toUpperCase();
+				return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
+			}) || [];
 
 		// Create maps for quick lookup
-		const assetsMap = new Map(
-			assetsData.coins.map((asset) => [asset.name.toUpperCase(), asset]),
-		);
 		const pricesMap = new Map(
 			filteredPrices.map((price) => [price.symbol.toUpperCase(), price]),
 		);
+		const marketsMap = new Map(
+			baseFilteredMarkets.map((market) => [
+				market.baseAsset.toUpperCase(),
+				market,
+			]),
+		);
 
-		return baseFilteredMarkets.map((market) => {
-			const asset = assetsMap.get(market.baseAsset.toUpperCase());
-			// Match price by market symbol (e.g., "BTCUSDT" or "BTCIRT")
-			const price = pricesMap.get(market.symbol.toUpperCase());
+		// Start with all trading-enabled and active assets
+		const allAssets = assetsData.coins.filter(
+			(asset) => asset.trading_enabled && asset.active,
+		);
+
+		// Combine assets with prices and markets
+		const enriched = allAssets.map((asset) => {
+			const assetSymbol = asset.name.toUpperCase();
+			// Try to find matching price (e.g., "BTCUSDT" or "BTCIRT")
+			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const price = pricesMap.get(priceSymbol);
+			// Try to find matching market
+			const market = marketsMap.get(assetSymbol);
+
+			return {
+				market: market || null,
+				asset,
+				price: price || null,
+			};
+		});
+
+		// Also include markets that don't have assets (if any)
+		const marketsWithoutAssets = baseFilteredMarkets.filter((market) => {
+			const assetExists = allAssets.some(
+				(asset) => asset.name.toUpperCase() === market.baseAsset.toUpperCase(),
+			);
+			return !assetExists;
+		});
+
+		const additionalMarkets = marketsWithoutAssets.map((market) => {
+			const assetSymbol = market.baseAsset.toUpperCase();
+			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const price = pricesMap.get(priceSymbol);
 
 			return {
 				market,
-				asset,
-				price,
+				asset: null,
+				price: price || null,
 			};
 		});
+
+		return [...enriched, ...additionalMarkets];
 	}, [baseFilteredMarkets, assetsData, pricesData, baseTransaction]);
 
 	// Combine markets with assets and prices data (for table - with filters)
+	// Include all assets from assetsData, even if not in market data
 	const enrichedMarkets = useMemo(() => {
-		if (!filteredMarkets.length || !assetsData?.coins || !pricesData?.length) {
+		if (!assetsData?.coins) {
 			return [];
 		}
 
 		// Filter prices by quote pair (USDT or IRT) - prices should end with the selected baseTransaction
-		const filteredPrices = pricesData.filter((price) => {
-			const priceSymbolUpper = price.symbol.toUpperCase();
-			return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
-		});
+		const filteredPrices =
+			pricesData?.filter((price) => {
+				const priceSymbolUpper = price.symbol.toUpperCase();
+				return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
+			}) || [];
 
 		// Create maps for quick lookup
-		const assetsMap = new Map(
-			assetsData.coins.map((asset) => [asset.name.toUpperCase(), asset]),
-		);
 		const pricesMap = new Map(
 			filteredPrices.map((price) => [price.symbol.toUpperCase(), price]),
 		);
+		const marketsMap = new Map(
+			filteredMarkets.map((market) => [market.baseAsset.toUpperCase(), market]),
+		);
 
-		let enriched = filteredMarkets.map((market) => {
-			const asset = assetsMap.get(market.baseAsset.toUpperCase());
-			// Match price by market symbol (e.g., "BTCUSDT" or "BTCIRT")
-			const price = pricesMap.get(market.symbol.toUpperCase());
+		// Start with all trading-enabled and active assets
+		let allAssets = assetsData.coins.filter(
+			(asset) => asset.trading_enabled && asset.active,
+		);
+
+		// Apply search filter if search query exists
+		if (searchQuery.trim()) {
+			const query = searchQuery.toLowerCase().trim();
+			allAssets = allAssets.filter(
+				(asset) =>
+					asset.name.toLowerCase().includes(query) ||
+					asset.full_name?.toLowerCase().includes(query),
+			);
+		}
+
+		// Combine assets with prices and markets
+		const enriched = allAssets.map((asset) => {
+			const assetSymbol = asset.name.toUpperCase();
+			// Try to find matching price (e.g., "BTCUSDT" or "BTCIRT")
+			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const price = pricesMap.get(priceSymbol);
+			// Try to find matching market
+			const market = marketsMap.get(assetSymbol);
 
 			return {
-				market,
+				market: market || null,
 				asset,
-				price,
+				price: price || null,
 			};
 		});
 
 		// Filter by selected category if one is selected
+		let filtered = enriched;
 		if (selectedCategory) {
-			enriched = enriched.filter((item) => {
+			filtered = enriched.filter((item) => {
 				if (!item.asset?.labels) return false;
 				const mappedCategory = mapAssetToCategory(item.asset.labels);
 				return mappedCategory === selectedCategory;
 			});
 		}
 
-		return enriched;
+		return filtered;
 	}, [
 		filteredMarkets,
 		assetsData,
 		pricesData,
 		selectedCategory,
 		baseTransaction,
+		searchQuery,
 	]);
 
 	// Transform enriched markets to table rows
 	const allMarketTableRows = useMemo(() => {
 		return enrichedMarkets
-			.filter((item) => item.price) // Only show markets with price data
+			.filter((item) => item.price && item.asset) // Only show items with price and asset data
 			.map((item) => {
-				const { market, price } = item;
+				const { market, price, asset } = item;
 				const change24hPercent = price?.price_change_percentage ?? 0;
 				const change24hPercentStr = `${
 					change24hPercent >= 0 ? '+' : ''
 				}${change24hPercent.toFixed(2)}%`;
 				const isPositive = change24hPercent >= 0;
 
-				// Format price based on priceDecimalPlaces from market
-				const priceDecimalPlaces = parseInt(market.priceDecimalPlaces, 10) || 2;
+				// Format price based on priceDecimalPlaces from market (or default to 2)
+				const priceDecimalPlaces = market
+					? parseInt(market.priceDecimalPlaces, 10) || 2
+					: 2;
 				const formattedPrice = price?.price
-					? parseFloat(price.price).toLocaleString('fa-IR', {
+					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
 					  })
@@ -311,21 +368,30 @@ export default function MarketContent({
 
 				// Format volume (using quote_volume which is in the quote currency)
 				const formattedVolume = price?.quote_volume
-					? parseFloat(price.quote_volume.toString()).toLocaleString('fa-IR', {
+					? parseFloat(price.quote_volume.toString()).toLocaleString('en-US', {
 							maximumFractionDigits: 2,
 					  })
 					: '0';
 
 				// Market cap not available in price API, use volume as placeholder or empty
-				const formattedMarketCap = '—'; // Not available in API
+				const formattedMarketCap = price?.volume
+					? parseFloat(price.volume.toString()).toLocaleString('en-US', {
+							maximumFractionDigits: 2,
+					  })
+					: '0';
 
 				const changeType: 'positive' | 'negative' = isPositive
 					? 'positive'
 					: 'negative';
 
+				// Use market data if available, otherwise use asset data
+				// asset is guaranteed to be non-null by the filter above
+				const symbol = market?.baseAsset || asset!.name.toUpperCase();
+				const crypto = market?.name.split('/')[0] || asset!.full_name || symbol;
+
 				return {
-					crypto: market.name.split('/')[0] || market.baseAsset,
-					symbol: market.baseAsset,
+					crypto,
+					symbol,
 					lastPrice: formattedPrice,
 					volume: formattedVolume,
 					change24h: change24hPercentStr,
@@ -386,10 +452,12 @@ export default function MarketContent({
 				}${change24hPercent.toFixed(2)}%`;
 				const isPositive = change24hPercent >= 0;
 
-				// Format price based on priceDecimalPlaces from market
-				const priceDecimalPlaces = parseInt(market.priceDecimalPlaces, 10) || 2;
+				// Format price based on priceDecimalPlaces from market (or default to 2)
+				const priceDecimalPlaces = market
+					? parseInt(market.priceDecimalPlaces, 10) || 2
+					: 2;
 				const formattedPrice = price?.price
-					? parseFloat(price.price).toLocaleString('fa-IR', {
+					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
 					  })
@@ -399,10 +467,14 @@ export default function MarketContent({
 					? 'positive'
 					: 'negative';
 
+				// Use market data if available, otherwise use asset data
+				// asset is guaranteed to be non-null by the filter above
+				const symbol = market?.baseAsset || asset!.name.toUpperCase();
+				const name = asset!.full_name || market?.name.split('/')[0] || symbol;
+
 				return {
-					symbol: market.baseAsset,
-					name:
-						asset?.full_name || market.name.split('/')[0] || market.baseAsset,
+					symbol,
+					name,
 					price: formattedPrice,
 					change: change24hPercentStr,
 					changeType,
@@ -438,10 +510,10 @@ export default function MarketContent({
 			.filter((item): item is NonNullable<typeof item> => item !== undefined)
 			.slice(0, 3);
 
-		// Newest - sort all by created_at (newest first) and take first 3
-		// Filter to only include items with both price and asset (with created_at)
+		// Newest - filter by trading_enabled && active, sort by created_at (newest first) and take first 3
+		// Filter to only include items with both price and asset (with created_at, trading_enabled, and active)
 		const newest = enrichedMarketsForCards
-			.filter((item) => item.price && item.asset && item.asset.created_at)
+			.filter((asset) => asset.asset?.trading_enabled && asset.asset?.active)
 			.sort((a, b) => {
 				// Sort by created_at descending (newest first)
 				const dateA = new Date(a.asset!.created_at).getTime();
@@ -449,6 +521,7 @@ export default function MarketContent({
 				return dateB - dateA;
 			})
 			.slice(0, 3)
+			.filter((item) => item.price && item.asset)
 			.map((item) => {
 				const { market, price, asset } = item;
 				const change24hPercent = price?.price_change_percentage ?? 0;
@@ -457,10 +530,12 @@ export default function MarketContent({
 				}${change24hPercent.toFixed(2)}%`;
 				const isPositive = change24hPercent >= 0;
 
-				// Format price based on priceDecimalPlaces from market
-				const priceDecimalPlaces = parseInt(market.priceDecimalPlaces, 10) || 2;
+				// Format price based on priceDecimalPlaces from market (or default to 2)
+				const priceDecimalPlaces = market
+					? parseInt(market.priceDecimalPlaces, 10) || 2
+					: 2;
 				const formattedPrice = price?.price
-					? parseFloat(price.price).toLocaleString('fa-IR', {
+					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
 					  })
@@ -470,10 +545,14 @@ export default function MarketContent({
 					? 'positive'
 					: 'negative';
 
+				// Use market data if available, otherwise use asset data
+				// asset is guaranteed to be non-null by the filter above
+				const symbol = market?.baseAsset || asset!.name.toUpperCase();
+				const name = asset!.full_name || market?.name.split('/')[0] || symbol;
+
 				return {
-					symbol: market.baseAsset,
-					name:
-						asset?.full_name || market.name.split('/')[0] || market.baseAsset,
+					symbol,
+					name,
 					price: formattedPrice,
 					change: change24hPercentStr,
 					changeType,
@@ -544,7 +623,12 @@ export default function MarketContent({
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{market.title}
 				</Text>
 

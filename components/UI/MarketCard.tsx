@@ -49,7 +49,7 @@ export default function MarketCard({
 						className="flex items-center justify-between gap-4 hover:opacity-80 transition-opacity"
 					>
 						<div className="flex items-center gap-3 flex-1">
-							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center">
+							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 								<Image
 									src={`${
 										process.env.NEXT_PUBLIC_ICON_BASE_URL
@@ -57,6 +57,11 @@ export default function MarketCard({
 									width={36}
 									height={36}
 									alt={item.symbol}
+									className="w-full h-full object-cover"
+									onError={(e) => {
+										// Hide the image on error, gray background will show
+										e.currentTarget.style.display = 'none';
+									}}
 								/>
 							</div>
 							<div className="flex-1 max-w-16 overflow-x-hidden whitespace-nowrap text-ellipsis">

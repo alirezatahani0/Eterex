@@ -63,7 +63,7 @@ export default function Coins() {
 				const decimalPlaces = parseInt(market.priceDecimalPlaces) || 2;
 				const priceText = isNaN(priceNum)
 					? '—'
-					: priceNum.toLocaleString('fa-IR', {
+					: priceNum.toLocaleString('en-US', {
 							minimumFractionDigits: decimalPlaces,
 							maximumFractionDigits: decimalPlaces,
 					  });
@@ -85,7 +85,7 @@ export default function Coins() {
 
 				// Format created_at date
 				const date = new Date(asset.created_at);
-				const formattedDate = date.toLocaleDateString('fa-IR', {
+				const formattedDate = date.toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: '2-digit',
 					day: '2-digit',
@@ -100,7 +100,7 @@ export default function Coins() {
 					change24h: changeText,
 					changeType,
 					volume: price.volume || 0,
-					volumeFormatted: (price.volume || 0).toLocaleString('fa-IR'),
+					volumeFormatted: (price.volume || 0).toLocaleString('en-US'),
 					marketCap: priceNum * (price.volume || 0),
 					created_at: asset.created_at,
 					priceChange: change24h,
