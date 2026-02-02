@@ -12,17 +12,27 @@ import {
 } from '@/hooks/useAssetsQuery';
 import { useMemo, useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
+import { useRouter } from 'next/navigation';
+import { useMarketsQuery } from '@/hooks/useMarketsQuery';
 
 export default function ListedCryptos() {
 	const { listedCryptos } = useTranslation();
 	const { theme, mounted } = useTheme();
 	const [currentPage, setCurrentPage] = useState(0);
+	const router = useRouter();
 
 	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery();
 	const { data: pricesData = [], isLoading: isLoadingPrices } =
 		useAssetsPriceListQuery();
-
+		const { data: marketsData = [], isLoading: isLoadingMarkets } =
+		useMarketsQuery({ showAll: true });
+		
 	const itemsPerPage = 4;
+
+	// Filter markets that have USD/USDT pairs and are active
+	const marketsMap = useMemo(() => {return new Map(
+		marketsData.map((market) => [market.baseAsset.toUpperCase(), market]),
+	)}, [marketsData]);
 
 	// Transform assets to crypto items, sorted by created_at
 	const cryptos = useMemo(() => {
@@ -46,22 +56,33 @@ export default function ListedCryptos() {
 				month: '2-digit',
 				day: '2-digit',
 			});
+			const assetSymbol = asset.name.toUpperCase();
 
 			// Find price for this asset (look for IRT pair, e.g., "BTCIRT")
-			const priceSymbol = `${asset.name.toUpperCase()}IRT`;
+			const priceSymbol = `${assetSymbol}USDT`;
 			const assetPrice = pricesData.find(
 				(price) =>
-					price.symbol.toUpperCase() === priceSymbol && price.type === 'buy',
+					price.symbol.toUpperCase() === priceSymbol && price.type === 'sell',
 			);
 
+			const market = marketsMap.get(assetSymbol);
+
+
 			// Format price
-			let priceText = '—';
-			if (assetPrice) {
-				const priceNum = parseFloat(assetPrice.price);
-				if (!isNaN(priceNum)) {
-					priceText = `${priceNum.toLocaleString('en-US')} IRT`;
+			const priceNum = parseFloat(assetPrice?.price || '0');
+			const decimalPlaces =
+				parseInt(market?.priceDecimalPlaces || '4', 10) || 4;
+
+				if (assetSymbol === "ACE") {
+					console.log(decimalPlaces, 'decimalPlaces')
+					console.log(market, 'market')
 				}
-			}
+			const priceText = isNaN(priceNum)
+				? '—'
+				: priceNum.toLocaleString('en-US', {
+						minimumFractionDigits: decimalPlaces,
+						maximumFractionDigits: decimalPlaces,
+				  });
 
 			// Get icon URL
 			const iconUrl = asset.name
@@ -78,7 +99,7 @@ export default function ListedCryptos() {
 				icon: iconUrl,
 			};
 		});
-	}, [assetsData, pricesData]);
+	}, [assetsData, marketsMap, pricesData]);
 
 	const isLoading = isLoadingAssets || isLoadingPrices;
 
@@ -251,7 +272,7 @@ export default function ListedCryptos() {
 									<tr
 										key={i}
 										className={cn(
-											'hover:bg-grayscale-02 border-b border-grayscale-03',
+											'border-b border-grayscale-03',
 											i === 3 ? 'border-b-0' : '',
 										)}
 									>
@@ -280,7 +301,7 @@ export default function ListedCryptos() {
 										<tr
 											key={crypto.symbol}
 											className={cn(
-												'hover:bg-grayscale-02 border-b border-grayscale-03',
+												'border-b border-grayscale-03',
 												isLastRow ? 'border-b-0' : '',
 											)}
 										>
@@ -334,6 +355,11 @@ export default function ListedCryptos() {
 											{/* Operations */}
 											<td>
 												<button
+												onClick={() =>
+													router.push(
+														`/coin/${crypto.symbol.toLowerCase()}`,
+													)
+												}
 													aria-label="خرید و فروش"
 													className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2"
 												>

@@ -259,7 +259,7 @@ export default function CoinPageContent() {
 					/>
 				</div>
 				<div className="overflow-hidden relative bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start h-fit">
-					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10">
+					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
 						<div
 							className={cn(
 								'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
@@ -567,7 +567,7 @@ export default function CoinPageContent() {
 						alt="Download"
 						width={200}
 						height={200}
-						className="w-[200px] h-[200px] object-cover absolute right-0 -top-18"
+						className="w-[200px] h-[200px] object-cover absolute right-0 -top-18 z-0"
 					/>
 				</div>
 			</div>

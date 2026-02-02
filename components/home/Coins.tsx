@@ -72,7 +72,7 @@ export default function Coins() {
 				// Format price with decimal places from market
 				const priceNum = parseFloat(price.price);
 				const decimalPlaces =
-					parseInt(market?.priceDecimalPlaces || '2', 10) || 2;
+					parseInt(market?.priceDecimalPlaces || '4', 10) || 4;
 				const priceText = isNaN(priceNum)
 					? '—'
 					: priceNum.toLocaleString('en-US', {
@@ -291,7 +291,7 @@ export default function Coins() {
 											variant="Main/14px/SemiBold"
 											className="text-grayscale-05! font-normal"
 										>
-											{coins.table.headers[1]}
+											{coins.table.headers[1]} USDT
 										</Text>
 									</th>
 									<th className={cn('pb-4 text-right hidden md:table-cell')}>
@@ -324,7 +324,7 @@ export default function Coins() {
 										<tr
 											key={i}
 											className={cn(
-												'hover:bg-grayscale-02 border-b border-grayscale-03',
+												'border-b border-grayscale-03',
 												i === 6 ? 'border-b-0' : '',
 											)}
 										>
@@ -360,7 +360,7 @@ export default function Coins() {
 											<tr
 												key={crypto.symbol}
 												className={cn(
-													'hover:bg-grayscale-02 border-b border-grayscale-03',
+													'border-b border-grayscale-03',
 													isLastRow ? 'border-b-0' : '',
 												)}
 											>
@@ -557,7 +557,7 @@ export default function Coins() {
 							</button>
 						))}
 					</div>
-					<div className="overflow-x-auto">
+					<div className="overflow-x-auto relative z-10">
 						<table className="w-full">
 							<thead>
 								<tr>
@@ -580,7 +580,7 @@ export default function Coins() {
 										<tr
 											key={i}
 											className={cn(
-												'hover:bg-grayscale-02 border-b border-grayscale-03',
+												'border-b border-grayscale-03',
 												i === 6 ? 'border-b-0' : '',
 											)}
 										>
@@ -606,7 +606,7 @@ export default function Coins() {
 											<tr
 												key={crypto.symbol}
 												className={cn(
-													'hover:bg-grayscale-02 border-b border-grayscale-03',
+													'border-b border-grayscale-03',
 													isLastRow ? 'border-b-0' : '',
 												)}
 											>
