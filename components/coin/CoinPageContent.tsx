@@ -67,7 +67,12 @@ export default function CoinPageContent() {
 
 	// Get coin price in USDT
 	const coinPriceInUsdt = useMemo(() => {
+		
 		if (!pricesData.length || !symbolUpper) return null;
+		if (symbolUpper === "USDT") {
+			return 1
+		}
+
 
 		// Try to find USDT pair (e.g., "BTCUSDT")
 		const usdtPair = pricesData.find(
@@ -83,6 +88,7 @@ export default function CoinPageContent() {
 		return null;
 	}, [pricesData, symbolUpper]);
 
+
 	// Calculate price in IRT based on buy/sell mode
 	const priceInIrt = useMemo(() => {
 		if (!priceGroup || !coinPriceInUsdt) return null;
@@ -97,6 +103,7 @@ export default function CoinPageContent() {
 		// For sell: if usdtIrt = 148000, it means 1 USDT = 148000 IRT
 		return coinPriceInUsdt * exchangeRate;
 	}, [priceGroup, coinPriceInUsdt, buyOrSell]);
+
 	// Helper function to format number with commas (for coin amount - allows decimals)
 	const formatNumberWithCommas = (value: string | number): string => {
 		if (value === '' || value === null || value === undefined) return '';
