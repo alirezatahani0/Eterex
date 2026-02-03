@@ -10,7 +10,58 @@ import Image from 'next/image';
 import { useConfigsQuery } from '@/hooks/useConfigsQuery';
 import { useAssetsPriceListQuery } from '@/hooks/useAssetsQuery';
 import { useMarketsQuery } from '@/hooks/useMarketsQuery';
+import { useCoinData } from '@/hooks/useCoinData';
+import Collapse2 from '@/components/UI/Collapse2';
+import Link from 'next/link';
 
+
+
+const UserIcon = () => (
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+		<path d="M18.3493 15.2423L3.65234 6.75696M3.65234 6.75696L5.37781 13.1965M3.65234 6.75696L10.0919 5.03149" className="stroke-grayscale-01" strokeWidth="1.5" strokeLinecap="round" stroke-Linejoin="round" />
+	</svg>
+);
+
+
+const symbols = {
+	"RUNE": "ثورچین", "QNT": "کوانت", "NEXO": "نکسو", "NEO": "نئو", "MKR": "میکر", "MATIC": "پالیگان Polygon (ماتیک سابق MATIC)", "MANA": "دسنترالند (مانا)", "LINK": "چین لینک", "KSM": "کوزاما", "ICP": " اینترنت کامپیوتر (دفینیتی)", "HOT": "هولو", "HBAR": "هدرا هش گراف", "GRT": "گراف", "FTT": "اف تی ایکس توکن", "FLOW": "فلو", "FIL": "فایل کوین", "ETC": "اتریوم کلاسیک", "EOS": "ایاس", "ENJ": "انجین کوین", "EGLD": "الروند", "DCR": "دیکرد", "DASH": "دش ", "DAI": "دای", "COMP": "کامپاند", "CHZ": "چیلیز", "CAKE": "پنکیک سواپ (کیک)", "BCH": "بیت کوین کش", "AVAX": "آوالانچ", "AMP": "آمپ", "ALGO": "الگورند", "AAVE": "آوی", "GPS": "GPS", "AIXBT": "ای آی ایکس بیت", "TRUMP": "ترامپ", "KAITO": "کایتو", "HEI": "Heima", "LAYER": "لایر", "1000CHEEMS": "1000CHEEMS", "TST": "Teleport System Token", "BERA": "Berachain", BTC: "بیت کوین", "USDT": "تتر", "PARTI": "Parti", "FORM": "FORM", "XUSD": "xUSD", "EPIC": "Epic Cash", "ANIME": "انیمه",
+	ETH: "اتریوم",
+	BNB: "بایننس کوین",
+	DOT: "پولکادات",
+	LTC: "لایت کوین",
+	DOGE: "دوج کوین",
+	XRP: "دریپل",
+	ADA: "کاردانو",
+	LUNA: "لونا",
+	ZRX: "زیرو ایکس",
+	ZIL: "زیلیکا",
+	ZEC: "زی کش",
+	YGG: "ییلد گیلد گیمز",
+	YFI: "یرن فایننس",
+	XVS: "ونوس",
+	XVG: "ورج",
+	XTZ: "تزوس",
+	XNO: "نانو",
+	XEC: "ای کش",
+	WOO: "وو نتورک",
+	WLD: "ورلد کوین",
+	WBTC: "رپد بیت کوین",
+	WAN: "وان چین",
+	VTHO: "وی ثور توکن",
+	VGX: "وویجر",
+	VET: "وی چین",
+	USDC: "یو اس دی کوین",
+	UNI: "یونی سواپ",
+	TrueUSD: "ترو یو اس دی",
+	TRX: "ترون",
+	THETA: "تتا",
+	TFUEL: "تتافیول",
+	SUSHI: "سوشی سواپ",
+	STX: "استکس",
+	SOL: "سولانا",
+	SNX: "سینتتیکس",
+	SHIB: "شیبا اینو"
+}
 export default function CoinPageContent() {
 	const { common } = useTranslation();
 	const params = useParams();
@@ -29,6 +80,9 @@ export default function CoinPageContent() {
 		useAssetsPriceListQuery();
 	const { data: marketsData = [], isLoading: isLoadingMarkets } =
 		useMarketsQuery();
+
+	// Load coin data from JSON file
+	const { coinData } = useCoinData(symbolUpper);
 
 	// Find which price group the coin belongs to
 	const priceGroup = useMemo(() => {
@@ -67,7 +121,7 @@ export default function CoinPageContent() {
 
 	// Get coin price in USDT
 	const coinPriceInUsdt = useMemo(() => {
-		
+
 		if (!pricesData.length || !symbolUpper) return null;
 		if (symbolUpper === "USDT") {
 			return 1
@@ -198,7 +252,7 @@ export default function CoinPageContent() {
 			>
 				<div className="flex flex-row items-center gap-6 justify-center">
 					{/* Title */}
-					<Text variant="Main/32px/Black" gradient="primary" type="h1">
+					<Text variant="Main/32px/Black" gradient="primary" type="h1" className='tracking-wider'>
 						{String(symbol).toUpperCase()}
 					</Text>
 
@@ -265,7 +319,7 @@ export default function CoinPageContent() {
 						className="w-full"
 					/>
 				</div>
-				<div className="overflow-hidden relative bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start h-fit">
+				<div className="overflow-hidden bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start h-fit sticky top-30">
 					<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
 						<div
 							className={cn(
@@ -577,7 +631,116 @@ export default function CoinPageContent() {
 						className="w-[200px] h-[200px] object-cover absolute right-0 -top-18 z-0"
 					/>
 				</div>
+				<div>
+					<div className='my-[120px] rounded-4xl border-2 border-grayscale-03 p-8'>
+						<div className='grid grid-cols-1 md:grid-cols-2 gap-6 pb-8 border-b-2 border-grayscale-03'>
+							<div className='flex flex-col gap-6 items-center md:items-start justify-center'>
+								<div className='flex flex-row items-center gap-2'>
+									<Text variant='Main/32px/Bold'>چگونه</Text>
+									<Text variant='Main/32px/Bold' gradient="primary">
+										{(symbols as Record<string, string>)[symbolUpper] ?? symbolUpper} بخریم؟
+									</Text>
+								</div>
+								<Text variant='Main/16px/Regular'>
+									فرایند خرید {(symbols as Record<string, string>)[symbolUpper] ?? symbolUpper} در صرافی اتراکس را به طور کلی در ویدئو زیر توضیح دادیم:
+								</Text>
+							</div>
+							<Image
+								src="/assets/main/howtoBuy.png"
+								alt="Download"
+								width={200}
+								height={200}
+								className="w-full h-[200px] object-cover rounded-2xl"
+							/>
+						</div>
+
+						<div className='pt-8 flex flex-col gap-8'>
+							<div className='flex flex-row items-center justify-between gap-8 w-full'>
+								<div className='flex flex-row items-center gap-8'>
+									<Text variant='Main/24px/Bold' gradient="primary">۱</Text>
+									<div className='flex flex-col justify-center items-start gap-3'>
+										<Text variant='Main/20px/Bold'>
+											ثبت‌نام
+										</Text>
+										<Text variant='Main/16px/Regular'>
+											ابتدا در سایت یا اپلیکیشن اتراکس ثبت‌نام کنید
+										</Text>
+									</div>
+								</div>
+								<Link
+									href='https://app.eterex.com/login'
+									className="bg-grayscale-07 rounded-[40px] h-12 md:h-14 px-4 md:px-6 text-[12px] md:text-base font-bold text-grayscale-01 flex items-center justify-center gap-2"
+								>
+
+									ثبت‌نام	<UserIcon />
+								</Link>
+							</div>
+							<div className='flex flex-row items-center justify-start gap-8 w-full'>
+								<Text variant='Main/24px/Bold' gradient="primary">۲</Text>
+								<div className='flex flex-col justify-center items-start gap-3'>
+									<Text variant='Main/20px/Bold'>
+										احراز هویت
+									</Text>
+									<Text variant='Main/16px/Regular'>
+										با احراز هویت اتوماتیک، در لحظه دسترسی‌تان فعال می‌شود.
+									</Text>
+								</div>
+							</div>
+							<div className='flex flex-row items-center justify-start gap-8 w-full'>
+								<Text variant='Main/24px/Bold' gradient="primary">۳</Text>
+								<div className='flex flex-col justify-center items-start gap-3'>
+									<Text variant='Main/20px/Bold'>
+										شارژ حساب
+									</Text>
+									<Text variant='Main/16px/Regular'>
+										از درگاه بانکی، شماره شبا و یا حتی واریز مستقیم استفاده کنید تا کیف‌پول خود را در سریع‌ترین زمان شارژ کنید.									</Text>
+								</div>
+							</div>
+							<div className='flex flex-row items-center justify-start gap-8 w-full'>
+								<Text variant='Main/24px/Bold' gradient="primary">۴</Text>
+								<div className='flex flex-col justify-center items-start gap-3'>
+									<Text variant='Main/20px/Bold'>
+										خرید ارز دیجیتال									</Text>
+									<Text variant='Main/16px/Regular'>
+										اکنون می‌توانید به‌صورت لحظه‌ای رمزارزهای دلخواهتان را در اتراکس معامله کنید؛ سریع، مطمئن و بدون محدودیت.									</Text>
+								</div>
+							</div>
+						</div>
+					</div>
+					{/* Info Section */}
+					{coinData && coinData.sections && coinData.sections.length > 0 && (
+						<div className="flex flex-col gap-6 mt-8">
+							<div className="flex flex-col gap-4">
+								{coinData.sections.map((section, index) => (
+									<div
+										key={index}
+										className="py-5 border-b border-grayscale-03 last:border-b-0 bg-white dark:bg-grayscale-01"
+									>
+										<Collapse2
+											header={section.title}
+											defaultOpen={index === 0}
+											headerClassName="text-right"
+											contentClassName="text-right"
+										>
+											<Text
+												variant="LongText/16px/Regular"
+												className="whitespace-pre-line leading-relaxed"
+											>
+												{section.description
+													.replace(/\n\s+/g, ' ')
+													.replace(/\s+/g, ' ')
+													.trim()}
+											</Text>
+										</Collapse2>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
+
+
 		</div>
 	);
 }
