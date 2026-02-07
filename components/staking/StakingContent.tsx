@@ -242,7 +242,7 @@ export default function StakingContent() {
 						سود بگیر!
 					</Text>
 				</div>
-				<div className="px-7 md:px-16 text-center mb-8 lg:px-0">
+				<div className="px-7 md:px-16 text-center mb-8 lg:px-0  xl:max-w-[50%]">
 					<Text variant="LongText/14px/Regular" className="text-grayscale-06!">
 						با استیکینگ دارایی رمزارزی یا موجودی تومانی خود در صرافی اتراکس،
 						بسته به طرح انتخابی{' '}
@@ -295,7 +295,7 @@ export default function StakingContent() {
 					alt="Hero Image"
 					className="object-cover w-full lg:hidden"
 				/>
-				<div className="hidden lg:flex flex-row items-start justify-between relative w-full mb-54">
+				<div className="hidden lg:flex flex-row items-start justify-between relative w-full mb-54 xl:mb-30">
 					<div className="flex items-center gap-2 w-full">
 						<button
 							aria-label="ثبت نام"
