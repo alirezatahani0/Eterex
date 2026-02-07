@@ -5,6 +5,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ScrollToTop from "@/components/UI/ScrollToTop";
+import { Analytics } from "@/components/analytics/GoogleAnalytics";
+import { GapifyWidget } from "@/components/gapify/GapifyWidget";
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const vazirmatn = Vazirmatn({
@@ -76,6 +78,8 @@ export default function RootLayout({
         className={`${vazirmatn.variable} font-sans antialiased bg-white`}
         dir="rtl"
       >
+        <Analytics />
+        <GapifyWidget />
         <QueryProvider>
           <ScrollToTop />
           <Header />

@@ -256,13 +256,13 @@ export default function HeroSection() {
 									className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5"
 								>
 									<path
-										fill-rule="evenodd"
-										clip-rule="evenodd"
+										fillRule="evenodd"
+										clipRule="evenodd"
 										d="M12.7101 12.7136C8.9312 16.4916 7.8077 11.8542 5.4015 14.2584C3.0813 16.5776 1.7481 17.0424 4.6864 19.9807C5.0553 20.2764 7.3943 23.8368 15.6148 15.6183C23.8353 7.39977 20.2788 5.05784 19.9831 4.68994C17.0369 1.74374 16.58 3.08481 14.2598 5.403C11.8546 7.80922 16.489 8.93568 12.7101 12.7136Z"
 										stroke="url(#paint0_linear_2893_78040)"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
 									/>
 									<defs>
 										<linearGradient
@@ -273,8 +273,8 @@ export default function HeroSection() {
 											y2="20.9996"
 											gradientUnits="userSpaceOnUse"
 										>
-											<stop stop-color="#7B90FF" />
-											<stop offset="1" stop-color="#294BFF" />
+											<stop stopColor="#7B90FF" />
+											<stop offset="1" stopColor="#294BFF" />
 										</linearGradient>
 									</defs>
 								</svg>
