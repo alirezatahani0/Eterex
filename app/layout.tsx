@@ -56,6 +56,9 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.GOOGLE_VERIFICATION,
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

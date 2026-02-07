@@ -56,6 +56,7 @@ export default function FeaturesSection() {
 			desc: features.cards.staking.description,
 		},
 	];
+
 	return (
 		<Container className="py-12 md:py-16 lg:py-20">
 			{/* Header */}

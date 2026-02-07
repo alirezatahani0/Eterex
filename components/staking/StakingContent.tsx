@@ -1245,7 +1245,7 @@ const StackingCard = ({
 					</Text>
 				</div>
 				<div>
-					<div className="relative mb-2">
+					<div className="relative mb-2 z-10">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="66"
