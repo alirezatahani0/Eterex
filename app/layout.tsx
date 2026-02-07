@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ScrollToTop from "@/components/UI/ScrollToTop";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+// import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -79,7 +79,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </QueryProvider>
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

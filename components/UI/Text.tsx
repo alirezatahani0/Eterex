@@ -18,7 +18,7 @@ type Variant =
 type Type = 'span' | 'p' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type Color = 'primary' | 'secondary' | 'muted' | 'danger' | 'inherit' | string;
 type Weight = 'normal' | 'medium' | 'semibold' | 'bold' | number;
-type GradientType = 'primary' | 'grayscale' | string;
+type GradientType = 'primary' | 'grayscale' | 'gold' | string;
 
 interface TextProps extends React.HTMLAttributes<HTMLElement> {
 	variant?: Variant;
@@ -71,6 +71,7 @@ const variantStyles: Record<Variant, string> = {
 };
 
 const gradientStyles: Record<string, string> = {
+	gold: 'linear-gradient(92.3deg, #EBC75E -6.82%, #EB9E2A 75.93%)',
 	primary: 'linear-gradient(92.3deg, #7B90FF -6.82%, #0F34F4 75.93%)',
 	grayscale:
 		'linear-gradient(180deg, var(--grayscale-07) 0%, var(--grayscale-05) 100%)',

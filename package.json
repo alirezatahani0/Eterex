@@ -17,12 +17,18 @@
     "docker:compose:build": "docker-compose up -d --build"
   },
   "dependencies": {
+    "@andremov/react-ticker": "^0.9.3",
+    "@guna81/react-ticker": "^3.4.1",
     "@tanstack/react-query": "^5.90.16",
+    "@vercel/speed-insights": "1.3.1",
     "next": "^16.1.1",
+    "primereact": "^10.9.7",
     "react": "19.2.3",
+    "react-advanced-news-ticker": "^1.0.1",
     "react-dom": "19.2.3",
-    "swiper": "^12.0.3",
-    "@vercel/speed-insights": "1.3.1"
+    "react-ticker": "^1.3.2",
+    "react-vertical-timeline-component": "^3.5.3",
+    "swiper": "^12.0.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

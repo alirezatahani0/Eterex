@@ -575,6 +575,7 @@ html {
 }
 
 @layer base {
+
   /* Remove number input spinners */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
@@ -590,4 +591,53 @@ html {
   button:disabled {
     cursor: not-allowed;
   }
+
+  /* Staking Swiper Pagination Styles */
+  .staking-swiper .swiper-pagination-bullet {
+    background: var(--grayscale-04);
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+  }
+
+  .staking-swiper .swiper-pagination-bullet-active {
+    background: var(--brand-primary);
+    width: 24px;
+    border-radius: 4px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .p-timeline-event-opposite {
+    flex: 0;
+    padding: 0;
+  }
+}
+
+.p-timeline-event-marker {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  aspect-ratio: 1/1;
+  border-radius: var(--Full, 800px);
+  border: 2px solid var(--Grayscale-03, #242C45);
+  background: var(--glass-white-glass-1, rgba(255, 255, 255, 0.01));
+
+  /* Blur */
+  backdrop-filter: blur(25px);
+}
+
+.p-timeline-event-separator {
+  position: relative;
+  top: -30%;
+  transform: translateY(30%);
+}
+
+.p-timeline-event-connector {
+  width: 2px;
+  background: var(--Grayscale-03, #242C45);
 }
