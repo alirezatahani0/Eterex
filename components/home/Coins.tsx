@@ -13,20 +13,24 @@ import {
 	useAssetsListQuery,
 	useAssetsPriceListQuery,
 } from '@/hooks/useAssetsQuery';
+import { useConfigsQuery } from '@/hooks/useConfigsQuery';
 
 export default function Coins() {
 	const { coins } = useTranslation();
 	const router = useRouter();
 	const [selectedCategory, setSelectedCategory] = useState('newest');
 	const [selectedTab, setSelectedTab] = useState('volume');
+	const [priceInToman, setPriceInToman] = useState(false);
 
 	const { data: marketsData = [], isLoading: isLoadingMarkets } =
 		useMarketsQuery({ showAll: true });
 	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery();
 	const { data: pricesData = [], isLoading: isLoadingPrices } =
 		useAssetsPriceListQuery();
+	const { data: configs, isLoading: isLoadingConfigs } = useConfigsQuery();
 
-	const isLoading = isLoadingMarkets || isLoadingAssets || isLoadingPrices;
+	const isLoading =
+		isLoadingMarkets || isLoadingAssets || isLoadingPrices || isLoadingConfigs;
 
 	// Base data transformation (no sorting)
 	const baseCryptos = useMemo(() => {
@@ -34,53 +38,46 @@ export default function Coins() {
 			return [];
 		}
 
-		// Create maps for quick lookup
-		const assetsMap = new Map(
-			assetsData.coins.map((asset) => [asset.name.toUpperCase(), asset]),
-		);
 		const pricesMap = new Map(
 			pricesData.map((price) => [price.symbol.toUpperCase(), price]),
 		);
 
-		// Start with all trading-enabled and active assets
 		const allAssets = assetsData.coins.filter(
 			(asset) => asset.trading_enabled && asset.active,
 		);
 
-		// Filter markets that have USD/USDT pairs and are active
 		const marketsMap = new Map(
 			marketsData.map((market) => [market.baseAsset.toUpperCase(), market]),
 		);
 
-		// Combine markets with assets and prices
+		// Find price group for a coin from configs
+		const getPriceGroup = (symbol: string) => {
+			if (!configs?.priceGroups) return null;
+			return (
+				configs.priceGroups.find((group) =>
+					group.coins.some((coin) => coin.toUpperCase() === symbol),
+				) || null
+			);
+		};
+
 		return allAssets
 			.map((asset) => {
 				const assetSymbol = asset.name.toUpperCase();
-				// Try to find matching price (e.g., "BTCUSDT" or "BTCIRT")
 				const priceSymbol = `${assetSymbol}USDT`;
 				const price = pricesMap.get(priceSymbol);
-				// Try to find matching market
 				const market = marketsMap.get(assetSymbol);
 
 				if (!asset || !price) return null;
 
-				// Filter by trading_enabled && active (matching Markets page)
 				if (!asset.trading_enabled || !asset.active) return null;
 
 				if (price.type === 'buy') return null;
 
-				// Format price with decimal places from market
 				const priceNum = parseFloat(price.price);
 				const decimalPlaces =
 					parseInt(market?.priceDecimalPlaces || '4', 10) || 4;
-				const priceText = isNaN(priceNum)
-					? '—'
-					: priceNum.toLocaleString('en-US', {
-							minimumFractionDigits: decimalPlaces,
-							maximumFractionDigits: decimalPlaces,
-						});
+				const priceGroup = getPriceGroup(assetSymbol);
 
-				// Calculate 24h change
 				const change24h = price.price_change_percentage || 0;
 				const changeType: 'positive' | 'negative' =
 					change24h >= 0 ? 'positive' : 'negative';
@@ -88,14 +85,10 @@ export default function Coins() {
 					2,
 				)}%`;
 
-				// Get icon URL
 				const iconUrl = asset.name
-					? `${
-							process.env.NEXT_PUBLIC_ICON_BASE_URL
-						}/${asset.name.toLowerCase()}_.svg`
+					? `${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${asset.name.toLowerCase()}_.svg`
 					: undefined;
 
-				// Format created_at date
 				const date = new Date(asset.created_at);
 				const formattedDate = date.toLocaleDateString('en-US', {
 					year: 'numeric',
@@ -107,7 +100,9 @@ export default function Coins() {
 					symbol: assetSymbol,
 					name: asset.full_name || asset.name,
 					listDate: formattedDate,
-					price: priceText,
+					priceNum,
+					decimalPlaces,
+					priceGroup,
 					icon: iconUrl,
 					change24h: changeText,
 					changeType,
@@ -126,7 +121,24 @@ export default function Coins() {
 					priceChange: number;
 				} => item !== null,
 			);
-	}, [marketsData, assetsData, pricesData]);
+	}, [marketsData, assetsData, pricesData, configs]);
+
+	// Get display price based on toggle and coin's price group
+	const getDisplayPrice = (crypto: (typeof baseCryptos)[number]) => {
+		if (isNaN(crypto.priceNum)) return '—';
+		if (priceInToman) {
+			console.log(crypto.priceGroup, 'crypto.priceGroup');
+			if (!crypto.priceGroup) return '—';
+			const irtPrice = Math.floor(
+				crypto.priceNum * crypto.priceGroup.prices.irtUsdt,
+			);
+			return irtPrice.toLocaleString('en-US');
+		}
+		return crypto.priceNum.toLocaleString('en-US', {
+			minimumFractionDigits: crypto.decimalPlaces,
+			maximumFractionDigits: crypto.decimalPlaces,
+		});
+	};
 
 	// Left table data - filtered by category only
 	const leftTableCryptos = useMemo(() => {
@@ -229,7 +241,7 @@ export default function Coins() {
 					</div>
 				</div>
 
-				<div className='flex flex-row items-center justify-between w-full'>
+				<div className="flex flex-row items-center justify-between w-full">
 					<div className="flex flex-col md:flex-row items-start md:items-center gap-1">
 						<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
 							{coins.title.prefix}
@@ -238,11 +250,43 @@ export default function Coins() {
 							{coins.title.highlight}
 						</Text>
 					</div>
-					<button>asdasd</button>
+					<button
+						onClick={() => setPriceInToman((prev) => !prev)}
+						className={cn(
+							'rounded-[40px] border-2 h-14 pr-7 pl-6 flex flex-row gap-2 items-center justify-center transition-colors',
+							'border-grayscale-03',
+						)}
+					>
+						<Text variant="Main/14px/Bold" className={'text-grayscale-07!'}>
+							{priceInToman ? 'قیمت به تومان' : 'قیمت به USDT'}
+						</Text>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+						>
+							<path
+								d="M9.33477 20L6.13477 16.8M6.13477 16.8L9.33477 13.6M6.13477 16.8H15.7348C17.5021 16.8 18.9348 15.3673 18.9348 13.6V12.5333"
+								stroke="#294BFF"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+							<path
+								d="M5.06738 11.4667V10.4C5.06738 8.63269 6.50007 7.2 8.26738 7.2H17.8674M17.8674 7.2L14.6674 10.4M17.8674 7.2L14.6674 4"
+								stroke="#294BFF"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+					</button>
 				</div>
 			</div>
 
-			<div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
+			<div className="grid grid-cols-1 lg:grid-cols-[5fr_3fr] gap-6">
 				{/* Table */}
 				<div
 					className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-6 lg:p-8"
@@ -294,7 +338,7 @@ export default function Coins() {
 											variant="Main/14px/SemiBold"
 											className="text-grayscale-05! font-normal"
 										>
-											{coins.table.headers[1]} USDT
+											{coins.table.headers[1]} {priceInToman ? 'IRT' : 'USDT'}
 										</Text>
 									</th>
 									<th className={cn('pb-4 text-right hidden md:table-cell')}>
@@ -400,7 +444,7 @@ export default function Coins() {
 														variant="Main/16px/Regular"
 														className="text-grayscale-07!"
 													>
-														{crypto.price}
+														{getDisplayPrice(crypto)}
 													</Text>
 												</td>
 												<td className="w-[170px] hidden md:table-cell">
@@ -487,12 +531,12 @@ export default function Coins() {
 														</button>
 														<button
 															aria-label="خرید و فروش"
-															className="h-14 w-14 2xl:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
+															className="h-14 w-14 lg:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 														>
 															<Text
 																variant="Main/14px/Bold"
 																color="text-white!"
-																className="hidden 2xl:block"
+																className="hidden lg:block"
 															>
 																خرید و فروش
 															</Text>
@@ -535,7 +579,13 @@ export default function Coins() {
 				</div>
 				{/* Coins */}
 				<div className="bg-brand-primary rounded-3xl px-2 py-4 2xl:p-8 relative overflow-hidden z-10">
-					<div className="bg-[url('/assets/main/Vector.png')] bg-no-repeat bg-center bg-contain absolute top-0 -right-1/4 w-full h-[450px] z-0" />
+					<Image
+						src={'/assets/main/patterns.svg'}
+						width={200}
+						height={200}
+						alt="white pattern"
+						className="absolute top-0 right-0 z-10"
+					/>
 					{/* Category Filters */}
 					<div className="border-2 border-[#ffffff3d] rounded-4xl p-1 max-w-[400px] md:max-w-full bg-[#2649FF] h-14 flex flex-row items-center justify-center gap-2 mb-4 relative z-10">
 						{tabs.map((tab) => (
@@ -570,7 +620,9 @@ export default function Coins() {
 												variant="Main/14px/SemiBold"
 												className="text-[#ACB9FF]! font-normal"
 											>
-												{header}
+												{index === 1
+													? `${header} ${priceInToman ? 'IRT' : 'USDT'}`
+													: header}
 											</Text>
 										</th>
 									))}
@@ -642,7 +694,7 @@ export default function Coins() {
 														variant="Main/16px/Regular"
 														className="text-white!"
 													>
-														{crypto.price}
+														{getDisplayPrice(crypto)}
 													</Text>
 												</td>
 												<td>

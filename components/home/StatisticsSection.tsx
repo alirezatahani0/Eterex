@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 export default function StatisticsSection() {
 	const { statistics } = useTranslation();
-	const { theme } = useTheme();
+	const { theme, mounted } = useTheme();
 
 	// Theme-aware gradient colors
 	const gradientStart = theme === 'dark' ? '#294BFF' : '#0F34F4';
@@ -74,8 +74,13 @@ export default function StatisticsSection() {
 						'rounded-[36px] bg-grayscale-02 p-10 flex flex-col justify-between relative overflow-hidden z-10',
 					)}
 				>
-					<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0 opacity-10" />
-
+					<Image
+						src={`/assets/main/${theme === 'light' && mounted ? 'patterns2Light' : 'patterns2'}.svg`}
+						width={300}
+						height={300}
+						alt="white pattern"
+						className="absolute top-0 left-0 z-10"
+					/>
 					<div className="flex flex-col">
 						<Text variant="Main/32px/Black" className="text-grayscale-07! mb-3">
 							{statistics.weeklyVolume.value}
@@ -190,8 +195,13 @@ export default function StatisticsSection() {
 							'rounded-[36px] bg-grayscale-02 p-10 flex flex-col relative overflow-hidden z-10',
 						)}
 					>
-						<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0  opacity-10" />
-
+						<Image
+							src={`/assets/main/${theme === 'light' && mounted ? 'patterns2Light' : 'patterns2'}.svg`}
+							width={300}
+							height={300}
+							alt="white pattern"
+							className="absolute top-0 left-0 z-10"
+						/>
 						<Text variant="Main/32px/Black" className="text-grayscale-07! mb-3">
 							{statistics.activeTraders.value}
 						</Text>
@@ -216,8 +226,13 @@ export default function StatisticsSection() {
 							'rounded-[36px] bg-grayscale-02 p-10 flex flex-col relative overflow-hidden z-10',
 						)}
 					>
-						<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0  opacity-10" />
-
+						<Image
+							src={`/assets/main/${theme === 'light' && mounted ? 'patterns2Light' : 'patterns2'}.svg`}
+							width={300}
+							height={300}
+							alt="white pattern"
+							className="absolute top-0 left-0 z-10"
+						/>
 						<div className="flex flex-row items-center justify-between w-full mb-3 relative z-10">
 							<Text variant="Main/32px/Black" className="text-grayscale-07!">
 								{statistics.listedCryptos.value}

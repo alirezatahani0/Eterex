@@ -10,9 +10,11 @@ import { Navigation, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function FeaturesSection() {
 	const { features } = useTranslation();
+	const { theme, mounted } = useTheme();
 
 	const cards = [
 		{
@@ -121,8 +123,13 @@ export default function FeaturesSection() {
 								'rounded-[36px] p-10 relative overflow-hidden z-10 grid grid-cols-[2fr_176px] gap-4 bg-feature-card',
 							)}
 						>
-							<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0 opacity-10" />
-
+							<Image
+								src={`/assets/main/${theme === 'light' && mounted ? 'patterns3Light' : 'patterns3'}.svg`}
+								width={300}
+								height={300}
+								alt="white pattern"
+								className="absolute top-0 left-0 z-10"
+							/>
 							<div className="flex flex-col relative z-10">
 								<Text
 									variant="Main/32px/Bold"
