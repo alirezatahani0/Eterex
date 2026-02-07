@@ -72,13 +72,13 @@ export default function CircularCarousel({
 	}, [logoSize, coinsSize, borderDistance]);
 	// All carousel images except Logo.png
 	const carouselImages = [
-		'Bitcoin_3D-1.png',
-		'Bitcoin_3D-2.png',
-		'Bitcoin_3D-3.png',
-		'Bitcoin_3D-4.png',
-		'Bitcoin_3D-5.png',
-		'Bitcoin_3D-6.png',
-		'Bitcoin_3D.png',
+		'Bitcoin_3D-1.avif',
+		'Bitcoin_3D-2.avif',
+		'Bitcoin_3D-3.avif',
+		'Bitcoin_3D-4.avif',
+		'Bitcoin_3D-5.avif',
+		'Bitcoin_3D-6.avif',
+		'Bitcoin_3D.avif',
 	];
 
 	// Calculate the radius of the circle (logo center to image center)

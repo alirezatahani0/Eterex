@@ -78,7 +78,7 @@ export default function Coins() {
 					: priceNum.toLocaleString('en-US', {
 							minimumFractionDigits: decimalPlaces,
 							maximumFractionDigits: decimalPlaces,
-					  });
+						});
 
 				// Calculate 24h change
 				const change24h = price.price_change_percentage || 0;
@@ -92,7 +92,7 @@ export default function Coins() {
 				const iconUrl = asset.name
 					? `${
 							process.env.NEXT_PUBLIC_ICON_BASE_URL
-					  }/${asset.name.toLowerCase()}_.svg`
+						}/${asset.name.toLowerCase()}_.svg`
 					: undefined;
 
 				// Format created_at date
@@ -229,13 +229,16 @@ export default function Coins() {
 					</div>
 				</div>
 
-				<div className="flex flex-col md:flex-row items-start md:items-center gap-1">
-					<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
-						{coins.title.prefix}
-					</Text>
-					<Text variant="Main/32px/Bold" gradient="primary" className="w-fit">
-						{coins.title.highlight}
-					</Text>
+				<div className='flex flex-row items-center justify-between w-full'>
+					<div className="flex flex-col md:flex-row items-start md:items-center gap-1">
+						<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
+							{coins.title.prefix}
+						</Text>
+						<Text variant="Main/32px/Bold" gradient="primary" className="w-fit">
+							{coins.title.highlight}
+						</Text>
+					</div>
+					<button>asdasd</button>
 				</div>
 			</div>
 
