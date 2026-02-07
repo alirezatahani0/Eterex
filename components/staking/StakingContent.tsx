@@ -602,8 +602,22 @@ export default function StakingContent() {
 						در اتراکس
 					</Text>
 				</div>
-				<div className="w-full p-6 bg-brand-primary lg:rounded-4xl lg:container">
+				<div className="w-full p-6 bg-brand-primary lg:rounded-4xl lg:container relative overflow-hidden">
 					{/* Mobile & Tablet: Ticker with coin cards */}
+					<Image
+						src="/assets/staking/patternWhite.svg"
+						width={200}
+						height={200}
+						alt="white pattern"
+						className="absolute top-0 left-0"
+					/>
+					<Image
+						src="/assets/staking/patternWhite.svg"
+						width={200}
+						height={200}
+						alt="white pattern"
+						className="absolute bottom-0 right-0 rotate-180"
+					/>
 					<div className="block lg:hidden w-full space-x-4 ">
 						<Swiper
 							spaceBetween={18}
@@ -860,7 +874,11 @@ export default function StakingContent() {
 			</section>
 
 			<section className="flex flex-col pt-30 px-6 gap-10 items-start justify-start lg:container lg:m-auto">
-				<Text variant="Main/24px/Bold" gradient="primary" className='lg:font-bold lg:text-[32px] lg:leading-[48px]'>
+				<Text
+					variant="Main/24px/Bold"
+					gradient="primary"
+					className="lg:font-bold lg:text-[32px] lg:leading-[48px]"
+				>
 					انواع طرح‌های استیکینگ تتر
 				</Text>
 				<Text variant="LongText/16px/Regular" className="text-grayscale-06!">
@@ -1004,18 +1022,25 @@ export const FeaturedCoinCard = ({
 	name: string;
 	icon: string;
 }) => (
-	<div className="w-full p-6 bg-grayscale-02 rounded-4xl flex flex-col items-center gap-6 min-h-[140px] justify-center ml-6">
+	<div className="relative overflow-hidden w-full p-6 bg-grayscale-02 rounded-4xl flex flex-col items-center gap-6 min-h-[140px] justify-center ml-6">
+		<Image
+			src={'/assets/staking/patternsCoinsList.svg'}
+			width={200}
+			height={200}
+			alt="white pattern"
+			className="absolute top-0 left-0 z-10"
+		/>
 		<Image
 			src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${icon}`}
 			alt={symbol}
 			width={52}
 			height={52}
-			className="w-13 h-13 rounded-full object-cover"
+			className="w-13 h-13 rounded-full object-cover z-10"
 			onError={(e) => {
 				e.currentTarget.style.display = 'none';
 			}}
 		/>
-		<div className="flex flex-col items-center justify-center gap-2">
+		<div className="flex flex-col items-center justify-center gap-2 relative z-10">
 			<Text variant="Main/20px/Bold" className="text-grayscale-07!">
 				استیکینگ {name}
 			</Text>
@@ -1023,7 +1048,7 @@ export const FeaturedCoinCard = ({
 				{symbol} Staking
 			</Text>
 		</div>
-		<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center">
+		<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
 			<Text variant="Main/14px/Bold" className="text-brand-primary!">
 				شروع استیکینگ
 			</Text>
@@ -1108,6 +1133,7 @@ const StakingCards = () => {
 	return (
 		<div className="w-full px-4 md:px-8">
 			{/* Swiper for screens < XL */}
+
 			<div className="block xl:hidden w-full">
 				<Swiper
 					spaceBetween={18}
@@ -1182,7 +1208,14 @@ const StackingCard = ({
 	badge,
 }: StackingCardProps) => {
 	return (
-		<div className="w-full p-4 bg-grayscale-02 rounded-4xl h-full ">
+		<div className="w-full p-4 bg-grayscale-02 rounded-4xl h-full relative overflow-hidden">
+			<Image
+				src={'/assets/staking/stakingPattern.svg'}
+				width={200}
+				height={200}
+				alt="white pattern"
+				className="absolute top-0 left-0 z-0"
+			/>
 			<div className="flex flex-row items-center justify-between ">
 				<div className="flex flex-col items-start">
 					<Image

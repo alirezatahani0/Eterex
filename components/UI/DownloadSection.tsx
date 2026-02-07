@@ -195,7 +195,7 @@ const MobileView = () => {
 	const { DownloadAppSection } = useTranslation();
 
 	return (
-		<div className="lg:hidden relative bg-brand-primary rounded-[40px] pt-12 px-7 flex flex-col items-center my-[120px]">
+		<div className="lg:hidden relative overflow-hidden bg-brand-primary rounded-[40px] pt-12 px-7 flex flex-col items-center my-[120px]">
 			<Text
 				variant="Main/24px/Bold"
 				type="p"
@@ -230,8 +230,13 @@ const MobileView = () => {
 					/>
 				</div>
 			</div>
-			<div className="bg-[url('/assets/main/Vector.avif')] bg-no-repeat bg-center bg-contain absolute top-0 -right-2/5 w-full h-[250px] z-0" />
-
+			<Image
+				src={'/assets/DownloadApp/pattern.svg'}
+				width={200}
+				height={200}
+				alt="white pattern"
+				className="absolute top-0 right-0 z-10"
+			/>
 			<Image
 				src="/assets/DownloadApp/MobileFrame.avif"
 				alt="download"
