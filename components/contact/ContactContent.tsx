@@ -71,6 +71,7 @@ export default function ContactContent() {
 				viewBox="0 0 20 20"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
+				className="min-w-5 min-h-5"
 			>
 				<path
 					d="M14.1667 3.33333H5.83333C3.33333 3.33333 1.66667 4.58333 1.66667 7.5V12.5C1.66667 15.4167 3.33333 16.6667 5.83333 16.6667H14.1667C16.6667 16.6667 18.3333 15.4167 18.3333 12.5V7.5C18.3333 4.58333 16.6667 3.33333 14.1667 3.33333Z"
@@ -99,6 +100,7 @@ export default function ContactContent() {
 				height="19"
 				viewBox="0 0 19 19"
 				fill="none"
+				className="min-w-5 min-h-5"
 			>
 				<path
 					d="M13.0679 6.63098C14.7728 6.4099 16.3658 7.07852 17.1696 8.6719C17.7319 9.7844 17.7421 10.9865 17.7502 12.2003C17.75 13.8918 17.7509 15.5832 17.75 17.2747C17.7498 17.5364 17.538 17.7488 17.2762 17.7494C16.4136 17.7511 15.6073 17.7493 14.7447 17.7497C14.4821 17.7498 14.2689 17.5373 14.2685 17.2748C14.2662 15.4252 14.2689 13.9824 14.2678 12.1328C14.2693 11.9758 14.2426 11.8205 14.2322 11.6644C13.8983 9.395 10.7248 9.3866 10.481 11.5714C10.4455 11.8161 10.4582 12.0635 10.4564 12.3096C10.4554 14.1005 10.458 15.4845 10.4557 17.2754C10.4554 17.5377 10.2425 17.75 9.9802 17.75C9.1096 17.7498 8.2798 17.7497 7.4092 17.7501C7.14608 17.7502 6.93275 17.5366 6.9336 17.2734C6.94432 13.9525 6.98443 10.6432 6.94021 7.3235C6.93667 7.05772 7.15111 6.84012 7.4169 6.84029C8.2849 6.84086 9.1126 6.84023 9.9807 6.84049C10.2434 6.84057 10.4562 7.05373 10.4564 7.3164C10.4566 7.6738 10.457 7.8416 10.4556 8.199C11.0568 7.2564 11.9462 6.78843 13.0679 6.63098Z"
@@ -134,6 +136,7 @@ export default function ContactContent() {
 				height="20"
 				viewBox="0 0 20 20"
 				fill="none"
+				className="min-w-5 min-h-5"
 			>
 				<path
 					d="M5.53216 0.75H13.9669C16.915 0.75 18.75 2.83119 18.75 5.77638V13.7236C18.75 16.6688 16.915 18.75 13.9659 18.75H5.53216C2.58405 18.75 0.75 16.6688 0.75 13.7236V5.77638C0.75 2.83119 2.59281 0.75 5.53216 0.75Z"
@@ -168,7 +171,7 @@ export default function ContactContent() {
 				width="20"
 				height="18"
 				viewBox="0 0 20 18"
-				fill="none"
+				fill="none"className='min-w-5 min-h-5'
 			>
 				<path
 					d="M10.2631 12.595L7.9376 14.5808C7.52411 14.933 6.88291 14.7122 6.77491 14.18L5.88859 9.81912L1.5918 9.27422C0.61006 9.14962 0.43297 7.80302 1.34856 7.42842L17.4933 0.820847C18.1764 0.541607 18.8905 1.14778 18.7261 1.86682L15.5561 15.7435C15.382 16.5073 14.4343 16.7798 13.8806 16.2261L8.6012 10.9477"
@@ -216,12 +219,16 @@ export default function ContactContent() {
 		{
 			name: contact.socialNetworks.linkedin,
 			icon: LinkedInIcon,
-			href: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN || 'https://www.linkedin.com/company/eterexchange',
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ||
+				'https://www.linkedin.com/company/eterexchange',
 		},
 		{
 			name: contact.socialNetworks.instagram,
 			icon: InstagramIcon,
-			href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || 'https://www.instagram.com/eterexchange?utm_medium=copy_link',
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM ||
+				'https://www.instagram.com/eterexchange?utm_medium=copy_link',
 		},
 		{
 			name: contact.socialNetworks.telegram,
@@ -231,7 +238,9 @@ export default function ContactContent() {
 		{
 			name: contact.socialNetworks.twitter,
 			icon: TwitterIcon,
-			href: process.env.NEXT_PUBLIC_SOCIAL_TWITTER || 'https://x.com/eterex_official',
+			href:
+				process.env.NEXT_PUBLIC_SOCIAL_TWITTER ||
+				'https://x.com/eterex_official',
 		},
 	];
 
@@ -245,7 +254,12 @@ export default function ContactContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{contact.title}
 				</Text>
 
@@ -345,7 +359,7 @@ export default function ContactContent() {
 				{/* Social Networks Card */}
 				<div
 					className={cn(
-						'rounded-3xl px-8 py-16 flex flex-col items-center justify-center gap-8 bg-cover bg-center bg-no-repeat relative lg:col-start-7 lg:col-end-9 lg:row-start-1 lg:row-end-3',
+						'rounded-3xl px-4 py-16 flex flex-col items-center justify-center gap-8 bg-cover bg-center bg-no-repeat relative lg:col-start-7 lg:col-end-9 lg:row-start-1 lg:row-end-3',
 						theme === 'dark' && mounted
 							? "bg-[url('/assets/contactUs/SocialMediaContainerDark.avif')]"
 							: "bg-[url('/assets/contactUs/SocialMediaContainer.avif')]",

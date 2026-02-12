@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Text from '@/components/UI/Text';
-import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface BrandLogo {

@@ -314,16 +314,6 @@ const ActionButtons = ({ mobile }: { mobile: MobileData }) => (
 	</div>
 );
 
-const DescriptionSection = ({ footer }: { footer: FooterData }) => (
-	<div className="mb-10">
-		<Text variant="LongText/14px/Regular" color="#616161">
-			{footer.desc.title}
-		</Text>
-		<Text variant="LongText/14px/SemiBold" color="#000">
-			{footer.desc.desc}
-		</Text>
-	</div>
-);
 
 const LinkColumn = ({
 	title,
@@ -502,7 +492,6 @@ export default function Footer() {
 					</div>
 					<div className="flex flex-col gap-10">
 						<ActionButtons mobile={mobile} />
-						<DescriptionSection footer={footer} />
 					</div>
 					{/* Association logos */}
 					<div className="flex flex-wrap items-center gap-6">
@@ -572,10 +561,9 @@ export default function Footer() {
 					</div>
 					<div className="flex flex-col gap-10">
 						<ActionButtons mobile={mobile} />
-						<DescriptionSection footer={footer} />
 					</div>
 					{/* Association logos */}
-					<div className="flex flex-wrap items-center gap-6 -mt-20">
+					<div className="flex flex-wrap items-center gap-6 ">
 						<a
 							href="https://fintechaa.ir"
 							rel="nofollow noopener noreferrer"

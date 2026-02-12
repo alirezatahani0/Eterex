@@ -158,7 +158,9 @@ const DownloadButton = ({
 		>
 			<div className="flex flex-row justify-between items-center w-full">
 				{icon}
-				<DownloadArrowIcon stroke={theme === 'dark' && mounted ? 'white' : 'black'} />
+				<DownloadArrowIcon
+					stroke={theme === 'dark' && mounted ? 'white' : 'black'}
+				/>
 			</div>
 			<div className="flex flex-col items-start gap-2 w-full">
 				{downloadLabel && (
@@ -226,7 +228,7 @@ const MobileView = () => {
 					<DownloadButton
 						href="/download"
 						icon={<WebIcon />}
-						label={DownloadAppSection.web}
+						label={DownloadAppSection.pwa}
 					/>
 				</div>
 			</div>
@@ -319,8 +321,6 @@ const LeftFrame = () => {
 			: "bg-[url('/assets/DownloadApp/LeftFrame.avif')]";
 	}, [mounted, theme]);
 
-	console.log(theme, "theme")
-
 	return (
 		<div
 			className={cn(
@@ -353,23 +353,31 @@ const LeftFrame = () => {
 			<div className="gap-5 grid grid-cols-3 w-full">
 				<DownloadButton
 					href="/download"
-					icon={<IOSIcon fill={theme === 'dark' && mounted ? 'white' : 'black'} />}
+					icon={
+						<IOSIcon fill={theme === 'dark' && mounted ? 'white' : 'black'} />
+					}
 					label={DownloadAppSection.ios}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
 					href="/download"
-					icon={<AndroidIcon fill={theme === 'dark' && mounted ? 'white' : 'black'} />}
+					icon={
+						<AndroidIcon
+							fill={theme === 'dark' && mounted ? 'white' : 'black'}
+						/>
+					}
 					label={DownloadAppSection.android}
 					downloadLabel={common.downlaod}
 					variant="desktop"
 				/>
 				<DownloadButton
 					href="/download"
-					icon={<WebIcon fill={theme === 'dark' && mounted ? 'white' : 'black'} />}
-					label={DownloadAppSection.web}
-					downloadLabel={common.downlaod}
+					icon={
+						<WebIcon fill={theme === 'dark' && mounted ? 'white' : 'black'} />
+					}
+					label={DownloadAppSection.pwa}
+					downloadLabel={common.enterTo}
 					variant="desktop"
 				/>
 			</div>

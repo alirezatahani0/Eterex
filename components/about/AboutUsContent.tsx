@@ -22,21 +22,22 @@ export default function AboutUsContent() {
 
 	const twoColumnSections = [
 		{
-			left: {
+			right: {
 				title: aboutUs.whatDoesEterexMean.title,
 				description: aboutUs.whatDoesEterexMean.description,
 			},
-			right: {
-				title: aboutUs.beHeroes.title,
-				description: aboutUs.beHeroes.description,
-			},
-		},
-		{
 			left: {
 				title: aboutUs.beCustomerCentric.title,
 				description: aboutUs.beCustomerCentric.description,
 			},
+			
+		},
+		{
 			right: {
+				title: aboutUs.beHeroes.title,
+				description: aboutUs.beHeroes.description,
+			},
+			left: {
 				title: aboutUs.beUsefulToSociety.title,
 				description: aboutUs.beUsefulToSociety.description,
 			},
