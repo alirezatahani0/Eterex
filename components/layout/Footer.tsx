@@ -11,7 +11,6 @@ import { useTheme } from '@/hooks/useTheme';
 // Type definitions for footer data
 type FooterData = {
 	header: { title: string; desc: string };
-	desc: { title: string; desc: string };
 	aboutEterex: {
 		title: string;
 		security: string;
