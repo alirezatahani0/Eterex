@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useStakingQuery } from '@/hooks/useStakingQuery';
 import { useConfigsQuery } from '@/hooks/useConfigsQuery';
+import { useTheme } from '@/hooks/useTheme';
 import { useAssetsPriceListQuery } from '@/hooks/useAssetsQuery';
 
 export default function StakingCalculator() {
@@ -14,6 +15,7 @@ export default function StakingCalculator() {
 	const [selectedDays, setSelectedDays] = useState(30);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+	const { theme, mounted } = useTheme();
 	const { data: stakingPlans = [] } = useStakingQuery();
 	const { data: configs } = useConfigsQuery();
 	const { data: pricesData = [] } = useAssetsPriceListQuery();
@@ -127,7 +129,7 @@ export default function StakingCalculator() {
 			className="relative w-full flex flex-col overflow-hidden lg:flex-row-reverse justify-center lg:justify-between items-center gap-6 p-6 self-stretch rounded-[36px] border-2 border-grayscale-03 lg:container lg:m-auto"
 			style={{
 				background:
-					'linear-gradient(180deg, rgba(18, 27, 56, 0.00) 50%, rgba(255, 255, 255, 0.12) 100%)',
+					'linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%)',
 			}}
 			onClick={(e) => e.stopPropagation()}
 		>
@@ -170,10 +172,14 @@ export default function StakingCalculator() {
 				</defs>
 			</svg>
 			<Image
-				src={'/assets/staking/calculatorPatterns.svg'}
+				src={
+					mounted && theme === 'light'
+						? '/assets/staking/calculatorPatternsLight.svg'
+						: '/assets/staking/calculatorPatterns.svg'
+				}
 				width={200}
 				height={200}
-				alt="white pattern"
+				alt="pattern"
 				className="absolute top-0 left-0 z-10"
 			/>
 			{/* Calculator Icon */}
@@ -379,7 +385,7 @@ export default function StakingCalculator() {
 					className="p-6 rounded-3xl w-full"
 					style={{
 						background:
-							'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%), var(--Grayscale-02, #1B2440);',
+							'linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%), var(--grayscale-02);',
 					}}
 				>
 					{/* Daily Return */}

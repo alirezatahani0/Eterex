@@ -13,6 +13,7 @@ import { Timeline } from 'primereact/timeline';
 import { PrimeReactProvider } from 'primereact/api';
 import { DownloadSection } from '../UI/DownloadSection';
 import { useStakingQuery } from '@/hooks/useStakingQuery';
+import { useTheme } from '@/hooks/useTheme';
 import type { StakingPlan } from '@/types/api';
 
 const FEATURES = [
@@ -345,7 +346,7 @@ export default function StakingContent() {
 				className="p-8 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] xl:w-[55%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 "
 				style={{
 					background:
-						'linear-gradient(180deg, var(--grayscale-01-blur-0, rgba(18, 27, 56, 0.00)) 50%, var(--glass-white-glass-12, rgba(255, 255, 255, 0.12)) 100%), var(--grayscale-01-blur-74, rgba(18, 27, 56, 0.74));',
+						'linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%), var(--grayscale-01-blur-74);',
 				}}
 			>
 				<div className="flex flex-col gap-4 items-center justify-between">
@@ -754,9 +755,9 @@ export default function StakingContent() {
 									className="rounded-[28px] border border-grayscale-03 flex flex-col justify-center items-start gap-4 p-7 flex-[1_0_0] mb-6"
 									style={{
 										background: `
-								linear-gradient(104deg, rgba(18, 27, 56, 0) 0%, rgba(15, 52, 244, 0.08) 100%),
-								linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, rgba(18, 27, 56, 0) 100%),
-								linear-gradient(180deg, rgba(18, 27, 56, 0) 50%, rgba(255, 255, 255, 0.12) 100%)
+								linear-gradient(104deg, var(--grayscale-01-blur-0) 0%, var(--brand-primary-container) 100%),
+								linear-gradient(105deg, var(--grayscale-02) 0%, var(--grayscale-01-blur-0) 100%),
+								linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%)
 							  `,
 									}}
 								>
@@ -816,9 +817,9 @@ export default function StakingContent() {
 									className="rounded-[28px] border border-grayscale-03 flex flex-col justify-center items-start gap-4 p-7 flex-[1_0_0] mb-6"
 									style={{
 										background: `
-								linear-gradient(104deg, rgba(18, 27, 56, 0) 0%, rgba(15, 52, 244, 0.08) 100%),
-								linear-gradient(105deg, var(--Grayscale-02, #1B2440) 0%, rgba(18, 27, 56, 0) 100%),
-								linear-gradient(180deg, rgba(18, 27, 56, 0) 50%, rgba(255, 255, 255, 0.12) 100%)
+								linear-gradient(104deg, var(--grayscale-01-blur-0) 0%, var(--brand-primary-container) 100%),
+								linear-gradient(105deg, var(--grayscale-02) 0%, var(--grayscale-01-blur-0) 100%),
+								linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%)
 							  `,
 									}}
 								>
@@ -922,6 +923,18 @@ const FEATURED_COINS = [
 ];
 
 const FeaturedCoinsSection = () => {
+	const { data: stakingPlans = [] } = useStakingQuery();
+	const availableAssetSymbols = new Set(
+		stakingPlans
+			.filter((p) => p.status === 'Active')
+			.map((p) => p.asset.toUpperCase()),
+	);
+
+	const featuredCoinsWithAvailability = FEATURED_COINS.map((coin) => ({
+		...coin,
+		isAvailable: availableAssetSymbols.has(coin.symbol),
+	}));
+
 	return (
 		<div className="w-full px-4 md:px-8">
 			{/* Mobile & Tablet: Ticker with coin cards */}
@@ -959,7 +972,7 @@ const FeaturedCoinsSection = () => {
 					}}
 					modules={[Autoplay]}
 				>
-					{FEATURED_COINS.map((card) => (
+					{featuredCoinsWithAvailability.map((card) => (
 						<SwiperSlide key={card.id}>
 							<FeaturedCoinCard {...card} />
 						</SwiperSlide>
@@ -997,7 +1010,7 @@ const FeaturedCoinsSection = () => {
 					}}
 					modules={[Autoplay]}
 				>
-					{FEATURED_COINS.map((card) => (
+					{featuredCoinsWithAvailability.map((card) => (
 						<SwiperSlide key={card.id}>
 							<FeaturedCoinCard {...card} />
 						</SwiperSlide>
@@ -1007,7 +1020,7 @@ const FeaturedCoinsSection = () => {
 
 			{/* Desktop: Grid of all 8 */}
 			<div className="hidden lg:grid grid-cols-4 gap-6 lg:container lg:m-auto">
-				{FEATURED_COINS.map((coin) => (
+				{featuredCoinsWithAvailability.map((coin) => (
 					<FeaturedCoinCard key={coin.id} {...coin} />
 				))}
 			</div>
@@ -1019,17 +1032,25 @@ export const FeaturedCoinCard = ({
 	symbol,
 	name,
 	icon,
+	isAvailable = true,
 }: {
 	symbol: string;
 	name: string;
 	icon: string;
-}) => (
+	isAvailable?: boolean;
+}) => {
+	const { theme, mounted } = useTheme();
+	return (
 	<div className="relative overflow-hidden w-full p-6 bg-grayscale-02 rounded-4xl flex flex-col items-center gap-6 min-h-[140px] justify-center ml-6">
 		<Image
-			src={'/assets/staking/patternsCoinsList.svg'}
+			src={
+				mounted && theme === 'light'
+					? '/assets/staking/patternsCoinsListLight.svg'
+					: '/assets/staking/patternsCoinsList.svg'
+			}
 			width={200}
 			height={200}
-			alt="white pattern"
+			alt="pattern"
 			className="absolute top-0 left-0 z-10"
 		/>
 		<Image
@@ -1050,13 +1071,22 @@ export const FeaturedCoinCard = ({
 				{symbol} Staking
 			</Text>
 		</div>
-		<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
-			<Text variant="Main/14px/Bold" className="text-brand-primary!">
-				شروع استیکینگ
-			</Text>
-		</button>
+		{isAvailable ? (
+			<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
+				<Text variant="Main/14px/Bold" className="text-brand-primary!">
+					شروع استیکینگ
+				</Text>
+			</button>
+		) : (
+			<div className="h-14 px-6 bg-grayscale-03 rounded-4xl flex items-center justify-center relative z-10">
+				<Text variant="Main/14px/Bold" className="text-grayscale-05!">
+					به زودی
+				</Text>
+			</div>
+		)}
 	</div>
-);
+	);
+};
 
 function mapStakingPlanToCard(plan: StakingPlan): StackingCardProps {
 	const nowAmount = parseFloat(plan.nowStaksAmount) || 0;
@@ -1208,19 +1238,24 @@ const StackingCard = ({
 	progressWidth,
 	badge,
 }: StackingCardProps) => {
+	const { theme, mounted } = useTheme();
 	return (
 		<div className="w-full p-4 bg-grayscale-02 rounded-4xl h-full relative overflow-hidden">
 			<Image
-				src={'/assets/staking/stakingPattern.svg'}
+				src={
+					mounted && theme === 'light'
+						? '/assets/staking/stakingPatternLight.svg'
+						: '/assets/staking/stakingPattern.svg'
+				}
 				width={200}
 				height={200}
-				alt="white pattern"
+				alt="pattern"
 				className="absolute top-0 left-0 z-0"
 			/>
 			<div className="flex flex-row items-center justify-between ">
 				<div className="flex flex-col items-start">
 					<Image
-						src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${icon}`}
+						src={icon}
 						alt={`${symbol} Staking Card`}
 						width={44}
 						height={44}

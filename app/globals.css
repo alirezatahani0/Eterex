@@ -624,7 +624,7 @@ html {
   gap: 8px;
   aspect-ratio: 1/1;
   border-radius: var(--Full, 800px);
-  border: 2px solid var(--Grayscale-03, #242C45);
+  border: 2px solid var(--color-grayscale-03, #242C45);
   background: var(--glass-white-glass-1, rgba(255, 255, 255, 0.01));
 
   /* Blur */
@@ -635,9 +635,11 @@ html {
   position: relative;
   top: -30%;
   transform: translateY(30%);
+  border-color: var(--color-grayscale-03);
+  color: var(--color-grayscale-03);
 }
 
 .p-timeline-event-connector {
   width: 2px;
-  background: var(--Grayscale-03, #242C45);
+  background: var(--color-grayscale-03);
 }
