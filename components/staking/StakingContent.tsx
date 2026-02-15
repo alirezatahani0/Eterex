@@ -12,6 +12,8 @@ import { Autoplay } from 'swiper/modules';
 import { Timeline } from 'primereact/timeline';
 import { PrimeReactProvider } from 'primereact/api';
 import { DownloadSection } from '../UI/DownloadSection';
+import { useStakingQuery } from '@/hooks/useStakingQuery';
+import type { StakingPlan } from '@/types/api';
 
 const FEATURES = [
 	{
@@ -1056,85 +1058,74 @@ export const FeaturedCoinCard = ({
 	</div>
 );
 
+function mapStakingPlanToCard(plan: StakingPlan): StackingCardProps {
+	const nowAmount = parseFloat(plan.nowStaksAmount) || 0;
+	const maxAmount = parseFloat(plan.maxStaksAmount) || 1;
+	const progressPercent =
+		maxAmount > 0 ? Math.round((nowAmount / maxAmount) * 100) : 0;
+	const rate =
+		Number(Number(plan.dailyPercent) * Number(plan.activeDays)).toFixed(2) || 0;
+	const formattedNow = Number(maxAmount - nowAmount).toLocaleString('en-US', {
+		maximumFractionDigits: 0,
+	});
+	const assetSymbol = plan.asset.toUpperCase();
+
+	return {
+		id: plan.id,
+		symbol: assetSymbol,
+		name: plan.name,
+		icon: plan.image || `${plan.asset.toLowerCase()}_.svg`,
+		rate: Number(rate),
+		duration: `${plan.activeDays} روزه`,
+		payment: plan.isDaily ? 'روزانه' : 'ماهانه',
+		earlyWithdrawal: 'ندارد',
+		minEntry: `${Number(plan.minAmount).toLocaleString()} ${assetSymbol}`,
+		capacity: `${100 - progressPercent}% (${formattedNow} ${assetSymbol})`,
+		progressWidth: `${Math.min(progressPercent, 100)}%`,
+		badge: null,
+	};
+}
+
 const StakingCards = () => {
-	const stakingData = [
-		{
-			id: 1,
-			symbol: 'ETH',
-			name: 'اتریوم',
-			icon: 'eth_.svg',
-			rate: 8,
-			duration: '60 روزه',
-			payment: 'روزانه',
-			earlyWithdrawal: 'ندارد',
-			minEntry: '10 USDT',
-			capacity: '35% (2,160 USDT)',
-			progressWidth: '35%',
-			badge: null,
-		},
-		{
-			id: 2,
-			symbol: 'XRP',
-			name: 'ریپل',
-			icon: 'xrp_.svg',
-			rate: 10,
-			duration: '60 روزه',
-			payment: 'روزانه',
-			earlyWithdrawal: 'ندارد',
-			minEntry: '10 USDT',
-			capacity: '35% (3,160 USDT)',
-			progressWidth: '35%',
-			badge: null,
-		},
-		{
-			id: 3,
-			symbol: 'BTC',
-			name: 'بیت‌کوین',
-			icon: 'btc_.svg',
-			rate: 12,
-			duration: '60 روزه',
-			payment: 'روزانه',
-			earlyWithdrawal: 'ندارد',
-			minEntry: '10 USDT',
-			capacity: '35% (2,160 USDT)',
-			progressWidth: '65%',
-			badge: 'محبوب',
-		},
-		{
-			id: 4,
-			symbol: 'USDT',
-			name: 'تتر',
-			icon: 'usdt_.svg',
-			rate: 8,
-			duration: '60 روزه',
-			payment: 'روزانه',
-			earlyWithdrawal: 'ندارد',
-			minEntry: '10 USDT',
-			capacity: '35% (2,160 USDT)',
-			progressWidth: '35%',
-			badge: 'محبوب',
-		},
-		{
-			id: 4,
-			symbol: 'XRP',
-			name: 'ریپل',
-			icon: 'xrp_.svg',
-			rate: 10,
-			duration: '60 روزه',
-			payment: 'روزانه',
-			earlyWithdrawal: 'ندارد',
-			minEntry: '10 USDT',
-			capacity: '35% (3,160 USDT)',
-			progressWidth: '35%',
-			badge: null,
-		},
-	];
+	const { data: stakingPlans = [], isLoading, isError } = useStakingQuery();
+
+	const stakingData = stakingPlans
+		.filter((plan) => plan.status === 'Active')
+		.map(mapStakingPlanToCard);
+
+	if (isLoading) {
+		return (
+			<div className="w-full px-4 md:px-8 flex justify-center py-16">
+				<div className="animate-pulse h-64 w-full max-w-sm rounded-4xl bg-grayscale-03" />
+			</div>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className="w-full px-4 md:px-8 flex justify-center py-16">
+				<Text variant="LongText/16px/Regular" className="text-grayscale-05">
+					خطا در دریافت اطلاعات استیکینگ. لطفاً دوباره تلاش کنید.
+				</Text>
+			</div>
+		);
+	}
+
+	if (stakingData.length === 0) {
+		return (
+			<div className="w-full px-4 md:px-8 flex justify-center py-16">
+				<Text variant="LongText/16px/Regular" className="text-grayscale-05">
+					در حال حاضر طرح استیکینگ فعالی وجود ندارد.
+				</Text>
+			</div>
+		);
+	}
 
 	return (
 		<div className="w-full px-4 md:px-8">
 			{/* Swiper for screens < XL */}
 
-			<div className="block xl:hidden w-full">
+			<div className="w-full">
 				<Swiper
 					spaceBetween={18}
 					slidesPerView={1.3}
@@ -1150,9 +1141,13 @@ const StakingCards = () => {
 							initialSlide: 1,
 						},
 						1024: {
-							slidesPerView: 3,
+							slidesPerView: 4,
 							initialSlide: 2,
 						},
+						1440: {
+							slidesPerView: 4,
+							initialSlide: 2,
+						}
 					}}
 					coverflowEffect={{
 						rotate: 0,
@@ -1164,23 +1159,29 @@ const StakingCards = () => {
 				>
 					{stakingData.map((card) => (
 						<SwiperSlide key={card.id}>
-							<StackingCard {...card} />
+							<StackingCard
+								symbol={card.symbol}
+								name={card.name}
+								icon={card.icon}
+								rate={card.rate}
+								duration={card.duration}
+								payment={card.payment}
+								earlyWithdrawal={card.earlyWithdrawal}
+								minEntry={card.minEntry}
+								capacity={card.capacity}
+								progressWidth={card.progressWidth}
+								badge={card.badge}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>
-			</div>
-
-			{/* Grid for XL screens */}
-			<div className="hidden xl:grid grid-cols-4 gap-6 xl:container xl:m-auto">
-				{[...stakingData].slice(0, 4).map((card) => (
-					<StackingCard key={card.id} {...card} />
-				))}
 			</div>
 		</div>
 	);
 };
 
 interface StackingCardProps {
+	id?: string;
 	symbol: string;
 	name: string;
 	icon: string;
@@ -1272,10 +1273,10 @@ const StackingCard = ({
 							</defs>
 						</svg>
 						<Text
-							variant="Main/24px/Bold"
+							variant="Main/20px/Bold"
 							className="text-white! absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 						>
-							{rate}
+							{Number(rate).toLocaleString()}
 							<Text variant="Main/14px/SemiBold" className="text-white!">
 								%
 							</Text>

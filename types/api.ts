@@ -159,3 +159,32 @@ export interface ConfigsResponse {
 	fiatDepositGatewayMin: number;
 	fiatDepositGatewayMax: number;
 }
+
+/**
+ * Staking API data types
+ */
+export type StakingStatus = 'Active' | 'Inactive' | string;
+
+export interface StakingPlan {
+	id: string;
+	asset: string;
+	name: string;
+	activeDays: string;
+	minAmount: string;
+	maxAmount: string;
+	nowStaksAmount: string;
+	maxStaksAmount: string;
+	dailyPercent: string;
+	isDaily: boolean;
+	detail: string;
+	image: string;
+	status: StakingStatus;
+}
+
+export interface StakingDetail {
+	id: string;
+	activeStaksCount: string;
+	allStaksCount: string;
+	allStaksAmount: string;
+	allStaksProfitAmount: string;
+}
