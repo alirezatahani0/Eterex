@@ -81,6 +81,22 @@ export default function CoinPageContent() {
 		return market || null;
 	}, [marketsData, symbolUpper]);
 
+	// Get market for chart iframe - prefer IRT pair for Iranian users
+	const chartMarketId = useMemo(() => {
+		if (!marketsData.length || !symbolUpper) return null;
+		const irtMarket = marketsData.find(
+			(m) =>
+				m.baseAsset.toUpperCase() === symbolUpper &&
+				m.quoteAsset.toUpperCase() === 'IRT',
+		);
+		const usdtMarket = marketsData.find(
+			(m) =>
+				m.baseAsset.toUpperCase() === symbolUpper &&
+				m.quoteAsset.toUpperCase() === 'USDT',
+		);
+		return irtMarket?.id ?? usdtMarket?.id ?? null;
+	}, [marketsData, symbolUpper]);
+
 	// Get decimal places allowed for coin amount (base quantity decimal places)
 	const coinDecimalPlaces = useMemo(() => {
 		if (marketData?.baseQuantityDecimalPlaces) {
@@ -289,36 +305,52 @@ export default function CoinPageContent() {
 				<div>
 					<div className="flex flex-col items-start mb-10 gap-4">
 						<div className="flex flex-row items-center gap-2">
-							<Text type='h1' variant="Main/32px/Bold">قیمت، خرید و فروش</Text>
-							<Text type='h1' variant="Main/32px/Bold" gradient="primary">
-								ارز {nameFaOrEmpty && `${nameFaOrEmpty} `}{symbolUpper}
+							<Text type="h1" variant="Main/32px/Bold">
+								قیمت، خرید و فروش
+							</Text>
+							<Text type="h1" variant="Main/32px/Bold" gradient="primary">
+								ارز {nameFaOrEmpty && `${nameFaOrEmpty} `}
+								{symbolUpper}
 							</Text>
 						</div>
 						<div className="flex flex-row items-center gap-4">
-							<Text type='h2' variant="Main/16px/Regular" className="text-grayscale-05!">
+							<Text
+								type="h2"
+								variant="Main/16px/Regular"
+								className="text-grayscale-05!"
+							>
 								قیمت ارز دیجیتال {symbolUpper} {nameFaOrEmpty}
 							</Text>
 							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
 								-
 							</Text>
-							<Text type='h2' variant="Main/16px/Regular" className="text-grayscale-05!">
+							<Text
+								type="h2"
+								variant="Main/16px/Regular"
+								className="text-grayscale-05!"
+							>
 								قیمت لحظه‌ای {symbolUpper} {nameFaOrEmpty}
 							</Text>
 						</div>
 					</div>
-					<Image
-						src="/Frame.png"
-						width={700}
-						height={300}
-						alt="chart"
-						className="w-full"
-					/>
+					{chartMarketId ? (
+						<iframe
+							src={`https://app.eterex.com/chart?marketId=${chartMarketId}&mode=${theme}`}
+							title={`نمودار قیمت ${symbolUpper}`}
+							width={700}
+							height={460}
+							className="w-full rounded-4xl border-0 min-h-[460px]"
+							sandbox="allow-scripts allow-same-origin"
+						/>
+					) : null}
 				</div>
-				<div className='flex flex-col items-start sticky top-30'>
+				<div className="flex flex-col items-start sticky top-30">
 					<div className="flex flex-col items-start mb-10 gap-4">
 						<div className="flex flex-row items-center gap-2">
-							<Text type='h3' variant="Main/32px/Bold">خرید و فروش</Text>
-							<Text type='h3' variant="Main/32px/Bold" gradient="primary">
+							<Text type="h3" variant="Main/32px/Bold">
+								خرید و فروش
+							</Text>
+							<Text type="h3" variant="Main/32px/Bold" gradient="primary">
 								ارز {symbolUpper}
 							</Text>
 						</div>
