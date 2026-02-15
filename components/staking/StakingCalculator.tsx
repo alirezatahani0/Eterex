@@ -1,35 +1,126 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Text from '@/components/UI/Text';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { useStakingQuery } from '@/hooks/useStakingQuery';
+import { useConfigsQuery } from '@/hooks/useConfigsQuery';
+import { useAssetsPriceListQuery } from '@/hooks/useAssetsQuery';
 
 export default function StakingCalculator() {
-	const [selectedCoin, setSelectedCoin] = useState('USDT');
+	const [selectedCoin, setSelectedCoin] = useState<string>('');
 	const [amount, setAmount] = useState('1000');
 	const [selectedDays, setSelectedDays] = useState(30);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	const coins = [
-		{ symbol: 'USDT', icon: 'usdt_.svg', apy: 12.6 },
-		{ symbol: 'BTC', icon: 'btc_.svg', apy: 12 },
-		{ symbol: 'ETH', icon: 'eth_.svg', apy: 15 },
-		{ symbol: 'BNB', icon: 'bnb_.svg', apy: 18 },
-	];
+	const { data: stakingPlans = [] } = useStakingQuery();
+	const { data: configs } = useConfigsQuery();
+	const { data: pricesData = [] } = useAssetsPriceListQuery();
+
+	const activePlans = stakingPlans.filter((p) => p.status === 'Active');
+
+	const coins = useMemo(() => {
+		const seen = new Set<string>();
+		return activePlans
+			.filter((p) => {
+				const key = p.asset.toUpperCase();
+				if (seen.has(key)) return false;
+				seen.add(key);
+				return true;
+			})
+			.map((p) => ({
+				symbol: p.asset.toUpperCase(),
+				icon: `${p.asset.toLowerCase()}_.svg`,
+				dailyPercent: parseFloat(p.dailyPercent) || 0,
+			}));
+	}, [activePlans]);
+
+	const defaultCoin = coins[0]?.symbol ?? 'USDT';
+	const effectiveCoin = selectedCoin || defaultCoin;
+
+	const selectedCoinData = coins.find((c) => c.symbol === effectiveCoin);
 
 	const days = [30, 90, 180, 360];
 
-	const selectedCoinData = coins.find((c) => c.symbol === selectedCoin);
-	const apy = selectedCoinData?.apy || 0;
+	const effectiveDaysForPlan =
+		days.length > 0 && days.includes(selectedDays)
+			? selectedDays
+			: (days[0] ?? 30);
 
-	// Calculate daily return
-	const dailyReturn = (parseFloat(amount) || 0) * (apy / 100 / 365);
-	const totalReturn = dailyReturn * selectedDays;
+	const matchingPlan = useMemo(() => {
+		const plansForAsset = activePlans.filter(
+			(p) => p.asset.toUpperCase() === effectiveCoin,
+		);
+		if (plansForAsset.length === 0) return null;
+		const sorted = [...plansForAsset].sort(
+			(a, b) =>
+				Math.abs(parseInt(a.activeDays, 10) - effectiveDaysForPlan) -
+				Math.abs(parseInt(b.activeDays, 10) - effectiveDaysForPlan),
+		);
+		return sorted[0];
+	}, [activePlans, effectiveCoin, effectiveDaysForPlan]);
 
-	// Calculate IRT equivalent (example rate: 1 USDT = 164,590 IRT)
-	const irtRate = 164590;
-	const totalReturnIRT = totalReturn * irtRate;
+	const dailyPercent = matchingPlan
+		? parseFloat(matchingPlan.dailyPercent) || 0
+		: (selectedCoinData?.dailyPercent ?? 0);
+
+	const amountNum = parseFloat(amount) || 0;
+
+	// پاداش پیش‌بینی‌شده: amount * (dailyPercent/100) * days
+	const totalReturn = amountNum * (dailyPercent / 100) * effectiveDaysForPlan;
+
+	const irtUsdt = useMemo(() => {
+		if (!configs?.priceGroups?.length) return 0;
+		const usdtGroup = configs.priceGroups.find((g) =>
+			g.coins.some((c) => c.toUpperCase() === 'USDT'),
+		);
+		return (
+			usdtGroup?.prices.irtUsdt ?? configs.priceGroups[0]?.prices.irtUsdt ?? 0
+		);
+	}, [configs]);
+
+	const assetPriceInUsdt = useMemo(() => {
+		if (effectiveCoin === 'USDT') return 1;
+		const pair = pricesData.find(
+			(p) =>
+				p.symbol.toUpperCase() === `${effectiveCoin}USDT` && p.type === 'sell',
+		);
+		return pair ? parseFloat(pair.price) : 0;
+	}, [pricesData, effectiveCoin]);
+
+	const totalReturnIRT = totalReturn * assetPriceInUsdt * irtUsdt;
+
+	const formatNumberWithCommas = (value: string | number): string => {
+		if (value === '' || value === null || value === undefined) return '';
+		const numStr = String(value);
+		const endsWithDot = numStr.trim().endsWith('.');
+		const cleaned = numStr.replace(/[^\d.]/g, '');
+		if (!cleaned) return '';
+		if (cleaned === '.') return '0.';
+		const parts = cleaned.split('.');
+		let integerPart = parts[0] || '';
+		const decimalPart = parts[1] || '';
+		if (!integerPart && (decimalPart || endsWithDot)) integerPart = '0';
+		const formattedInteger = integerPart
+			? integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			: '0';
+		if (decimalPart || endsWithDot) return `${formattedInteger}.${decimalPart}`;
+		return formattedInteger;
+	};
+
+	useEffect(() => {
+		if (!selectedCoin && coins.length > 0) {
+			setTimeout(() => {
+				setSelectedCoin(coins[0].symbol);
+			}, 0);
+		}
+	}, [coins, selectedCoin]);
+
+	const displayDays = days;
+	const displaySelectedDays = days.includes(selectedDays)
+		? selectedDays
+		: days[0];
 
 	return (
 		<div
@@ -126,10 +217,27 @@ export default function StakingCalculator() {
 					<div className="relative lg:w-full">
 						<input
 							type="text"
-							value={amount}
+							inputMode="decimal"
+							value={formatNumberWithCommas(amount)}
 							onChange={(e) => {
-								const value = e.target.value.replace(/[^\d]/g, '');
-								setAmount(value);
+								const value = e.target.value;
+								const cleaned = value.replace(/[^\d.]/g, '');
+								if (cleaned === '') {
+									setAmount('');
+									return;
+								}
+								const parts = cleaned.split('.');
+								let rawValue =
+									parts.length > 2
+										? `${parts[0]}.${parts.slice(1).join('')}`
+										: cleaned;
+								if (rawValue.includes('.')) {
+									const [integerPart, decimalPart] = rawValue.split('.');
+									if (decimalPart && decimalPart.length > 8) {
+										rawValue = `${integerPart}.${decimalPart.slice(0, 8)}`;
+									}
+								}
+								setAmount(rawValue);
 							}}
 							className="w-full h-15 px-2 pr-4 bg-glass-white-1 rounded-[40px] border border-grayscale-03 text-grayscale-07 text-xl font-semibold text-center focus:outline-none focus:border-brand-primary"
 							placeholder="1000"
@@ -142,8 +250,8 @@ export default function StakingCalculator() {
 								<div className="flex items-center gap-3">
 									<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 										<Image
-											src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${selectedCoinData?.icon}`}
-											alt={selectedCoin}
+											src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${selectedCoinData?.icon || `${effectiveCoin.toLowerCase()}_.svg`}`}
+											alt={effectiveCoin}
 											width={32}
 											height={32}
 											className="w-full h-full object-cover"
@@ -153,7 +261,7 @@ export default function StakingCalculator() {
 										variant="Main/16px/Regular"
 										className="text-grayscale-07!"
 									>
-										{selectedCoin}
+										{effectiveCoin}
 									</Text>
 								</div>
 								<svg
@@ -181,32 +289,43 @@ export default function StakingCalculator() {
 							{/* Dropdown */}
 							{isDropdownOpen && (
 								<div className="absolute top-full left-0 right-0 mt-2 bg-grayscale-02 rounded-2xl border border-grayscale-03 overflow-hidden z-10">
-									{coins.map((coin) => (
-										<button
-											key={coin.symbol}
-											onClick={() => {
-												setSelectedCoin(coin.symbol);
-												setIsDropdownOpen(false);
-											}}
-											className="w-full px-6 py-3 flex items-center gap-3 hover:bg-grayscale-03 transition-colors"
-										>
-											<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
-												<Image
-													src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${coin.icon}`}
-													alt={coin.symbol}
-													width={32}
-													height={32}
-													className="w-full h-full object-cover"
-												/>
-											</div>
+									{coins.length === 0 ? (
+										<div className="px-6 py-4">
 											<Text
-												variant="Main/16px/Regular"
-												className="text-grayscale-07!"
+												variant="LongText/14px/Regular"
+												className="text-grayscale-05"
 											>
-												{coin.symbol}
+												در حال بارگذاری...
 											</Text>
-										</button>
-									))}
+										</div>
+									) : (
+										coins.map((coin) => (
+											<button
+												key={coin.symbol}
+												onClick={() => {
+													setSelectedCoin(coin.symbol);
+													setIsDropdownOpen(false);
+												}}
+												className="w-full px-6 py-3 flex items-center gap-3 hover:bg-grayscale-03 transition-colors"
+											>
+												<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
+													<Image
+														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${coin.icon}`}
+														alt={coin.symbol}
+														width={32}
+														height={32}
+														className="w-full h-full object-cover"
+													/>
+												</div>
+												<Text
+													variant="Main/16px/Regular"
+													className="text-grayscale-07!"
+												>
+													{coin.symbol}
+												</Text>
+											</button>
+										))
+									)}
 								</div>
 							)}
 						</div>
@@ -219,19 +338,21 @@ export default function StakingCalculator() {
 						را به مدت
 					</Text>
 					<div className="flex items-center justify-between gap-2">
-						{days.map((day) => (
+						{displayDays.map((day) => (
 							<button
 								key={day}
 								onClick={() => setSelectedDays(day)}
 								className={cn(
 									'w-13 h-11 rounded-4xl transition-all flex items-center justify-center',
-									selectedDays === day ? 'bg-brand-primary-container' : '',
+									displaySelectedDays === day
+										? 'bg-brand-primary-container'
+										: '',
 								)}
 							>
 								<Text
 									variant="Main/14px/SemiBold"
 									className={cn(
-										selectedDays === day
+										displaySelectedDays === day
 											? 'text-brand-primary!'
 											: 'text-grayscale-07!',
 									)}
@@ -271,13 +392,13 @@ export default function StakingCalculator() {
 								variant="Main/16px/Regular"
 								className="text-grayscale-07! font-semibold"
 							>
-								{totalReturn.toFixed(2)}
+								{Number(totalReturn.toFixed(2)).toLocaleString()}
 							</Text>
 							<Text
 								variant="Main/16px/Regular"
 								className="text-grayscale-07! font-semibold"
 							>
-								{selectedCoin}
+								{effectiveCoin}
 							</Text>
 						</div>
 					</div>
