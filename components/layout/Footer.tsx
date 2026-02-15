@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Collapse from '../UI/Collapse';
 import Container from '../UI/Container';
 import { useTheme } from '@/hooks/useTheme';
+import AssociationLogos from './AssociationLogos';
 
 // Type definitions for footer data
 type FooterData = {
@@ -493,53 +494,7 @@ export default function Footer() {
 						<ActionButtons mobile={mobile} />
 					</div>
 					{/* Association logos */}
-					<div className="flex flex-wrap items-center gap-6">
-						<a
-							href="https://fintechaa.ir"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="انجمن فین‌تک"
-						>
-							<Image
-								loading="lazy"
-								width={78}
-								height={99}
-								src="/assets/footer/fintech.svg"
-								alt="انجمن فین‌تک"
-								className="h-[99px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-						<a
-							href="https://iranblockchain.org"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="انجمن فناوران زنجیره بلوک"
-						>
-							<Image
-								loading="lazy"
-								width={108}
-								height={91}
-								src="/assets/footer/blockchain.svg"
-								alt="انجمن فناوران زنجیره بلوک"
-								className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-						<a
-							href="https://www.ecoplatform.ir"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="سازمان نظام صنفی رایانه‌ای"
-						>
-							<Image
-								loading="lazy"
-								width={115}
-								height={91}
-								src="/assets/footer/nezamSenfi.png"
-								alt="سازمان نظام صنفی رایانه‌ای"
-								className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-					</div>
+					<AssociationLogos />
 					<CollapsibleLinks footer={footer} />
 					<div className="rounded-tr-[120px]">
 						<div className="flex flex-col gap-20 rounded-tr-[120px]">
@@ -562,53 +517,7 @@ export default function Footer() {
 						<ActionButtons mobile={mobile} />
 					</div>
 					{/* Association logos */}
-					<div className="flex flex-wrap items-center gap-6 ">
-						<a
-							href="https://fintechaa.ir"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="انجمن فین‌تک"
-						>
-							<Image
-								loading="lazy"
-								width={78}
-								height={99}
-								src="/assets/footer/fintech.svg"
-								alt="انجمن فین‌تک"
-								className="h-[99px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-						<a
-							href="https://iranblockchain.org"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="انجمن فناوران زنجیره بلوک"
-						>
-							<Image
-								loading="lazy"
-								width={108}
-								height={91}
-								src="/assets/footer/blockchain.svg"
-								alt="انجمن فناوران زنجیره بلوک"
-								className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-						<a
-							href="https://www.ecoplatform.ir"
-							rel="nofollow noopener noreferrer"
-							target="_blank"
-							aria-label="سازمان نظام صنفی رایانه‌ای"
-						>
-							<Image
-								loading="lazy"
-								width={115}
-								height={91}
-								src="/assets/footer/nezamSenfi.png"
-								alt="سازمان نظام صنفی رایانه‌ای"
-								className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-							/>
-						</a>
-					</div>
+					<AssociationLogos />
 				</div>
 
 				<div className="relative rounded-tr-[120px] lg:border-2 lg:border-grayscale-03 overflow-hidden ">
