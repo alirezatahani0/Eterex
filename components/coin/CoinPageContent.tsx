@@ -142,6 +142,22 @@ export default function CoinPageContent() {
 		return coinPriceInUsdt * exchangeRate;
 	}, [priceGroup, coinPriceInUsdt, buyOrSell]);
 
+	// Price data for market info section (volume, change %, etc.)
+	const priceDataForInfo = useMemo(() => {
+		if (!pricesData.length || !symbolUpper) return null;
+		const usdtPair = pricesData.find(
+			(p) =>
+				p.symbol.toUpperCase() === `${symbolUpper}USDT` && p.type === 'sell',
+		);
+		return usdtPair ?? null;
+	}, [pricesData, symbolUpper]);
+
+	// Toman price for display (buy rate)
+	const tomanPriceForInfo = useMemo(() => {
+		if (!priceGroup || !coinPriceInUsdt) return null;
+		return coinPriceInUsdt * priceGroup.prices.irtUsdt;
+	}, [priceGroup, coinPriceInUsdt]);
+
 	// Helper function to format number with commas (for coin amount - allows decimals)
 	const formatNumberWithCommas = (value: string | number): string => {
 		if (value === '' || value === null || value === undefined) return '';
@@ -760,6 +776,92 @@ export default function CoinPageContent() {
 						</div>
 					</div>
 					{/* Info Section */}
+					{/* Market Info Section */}
+					<div className="py-5 border-b border-grayscale-03 bg-white dark:bg-grayscale-01 mt-8">
+						<Collapse2
+							header={`اطلاعات بازار ${nameFaOrEmpty || symbolUpper}`}
+							defaultOpen={true}
+							headerClassName="text-right"
+							contentClassName="text-right"
+						>
+							<div className="flex flex-col gap-3 text-right">
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">رتبه در بازار</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className="text-grayscale-05"
+									>
+										—
+									</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">تغییرات ۲۴ ساعته</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className={
+											(priceDataForInfo?.price_change_percentage ?? 0) >= 0
+												? 'text-green'
+												: 'text-red'
+										}
+									>
+										{priceDataForInfo?.price_change_percentage != null
+											? `%${priceDataForInfo.price_change_percentage.toFixed(0)}`
+											: '—'}
+									</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">قیمت دلاری</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className="text-grayscale-05"
+									>
+										{coinPriceInUsdt != null
+											? `$${coinPriceInUsdt.toLocaleString('en-US', {
+													minimumFractionDigits: 2,
+													maximumFractionDigits: 6,
+												})}`
+											: '—'}
+									</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">قیمت تومانی</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className="text-grayscale-05"
+									>
+										{tomanPriceForInfo != null
+											? `${tomanPriceForInfo.toLocaleString('fa-IR')} تومان`
+											: '—'}
+									</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">ارز در دسترس</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className="text-grayscale-05"
+									>
+										—
+									</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">
+										حداکثر ارز قابل عرضه
+									</Text>
+									<Text variant="LongText/16px/Regular">نامحدود</Text>
+								</div>
+								<div className="grid grid-cols-2 gap-10">
+									<Text variant="LongText/16px/Regular">ارز در گردش</Text>
+									<Text
+										variant="LongText/16px/Regular"
+										className="text-grayscale-05"
+									>
+										نامحدود
+									</Text>
+								</div>
+							</div>
+						</Collapse2>
+					</div>
+
 					{coinData && coinData.sections && coinData.sections.length > 0 && (
 						<div className="flex flex-col gap-6 mt-8">
 							<div className="flex flex-col gap-4">
