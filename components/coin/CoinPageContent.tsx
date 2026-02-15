@@ -289,19 +289,19 @@ export default function CoinPageContent() {
 				<div>
 					<div className="flex flex-col items-start mb-10 gap-4">
 						<div className="flex flex-row items-center gap-2">
-							<Text variant="Main/32px/Bold">قیمت، خرید و فروش</Text>
-							<Text variant="Main/32px/Bold" gradient="primary">
+							<Text type='h1' variant="Main/32px/Bold">قیمت، خرید و فروش</Text>
+							<Text type='h1' variant="Main/32px/Bold" gradient="primary">
 								ارز {nameFaOrEmpty && `${nameFaOrEmpty} `}{symbolUpper}
 							</Text>
 						</div>
 						<div className="flex flex-row items-center gap-4">
-							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
+							<Text type='h2' variant="Main/16px/Regular" className="text-grayscale-05!">
 								قیمت ارز دیجیتال {symbolUpper} {nameFaOrEmpty}
 							</Text>
 							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
 								-
 							</Text>
-							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
+							<Text type='h2' variant="Main/16px/Regular" className="text-grayscale-05!">
 								قیمت لحظه‌ای {symbolUpper} {nameFaOrEmpty}
 							</Text>
 						</div>
@@ -317,8 +317,8 @@ export default function CoinPageContent() {
 				<div className='flex flex-col items-start sticky top-30'>
 					<div className="flex flex-col items-start mb-10 gap-4">
 						<div className="flex flex-row items-center gap-2">
-							<Text variant="Main/32px/Bold">خرید و فروش</Text>
-							<Text variant="Main/32px/Bold" gradient="primary">
+							<Text type='h3' variant="Main/32px/Bold">خرید و فروش</Text>
+							<Text type='h3' variant="Main/32px/Bold" gradient="primary">
 								ارز {symbolUpper}
 							</Text>
 						</div>
