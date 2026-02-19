@@ -437,21 +437,30 @@
 			"highlight": "هیچ سوالی",
 			"suffix": "   بی‌پاسخ نمی‌ماند "
 		},
+		"footer": "Still have questions? We are with you 24/7.",
 		"categories": {
 			"aboutEterex": {
-				"title": "About Eterex",
+				"title": "Registration and Identity Verification",
 				"questions": [
 					{
-						"question": "What currencies are supported in Eterex?",
-						"answer": "Eterex supports a wide range of cryptocurrencies. To view the complete list of supported currencies, you can refer to the Markets section in your user panel."
+						"question": "How do I register on Eterex?",
+						"answer": "With just a mobile number. Enter your number on the main page or app to receive a verification code, then you can start trading."
 					},
 					{
-						"question": "What is a rental account?",
-						"answer": "A rental account is a type of user account that allows you to use Eterex services under specific conditions. For more information about rental accounts, you can contact support."
+						"question": "How long does identity verification take?",
+						"answer": "Eterex uses a smart verification system. You can complete verification via video or by submitting ID and a handwritten commitment."
 					},
 					{
-						"question": "What is Eterex P2P market?",
-						"answer": "Eterex P2P market is a trading platform that allows users to buy and sell cryptocurrencies directly without intermediaries. This market ensures security and transparency of transactions."
+						"question": "Can I buy without identity verification?",
+						"answer": "Yes. You can start buying crypto right after initial registration. With withdrawal without verification enabled, you can withdraw up to 5 million Tomans without verification."
+					},
+					{
+						"question": "How is my account security guaranteed?",
+						"answer": "We use 2FA and cold wallets. All assets held at Eterex are fully guaranteed by the exchange."
+					},
+					{
+						"question": "What is the minimum amount to buy crypto on Eterex?",
+						"answer": "You can start with a minimum of 100,000 Tomans to place your first trade."
 					}
 				]
 			},
@@ -459,20 +468,92 @@
 				"title": "Rial Deposit and Withdrawal",
 				"questions": [
 					{
-						"question": "I have deposited with a card other than the registered card, the amount has been deducted, what will be its status?",
-						"answer": "If you deposit with a card other than the registered card, the deducted amount will not be deposited into your account. Please contact support immediately so your issue can be reviewed and resolved."
+						"question": "How do rial deposit and withdrawal work on Eterex?",
+						"answer": "Deposit via card-to-card or Paya/Satna (SHIBA) to the accounts shown in the deposit section. Withdrawals are processed as soon as possible and transferred via the central bank Paya cycle."
+					}
+				]
+			},
+			"fees": {
+				"title": "Fees",
+				"questions": [
+					{
+						"question": "How is the tiered fee system calculated?",
+						"answer": "Fees are competitive and based on your 30-day trading volume. Higher volume means a higher tier and lower fee percentage."
 					},
 					{
-						"question": "My transaction in the bank portal was unsuccessful, but the amount has been deducted; what should I do?",
-						"answer": "If an amount is deducted from your account without a successful transaction, the amount is usually refunded to your account within 24 to 72 business hours. Otherwise, contact support."
+						"question": "Does Eterex charge fees for rial deposit or withdrawal?",
+						"answer": "No. Eterex does not charge any fee for rial deposit or withdrawal. Small amounts deducted are from the banking/payment network."
 					},
 					{
-						"question": "How long does it take to withdraw Rial from Eterex wallet?",
-						"answer": "Withdrawing Rial from Eterex wallet usually takes 1 to 3 business hours. In some cases, this time may take up to 24 business hours."
+						"question": "How are crypto deposit and withdrawal fees calculated?",
+						"answer": "Crypto deposit is free. Withdrawal fees for many assets on popular networks (TON, BSC, TRX, UTOPIA) are zero; others only incur the blockchain network cost."
 					},
 					{
-						"question": "What is the limit for Rial deposit?",
-						"answer": "The Rial deposit limit varies depending on your identity verification level. To find out your exact deposit limit, refer to your user account settings section."
+						"question": "What is the fee for coin-to-coin conversion?",
+						"answer": "Conversion fee is 0.1% of the source currency. For example, converting 1000 USDT costs 1 USDT in fees."
+					}
+				]
+			},
+			"advancedTrading": {
+				"title": "Advanced Trading",
+				"questions": [
+					{
+						"question": "How does advanced trading differ from easy buy?",
+						"answer": "In advanced trading you set your own price and wait for someone to match it."
+					},
+					{
+						"question": "Do I need identity verification for advanced trading?",
+						"answer": "If you have crypto: no verification needed to deposit and place sell orders. Verification is required for rial withdrawal. If you want to deposit rial and buy USDT, you must complete verification first."
+					},
+					{
+						"question": "What is the difference between Limit and Market orders?",
+						"answer": "Market: your order executes immediately at the best available price. Limit: you set a price and the order fills only when the market reaches that price."
+					},
+					{
+						"question": "What is a Stop-Limit order?",
+						"answer": "You set a trigger price (Stop) and a limit price. When the market hits the stop, your limit order is placed in the book. Useful for entering when a level is broken."
+					},
+					{
+						"question": "Why didn't my stop-limit order fill when price reached my level?",
+						"answer": "If price moves past your limit too fast or there isn't enough liquidity, the order can remain in the book. In volatile markets, monitoring is the user's responsibility."
+					},
+					{
+						"question": "What is slippage in advanced trading?",
+						"answer": "In Market or Stop-Market orders, the executed price can differ slightly from what you expected during high volatility or low liquidity. Eterex aims to execute at the best possible price."
+					},
+					{
+						"question": "What if I have a problem during advanced trading?",
+						"answer": "Eterex support is available 24/7 via online chat and phone to report and resolve any issue."
+					}
+				]
+			},
+			"staking": {
+				"title": "Staking (Participation Pool)",
+				"questions": [
+					{
+						"question": "What is staking on Eterex?",
+						"answer": "Staking means locking your funds to support the network and receiving rewards. Eterex provides this as a technical intermediary."
+					},
+					{
+						"question": "When can I withdraw staking rewards?",
+						"answer": "Rewards are calculated every 24 hours. You can withdraw after 7–14 days (depending on the plan). After that, rewards are withdrawable daily."
+					},
+					{
+						"question": "What if I leave the staking plan early?",
+						"answer": "If you exit before 7–14 days: no rewards. If you exit after 7–14 days: you receive rewards up to that point and your principal is released according to the network schedule."
+					}
+				]
+			},
+			"uVoucher": {
+				"title": "U-Voucher",
+				"questions": [
+					{
+						"question": "Do I need complex verification to buy U-Voucher on Eterex?",
+						"answer": "No. You can buy Utopia U-Voucher quickly with a simple process by charging your account with rial and receiving the code with minimal fees."
+					},
+					{
+						"question": "How long does buying or selling U-Voucher take?",
+						"answer": "Instant. To buy: select Utopia, enter the rial amount, and receive the 16-digit code. To sell: enter the code and the rial equivalent is credited to your Eterex wallet immediately."
 					}
 				]
 			}

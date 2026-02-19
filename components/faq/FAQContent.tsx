@@ -30,6 +30,22 @@ export default function FAQContent() {
 			title: faq.categories.rialDepositWithdrawal.title,
 			questions: faq.categories.rialDepositWithdrawal.questions,
 		},
+		{
+			title: faq.categories.fees.title,
+			questions: faq.categories.fees.questions,
+		},
+		{
+			title: faq.categories.advancedTrading.title,
+			questions: faq.categories.advancedTrading.questions,
+		},
+		{
+			title: faq.categories.staking.title,
+			questions: faq.categories.staking.questions,
+		},
+		{
+			title: faq.categories.uVoucher.title,
+			questions: faq.categories.uVoucher.questions,
+		},
 	];
 
 	return (
@@ -97,6 +113,7 @@ export default function FAQContent() {
 										<Text
 											variant="LongText/16px/Regular"
 											color="text-grayscale-06!"
+											className="whitespace-pre-line"
 										>
 											{item.answer}
 										</Text>
@@ -106,6 +123,14 @@ export default function FAQContent() {
 						</div>
 					))}
 				</div>
+
+				{faq.footer && (
+					<div className="text-center py-8">
+						<Text variant="LongText/18px/Bold" color="text-grayscale-06!">
+							{faq.footer}
+						</Text>
+					</div>
+				)}
 
 				<DownloadSection />
 			</Container>

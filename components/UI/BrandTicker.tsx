@@ -42,9 +42,9 @@ export default function BrandTicker({
 						}}
 						style={{ width: 'fit-content', flexDirection: 'row-reverse', gap: 80 }}
 					>
-						{duplicatedBrands.map((logo) => (
+						{duplicatedBrands.map((logo, index) => (
 							<motion.div
-								key={`${logo.src}-${logo.alt}-a`}
+								key={`${logo.src}-${logo.alt}-${index}`}
 								className={`shrink-0 
 									flex items-center justify-center transition-transform duration-300 gap-2
 									`}
