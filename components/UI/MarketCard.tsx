@@ -29,7 +29,7 @@ export default function MarketCard({
 	return (
 		<div
 			className={cn(
-				'rounded-[28px] border-2 border-grayscale-03 p-8 flex flex-col justify-center items-start gap-6',
+				'rounded-[28px] border-2 border-grayscale-03 p-4 xl:p-8 flex flex-col justify-center items-start gap-6',
 				className,
 			)}
 			style={

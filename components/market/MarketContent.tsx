@@ -16,6 +16,9 @@ import {
 import type { Market, PaginationType } from '@/types/api';
 import Pagination from '@/components/UI/Pagination';
 import Skeleton from '@/components/UI/Skeleton';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 
 interface MarketContentProps {
 	initialMarkets?: Market[];
@@ -34,6 +37,21 @@ export default function MarketContent({
 	const [currentPage, setCurrentPage] = useState(1);
 	const rowsPerPage = 10;
 	const prevFiltersRef = useRef<string>('');
+	const [baseSelectOpen, setBaseSelectOpen] = useState(false);
+	const baseSelectRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (
+				baseSelectRef.current &&
+				!baseSelectRef.current.contains(event.target as Node)
+			) {
+				setBaseSelectOpen(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
 
 	// Old categories from translations
 	const oldCategories = [
@@ -176,10 +194,13 @@ export default function MarketContent({
 	// Use client-side markets if available, otherwise fall back to initial server-side data
 	const allMarkets = clientMarkets.length > 0 ? clientMarkets : initialMarkets;
 
-	// Filter markets based on baseTransaction only (for cards - no search/category filter)
+	// Cards always show USDT data; Base Transaction select only affects the table
+	const CARD_BASE = 'USDT';
+
+	// Filter markets for cards only (always USDT, no search/category)
 	const baseFilteredMarkets = useMemo(() => {
-		return allMarkets.filter((market) => market.quoteAsset === baseTransaction);
-	}, [allMarkets, baseTransaction]);
+		return allMarkets.filter((market) => market.quoteAsset === CARD_BASE);
+	}, [allMarkets]);
 
 	// Filter markets based on baseTransaction, search query, and category (for table)
 	const filteredMarkets = useMemo(() => {
@@ -201,18 +222,18 @@ export default function MarketContent({
 		return filtered;
 	}, [allMarkets, baseTransaction, searchQuery]);
 
-	// Combine markets with assets and prices data (for cards - no filters)
+	// Combine markets with assets and prices data (for cards - always USDT)
 	// Include all assets from assetsData, even if not in market data
 	const enrichedMarketsForCards = useMemo(() => {
 		if (!assetsData?.coins) {
 			return [];
 		}
 
-		// Filter prices by quote pair (USDT or IRT) - prices should end with the selected baseTransaction
+		// Cards: always USDT prices
 		const filteredPrices =
 			pricesData?.filter((price) => {
 				const priceSymbolUpper = price.symbol.toUpperCase();
-				return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
+				return priceSymbolUpper.endsWith(CARD_BASE);
 			}) || [];
 
 		// Create maps for quick lookup
@@ -231,13 +252,11 @@ export default function MarketContent({
 			(asset) => asset.trading_enabled && asset.active,
 		);
 
-		// Combine assets with prices and markets
+		// Combine assets with prices and markets (USDT only for cards)
 		const enriched = allAssets.map((asset) => {
 			const assetSymbol = asset.name.toUpperCase();
-			// Try to find matching price (e.g., "BTCUSDT" or "BTCIRT")
-			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const priceSymbol = `${assetSymbol}${CARD_BASE}`;
 			const price = pricesMap.get(priceSymbol);
-			// Try to find matching market
 			const market = marketsMap.get(assetSymbol);
 
 			return {
@@ -257,7 +276,7 @@ export default function MarketContent({
 
 		const additionalMarkets = marketsWithoutAssets.map((market) => {
 			const assetSymbol = market.baseAsset.toUpperCase();
-			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const priceSymbol = `${assetSymbol}${CARD_BASE}`;
 			const price = pricesMap.get(priceSymbol);
 
 			return {
@@ -268,7 +287,7 @@ export default function MarketContent({
 		});
 
 		return [...enriched, ...additionalMarkets];
-	}, [baseFilteredMarkets, assetsData, pricesData, baseTransaction]);
+	}, [baseFilteredMarkets, assetsData, pricesData]);
 
 	// Combine markets with assets and prices data (for table - with filters)
 	// Include all assets from assetsData, even if not in market data
@@ -363,21 +382,21 @@ export default function MarketContent({
 					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
-					  })
+						})
 					: '0';
 
 				// Format volume (using quote_volume which is in the quote currency)
 				const formattedVolume = price?.quote_volume
 					? parseFloat(price.quote_volume.toString()).toLocaleString('en-US', {
 							maximumFractionDigits: 2,
-					  })
+						})
 					: '0';
 
 				// Market cap not available in price API, use volume as placeholder or empty
 				const formattedMarketCap = price?.volume
 					? parseFloat(price.volume.toString()).toLocaleString('en-US', {
 							maximumFractionDigits: 2,
-					  })
+						})
 					: '0';
 
 				const changeType: 'positive' | 'negative' = isPositive
@@ -460,7 +479,7 @@ export default function MarketContent({
 					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
-					  })
+						})
 					: '0';
 
 				const changeType: 'positive' | 'negative' = isPositive
@@ -538,7 +557,7 @@ export default function MarketContent({
 					? parseFloat(price.price).toLocaleString('en-US', {
 							maximumFractionDigits: priceDecimalPlaces,
 							minimumFractionDigits: priceDecimalPlaces,
-					  })
+						})
 					: '0';
 
 				const changeType: 'positive' | 'negative' = isPositive
@@ -626,7 +645,7 @@ export default function MarketContent({
 				<Text
 					variant="Main/32px/Black"
 					gradient="primary"
-					className="mb-4"
+					className="mb-4 px-6"
 					type="h1"
 				>
 					{market.title}
@@ -644,55 +663,98 @@ export default function MarketContent({
 			</div>
 
 			<Container className="py-12 md:py-16 lg:py-20">
-				{/* Overview Cards */}
-				<div className="flex xl:grid xl:grid-cols-4 gap-6 mb-14 overflow-x-auto xl:overflow-x-visible pb-2 xl:pb-0 -mx-6 xl:mx-0 px-6 xl:px-0 scrollbar-hide xl:scrollbar-default">
+				{/* Overview Cards - Mobile: Swiper */}
+				<div className="lg:hidden mb-14 -mx-6 lg:mx-0 px-6 lg:px-0">
 					{isLoadingCards ? (
-						<>
-							<div className="min-w-[380px] xl:min-w-0">
-								<MarketCardSkeleton title={market.cards.mostPopular.title} />
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
-								<MarketCardSkeleton title={market.cards.newest.title} />
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
-								<MarketCardSkeleton title={market.cards.mostProfitable.title} />
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
-								<MarketCardSkeleton title={market.cards.mostLosing.title} />
-							</div>
-						</>
+						<Swiper
+							spaceBetween={16}
+							slidesPerView={1.15}
+							className="overflow-visible"
+						>
+							{[
+								market.cards.mostPopular,
+								market.cards.newest,
+								market.cards.mostProfitable,
+								market.cards.mostLosing,
+							].map((card, i) => (
+								<SwiperSlide key={i}>
+									<MarketCardSkeleton title={card.title} />
+								</SwiperSlide>
+							))}
+						</Swiper>
 					) : (
-						<>
-							<div className="min-w-[380px] xl:min-w-0">
+						<Swiper
+							spaceBetween={16}
+							slidesPerView={1}
+							pagination={{ clickable: true }}
+							autoplay={{
+								delay: 4000,
+								disableOnInteraction: false,
+							}}
+							modules={[Autoplay]}
+							className="overflow-visible"
+						>
+							<SwiperSlide>
 								<MarketCard
 									title={market.cards.mostPopular.title}
 									items={cardItems.mostPopular}
 								/>
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
+							</SwiperSlide>
+							<SwiperSlide>
 								<MarketCard
 									title={market.cards.newest.title}
 									items={cardItems.newest}
 								/>
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
+							</SwiperSlide>
+							<SwiperSlide>
 								<MarketCard
 									title={market.cards.mostProfitable.title}
 									items={cardItems.mostProfitable}
 								/>
-							</div>
-							<div className="min-w-[380px] xl:min-w-0">
+							</SwiperSlide>
+							<SwiperSlide>
 								<MarketCard
 									title={market.cards.mostLosing.title}
 									items={cardItems.mostLosing}
 								/>
-							</div>
+							</SwiperSlide>
+						</Swiper>
+					)}
+				</div>
+
+				{/* Overview Cards - Desktop: Grid */}
+				<div className="hidden lg:grid lg:grid-cols-4 gap-6 mb-14">
+					{isLoadingCards ? (
+						<>
+							<MarketCardSkeleton title={market.cards.mostPopular.title} />
+							<MarketCardSkeleton title={market.cards.newest.title} />
+							<MarketCardSkeleton title={market.cards.mostProfitable.title} />
+							<MarketCardSkeleton title={market.cards.mostLosing.title} />
+						</>
+					) : (
+						<>
+							<MarketCard
+								title={market.cards.mostPopular.title}
+								items={cardItems.mostPopular}
+							/>
+							<MarketCard
+								title={market.cards.newest.title}
+								items={cardItems.newest}
+							/>
+							<MarketCard
+								title={market.cards.mostProfitable.title}
+								items={cardItems.mostProfitable}
+							/>
+							<MarketCard
+								title={market.cards.mostLosing.title}
+								items={cardItems.mostLosing}
+							/>
 						</>
 					)}
 				</div>
 
 				{/* Filters and Search Section */}
-				<div className="mb-6 flex flex-row lg:items-center lg:justify-between gap-4">
+				<div className="mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
 					{/* Search Bar */}
 					<div className="flex-1 lg:max-w-md">
 						<div className="relative">
@@ -727,30 +789,37 @@ export default function MarketContent({
 						</div>
 					</div>
 
-					{/* Base Transaction Select */}
-					<div className="flex items-center gap-2">
+					{/* Base Transaction Select - custom dropdown opens below */}
+					<div className="flex justify-between lg:justify-start items-center gap-2 relative">
 						<Text variant="Main/16px/Regular" className="text-grayscale-07!">
 							{market.filters.baseTransaction}
 						</Text>
-						<div className="relative">
-							<select
-								name="quoteAsset"
-								value={baseTransaction}
-								onChange={(e) =>
-									setBaseTransaction(e.target.value as 'IRT' | 'USDT')
-								}
-								className="px-6 pl-10 py-3 rounded-4xl border border-grayscale-03 bg-grayscale-02 text-grayscale-07 focus:outline-none focus:border-brand-primary appearance-none cursor-pointer"
+						<div className="relative z-100" ref={baseSelectRef}>
+							<button
+								type="button"
+								onClick={() => setBaseSelectOpen((o) => !o)}
+								className="flex items-center gap-2 px-6 py-3 rounded-4xl border border-grayscale-03 bg-grayscale-02 text-grayscale-07 focus:outline-none focus:border-brand-primary cursor-pointer w-full min-w-[120px] justify-between"
+								aria-expanded={baseSelectOpen}
+								aria-haspopup="listbox"
+								aria-label={market.filters.baseTransaction}
 							>
-								<option value="USDT">دلار</option>
-								<option value="IRT">تومان</option>
-							</select>
-							<div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+								<Text
+									variant="Main/16px/Regular"
+									className="text-grayscale-07!"
+								>
+									{baseTransaction === 'USDT' ? 'دلار' : 'تومان'}
+								</Text>
 								<svg
+									className={cn(
+										'w-6 h-6 text-grayscale-07 transition-transform',
+										baseSelectOpen && 'rotate-180',
+									)}
 									xmlns="http://www.w3.org/2000/svg"
 									width="24"
 									height="24"
 									viewBox="0 0 24 24"
 									fill="none"
+									aria-hidden
 								>
 									<path
 										d="M17.1431 9.42894L12.0003 14.5718L6.85742 9.42894"
@@ -758,10 +827,41 @@ export default function MarketContent({
 										strokeWidth="1.28571"
 										strokeLinecap="round"
 										strokeLinejoin="round"
-										className="text-grayscale-07"
 									/>
 								</svg>
-							</div>
+							</button>
+							{baseSelectOpen && (
+								<ul
+									className="absolute top-full left-0 right-0 mt-1 py-1 rounded-2xl border border-grayscale-03 bg-grayscale-02 shadow-lg z-101"
+									role="listbox"
+								>
+									{[
+										{ value: 'USDT' as const, label: 'دلار' },
+										{ value: 'IRT' as const, label: 'تومان' },
+									].map((opt) => (
+										<li
+											key={opt.value}
+											role="option"
+											aria-selected={baseTransaction === opt.value}
+										>
+											<button
+												type="button"
+												onClick={() => {
+													setBaseTransaction(opt.value);
+													setBaseSelectOpen(false);
+												}}
+												className={cn(
+													'w-full text-right px-4 py-2.5 text-grayscale-07 hover:bg-grayscale-03 transition-colors first:rounded-t-2xl last:rounded-b-2xl',
+													baseTransaction === opt.value &&
+														'bg-grayscale-03/50 text-white',
+												)}
+											>
+												{opt.label}
+											</button>
+										</li>
+									))}
+								</ul>
+							)}
 						</div>
 					</div>
 				</div>

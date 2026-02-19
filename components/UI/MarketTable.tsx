@@ -212,9 +212,9 @@ export default function MarketTable({
 													}}
 													aria-label="نمودار"
 													className={cn(
-														'h-14 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex flex-row items-center justify-center gap-2',
+														'h-10 md:h-14 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex flex-row items-center justify-center gap-2',
 														// Mobile & Tablet: icon only (w-14), XL+: with text (w-[140px])
-														'w-14 xl:w-[140px] xl:pr-6 xl:pl-7 pl-0 pr-0',
+														'w-10 md:w-14 xl:w-[140px] xl:pr-6 xl:pl-7 pl-0 pr-0',
 													)}
 												>
 													<svg
@@ -262,9 +262,9 @@ export default function MarketTable({
 													onClick={() => onOperations?.(row)}
 													aria-label="خرید و فروش"
 													className={cn(
-														'h-14 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2',
+														'h-10 md:h-14 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2',
 														// Mobile: icon only, Tablet+: with text
-														'w-14 md:w-[140px] md:pr-6 md:pl-7 pl-0 pr-0',
+														'w-10 md:w-14 lg:w-[140px] lg:pr-6 lg:pl-7 pl-0 pr-0',
 													)}
 												>
 													<svg
@@ -292,7 +292,7 @@ export default function MarketTable({
 													<Text
 														variant="Main/14px/Bold"
 														color="text-white!"
-														className="hidden md:block"
+														className="hidden lg:block"
 													>
 														عملیات
 													</Text>

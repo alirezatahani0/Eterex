@@ -131,7 +131,7 @@ const Pagination = ({ pagination, onChange }: PaginationProps) => {
 			}
 			case 'next': {
 				return (
-					<div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-grayscale-03">
+					<div className="flex items-center justify-center w-10 md:w-12 h-10 md:h-12 rounded-full border-2 border-grayscale-03">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -152,7 +152,7 @@ const Pagination = ({ pagination, onChange }: PaginationProps) => {
 			}
 			case 'previous': {
 				return (
-					<div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-grayscale-03">
+					<div className="flex items-center justify-center w-10 md:w-12 h-10 md:h-12 rounded-full border-2 border-grayscale-03">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -185,7 +185,7 @@ const Pagination = ({ pagination, onChange }: PaginationProps) => {
 			ref={navRef}
 			data-testid="tabs-container"
 			className={cn(
-				'relative w-fit h-12 p-1 flex items-center justify-between gap-3 ',
+				'relative w-fit h-12 p-1 flex items-center justify-between gap-1 md:gap-3 ',
 			)}
 			style={{ userSelect: 'none' }}
 		>
@@ -202,7 +202,7 @@ const Pagination = ({ pagination, onChange }: PaginationProps) => {
 					data-testid={`pagination-button-${index}`}
 					onClick={item.onClick}
 					className={cn(
-						'relative z-10 flex justify-center rounded-full items-center whitespace-nowrap min-w-12 h-12 cursor-pointer',
+						'relative z-10 flex justify-center rounded-full items-center whitespace-nowrap min-w-10 md:min-w-12 h-10 md:h-12 cursor-pointer',
 						item.selected ? 'bg-brand-primary' : '',
 					)}
 				>
