@@ -10,6 +10,7 @@ import StepsSection from '@/components/home/Steps';
 import BrandTicker from '@/components/UI/BrandTicker';
 import Container from '@/components/UI/Container';
 import { DownloadSection } from '@/components/UI/DownloadSection';
+import KeywordPool from '@/components/home/KeywordPool';
 
 export const metadata: Metadata = {
 	title: 'صرافی اتراکس | معتبرترین صرافی ارز دیجیتال ایرانی',
@@ -197,6 +198,8 @@ export default function Home() {
 			<Container className="py-12 md:py-16 lg:py-20">
 				<DownloadSection />
 			</Container>
+
+			<KeywordPool />
 		</main>
 	);
 }
