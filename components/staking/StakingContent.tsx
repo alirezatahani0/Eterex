@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Text from '@/components/UI/Text';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -13,8 +14,10 @@ import { Timeline } from 'primereact/timeline';
 import { PrimeReactProvider } from 'primereact/api';
 import { DownloadSection } from '../UI/DownloadSection';
 import { useStakingQuery } from '@/hooks/useStakingQuery';
+import { useStakingOveralDetailQuery } from '@/hooks/useStakingOveralDetailQuery';
 import { useTheme } from '@/hooks/useTheme';
 import type { StakingPlan } from '@/types/api';
+import type { StakingOveralDetailItem } from '@/types/api';
 import { ICON_BASE_URL } from '@/lib/constants';
 
 const FEATURES = [
@@ -191,7 +194,34 @@ const FEATURES = [
 	},
 ];
 
+const ROTATE_INTERVAL_MS = 5000;
+
+function formatStatValue(value: string): string {
+	const num = parseFloat(value);
+	if (Number.isNaN(num)) return '—';
+	return num.toLocaleString('en-US', {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 2,
+	});
+}
+
 export default function StakingContent() {
+	const { data: overalDetails = [], isLoading: isLoadingOveral } =
+		useStakingOveralDetailQuery();
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const currentItem: StakingOveralDetailItem | null =
+		overalDetails.length > 0 ? overalDetails[currentIndex % overalDetails.length]! : null;
+
+	// Rotate to next asset every 5 seconds
+	useEffect(() => {
+		if (overalDetails.length <= 1) return;
+		const id = setInterval(() => {
+			setCurrentIndex((i) => (i + 1) % overalDetails.length);
+		}, ROTATE_INTERVAL_MS);
+		return () => clearInterval(id);
+	}, [overalDetails.length]);
+
 	return (
 		<div>
 			{/* Header Section */}
@@ -342,22 +372,30 @@ export default function StakingContent() {
 					/>
 				</div>
 			</div>
-			{/* Statistics Section */}
+			{/* Statistics Section - from API Staking/overal/detail, rotates per asset every 5s */}
 			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] xl:w-[55%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 ">
 				<div className="flex flex-col gap-4 items-center justify-between">
 					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						استیک‌های فعال{' '}
+						استیک‌های فعال {currentItem ? `(${currentItem.assetSymbol})` : ''}
 					</Text>
 					<Text variant="Main/24px/Bold" className="text-grayscale-07!">
-						1770{' '}
+						{currentItem
+							? formatStatValue(currentItem.activeStaksCount)
+							: isLoadingOveral
+								? '...'
+								: '—'}
 					</Text>
 				</div>
 				<div className="flex flex-col gap-4 items-center justify-between">
 					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						دوره‌های تکمیل‌شده{' '}
+						دوره‌های تکمیل‌شده {currentItem ? `(${currentItem.assetSymbol})` : ''}
 					</Text>
 					<Text variant="Main/24px/Bold" className="text-grayscale-07!">
-						4,204{' '}
+						{currentItem
+							? formatStatValue(currentItem.allStaksCount)
+							: isLoadingOveral
+								? '...'
+								: '—'}
 					</Text>
 				</div>
 				<div className="flex flex-col gap-4 items-center justify-between">
@@ -369,13 +407,17 @@ export default function StakingContent() {
 							variant="Main/14px/SemiBold"
 							className="text-brand-secondary-variant!"
 						>
-							USDT
+							{currentItem ? currentItem.assetSymbol : '—'}
 						</Text>
 						<Text
 							variant="Main/24px/Bold"
 							className="text-brand-secondary-variant!"
 						>
-							40,245.00
+							{currentItem
+								? formatStatValue(currentItem.allStaksProfitAmount)
+								: isLoadingOveral
+									? '...'
+									: '—'}
 						</Text>
 					</div>
 				</div>
@@ -385,10 +427,14 @@ export default function StakingContent() {
 					</Text>
 					<div className="flex flex-row items-center gap-2">
 						<Text variant="Main/14px/SemiBold" className="text-brand-primary!">
-							USDT
+							{currentItem ? currentItem.assetSymbol : '—'}
 						</Text>
 						<Text variant="Main/24px/Bold" className="text-brand-primary!">
-							231,500.00
+							{currentItem
+								? formatStatValue(currentItem.allStaksAmount)
+								: isLoadingOveral
+									? '...'
+									: '—'}
 						</Text>
 					</div>
 				</div>

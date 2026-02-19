@@ -188,3 +188,13 @@ export interface StakingDetail {
 	allStaksAmount: string;
 	allStaksProfitAmount: string;
 }
+
+/** Response item from Staking/overal/detail */
+export interface StakingOveralDetailItem {
+	assetSymbol: string;
+	activeStaksCount: string;
+	activeStaksAmount: string;
+	allStaksCount: string;
+	allStaksAmount: string;
+	allStaksProfitAmount: string;
+}

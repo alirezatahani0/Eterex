@@ -2,7 +2,11 @@
  * Staking API functions
  */
 
-import type { StakingPlan, StakingDetail } from '@/types/api';
+import type {
+	StakingPlan,
+	StakingDetail,
+	StakingOveralDetailItem,
+} from '@/types/api';
 
 const STAKING_API_BASE =
 	process.env.NEXT_PUBLIC_STAKING_API_URL ||
@@ -61,6 +65,36 @@ export async function fetchStakingDetail(
 		return response.json();
 	} catch (error) {
 		console.error('Error fetching staking detail:', error);
+		throw error;
+	}
+}
+
+/**
+ * Fetches staking overall detail (per-asset stats) from Staking API
+ * @returns Promise<StakingOveralDetailItem[]>
+ */
+export async function fetchStakingOveralDetail(): Promise<
+	StakingOveralDetailItem[]
+> {
+	try {
+		const baseUrl = STAKING_API_BASE.replace(/\/$/, '');
+		const url = `${baseUrl}/Staking/overal/detail`;
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error(`API Error: ${response.status} ${response.statusText}`);
+		}
+
+		const data = await response.json();
+		// API may return array or single object; always return array
+		return Array.isArray(data) ? data : [data];
+	} catch (error) {
+		console.error('Error fetching staking overal detail:', error);
 		throw error;
 	}
 }
