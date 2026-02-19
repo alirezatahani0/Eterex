@@ -14,6 +14,7 @@ import { useCoinData } from '@/hooks/useCoinData';
 import Collapse2 from '@/components/UI/Collapse2';
 import Link from 'next/link';
 import { getCoinPersianName } from '@/lib/coinNames';
+import Skeleton from '@/components/UI/Skeleton';
 
 const UserIcon = () => (
 	<svg
@@ -40,6 +41,7 @@ export default function CoinPageContent() {
 	const [buyOrSell, setBuyOrSell] = useState<'buy' | 'sell'>('buy');
 	const [coinAmount, setCoinAmount] = useState<string>('1'); // Store raw value (without commas)
 	const [irtAmount, setIrtAmount] = useState<string>(''); // Store raw value (without commas)
+	const [chartLoaded, setChartLoaded] = useState(false);
 	const initializedRef = useRef(false);
 
 	const symbol = params?.symbol ?? '';
@@ -96,6 +98,11 @@ export default function CoinPageContent() {
 		);
 		return irtMarket?.id ?? usdtMarket?.id ?? null;
 	}, [marketsData, symbolUpper]);
+
+	// Reset chart loaded state when market id or theme changes
+	useEffect(() => {
+		setChartLoaded(false);
+	}, [chartMarketId, theme]);
 
 	// Get decimal places allowed for coin amount (base quantity decimal places)
 	const coinDecimalPlaces = useMemo(() => {
@@ -349,16 +356,28 @@ export default function CoinPageContent() {
 							</Text>
 						</div>
 					</div>
-					{chartMarketId ? (
-						<iframe
-							src={`https://app.eterex.com/chart?marketId=${chartMarketId}&mode=${theme}`}
-							title={`نمودار قیمت ${symbolUpper}`}
-							width={700}
-							height={460}
-							className="w-full rounded-4xl border-0 min-h-[460px]"
-							sandbox="allow-scripts allow-same-origin"
-						/>
-					) : null}
+					<div className="relative w-full min-h-[460px] rounded-4xl overflow-hidden">
+						{/* Skeleton: while markets loading or chart iframe loading */}
+						{(isLoadingMarkets || (chartMarketId && !chartLoaded)) && (
+							<Skeleton
+								className="absolute inset-0 w-full min-h-[460px] rounded-4xl bg-grayscale-03"
+							/>
+						)}
+						{chartMarketId ? (
+							<iframe
+								src={`https://app.eterex.com/chart?marketId=${chartMarketId}&mode=${theme}`}
+								title={`نمودار قیمت ${symbolUpper}`}
+								width={700}
+								height={460}
+								className={cn(
+									'w-full rounded-4xl border-0 min-h-[460px] transition-opacity duration-300',
+									chartLoaded ? 'opacity-100' : 'opacity-0',
+								)}
+								sandbox="allow-scripts allow-same-origin"
+								onLoad={() => setChartLoaded(true)}
+							/>
+						) : null}
+					</div>
 				</div>
 				<div className="flex flex-col items-start sticky top-30">
 					<div className="flex flex-col items-start mb-10 gap-4">
