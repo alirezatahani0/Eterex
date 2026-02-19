@@ -14,6 +14,7 @@ import {
 	useAssetsPriceListQuery,
 } from '@/hooks/useAssetsQuery';
 import { useConfigsQuery } from '@/hooks/useConfigsQuery';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 export default function Coins() {
 	const { coins } = useTranslation();
@@ -86,7 +87,7 @@ export default function Coins() {
 				)}%`;
 
 				const iconUrl = asset.name
-					? `${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${asset.name.toLowerCase()}_.svg`
+					? `${ICON_BASE_URL}/${asset.name.toLowerCase()}_.svg`
 					: undefined;
 
 				const date = new Date(asset.created_at);

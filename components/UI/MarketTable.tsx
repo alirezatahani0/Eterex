@@ -5,6 +5,7 @@ import Text from './Text';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 interface MarketTableRow {
 	crypto: string;
@@ -109,10 +110,7 @@ export default function MarketTable({
 					<tbody>
 						{rows.length === 0 ? (
 							<tr>
-								<td
-									colSpan={6}
-									className="px-6 py-20 text-center"
-								>
+								<td colSpan={6} className="px-6 py-20 text-center">
 									<Text
 										variant="Main/16px/Regular"
 										className="text-grayscale-05!"
@@ -130,14 +128,19 @@ export default function MarketTable({
 										className="border-b border-grayscale-03 last:border-0"
 									>
 										{/* Cryptocurrency - Always visible */}
-										<td className={cn('px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4', isLastRow && 'border-b-0')}>
+										<td
+											className={cn(
+												'px-3 py-2 md:px-4 md:py-3 lg:px-6 lg:py-4',
+												isLastRow && 'border-b-0',
+											)}
+										>
 											<Link
 												href={`/coin/${row.symbol.toLowerCase()}`}
 												className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
 											>
 												<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 													<Image
-														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${row.symbol.toLowerCase()}_.svg`}
+														src={`${ICON_BASE_URL}/${row.symbol.toLowerCase()}_.svg`}
 														width={36}
 														height={36}
 														alt={row.symbol}

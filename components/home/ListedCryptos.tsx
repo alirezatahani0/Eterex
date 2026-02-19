@@ -14,6 +14,7 @@ import { useMemo, useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'next/navigation';
 import { useMarketsQuery } from '@/hooks/useMarketsQuery';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 export default function ListedCryptos() {
 	const { listedCryptos } = useTranslation();
@@ -86,9 +87,7 @@ export default function ListedCryptos() {
 
 			// Get icon URL
 			const iconUrl = asset.name
-				? `${
-						process.env.NEXT_PUBLIC_ICON_BASE_URL
-				  }/${asset.name.toLowerCase()}_.svg`
+				? `${ICON_BASE_URL}/${asset.name.toLowerCase()}_.svg`
 				: undefined;
 
 			return {

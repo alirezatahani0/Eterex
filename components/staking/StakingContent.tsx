@@ -15,6 +15,7 @@ import { DownloadSection } from '../UI/DownloadSection';
 import { useStakingQuery } from '@/hooks/useStakingQuery';
 import { useTheme } from '@/hooks/useTheme';
 import type { StakingPlan } from '@/types/api';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 const FEATURES = [
 	{
@@ -1044,7 +1045,7 @@ export const FeaturedCoinCard = ({
 				className="absolute top-0 left-0 z-10"
 			/>
 			<Image
-				src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${icon}`}
+				src={`${ICON_BASE_URL}/${icon}`}
 				alt={symbol}
 				width={52}
 				height={52}

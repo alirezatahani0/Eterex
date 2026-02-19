@@ -6,6 +6,7 @@ import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/hooks/useTheme';
 import Image from 'next/image';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 export default function StatisticsSection() {
 	const { statistics } = useTranslation();
@@ -242,28 +243,28 @@ export default function StatisticsSection() {
 							<div className="flex items-center">
 								{/* Placeholder for crypto icons - will be replaced with actual images */}
 								<Image
-									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/xrp_.svg`}
+									src={`${ICON_BASE_URL}/xrp_.svg`}
 									alt={'XRP'}
 									width={40}
 									height={40}
 									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-30 rounded-full"
 								/>
 								<Image
-									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/btc_.svg`}
+									src={`${ICON_BASE_URL}/btc_.svg`}
 									alt={'BTC'}
 									width={40}
 									height={40}
 									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-20 rounded-full"
 								/>
 								<Image
-									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/eth_.svg`}
+									src={`${ICON_BASE_URL}/eth_.svg`}
 									alt={'ETH'}
 									width={40}
 									height={40}
 									className="w-10 h-10 object-cover border border-grayscale-03 -ml-4 z-10 rounded-full"
 								/>
 								<Image
-									src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/usdt_.svg`}
+									src={`${ICON_BASE_URL}/usdt_.svg`}
 									alt={'USDT'}
 									width={40}
 									height={40}

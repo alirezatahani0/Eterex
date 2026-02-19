@@ -8,6 +8,7 @@ import { useStakingQuery } from '@/hooks/useStakingQuery';
 import { useConfigsQuery } from '@/hooks/useConfigsQuery';
 import { useTheme } from '@/hooks/useTheme';
 import { useAssetsPriceListQuery } from '@/hooks/useAssetsQuery';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 export default function StakingCalculator() {
 	const [selectedCoin, setSelectedCoin] = useState<string>('');
@@ -259,7 +260,7 @@ export default function StakingCalculator() {
 								<div className="flex items-center gap-3">
 									<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 										<Image
-											src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${selectedCoinData?.icon || `${effectiveCoin.toLowerCase()}_.svg`}`}
+											src={`${ICON_BASE_URL}/${selectedCoinData?.icon || `${effectiveCoin.toLowerCase()}_.svg`}`}
 											alt={effectiveCoin}
 											width={32}
 											height={32}
@@ -319,7 +320,7 @@ export default function StakingCalculator() {
 											>
 												<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 													<Image
-														src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${coin.icon}`}
+														src={`${ICON_BASE_URL}/${coin.icon}`}
 														alt={coin.symbol}
 														width={32}
 														height={32}

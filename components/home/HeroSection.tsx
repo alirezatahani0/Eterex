@@ -7,9 +7,19 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import CircularCarousel from '../UI/CircularCarousel';
 
+const APP_REGISTER_URL = 'https://app.eterex.com/register';
+
 export default function HeroSection() {
 	const { hero } = useTranslation();
 	const [phoneNumber, setPhoneNumber] = useState('');
+
+	const handleRegister = () => {
+		const mobile = phoneNumber.trim().replace(/\s/g, '');
+		const url = mobile
+			? `${APP_REGISTER_URL}?mobile=${encodeURIComponent(mobile)}`
+			: APP_REGISTER_URL;
+		window.open(url, '_blank', 'noopener,noreferrer');
+	};
 
 	return (
 		<>
@@ -129,7 +139,11 @@ export default function HeroSection() {
 								</svg>
 							</div>
 
-							<button className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2">
+							<button
+								type="button"
+								onClick={handleRegister}
+								className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2"
+							>
 								<Text
 									variant="Main/14px/Bold"
 									className="hidden md:flex w-fit text-white!"
@@ -280,7 +294,11 @@ export default function HeroSection() {
 								</svg>
 							</div>
 
-							<button className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2">
+							<button
+								type="button"
+								onClick={handleRegister}
+								className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2"
+							>
 								<Text
 									variant="Main/14px/Bold"
 									className="hidden md:flex w-fit text-white!"

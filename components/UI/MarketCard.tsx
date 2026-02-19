@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Text from './Text';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 interface CryptoItem {
 	symbol: string;
@@ -51,9 +52,7 @@ export default function MarketCard({
 						<div className="flex items-center gap-3 flex-1">
 							<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 								<Image
-									src={`${
-										process.env.NEXT_PUBLIC_ICON_BASE_URL
-									}/${item.symbol.toLowerCase()}_.svg`}
+									src={`${ICON_BASE_URL}/${item.symbol.toLowerCase()}_.svg`}
 									width={36}
 									height={36}
 									alt={item.symbol}

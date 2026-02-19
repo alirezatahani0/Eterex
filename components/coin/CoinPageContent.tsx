@@ -15,6 +15,7 @@ import Collapse2 from '@/components/UI/Collapse2';
 import Link from 'next/link';
 import { getCoinPersianName } from '@/lib/coinNames';
 import Skeleton from '@/components/UI/Skeleton';
+import { ICON_BASE_URL } from '@/lib/constants';
 
 const UserIcon = () => (
 	<svg
@@ -273,7 +274,7 @@ export default function CoinPageContent() {
 
 					<div className="w-14 h-20 flex items-start justify-start pt-2">
 						<Image
-							src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${String(
+							src={`${ICON_BASE_URL}/${String(
 								symbol,
 							).toLowerCase()}_.svg`}
 							width={56}
@@ -585,7 +586,7 @@ export default function CoinPageContent() {
 							<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
 								<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 									<Image
-										src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${String(
+										src={`${ICON_BASE_URL}/${String(
 											symbol,
 										).toLowerCase()}_.svg`}
 										width={36}
@@ -634,7 +635,7 @@ export default function CoinPageContent() {
 							<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
 								<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
 									<Image
-										src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/irt_.svg`}
+										src={`${ICON_BASE_URL}/irt_.svg`}
 										width={36}
 										height={36}
 										alt="IRT"
