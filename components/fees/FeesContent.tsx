@@ -8,17 +8,45 @@ import { useTheme } from '@/hooks/useTheme';
 import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import FeesTable from '@/components/UI/FeesTable';
+import { useNetworksListQuery } from '@/hooks/useNetworksListQuery';
+
+function formatWithdrawFee(fee: number | null, coinName: string): string {
+	if (fee === null || fee === undefined) return '—';
+	return `(${coinName}) ${Number(fee) === fee && fee % 1 !== 0 ? fee.toLocaleString('en-US', { maximumFractionDigits: 4 }) : fee}`;
+}
 
 export default function FeesContent() {
 	const { fees } = useTranslation();
 	const { theme, mounted } = useTheme();
+	const {
+		data: networksData,
+		isLoading: isLoadingNetworks,
+		isError: isNetworksError,
+	} = useNetworksListQuery();
+
+	const cryptoWithdrawalRows = useMemo(() => {
+		if (!networksData?.networks?.length) return [];
+		return networksData.networks
+			.filter(
+				(n) =>
+					n.enabled &&
+					n.active &&
+					n.withdraw_enabled &&
+					n.admin_withdraw_enabled,
+			)
+			.map((n) => ({
+				crypto: n.coin_name,
+				network: n.name,
+				fee: formatWithdrawFee(n.withdraw_fee, n.coin_name),
+			}));
+	}, [networksData]);
 
 	// Use light theme as default for SSR, only use actual theme after mount
 	const bgUrls = useMemo(() => {
 		if (!mounted) return '';
 		return theme === 'dark'
-			? "bg-[url('/assets/security/Header-Dark.png')] md:bg-[url('/assets/security/Header-MD-Dark.png')] lg:bg-[url('/assets/security/Header-LG-Dark.png')] 2xl:bg-[url('/assets/security/Header-XL-Dark.png')] "
-			: "bg-[url('/assets/security/Header.png')] md:bg-[url('/assets/security/Header-MD.png')] lg:bg-[url('/assets/security/Header-LG.png')] 2xl:bg-[url('/assets/security/Header-XL.png')] ";
+			? "bg-[url('/assets/security/Header-Dark.avif')] md:bg-[url('/assets/security/Header-MD-Dark.avif')] lg:bg-[url('/assets/security/Header-LG-Dark.avif')] 2xl:bg-[url('/assets/security/Header-XL-Dark.avif')] "
+			: "bg-[url('/assets/security/Header.avif')] md:bg-[url('/assets/security/Header-MD.avif')] lg:bg-[url('/assets/security/Header-LG.avif')] 2xl:bg-[url('/assets/security/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
 	return (
@@ -31,7 +59,12 @@ export default function FeesContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{fees.title}
 				</Text>
 
@@ -106,7 +139,7 @@ export default function FeesContent() {
 					</div>
 				</div>
 
-				{/* Cryptocurrency Withdrawal Fees */}
+				{/* Cryptocurrency Withdrawal Fees - from API dex.eterex.com/public/api/networks/list */}
 				<div className="mb-[120px] lg:grid lg:grid-cols-[1fr_2fr] lg:gap-6">
 					<div>
 						<Text
@@ -126,12 +159,32 @@ export default function FeesContent() {
 						</Text>
 					</div>
 
-					{/* Table */}
-					<FeesTable
-						headers={fees.cryptoWithdrawal.table.headers}
-						rows={fees.cryptoWithdrawal.table.rows}
-						fieldOrder={['crypto', 'network', 'fee']}
-					/>
+					{isLoadingNetworks ? (
+						<div className="rounded-[20px] border-2 border-grayscale-03 p-8 flex items-center justify-center min-h-[200px]">
+							<Text
+								variant="LongText/16px/Regular"
+								className="text-grayscale-05!"
+							>
+								در حال بارگذاری...
+							</Text>
+						</div>
+					) : isNetworksError ? (
+						<div className="rounded-[20px] border-2 border-grayscale-03 p-8 flex items-center justify-center min-h-[200px]">
+							<Text
+								variant="LongText/16px/Regular"
+								className="text-grayscale-05!"
+							>
+								خطا در دریافت لیست شبکه‌ها. لطفاً بعداً تلاش کنید.
+							</Text>
+						</div>
+					) : (
+						<FeesTable
+							headers={fees.cryptoWithdrawal.table.headers}
+							rows={cryptoWithdrawalRows}
+							fieldOrder={['crypto', 'network', 'fee']}
+							pageSize={10}
+						/>
+					)}
 				</div>
 
 				{/* Cryptocurrency Deposit Fees */}

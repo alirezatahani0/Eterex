@@ -16,7 +16,7 @@ export default function HeroSection() {
 	const handleRegister = () => {
 		const mobile = phoneNumber.trim().replace(/\s/g, '');
 		const url = mobile
-			? `${APP_REGISTER_URL}?mobile=${encodeURIComponent(mobile)}`
+			? `${APP_REGISTER_URL}?phone=${encodeURIComponent(mobile)}`
 			: APP_REGISTER_URL;
 		window.open(url, '_blank', 'noopener,noreferrer');
 	};

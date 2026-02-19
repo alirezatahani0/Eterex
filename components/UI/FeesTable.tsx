@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import Text from './Text';
 
@@ -8,6 +9,8 @@ interface FeesTableProps {
 	rows: Record<string, string>[];
 	className?: string;
 	fieldOrder?: string[];
+	/** When set, show this many rows per page and render pagination below the table */
+	pageSize?: number;
 }
 
 export default function FeesTable({
@@ -15,8 +18,10 @@ export default function FeesTable({
 	rows,
 	className,
 	fieldOrder,
+	pageSize,
 }: FeesTableProps) {
-	// Determine field order: use provided fieldOrder or infer from first row
+	const [currentPage, setCurrentPage] = useState(0);
+
 	const getFieldOrder = () => {
 		if (fieldOrder) return fieldOrder;
 		if (rows.length > 0) {
@@ -26,6 +31,16 @@ export default function FeesTable({
 	};
 
 	const orderedFields = getFieldOrder();
+
+	const totalPages = pageSize ? Math.ceil(rows.length / pageSize) || 1 : 1;
+	const effectivePage = Math.min(currentPage, totalPages - 1);
+	const displayRows = useMemo(() => {
+		if (!pageSize || rows.length <= pageSize) return rows;
+		const start = effectivePage * pageSize;
+		return rows.slice(start, start + pageSize);
+	}, [rows, pageSize, effectivePage]);
+
+	const isPaginated = Boolean(pageSize && rows.length > pageSize);
 
 	return (
 		<div className={cn('overflow-x-auto mt-6', className)}>
@@ -54,10 +69,10 @@ export default function FeesTable({
 						</tr>
 					</thead>
 					<tbody>
-						{rows.map((row, index) => {
-							const isLastRow = index === rows.length - 1;
+						{displayRows.map((row, index) => {
+							const isLastRow = index === displayRows.length - 1;
 							return (
-								<tr key={index} >
+								<tr key={effectivePage * (pageSize ?? 0) + index}>
 									{orderedFields.map((field, cellIndex) => {
 										const isFirstCell = cellIndex === 0;
 										const isLastCell = cellIndex === orderedFields.length - 1;
@@ -80,7 +95,7 @@ export default function FeesTable({
 													variant="LongText/16px/Regular"
 													color="text-grayscale-06!"
 												>
-													{row[field] || ''}
+													{row[field] ?? ''}
 												</Text>
 											</td>
 										);
@@ -91,7 +106,54 @@ export default function FeesTable({
 					</tbody>
 				</table>
 			</div>
+
+			{isPaginated && (
+				<div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+					<button
+						type="button"
+						onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+						disabled={effectivePage === 0}
+						className="h-10 min-w-10 px-3 rounded-xl border-2 border-grayscale-03 bg-grayscale-02 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-grayscale-03 transition-colors"
+						aria-label="صفحه قبل"
+					>
+						<Text variant="Main/14px/SemiBold" className="text-grayscale-07!">
+							قبلی
+						</Text>
+					</button>
+					<div className="flex items-center justify-center gap-1">
+						{Array.from({ length: totalPages }, (_, i) => (
+							<button
+								key={i}
+								type="button"
+								onClick={() => setCurrentPage(i)}
+								className={cn(
+									'h-10 min-w-10 rounded-xl border-2 transition-colors flex items-center justify-center',
+									i === effectivePage
+										? 'border-brand-primary bg-brand-primary-container text-brand-primary'
+										: 'border-grayscale-03 bg-grayscale-02 hover:bg-grayscale-03 text-grayscale-07',
+								)}
+							>
+								<Text variant="Main/14px/SemiBold">
+									{(i + 1).toLocaleString('fa-IR')}
+								</Text>
+							</button>
+						))}
+					</div>
+					<button
+						type="button"
+						onClick={() =>
+							setCurrentPage((p) => Math.min(totalPages - 1, p + 1))
+						}
+						disabled={effectivePage >= totalPages - 1}
+						className="h-10 min-w-10 px-3 rounded-xl border-2 border-grayscale-03 bg-grayscale-02 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-grayscale-03 transition-colors"
+						aria-label="صفحه بعد"
+					>
+						<Text variant="Main/14px/SemiBold" className="text-grayscale-07!">
+							بعدی
+						</Text>
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }
-

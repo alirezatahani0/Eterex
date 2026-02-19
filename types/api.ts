@@ -198,3 +198,31 @@ export interface StakingOveralDetailItem {
 	allStaksAmount: string;
 	allStaksProfitAmount: string;
 }
+
+/**
+ * Network/withdrawal fee item from dex.eterex.com/public/api/networks/list
+ */
+export interface NetworkFeeItem {
+	portId: string;
+	network: string;
+	coin_name: string;
+	name: string;
+	address_regex: string | null;
+	memo_regex: string | null;
+	deposit_fee: number | null;
+	deposit_min: number;
+	deposit_enabled: boolean;
+	admin_deposit_enabled: boolean;
+	withdraw_fee: number | null;
+	withdraw_min: number;
+	withdraw_max: number;
+	withdraw_enabled: boolean;
+	admin_withdraw_enabled: boolean;
+	withdraw_precision: number;
+	active: boolean;
+	enabled: boolean;
+}
+
+export interface NetworksListResponse {
+	networks: NetworkFeeItem[];
+}
