@@ -18,11 +18,11 @@ export default function Container({
 				'px-6',
 				// Tablet (md): 48px from sides
 				'md:px-12',
-				// Laptop (lg): 76px from sides
-				'lg:px-[76px]',
+				// Laptop (lg): 56px from sides
+				'lg:px-[56px]',
 				// More than 1440px (2xl): 156px from sides
 				'2xl:px-[156px]',
-				className
+				className,
 			)}
 			{...props}
 		>
@@ -30,4 +30,3 @@ export default function Container({
 		</div>
 	);
 }
-

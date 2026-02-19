@@ -30,7 +30,12 @@ export default function TermsAndConditionsContent() {
 				)}
 			>
 				{/* Title */}
-				<Text variant="Main/32px/Black" gradient="primary" className="mb-4" type="h1">
+				<Text
+					variant="Main/32px/Black"
+					gradient="primary"
+					className="mb-4"
+					type="h1"
+				>
 					{rules.title}
 				</Text>
 
@@ -164,6 +169,252 @@ export default function TermsAndConditionsContent() {
 								</li>
 							),
 						)}
+					</ul>
+				</div>
+
+				{/* Trade By User */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.tradeByUser.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.tradeByUser.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Cryptocurrency Transfer Conditions */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.cryptocurrencyTransferConditions.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.cryptocurrencyTransferConditions.points).map(
+							(point, index) => (
+								<li key={index}>
+									<Text
+										variant="LongText/16px/Regular"
+										color="text-grayscale-06!"
+									>
+										{point}
+									</Text>
+								</li>
+							),
+						)}
+					</ul>
+				</div>
+
+				{/* Fiat Transfer Conditions */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.fiatTransferConditions.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.fiatTransferConditions.points).map(
+							(point, index) => (
+								<li key={index}>
+									<Text
+										variant="LongText/16px/Regular"
+										color="text-grayscale-06!"
+									>
+										{point}
+									</Text>
+								</li>
+							),
+						)}
+					</ul>
+				</div>
+
+				{/* Account Deleting */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.accountDeleting.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.accountDeleting.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Prohibited Items */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.prohibitedItems.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.prohibitedItems.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Suspending Blocking */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.suspendingBlocking.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.suspendingBlocking.points).map(
+							(point, index) => (
+								<li key={index}>
+									<Text
+										variant="LongText/16px/Regular"
+										color="text-grayscale-06!"
+									>
+										{point}
+									</Text>
+								</li>
+							),
+						)}
+					</ul>
+				</div>
+
+				{/* Fee And Expenses */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.feeAndExpenses.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.feeAndExpenses.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Responsibility */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.responsibility.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.responsibility.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Dispute */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.dispute.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.dispute.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Other Conditions */}
+				<div className="mb-[120px]">
+					<Text
+						variant="Main/24px/Bold"
+						className="mb-6 w-fit max-w-[80%]"
+						gradient="primary"
+						type="h2"
+					>
+						{rules.otherConditions.title}
+					</Text>
+					<ul className="space-y-6 list-disc list-inside">
+						{Object.values(rules.otherConditions.points).map((point, index) => (
+							<li key={index}>
+								<Text
+									variant="LongText/16px/Regular"
+									color="text-grayscale-06!"
+								>
+									{point}
+								</Text>
+							</li>
+						))}
 					</ul>
 				</div>
 

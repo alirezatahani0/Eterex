@@ -130,12 +130,21 @@ export default function Header() {
 
 	// Navigation Links (for desktop)
 	const navLinks = [
-		{ href: '/', label: nav.home },
-		{ href: '/markets', label: nav.markets },
-		{ href: '/trade', label: nav.trade },
-		{ href: '/staking', label: nav.staking },
-		{ href: '/about-us', label: nav.about },
-		{ href: '/contact-us', label: nav.contact },
+		{ href: '/', label: nav.home, external: false },
+		{ href: '/markets', label: nav.markets, external: false },
+		{
+			href: 'https://app.eterex.com/advanced-trade/USDTIRT',
+			label: nav.trade,
+			external: true,
+		},
+		{
+			href: 'https://app.eterex.com/wallet',
+			label: nav.wallet,
+			external: true,
+		},
+		{ href: '/staking', label: nav.staking, external: false },
+		// { href: '/about-us', label: nav.about, external: false },
+		// { href: '/contact-us', label: nav.contact, external: false },
 	];
 
 	return (
@@ -143,7 +152,7 @@ export default function Header() {
 			<Container>
 				<nav className="flex flex-row-reverse items-center justify-between h-12 md:h-14">
 					{/* Left Side - Mobile: 3 items, Tablet: +2 icons, Desktop: +1 theme toggle */}
-					<div className="flex items-center gap-6">
+					<div className="flex items-center gap-4">
 						<ThemeToggle />
 						{mounted && (
 							<div className="flex items-center justify-center gap-2">
@@ -250,21 +259,25 @@ export default function Header() {
 						<div className="hidden xl:flex items-center gap-12">
 							{navLinks.map((link) => {
 								const isActive =
-									link.href === '/'
+									!link.external &&
+									(link.href === '/'
 										? pathname === '/'
-										: pathname.startsWith(link.href);
+										: pathname.startsWith(link.href));
+								const linkProps = {
+									href: link.href,
+									className: `relative text-[14px] font-semibold leading-[20px] transition-colors ${
+										isActive ? 'text-grayscale-07' : 'text-grayscale-06'
+									}`,
+									style: {
+										fontFamily: "Pelak, 'Vazirmatn', Tahoma, Arial, sans-serif",
+									} as React.CSSProperties,
+									...(link.external && {
+										target: '_blank',
+										rel: 'noopener noreferrer',
+									}),
+								};
 								return (
-									<Link
-										key={link.href}
-										href={link.href}
-										className={`relative text-[14px] font-semibold leading-[20px] transition-colors ${
-											isActive ? 'text-grayscale-07' : 'text-grayscale-06'
-										}`}
-										style={{
-											fontFamily:
-												"Pelak, 'Vazirmatn', Tahoma, Arial, sans-serif",
-										}}
-									>
+									<Link key={link.href} {...linkProps}>
 										{link.label}
 										{isActive && <ActiveIndicator />}
 									</Link>

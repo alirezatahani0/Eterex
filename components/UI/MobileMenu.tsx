@@ -367,7 +367,8 @@ export default function MobileMenu() {
 	const navLinks = [
 		{ href: '/', label: nav.home },
 		{ href: '/markets', label: nav.markets },
-		{ href: '/trade', label: nav.trade },
+		{ href: 'https://app.eterex.com/advanced-trade/USDTIRT', label: nav.trade },
+		{ href: 'https://app.eterex.com/wallet', label: nav.wallet },
 		{ href: '/blog', label: nav.blog },
 		{ href: '/about-us', label: nav.about },
 		{ href: '/fees', label: nav.fees },
@@ -443,12 +444,14 @@ export default function MobileMenu() {
 					<nav className="flex-1 mb-10">
 						<ul className="space-y-2">
 							{navLinks.map((link) => {
+								const isExternal = link.href.startsWith('http');
 								return (
 									<li key={link.href}>
 										<Link
 											href={link.href}
 											onClick={handleClick}
 											className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-full justify-between`}
+											{...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
 										>
 											<span className="font-semibold text-base leading-6 text-right text-grayscale-07">
 												{link.label}
