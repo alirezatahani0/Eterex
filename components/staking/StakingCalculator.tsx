@@ -20,6 +20,9 @@ export default function StakingCalculator() {
 	const { data: configs } = useConfigsQuery();
 	const { data: pricesData = [] } = useAssetsPriceListQuery();
 
+	// فقط این چهار دارایی در UI به‌عنوان استیکینگ فعال نمایش داده می‌شوند
+	const ACTIVE_STAKING_SYMBOLS = new Set(['USDT', 'TRX', 'PAXG', 'IRT']);
+
 	const activePlans = stakingPlans.filter((p) => p.status === 'Active');
 
 	const coins = useMemo(() => {
@@ -27,7 +30,7 @@ export default function StakingCalculator() {
 		return activePlans
 			.filter((p) => {
 				const key = p.asset.toUpperCase();
-				if (seen.has(key)) return false;
+				if (!ACTIVE_STAKING_SYMBOLS.has(key) || seen.has(key)) return false;
 				seen.add(key);
 				return true;
 			})
@@ -43,7 +46,7 @@ export default function StakingCalculator() {
 
 	const selectedCoinData = coins.find((c) => c.symbol === effectiveCoin);
 
-	const days = [30, 90, 180, 360];
+	const days = [30, 90, 180, 365];
 
 	const effectiveDaysForPlan =
 		days.length > 0 && days.includes(selectedDays)
@@ -419,7 +422,9 @@ export default function StakingCalculator() {
 								variant="Main/16px/Regular"
 								className="text-grayscale-07! font-semibold"
 							>
-								{Number(totalReturnIRT.toFixed(0)).toLocaleString('en-US')}
+								{effectiveCoin === 'IRT'
+									? Number(totalReturn.toFixed(2)).toLocaleString()
+									: Number(totalReturnIRT.toFixed(0)).toLocaleString('en-US')}
 							</Text>
 							<Text
 								variant="Main/16px/Regular"

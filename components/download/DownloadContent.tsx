@@ -157,6 +157,38 @@ export default function DownloadContent() {
 							<>
 								<DownloadButton
 									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY ||
+										'https://play.google.com/store/apps/details?id=com.eterex'
+									}
+									icon={
+										<Image
+											src="/assets/Download/googlePlay.png"
+											alt="GooglePlay"
+											width={20}
+											height={20}
+											className="w-5 h-5"
+										/>
+									}
+									label={DownloadAppSection.googlePlay}
+								/>
+								<DownloadButton
+									href={
+										process.env.NEXT_PUBLIC_DOWNLOAD_DIRECT ||
+										'https://static-dl.eterex.com/eterex.apk'
+									}
+									icon={
+										<Image
+											src="/assets/Download/direct.png"
+											alt="Direct"
+											width={20}
+											height={20}
+											className="w-5 h-5"
+										/>
+									}
+									label={DownloadAppSection.direct}
+								/>
+								<DownloadButton
+									href={
 										process.env.NEXT_PUBLIC_DOWNLOAD_BAZAR ||
 										'https://cafebazaar.ir/app/?id=com.eterex&ref=share'
 									}
@@ -186,38 +218,6 @@ export default function DownloadContent() {
 										/>
 									}
 									label={DownloadAppSection.myket}
-								/>
-								<DownloadButton
-									href={
-										process.env.NEXT_PUBLIC_DOWNLOAD_DIRECT ||
-										'https://static-dl.eterex.com/eterex.apk'
-									}
-									icon={
-										<Image
-											src="/assets/Download/direct.png"
-											alt="Direct"
-											width={20}
-											height={20}
-											className="w-5 h-5"
-										/>
-									}
-									label={DownloadAppSection.direct}
-								/>
-								<DownloadButton
-									href={
-										process.env.NEXT_PUBLIC_DOWNLOAD_GOOGLE_PLAY ||
-										'https://play.google.com/store/apps/details?id=com.eterex'
-									}
-									icon={
-										<Image
-											src="/assets/Download/googlePlay.png"
-											alt="GooglePlay"
-											width={20}
-											height={20}
-											className="w-5 h-5"
-										/>
-									}
-									label={DownloadAppSection.googlePlay}
 								/>
 							</>
 						)}

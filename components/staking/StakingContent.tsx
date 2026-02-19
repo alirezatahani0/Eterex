@@ -342,13 +342,7 @@ export default function StakingContent() {
 				</div>
 			</div>
 			{/* Statistics Section */}
-			<div
-				className="p-8 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] xl:w-[55%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 "
-				style={{
-					background:
-						'linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%), var(--grayscale-01-blur-74);',
-				}}
-			>
+			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] xl:w-[55%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 ">
 				<div className="flex flex-col gap-4 items-center justify-between">
 					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
 						استیک‌های فعال{' '}
@@ -910,29 +904,25 @@ export default function StakingContent() {
 		</div>
 	);
 }
-// 8 famous coins for featured section
+// استیکینگ‌های فعال: فقط این چهار دارایی دکمه «شروع استیکینگ» دارند؛ بقیه «به زودی»
+const ACTIVE_STAKING_SYMBOLS = new Set(['USDT', 'TRX', 'PAXG', 'IRT']);
+
+// لیست کوین‌های بخش featured: اول چهار تای فعال، بعد بقیه (به زودی)
 const FEATURED_COINS = [
-	{ id: 1, symbol: 'BTC', name: 'بیت‌کوین', icon: 'btc_.svg' },
-	{ id: 2, symbol: 'ETH', name: 'اتریوم', icon: 'eth_.svg' },
-	{ id: 3, symbol: 'USDT', name: 'تتر', icon: 'usdt_.svg' },
-	{ id: 4, symbol: 'BNB', name: 'بایننس کوین', icon: 'bnb_.svg' },
-	{ id: 5, symbol: 'XRP', name: 'ریپل', icon: 'xrp_.svg' },
-	{ id: 6, symbol: 'SOL', name: 'سولانا', icon: 'sol_.svg' },
-	{ id: 7, symbol: 'ADA', name: 'کاردانو', icon: 'ada_.svg' },
-	{ id: 8, symbol: 'DOGE', name: 'دوج کوین', icon: 'doge_.svg' },
+	{ id: 1, symbol: 'USDT', name: 'تتر', icon: 'usdt_.svg' },
+	{ id: 2, symbol: 'TRX', name: 'ترون', icon: 'trx_.svg' },
+	{ id: 3, symbol: 'PAXG', name: 'پکس‌گلد', icon: 'paxg_.svg' },
+	{ id: 4, symbol: 'IRT', name: 'ریال', icon: 'irt_.svg' },
+	{ id: 5, symbol: 'BTC', name: 'بیت‌کوین', icon: 'btc_.svg' },
+	{ id: 6, symbol: 'ETH', name: 'اتریوم', icon: 'eth_.svg' },
+	{ id: 7, symbol: 'BNB', name: 'بایننس کوین', icon: 'bnb_.svg' },
+	{ id: 8, symbol: 'XRP', name: 'ریپل', icon: 'xrp_.svg' },
 ];
 
 const FeaturedCoinsSection = () => {
-	const { data: stakingPlans = [] } = useStakingQuery();
-	const availableAssetSymbols = new Set(
-		stakingPlans
-			.filter((p) => p.status === 'Active')
-			.map((p) => p.asset.toUpperCase()),
-	);
-
 	const featuredCoinsWithAvailability = FEATURED_COINS.map((coin) => ({
 		...coin,
-		isAvailable: availableAssetSymbols.has(coin.symbol),
+		isAvailable: ACTIVE_STAKING_SYMBOLS.has(coin.symbol),
 	}));
 
 	return (
@@ -1041,50 +1031,50 @@ export const FeaturedCoinCard = ({
 }) => {
 	const { theme, mounted } = useTheme();
 	return (
-	<div className="relative overflow-hidden w-full p-6 bg-grayscale-02 rounded-4xl flex flex-col items-center gap-6 min-h-[140px] justify-center ml-6">
-		<Image
-			src={
-				mounted && theme === 'light'
-					? '/assets/staking/patternsCoinsListLight.svg'
-					: '/assets/staking/patternsCoinsList.svg'
-			}
-			width={200}
-			height={200}
-			alt="pattern"
-			className="absolute top-0 left-0 z-10"
-		/>
-		<Image
-			src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${icon}`}
-			alt={symbol}
-			width={52}
-			height={52}
-			className="w-13 h-13 rounded-full object-cover z-10"
-			onError={(e) => {
-				e.currentTarget.style.display = 'none';
-			}}
-		/>
-		<div className="flex flex-col items-center justify-center gap-2 relative z-10">
-			<Text variant="Main/20px/Bold" className="text-grayscale-07!">
-				استیکینگ {name}
-			</Text>
-			<Text variant="Main/14px/SemiBold" className="text-grayscale-06!">
-				{symbol} Staking
-			</Text>
-		</div>
-		{isAvailable ? (
-			<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
-				<Text variant="Main/14px/Bold" className="text-brand-primary!">
-					شروع استیکینگ
+		<div className="relative overflow-hidden w-full p-6 bg-grayscale-02 rounded-4xl flex flex-col items-center gap-6 min-h-[140px] justify-center ml-6">
+			<Image
+				src={
+					mounted && theme === 'light'
+						? '/assets/staking/patternsCoinsListLight.svg'
+						: '/assets/staking/patternsCoinsList.svg'
+				}
+				width={200}
+				height={200}
+				alt="pattern"
+				className="absolute top-0 left-0 z-10"
+			/>
+			<Image
+				src={`${process.env.NEXT_PUBLIC_ICON_BASE_URL}/${icon}`}
+				alt={symbol}
+				width={52}
+				height={52}
+				className="w-13 h-13 rounded-full object-cover z-10"
+				onError={(e) => {
+					e.currentTarget.style.display = 'none';
+				}}
+			/>
+			<div className="flex flex-col items-center justify-center gap-2 relative z-10">
+				<Text variant="Main/20px/Bold" className="text-grayscale-07!">
+					استیکینگ {name}
 				</Text>
-			</button>
-		) : (
-			<div className="h-14 px-6 bg-grayscale-03 rounded-4xl flex items-center justify-center relative z-10">
-				<Text variant="Main/14px/Bold" className="text-grayscale-05!">
-					به زودی
+				<Text variant="Main/14px/SemiBold" className="text-grayscale-06!">
+					{symbol} Staking
 				</Text>
 			</div>
-		)}
-	</div>
+			{isAvailable ? (
+				<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
+					<Text variant="Main/14px/Bold" className="text-brand-primary!">
+						شروع استیکینگ
+					</Text>
+				</button>
+			) : (
+				<div className="h-14 px-6 bg-grayscale-03 rounded-4xl flex items-center justify-center relative z-10">
+					<Text variant="Main/14px/Bold" className="text-grayscale-05!">
+						به زودی
+					</Text>
+				</div>
+			)}
+		</div>
 	);
 };
 
@@ -1120,7 +1110,11 @@ const StakingCards = () => {
 	const { data: stakingPlans = [], isLoading, isError } = useStakingQuery();
 
 	const stakingData = stakingPlans
-		.filter((plan) => plan.status === 'Active')
+		.filter(
+			(plan) =>
+				plan.status === 'Active' &&
+				ACTIVE_STAKING_SYMBOLS.has(plan.asset.toUpperCase()),
+		)
 		.map(mapStakingPlanToCard);
 
 	if (isLoading) {
@@ -1177,7 +1171,7 @@ const StakingCards = () => {
 						1440: {
 							slidesPerView: 4,
 							initialSlide: 2,
-						}
+						},
 					}}
 					coverflowEffect={{
 						rotate: 0,

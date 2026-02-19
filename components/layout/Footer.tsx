@@ -522,7 +522,7 @@ export default function Footer() {
 				</div>
 
 				<div className="relative rounded-tr-[120px] lg:border-2 lg:border-grayscale-03 overflow-hidden ">
-					<div className="relative flex flex-col w-full gap-20 lg:py-[144px] xl:px-[76px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px] z-20 bg-[url('/assets/footer/Frame.avif')] bg-cover bg-center bg-no-repeat overflow-hidden ">
+					<div className="relative flex flex-col w-full gap-20 lg:py-[144px] lg:px-[56px] 2xl:pt-[128px] 2xl:pr-[156px] rounded-tr-[120px] z-20 bg-[url('/assets/footer/Frame.avif')] bg-cover bg-center bg-no-repeat overflow-hidden ">
 						<LinkColumns footer={footer} />
 						<Copyright footer={footer} />
 					</div>
