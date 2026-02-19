@@ -275,7 +275,7 @@ const SocialIcons = () => {
 	];
 
 	return (
-		<div className="flex items-center justify-end flex-row-reverse gap-3">
+		<div className="flex items-center justify-center md:justify-end flex-row-reverse gap-3">
 			{socialLinks.map(({ href, icon: Icon, label }) => (
 				<Link
 					key={href}

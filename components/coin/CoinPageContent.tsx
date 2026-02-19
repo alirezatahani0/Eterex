@@ -328,7 +328,7 @@ export default function CoinPageContent() {
 			<div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
 				<div>
 					<div className="flex flex-col items-start mb-10 gap-4">
-						<div className="flex flex-row items-center gap-2">
+						<div className="flex flex-col lg:flex-row items-start lg:items-center gap-2">
 							<Text type="h1" variant="Main/32px/Bold">
 								قیمت، خرید و فروش
 							</Text>
@@ -337,7 +337,7 @@ export default function CoinPageContent() {
 								{symbolUpper}
 							</Text>
 						</div>
-						<div className="flex flex-row items-center gap-4">
+						<div className="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-4">
 							<Text
 								type="h2"
 								variant="Main/16px/Regular"
@@ -380,7 +380,7 @@ export default function CoinPageContent() {
 						) : null}
 					</div>
 				</div>
-				<div className="flex flex-col items-start sticky top-30">
+				<div className="flex flex-col items-start lg:sticky lg:top-30">
 					<div className="flex flex-col items-start mb-10 gap-4">
 						<div className="flex flex-row items-center gap-2">
 							<Text type="h3" variant="Main/32px/Bold">

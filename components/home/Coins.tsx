@@ -725,16 +725,16 @@ export default function Coins() {
 												</td>
 												{isMobile ? (
 													<td>
-														<div className="flex flex-col gap-0.5 text-left md:text-right">
+														<div className="flex flex-col gap-0.5 text-left lg:text-right">
 															<Text
 																variant="Main/16px/Regular"
-																className="text-white! text-left! md:text-right!"
+																className="text-white! text-left! lg:text-right!"
 															>
 																{getDisplayPrice(crypto)}
 															</Text>
 															<Text
 																variant="Main/16px/Regular"
-																className="text-white! text-left! md:text-right!"
+																className="text-white! text-left! lg:text-right!"
 															>
 																{crypto.volumeFormatted || '—'}
 															</Text>

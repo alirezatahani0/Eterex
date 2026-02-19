@@ -68,7 +68,7 @@ export default function FAQContent() {
 				</Text>
 
 				{/* Subtitle */}
-				<div className="text-center">
+				<div className="text-center! px-4">
 					<Text variant="Main/16px/Regular" color="#616161">
 						{faq.subtitle.prefix}{' '}
 					</Text>
