@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
@@ -8,6 +9,17 @@ import { useTheme } from '@/hooks/useTheme';
 import { useMemo, useState } from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+
+const ContactMap = dynamic(() => import('./ContactMap'), {
+	ssr: false,
+	loading: () => (
+		<div className="w-full h-[300px] rounded-xl bg-grayscale-03 animate-pulse flex items-center justify-center">
+			<Text variant="LongText/16px/Regular" color="text-grayscale-05!">
+				در حال بارگذاری نقشه...
+			</Text>
+		</div>
+	),
+});
 
 export default function ContactContent() {
 	const { contact } = useTranslation();
@@ -26,10 +38,6 @@ export default function ContactContent() {
 		navigator.clipboard.writeText(contact.phone.number);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 2000);
-	};
-
-	const handleSendEmail = () => {
-		window.location.href = `mailto:${contact.email.address}`;
 	};
 
 	// Icons
@@ -280,7 +288,11 @@ export default function ContactContent() {
 
 			<Container className="py-12 md:py-16 lg:py-20 gap-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-8 lg:grid-rows-[142px_142px_1fr]">
 				{/* Phone Card */}
-				<div className="bg-grayscale-02 rounded-3xl p-8 flex flex-col gap-8 h-[140px] lg:col-start-1 lg:col-end-5 lg:row-start-1 ">
+				<div
+					className="bg-grayscale-02 rounded-3xl p-8 flex flex-col gap-8 h-[140px] lg:col-start-1 lg:col-end-5 lg:row-start-1 "
+					role="region"
+					aria-label={contact.phone.label}
+				>
 					<div className="flex items-center justify-between gap-4 h-full">
 						<div className="flex flex-col items-start justify-between h-full">
 							<Text
@@ -290,13 +302,25 @@ export default function ContactContent() {
 							>
 								{contact.phone.label}
 							</Text>
-							<Text variant="Main/16px/Regular" color="text-grayscale-06!">
-								{contact.phone.number}+
-							</Text>
+							<a
+								href={`tel:${contact.phone.number.replace(/\s/g, '')}`}
+								className="text-grayscale-06 hover:text-grayscale-07 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 rounded"
+								aria-label={`${contact.phone.label}: ${contact.phone.number}`}
+							>
+								<Text variant="Main/16px/Regular" color="text-grayscale-06!">
+									{contact.phone.number}+
+								</Text>
+							</a>
 						</div>
 						<button
+							type="button"
 							onClick={handleCopyPhone}
-							className="bg-brand-primary rounded-[40px] px-4 py-2 flex items-center gap-2 hover:bg-brand-primary/90 transition-colors h-12"
+							className="bg-brand-primary rounded-[40px] px-4 py-2 flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors h-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+							aria-label={
+								copied
+									? 'شماره کپی شد'
+									: `${contact.phone.copyButton} ${contact.phone.number}`
+							}
 						>
 							{CopyIcon}
 							<Text variant="Main/14px/Bold" className="text-white!">
@@ -307,7 +331,11 @@ export default function ContactContent() {
 				</div>
 
 				{/* Email Card */}
-				<div className="bg-grayscale-02 rounded-3xl p-8 flex flex-col gap-8 h-[140px] lg:col-start-1 lg:col-end-5 lg:row-start-2">
+				<div
+					className="bg-grayscale-02 rounded-3xl p-8 flex flex-col gap-8 h-[140px] lg:col-start-1 lg:col-end-5 lg:row-start-2"
+					role="region"
+					aria-label={contact.email.label}
+				>
 					<div className="flex items-center justify-between gap-4 h-full">
 						<div className="flex flex-col items-start justify-between h-full">
 							<Text
@@ -317,26 +345,33 @@ export default function ContactContent() {
 							>
 								{contact.email.label}
 							</Text>
-							<Text variant="Main/16px/Regular" color="text-grayscale-06!">
-								{contact.email.address}
-							</Text>
+							<a
+								href={`mailto:${contact.email.address}`}
+								className="text-grayscale-06 hover:text-grayscale-07 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 rounded break-all"
+								aria-label={`${contact.email.label}: ${contact.email.address}`}
+							>
+								<Text variant="Main/16px/Regular" color="text-grayscale-06!">
+									{contact.email.address}
+								</Text>
+							</a>
 						</div>
-						<button
-							onClick={handleSendEmail}
-							className="bg-brand-primary rounded-[40px] px-4 py-2 flex items-center gap-2 hover:bg-brand-primary/90 transition-colors h-12"
+						<a
+							href={`mailto:${contact.email.address}`}
+							className="bg-brand-primary rounded-[40px] px-4 py-2 flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors h-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+							aria-label={`${contact.email.sendButton}: ${contact.email.address}`}
 						>
 							{EmailIcon}
 							<Text variant="Main/14px/Bold" className="text-white!">
 								{contact.email.sendButton}
 							</Text>
-						</button>
+						</a>
 					</div>
 				</div>
 
 				{/* Address Card */}
 				<div
 					className={cn(
-						'rounded-3xl p-8 flex flex-col items-center justify-start gap-8 bg-cover bg-center bg-no-repeat relative lg:col-start-5 lg:col-end-7 lg:row-start-1 lg:row-end-3',
+						'rounded-3xl p-8 flex flex-col items-center justify-start gap-2 bg-cover bg-center bg-no-repeat relative lg:col-start-5 lg:col-end-7 lg:row-start-1 lg:row-end-3',
 						theme === 'dark' && mounted
 							? "bg-[url('/assets/contactUs/AddressContainerDark.avif')]"
 							: "bg-[url('/assets/contactUs/AddressContainer.avif')]",
@@ -348,12 +383,11 @@ export default function ContactContent() {
 					<Text variant="LongText/16px/Regular" color="text-grayscale-06!">
 						{contact.address.text}
 					</Text>
-					{/* Map placeholder - you can replace this with an actual map component */}
-					<div className="w-full h-[300px] bg-grayscale-03 rounded-xl flex items-center justify-center">
-						<Text variant="LongText/16px/Regular" color="#808080">
-							نقشه
-						</Text>
+					{/* Map - Leaflet with Stadia Alidade Smooth */}
+					<div className="w-full h-[300px] rounded-xl overflow-hidden border border-grayscale-03">
+						<ContactMap />
 					</div>
+
 				</div>
 
 				{/* Social Networks Card */}
