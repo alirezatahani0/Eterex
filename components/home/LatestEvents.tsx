@@ -7,7 +7,7 @@ import { useBlogQuery } from '@/hooks/useBlogQuery';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -227,10 +227,14 @@ export default function LatestEvents() {
 					{/* Mobile Swiper (visible only on mobile) */}
 					<div className="md:hidden">
 						<Swiper
-							modules={[Navigation]}
+							modules={[Navigation, Autoplay]}
 							spaceBetween={16}
 							slidesPerView={1}
 							navigation={false}
+							autoplay={{
+								delay: 3500,
+								disableOnInteraction: false,
+							}}
 							className="latest-events-swiper"
 						>
 							{events.map((event) => (

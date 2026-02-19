@@ -6,7 +6,7 @@ import Container from '@/components/UI/Container';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, EffectCoverflow } from 'swiper/modules';
+import { Navigation, EffectCoverflow, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
@@ -158,12 +158,16 @@ export default function FeaturesSection() {
 			{/* Swiper */}
 			<div className="md:hidden">
 				<Swiper
-					modules={[Navigation, EffectCoverflow]}
+					modules={[Navigation, EffectCoverflow, Autoplay]}
 					spaceBetween={32}
 					slidesPerView={1}
 					effect={'coverflow'}
 					grabCursor={true}
 					centeredSlides={true}
+					autoplay={{
+						delay: 3500,
+						disableOnInteraction: false,
+					}}
 					breakpoints={{
 						640: {
 							slidesPerView: 1.5,

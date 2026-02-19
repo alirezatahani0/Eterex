@@ -4,18 +4,20 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, EffectCoverflow } from 'swiper/modules';
+import { Navigation, EffectCoverflow, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import Image from 'next/image';
 
 import { useBlogQuery } from '@/hooks/useBlogQuery';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { useMemo } from 'react';
 import Link from 'next/link';
 
 export default function BlogSection() {
 	const { blog } = useTranslation();
+	const isMobile = useIsMobile();
 	const { data: blogPosts = [], isLoading } = useBlogQuery({ limit: 10 });
 
 	// Transform blog posts to event card format
@@ -109,13 +111,18 @@ export default function BlogSection() {
 
 			{/* Swiper */}
 			<Swiper
-				modules={[Navigation, EffectCoverflow]}
+				modules={[Navigation, EffectCoverflow, Autoplay]}
 				spaceBetween={18}
 				slidesPerView={1.5}
 				effect={'coverflow'}
 				grabCursor={true}
 				centeredSlides={true}
 				loop
+				autoplay={
+					isMobile
+						? { delay: 3500, disableOnInteraction: false }
+						: false
+				}
 				breakpoints={{
 					640: {
 						slidesPerView: 1.5,

@@ -9,12 +9,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import StakingCalculator from './StakingCalculator';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { Timeline } from 'primereact/timeline';
 import { PrimeReactProvider } from 'primereact/api';
 import { DownloadSection } from '../UI/DownloadSection';
 import { useStakingQuery } from '@/hooks/useStakingQuery';
 import { useStakingOveralDetailQuery } from '@/hooks/useStakingOveralDetailQuery';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { useTheme } from '@/hooks/useTheme';
 import type { StakingPlan } from '@/types/api';
 import type { StakingOveralDetailItem } from '@/types/api';
@@ -1179,6 +1180,7 @@ function mapStakingPlanToCard(plan: StakingPlan): StackingCardProps {
 }
 
 const StakingCards = () => {
+	const isMobile = useIsMobile();
 	const { data: stakingPlans = [], isLoading, isError } = useStakingQuery();
 
 	const stakingData = stakingPlans
@@ -1223,6 +1225,7 @@ const StakingCards = () => {
 
 			<div className="w-full">
 				<Swiper
+					modules={[Pagination, Autoplay]}
 					spaceBetween={18}
 					slidesPerView={1.3}
 					effect={'coverflow'}
@@ -1231,6 +1234,11 @@ const StakingCards = () => {
 					loop
 					initialSlide={1}
 					pagination={{ clickable: true }}
+					autoplay={
+						isMobile
+							? { delay: 3500, disableOnInteraction: false }
+							: false
+					}
 					breakpoints={{
 						640: {
 							slidesPerView: 1.8,
