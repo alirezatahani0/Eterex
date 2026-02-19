@@ -13,6 +13,7 @@ import {
 	useAssetsListQuery,
 	useAssetsPriceListQuery,
 } from '@/hooks/useAssetsQuery';
+import { useConfigsQuery } from '@/hooks/useConfigsQuery';
 import type { Market, PaginationType } from '@/types/api';
 import Pagination from '@/components/UI/Pagination';
 import Skeleton from '@/components/UI/Skeleton';
@@ -188,6 +189,19 @@ export default function MarketContent({
 			refetchInterval: 32000, // 32 seconds
 		});
 
+	const { data: configs } = useConfigsQuery();
+
+	// USDT → IRT rate for table when base is تومان (from configs)
+	const irtUsdtRate = useMemo(() => {
+		if (!configs?.priceGroups?.length) return 0;
+		const usdtGroup = configs.priceGroups.find((g) =>
+			g.coins.some((c) => c.toUpperCase() === 'USDT'),
+		);
+		return (
+			usdtGroup?.prices.irtUsdt ?? configs.priceGroups[0]?.prices.irtUsdt ?? 0
+		);
+	}, [configs]);
+
 	// Check if any data is loading
 	const isLoadingCards = isLoadingMarkets || isLoadingAssets || isLoadingPrices;
 
@@ -202,10 +216,13 @@ export default function MarketContent({
 		return allMarkets.filter((market) => market.quoteAsset === CARD_BASE);
 	}, [allMarkets]);
 
-	// Filter markets based on baseTransaction, search query, and category (for table)
+	// Table always uses USDT pairs; IRT is calculated from USDT × irtUsdt rate
+	const TABLE_BASE = 'USDT';
+
+	// Filter markets for table (always USDT; display conversion to IRT happens in row formatting)
 	const filteredMarkets = useMemo(() => {
 		let filtered = allMarkets.filter(
-			(market) => market.quoteAsset === baseTransaction,
+			(market) => market.quoteAsset === TABLE_BASE,
 		);
 
 		// Apply search filter if search query exists
@@ -220,7 +237,7 @@ export default function MarketContent({
 		}
 
 		return filtered;
-	}, [allMarkets, baseTransaction, searchQuery]);
+	}, [allMarkets, searchQuery]);
 
 	// Combine markets with assets and prices data (for cards - always USDT)
 	// Include all assets from assetsData, even if not in market data
@@ -289,21 +306,18 @@ export default function MarketContent({
 		return [...enriched, ...additionalMarkets];
 	}, [baseFilteredMarkets, assetsData, pricesData]);
 
-	// Combine markets with assets and prices data (for table - with filters)
-	// Include all assets from assetsData, even if not in market data
+	// Combine markets with assets and prices data (for table - always USDT)
 	const enrichedMarkets = useMemo(() => {
 		if (!assetsData?.coins) {
 			return [];
 		}
 
-		// Filter prices by quote pair (USDT or IRT) - prices should end with the selected baseTransaction
 		const filteredPrices =
 			pricesData?.filter((price) => {
 				const priceSymbolUpper = price.symbol.toUpperCase();
-				return priceSymbolUpper.endsWith(baseTransaction.toUpperCase());
+				return priceSymbolUpper.endsWith(TABLE_BASE);
 			}) || [];
 
-		// Create maps for quick lookup
 		const pricesMap = new Map(
 			filteredPrices.map((price) => [price.symbol.toUpperCase(), price]),
 		);
@@ -311,12 +325,10 @@ export default function MarketContent({
 			filteredMarkets.map((market) => [market.baseAsset.toUpperCase(), market]),
 		);
 
-		// Start with all trading-enabled and active assets
 		let allAssets = assetsData.coins.filter(
 			(asset) => asset.trading_enabled && asset.active,
 		);
 
-		// Apply search filter if search query exists
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase().trim();
 			allAssets = allAssets.filter(
@@ -326,13 +338,10 @@ export default function MarketContent({
 			);
 		}
 
-		// Combine assets with prices and markets
 		const enriched = allAssets.map((asset) => {
 			const assetSymbol = asset.name.toUpperCase();
-			// Try to find matching price (e.g., "BTCUSDT" or "BTCIRT")
-			const priceSymbol = `${assetSymbol}${baseTransaction.toUpperCase()}`;
+			const priceSymbol = `${assetSymbol}${TABLE_BASE}`;
 			const price = pricesMap.get(priceSymbol);
-			// Try to find matching market
 			const market = marketsMap.get(assetSymbol);
 
 			return {
@@ -342,7 +351,6 @@ export default function MarketContent({
 			};
 		});
 
-		// Filter by selected category if one is selected
 		let filtered = enriched;
 		if (selectedCategory) {
 			filtered = enriched.filter((item) => {
@@ -358,14 +366,15 @@ export default function MarketContent({
 		assetsData,
 		pricesData,
 		selectedCategory,
-		baseTransaction,
 		searchQuery,
 	]);
 
-	// Transform enriched markets to table rows
+	// Transform enriched markets to table rows (USDT data; convert to IRT when selected)
 	const allMarketTableRows = useMemo(() => {
+		const isIrt = baseTransaction === 'IRT' && irtUsdtRate > 0;
+
 		return enrichedMarkets
-			.filter((item) => item.price && item.asset) // Only show items with price and asset data
+			.filter((item) => item.price && item.asset)
 			.map((item) => {
 				const { market, price, asset } = item;
 				const change24hPercent = price?.price_change_percentage ?? 0;
@@ -374,37 +383,46 @@ export default function MarketContent({
 				}${change24hPercent.toFixed(2)}%`;
 				const isPositive = change24hPercent >= 0;
 
-				// Format price based on priceDecimalPlaces from market (or default to 2)
 				const priceDecimalPlaces = market
 					? parseInt(market.priceDecimalPlaces, 10) || 2
 					: 2;
-				const formattedPrice = price?.price
-					? parseFloat(price.price).toLocaleString('en-US', {
-							maximumFractionDigits: priceDecimalPlaces,
-							minimumFractionDigits: priceDecimalPlaces,
-						})
-					: '0';
+				const rawPrice = price?.price ? parseFloat(price.price) : 0;
+				const rawVolume = price?.quote_volume
+					? parseFloat(price.quote_volume.toString())
+					: 0;
+				const rawMarketCap = price?.volume
+					? parseFloat(price.volume.toString())
+					: 0;
 
-				// Format volume (using quote_volume which is in the quote currency)
-				const formattedVolume = price?.quote_volume
-					? parseFloat(price.quote_volume.toString()).toLocaleString('en-US', {
-							maximumFractionDigits: 2,
-						})
-					: '0';
+				const formattedPrice = isIrt
+					? Math.floor(rawPrice * irtUsdtRate).toLocaleString('en-US')
+					: rawPrice
+						? rawPrice.toLocaleString('en-US', {
+								maximumFractionDigits: priceDecimalPlaces,
+								minimumFractionDigits: priceDecimalPlaces,
+							})
+						: '0';
 
-				// Market cap not available in price API, use volume as placeholder or empty
-				const formattedMarketCap = price?.volume
-					? parseFloat(price.volume.toString()).toLocaleString('en-US', {
-							maximumFractionDigits: 2,
-						})
-					: '0';
+				const formattedVolume = isIrt
+					? Math.floor(rawVolume * irtUsdtRate).toLocaleString('en-US')
+					: rawVolume
+						? rawVolume.toLocaleString('en-US', {
+								maximumFractionDigits: 2,
+							})
+						: '0';
+
+				const formattedMarketCap = isIrt
+					? Math.floor(rawMarketCap * irtUsdtRate).toLocaleString('en-US')
+					: rawMarketCap
+						? rawMarketCap.toLocaleString('en-US', {
+								maximumFractionDigits: 2,
+							})
+						: '0';
 
 				const changeType: 'positive' | 'negative' = isPositive
 					? 'positive'
 					: 'negative';
 
-				// Use market data if available, otherwise use asset data
-				// asset is guaranteed to be non-null by the filter above
 				const symbol = market?.baseAsset || asset!.name.toUpperCase();
 				const crypto = market?.name.split('/')[0] || asset!.full_name || symbol;
 
@@ -418,7 +436,7 @@ export default function MarketContent({
 					marketCap: formattedMarketCap,
 				};
 			});
-	}, [enrichedMarkets]);
+	}, [enrichedMarkets, baseTransaction, irtUsdtRate]);
 
 	// Pagination logic
 	const pagination: PaginationType = useMemo(() => {
