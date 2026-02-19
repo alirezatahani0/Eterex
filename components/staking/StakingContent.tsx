@@ -290,7 +290,10 @@ export default function StakingContent() {
 					</Text>
 				</div>
 				<div className="px-7 md:px-16 flex items-center gap-2 mb-13 lg:hidden">
-					<button
+					<a
+						href="https://app.eterex.com/register"
+						target="_blank"
+						rel="noopener noreferrer"
 						aria-label="ثبت نام"
 						className="h-14 w-40 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 					>
@@ -312,9 +315,13 @@ export default function StakingContent() {
 								strokeLinejoin="round"
 							/>
 						</svg>
-					</button>
+					</a>
 					<button
+						type="button"
 						aria-label="محاسبه بازدهی استیکینگ"
+						onClick={() =>
+							document.getElementById('staking-calculator')?.scrollIntoView({ behavior: 'smooth' })
+						}
 						className="flex h-14 w-50 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2"
 					>
 						<Text variant="Main/14px/Bold" color="text-grayscale-07!">
@@ -331,7 +338,10 @@ export default function StakingContent() {
 				/>
 				<div className="hidden lg:flex flex-row items-start justify-between relative w-full mb-54 xl:mb-30">
 					<div className="flex items-center gap-2 w-full">
-						<button
+						<a
+							href="https://app.eterex.com/register"
+							target="_blank"
+							rel="noopener noreferrer"
 							aria-label="ثبت نام"
 							className="h-14 w-40 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 						>
@@ -353,9 +363,13 @@ export default function StakingContent() {
 									strokeLinejoin="round"
 								/>
 							</svg>
-						</button>
+						</a>
 						<button
+							type="button"
 							aria-label="محاسبه بازدهی استیکینگ"
+							onClick={() =>
+								document.getElementById('staking-calculator')?.scrollIntoView({ behavior: 'smooth' })
+							}
 							className="flex h-14 w-50 rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2"
 						>
 							<Text variant="Main/14px/Bold" color="text-grayscale-07!">
@@ -495,7 +509,10 @@ export default function StakingContent() {
 				<StakingCards />
 			</section>
 
-			<section className="flex flex-col pt-30 gap-10 items-center justify-start">
+			<section
+				id="staking-calculator"
+				className="flex flex-col pt-30 gap-10 items-center justify-start"
+			>
 				{/* Tagline */}
 				<div className="px-4 inline-flex items-center gap-2 py-2 bg-grayscale-02 rounded-2xl border border-grayscale-03 w-fit">
 					<svg
@@ -890,8 +907,11 @@ export default function StakingContent() {
 						/>
 					</div>
 					<div className="w-full flex items-center justify-end lg:container lg:m-auto">
-						<button
-							aria-label="ثبت نام"
+						<a
+							href="https://app.eterex.com/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="شروع کنیم"
 							className="h-14 w-40 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 						>
 							<Text variant="Main/14px/Bold" color="text-white!">
@@ -912,7 +932,7 @@ export default function StakingContent() {
 									strokeLinejoin="round"
 								/>
 							</svg>
-						</button>
+						</a>
 					</div>
 				</PrimeReactProvider>
 			</section>
@@ -1109,11 +1129,16 @@ export const FeaturedCoinCard = ({
 				</Text>
 			</div>
 			{isAvailable ? (
-				<button className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10">
+				<a
+					href="https://app.eterex.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="h-14 px-6 bg-brand-primary-container rounded-4xl flex items-center justify-center relative z-10"
+				>
 					<Text variant="Main/14px/Bold" className="text-brand-primary!">
 						شروع استیکینگ
 					</Text>
-				</button>
+				</a>
 			) : (
 				<div className="h-14 px-6 bg-grayscale-03 rounded-4xl flex items-center justify-center relative z-10">
 					<Text variant="Main/14px/Bold" className="text-grayscale-05!">
@@ -1421,11 +1446,16 @@ const StackingCard = ({
 					style={{ width: `calc(100% - ${progressWidth})` }}
 				></div>
 			</div>
-			<button className="w-full h-14 rounded-4xl bg-brand-primary text-white! flex items-center justify-center mt-6">
+			<a
+				href="https://app.eterex.com/"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="w-full h-14 rounded-4xl bg-brand-primary text-white! flex items-center justify-center mt-6"
+			>
 				<Text variant="Main/14px/Bold" className="text-white!">
 					شروع استیکینگ
 				</Text>
-			</button>
+			</a>
 		</div>
 	);
 };
