@@ -14,6 +14,7 @@ import {
 	useAssetsPriceListQuery,
 } from '@/hooks/useAssetsQuery';
 import { useConfigsQuery } from '@/hooks/useConfigsQuery';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { ICON_BASE_URL } from '@/lib/constants';
 
 export default function Coins() {
@@ -22,6 +23,7 @@ export default function Coins() {
 	const [selectedCategory, setSelectedCategory] = useState('newest');
 	const [selectedTab, setSelectedTab] = useState('volume');
 	const [priceInToman, setPriceInToman] = useState(false);
+	const isMobile = useIsMobile();
 
 	const { data: marketsData = [], isLoading: isLoadingMarkets } =
 		useMarketsQuery({ showAll: true });
@@ -242,7 +244,7 @@ export default function Coins() {
 					</div>
 				</div>
 
-				<div className="flex flex-row items-center justify-between w-full">
+				<div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4 md:gap-0">
 					<div className="flex flex-col md:flex-row items-start md:items-center gap-1">
 						<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
 							{coins.title.prefix}
@@ -465,7 +467,7 @@ export default function Coins() {
 														variant="Main/16px/Regular"
 														className="text-grayscale-07!"
 													>
-														{crypto.listDate}
+														{getDisplayPrice(crypto)}
 													</Text>
 													<Text
 														variant="LongText/16px/Regular"
@@ -615,23 +617,43 @@ export default function Coins() {
 						<table className="w-full">
 							<thead>
 								<tr>
-									{coins.table.headers2.map((header, index) => (
-										<th key={index} className={cn('pb-2 text-right')}>
-											<Text
-												variant="Main/14px/SemiBold"
-												className="text-[#ACB9FF]! font-normal"
-											>
-												{index === 1
-													? `${header} ${priceInToman ? 'IRT' : 'USDT'}`
-													: header}
-											</Text>
-										</th>
-									))}
+									{isMobile ? (
+										<>
+											<th key="0" className={cn('pb-2 text-right')}>
+												<Text
+													variant="Main/14px/SemiBold"
+													className="text-[#ACB9FF]! font-normal"
+												>
+													{coins.table.headers2[0]}
+												</Text>
+											</th>
+											<th key="1" className={cn('pb-2 text-right')}>
+												<Text
+													variant="Main/14px/SemiBold"
+													className="text-[#ACB9FF]! font-normal"
+												>
+													{`${coins.table.headers2[1]} ${priceInToman ? 'IRT' : 'USDT'} / ${coins.table.headers2[2]}`}
+												</Text>
+											</th>
+										</>
+									) : (
+										coins.table.headers2.map((header, index) => (
+											<th key={index} className={cn('pb-2 text-right')}>
+												<Text
+													variant="Main/14px/SemiBold"
+													className="text-[#ACB9FF]! font-normal"
+												>
+													{index === 1
+														? `${header} ${priceInToman ? 'IRT' : 'USDT'}`
+														: header}
+												</Text>
+											</th>
+										))
+									)}
 								</tr>
 							</thead>
 							<tbody>
 								{isLoading ? (
-									// Loading skeleton
 									Array.from({ length: 7 }).map((_, i) => (
 										<tr
 											key={i}
@@ -646,12 +668,23 @@ export default function Coins() {
 													<div className="h-5 w-16 bg-grayscale-03 rounded animate-pulse" />
 												</div>
 											</td>
-											<td>
-												<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse" />
-											</td>
-											<td>
-												<div className="h-5 w-32 bg-grayscale-03 rounded animate-pulse" />
-											</td>
+											{isMobile ? (
+												<td>
+													<div className="flex flex-col gap-1">
+														<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse" />
+														<div className="h-5 w-32 bg-grayscale-03 rounded animate-pulse" />
+													</div>
+												</td>
+											) : (
+												<>
+													<td>
+														<div className="h-5 w-24 bg-grayscale-03 rounded animate-pulse" />
+													</td>
+													<td>
+														<div className="h-5 w-32 bg-grayscale-03 rounded animate-pulse" />
+													</td>
+												</>
+											)}
 										</tr>
 									))
 								) : rightTableCryptos.length > 0 ? (
@@ -690,28 +723,49 @@ export default function Coins() {
 														</Text>
 													</Link>
 												</td>
-												<td>
-													<Text
-														variant="Main/16px/Regular"
-														className="text-white!"
-													>
-														{getDisplayPrice(crypto)}
-													</Text>
-												</td>
-												<td>
-													<Text
-														variant="Main/16px/Regular"
-														className="text-white!"
-													>
-														{crypto.volumeFormatted || '—'}
-													</Text>
-												</td>
+												{isMobile ? (
+													<td>
+														<div className="flex flex-col gap-0.5 text-left md:text-right">
+															<Text
+																variant="Main/16px/Regular"
+																className="text-white! text-left! md:text-right!"
+															>
+																{getDisplayPrice(crypto)}
+															</Text>
+															<Text
+																variant="Main/16px/Regular"
+																className="text-white! text-left! md:text-right!"
+															>
+																{crypto.volumeFormatted || '—'}
+															</Text>
+														</div>
+													</td>
+												) : (
+													<>
+														<td>
+															<Text
+																variant="Main/16px/Regular"
+																className="text-white!"
+															>
+																{getDisplayPrice(crypto)}
+															</Text>
+														</td>
+														<td>
+															<Text
+																variant="Main/16px/Regular"
+																className="text-white!"
+															>
+																{crypto.volumeFormatted || '—'}
+															</Text>
+														</td>
+													</>
+												)}
 											</tr>
 										);
 									})
 								) : (
 									<tr>
-										<td colSpan={3} className="text-center py-8">
+										<td colSpan={isMobile ? 2 : 3} className="text-center py-8">
 											<Text variant="Main/16px/Regular" className="text-white!">
 												هیچ داده‌ای یافت نشد
 											</Text>
