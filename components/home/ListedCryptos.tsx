@@ -25,15 +25,17 @@ export default function ListedCryptos() {
 	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery();
 	const { data: pricesData = [], isLoading: isLoadingPrices } =
 		useAssetsPriceListQuery();
-		const { data: marketsData = [], isLoading: isLoadingMarkets } =
+	const { data: marketsData = [], isLoading: isLoadingMarkets } =
 		useMarketsQuery({ showAll: true });
-		
+
 	const itemsPerPage = 4;
 
 	// Filter markets that have USD/USDT pairs and are active
-	const marketsMap = useMemo(() => {return new Map(
-		marketsData.map((market) => [market.baseAsset.toUpperCase(), market]),
-	)}, [marketsData]);
+	const marketsMap = useMemo(() => {
+		return new Map(
+			marketsData.map((market) => [market.baseAsset.toUpperCase(), market]),
+		);
+	}, [marketsData]);
 
 	// Transform assets to crypto items, sorted by created_at
 	const cryptos = useMemo(() => {
@@ -68,22 +70,21 @@ export default function ListedCryptos() {
 
 			const market = marketsMap.get(assetSymbol);
 
-
 			// Format price
 			const priceNum = parseFloat(assetPrice?.price || '0');
 			const decimalPlaces =
 				parseInt(market?.priceDecimalPlaces || '4', 10) || 4;
 
-				if (assetSymbol === "ACE") {
-					console.log(decimalPlaces, 'decimalPlaces')
-					console.log(market, 'market')
-				}
+			if (assetSymbol === 'ACE') {
+				console.log(decimalPlaces, 'decimalPlaces');
+				console.log(market, 'market');
+			}
 			const priceText = isNaN(priceNum)
 				? '—'
 				: priceNum.toLocaleString('en-US', {
 						minimumFractionDigits: decimalPlaces,
 						maximumFractionDigits: decimalPlaces,
-				  });
+					});
 
 			// Get icon URL
 			const iconUrl = asset.name
@@ -175,12 +176,12 @@ export default function ListedCryptos() {
 					</div>
 					<div className="flex flex-row items-center gap-3">
 						<button
-							onClick={handlePreviousPage}
-							disabled={isFirstPage || isLoading}
-							aria-label="صفحه قبلی"
+							onClick={handleNextPage}
+							disabled={isLastPage || isLoading}
+							aria-label="صفحه بعدی"
 							className={cn(
 								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
-								isFirstPage || isLoading
+								isLastPage || isLoading
 									? 'opacity-50 cursor-not-allowed'
 									: 'hover:opacity-80 cursor-pointer',
 							)}
@@ -205,12 +206,12 @@ export default function ListedCryptos() {
 							</svg>
 						</button>
 						<button
-							onClick={handleNextPage}
-							disabled={isLastPage || isLoading}
-							aria-label="صفحه بعدی"
+							onClick={handlePreviousPage}
+							disabled={isFirstPage || isLoading}
+							aria-label="صفحه قبلی"
 							className={cn(
 								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
-								isLastPage || isLoading
+								isFirstPage || isLoading
 									? 'opacity-50 cursor-not-allowed'
 									: 'hover:opacity-80 cursor-pointer',
 							)}
@@ -354,11 +355,9 @@ export default function ListedCryptos() {
 											{/* Operations */}
 											<td>
 												<button
-												onClick={() =>
-													router.push(
-														`/coin/${crypto.symbol.toLowerCase()}`,
-													)
-												}
+													onClick={() =>
+														router.push(`/coin/${crypto.symbol.toLowerCase()}`)
+													}
 													aria-label="خرید و فروش"
 													className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2"
 												>

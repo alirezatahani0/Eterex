@@ -127,7 +127,12 @@ export default function StepsSection() {
 									</Text>
 								</div>
 								{step.action ? (
-									<button className="h-14 min-h-14 rounded-[40px] bg-grayscale-07 flex flex-row items-center justify-center gap-2 px-7 w-fit">
+									<a
+										href="https://app.eterex.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="h-14 min-h-14 rounded-[40px] bg-grayscale-07 flex flex-row items-center justify-center gap-2 px-7 w-fit hover:opacity-90 transition-opacity"
+									>
 										<Text
 											variant="Main/14px/Bold"
 											className="text-grayscale-01!"
@@ -149,7 +154,7 @@ export default function StepsSection() {
 												strokeLinejoin="round"
 											/>
 										</svg>
-									</button>
+									</a>
 								) : null}
 							</div>
 						</div>

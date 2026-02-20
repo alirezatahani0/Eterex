@@ -523,129 +523,230 @@ export default function CoinPageContent() {
 								</Text>
 							</div>
 						</div>
-						<div className="w-full relative mb-4">
-							<input
-								id="coinAmount"
-								type="text"
-								inputMode="decimal"
-								value={formatNumberWithCommas(coinAmount)}
-								onChange={(e) => {
-									const value = e.target.value;
-
-									// Allow only numbers and decimal point
-									const cleaned = value.replace(/[^\d.]/g, '');
-
-									// If empty, allow it
-									if (cleaned === '') {
-										setCoinAmount('');
-										setIrtAmount('');
-										return;
-									}
-
-									// Ensure only one decimal point
-									const parts = cleaned.split('.');
-									let rawValue =
-										parts.length > 2
-											? `${parts[0]}.${parts.slice(1).join('')}`
-											: cleaned;
-
-									// Limit decimal places based on coinDecimalPlaces
-									if (rawValue.includes('.')) {
-										const [integerPart, decimalPart] = rawValue.split('.');
-										if (decimalPart && decimalPart.length > coinDecimalPlaces) {
-											rawValue = `${integerPart}.${decimalPart.slice(
-												0,
-												coinDecimalPlaces,
-											)}`;
-										}
-									}
-
-									// Store raw value (without commas)
-									setCoinAmount(rawValue);
-
-									if (priceInIrt && rawValue) {
-										const coinNum = parseFloat(rawValue) || 0;
-										if (coinNum > 0) {
-											const calculatedIrt = coinNum * priceInIrt;
-											// Store raw integer value (without commas, no decimals)
-											setIrtAmount(Math.floor(calculatedIrt).toString());
-										} else {
-											setIrtAmount('');
-										}
-									} else {
-										setIrtAmount('');
-									}
-								}}
-								className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
-								placeholder="مقدار را وارد کنید"
-							/>
-							<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
-								<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
-									<Image
-										src={`${ICON_BASE_URL}/${String(
-											symbol,
-										).toLowerCase()}_.svg`}
-										width={36}
-										height={36}
-										alt={symbolUpper ?? 'Coin'}
-										className="w-full h-full object-cover"
-										onError={(e) => {
-											e.currentTarget.style.display = 'none';
+						{/* Buy: IRT بالا، ارز پایین. Sell: ارز بالا، IRT پایین */}
+						{buyOrSell === 'buy' ? (
+							<>
+								<div className="w-full relative mb-4">
+									<input
+										id="irtAmount"
+										type="text"
+										inputMode="numeric"
+										value={formatIntegerWithCommas(irtAmount)}
+										onChange={(e) => {
+											const value = e.target.value;
+											const rawValue = value.replace(/[^\d]/g, '');
+											setIrtAmount(rawValue);
+											if (priceInIrt && rawValue) {
+												const irtNum = parseInt(rawValue, 10) || 0;
+												const calculatedCoin = irtNum / priceInIrt;
+												const coinValue = calculatedCoin
+													.toFixed(8)
+													.replace(/\.?0+$/, '');
+												setCoinAmount(coinValue || '');
+											} else {
+												setCoinAmount('');
+											}
 										}}
+										className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+										placeholder="مقدار را وارد کنید"
 									/>
+									<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
+										<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+											<Image
+												src={`${ICON_BASE_URL}/irt_.svg`}
+												width={36}
+												height={36}
+												alt="IRT"
+												className="w-full h-full object-cover"
+												onError={(e) => {
+													e.currentTarget.style.display = 'none';
+												}}
+											/>
+										</div>
+										<Text variant="Main/16px/Regular" className="text-white!">
+											IRT
+										</Text>
+									</div>
 								</div>
-								<Text variant="Main/16px/Regular" className="text-white!">
-									{symbolUpper}
-								</Text>
-							</div>
-						</div>
-						<div className="w-full relative mb-6">
-							<input
-								id="irtAmount"
-								type="text"
-								inputMode="numeric"
-								value={formatIntegerWithCommas(irtAmount)}
-								onChange={(e) => {
-									const value = e.target.value;
-									// Allow only numbers (no decimal point for IRT)
-									const rawValue = value.replace(/[^\d]/g, '');
-
-									// Store raw integer value (without commas)
-									setIrtAmount(rawValue);
-
-									if (priceInIrt && rawValue) {
-										const irtNum = parseInt(rawValue, 10) || 0;
-										const calculatedCoin = irtNum / priceInIrt;
-										const coinValue = calculatedCoin
-											.toFixed(8)
-											.replace(/\.?0+$/, '');
-										// Store raw value for coin amount
-										setCoinAmount(coinValue || '');
-									} else {
-										setCoinAmount('');
-									}
-								}}
-								className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
-								placeholder="مقدار را وارد کنید"
-							/>
-							<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
-								<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
-									<Image
-										src={`${ICON_BASE_URL}/irt_.svg`}
-										width={36}
-										height={36}
-										alt="IRT"
-										className="w-full h-full object-cover"
-										onError={(e) => {
-											e.currentTarget.style.display = 'none';
+								<div className="w-full relative mb-6">
+									<input
+										id="coinAmount"
+										type="text"
+										inputMode="decimal"
+										value={formatNumberWithCommas(coinAmount)}
+										onChange={(e) => {
+											const value = e.target.value;
+											const cleaned = value.replace(/[^\d.]/g, '');
+											if (cleaned === '') {
+												setCoinAmount('');
+												setIrtAmount('');
+												return;
+											}
+											const parts = cleaned.split('.');
+											let rawValue =
+												parts.length > 2
+													? `${parts[0]}.${parts.slice(1).join('')}`
+													: cleaned;
+											if (rawValue.includes('.')) {
+												const [integerPart, decimalPart] = rawValue.split('.');
+												if (
+													decimalPart &&
+													decimalPart.length > coinDecimalPlaces
+												) {
+													rawValue = `${integerPart}.${decimalPart.slice(
+														0,
+														coinDecimalPlaces,
+													)}`;
+												}
+											}
+											setCoinAmount(rawValue);
+											if (priceInIrt && rawValue) {
+												const coinNum = parseFloat(rawValue) || 0;
+												if (coinNum > 0) {
+													setIrtAmount(
+														Math.floor(coinNum * priceInIrt).toString(),
+													);
+												} else {
+													setIrtAmount('');
+												}
+											} else {
+												setIrtAmount('');
+											}
 										}}
+										className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+										placeholder="مقدار را وارد کنید"
 									/>
+									<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
+										<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+											<Image
+												src={`${ICON_BASE_URL}/${String(symbol).toLowerCase()}_.svg`}
+												width={36}
+												height={36}
+												alt={symbolUpper ?? 'Coin'}
+												className="w-full h-full object-cover"
+												onError={(e) => {
+													e.currentTarget.style.display = 'none';
+												}}
+											/>
+										</div>
+										<Text variant="Main/16px/Regular" className="text-white!">
+											{symbolUpper}
+										</Text>
+									</div>
 								</div>
-								<Text variant="Main/16px/Regular" className="text-white!">
-									IRT
-								</Text>
-							</div>
-						</div>
+							</>
+						) : (
+							<>
+								<div className="w-full relative mb-4">
+									<input
+										id="coinAmount"
+										type="text"
+										inputMode="decimal"
+										value={formatNumberWithCommas(coinAmount)}
+										onChange={(e) => {
+											const value = e.target.value;
+											const cleaned = value.replace(/[^\d.]/g, '');
+											if (cleaned === '') {
+												setCoinAmount('');
+												setIrtAmount('');
+												return;
+											}
+											const parts = cleaned.split('.');
+											let rawValue =
+												parts.length > 2
+													? `${parts[0]}.${parts.slice(1).join('')}`
+													: cleaned;
+											if (rawValue.includes('.')) {
+												const [integerPart, decimalPart] = rawValue.split('.');
+												if (
+													decimalPart &&
+													decimalPart.length > coinDecimalPlaces
+												) {
+													rawValue = `${integerPart}.${decimalPart.slice(
+														0,
+														coinDecimalPlaces,
+													)}`;
+												}
+											}
+											setCoinAmount(rawValue);
+											if (priceInIrt && rawValue) {
+												const coinNum = parseFloat(rawValue) || 0;
+												if (coinNum > 0) {
+													setIrtAmount(
+														Math.floor(coinNum * priceInIrt).toString(),
+													);
+												} else {
+													setIrtAmount('');
+												}
+											} else {
+												setIrtAmount('');
+											}
+										}}
+										className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+										placeholder="مقدار را وارد کنید"
+									/>
+									<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
+										<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+											<Image
+												src={`${ICON_BASE_URL}/${String(symbol).toLowerCase()}_.svg`}
+												width={36}
+												height={36}
+												alt={symbolUpper ?? 'Coin'}
+												className="w-full h-full object-cover"
+												onError={(e) => {
+													e.currentTarget.style.display = 'none';
+												}}
+											/>
+										</div>
+										<Text variant="Main/16px/Regular" className="text-white!">
+											{symbolUpper}
+										</Text>
+									</div>
+								</div>
+								<div className="w-full relative mb-6">
+									<input
+										id="irtAmount"
+										type="text"
+										inputMode="numeric"
+										value={formatIntegerWithCommas(irtAmount)}
+										onChange={(e) => {
+											const value = e.target.value;
+											const rawValue = value.replace(/[^\d]/g, '');
+											setIrtAmount(rawValue);
+											if (priceInIrt && rawValue) {
+												const irtNum = parseInt(rawValue, 10) || 0;
+												const calculatedCoin = irtNum / priceInIrt;
+												const coinValue = calculatedCoin
+													.toFixed(8)
+													.replace(/\.?0+$/, '');
+												setCoinAmount(coinValue || '');
+											} else {
+												setCoinAmount('');
+											}
+										}}
+										className="py-2 pl-6 pr-28 border-2 border-glass-white-24 bg-glass-white-12 backdrop-blur-xl rounded-[40px] text-xl font-semibold text-white placeholder:text-base placeholder:text-white focus:outline-0 text-left! h-[72px] w-full"
+										placeholder="مقدار را وارد کنید"
+									/>
+									<div className="h-8 flex items-center justify-center absolute right-6 top-5 gap-4">
+										<div className="w-9 h-9 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden relative">
+											<Image
+												src={`${ICON_BASE_URL}/irt_.svg`}
+												width={36}
+												height={36}
+												alt="IRT"
+												className="w-full h-full object-cover"
+												onError={(e) => {
+													e.currentTarget.style.display = 'none';
+												}}
+											/>
+										</div>
+										<Text variant="Main/16px/Regular" className="text-white!">
+											IRT
+										</Text>
+									</div>
+								</div>
+							</>
+						)}
 						<div className="flex flex-row items-center justify-between w-full mb-6">
 							<Text variant="Main/14px/SemiBold" className="text-white">
 								نرخ تبدیل
@@ -694,11 +795,16 @@ export default function CoinPageContent() {
 							</div>
 						</div>
 						<div className="flex flex-row items-center justify-between w-full">
-							<button className="h-14 w-full bg-white flex flex-row items-center justify-center rounded-[40px] ">
+							<Link
+								href={`https://app.eterex.com/advanced-trade/${String(symbol).toUpperCase()}IRT`}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="h-14 w-full bg-white flex flex-row items-center justify-center rounded-[40px] hover:opacity-95 transition-opacity"
+							>
 								<Text variant="Main/14px/Bold" className="text-black!">
 									معامله
 								</Text>
-							</button>
+							</Link>
 						</div>
 						<Image
 							src="/assets/Download/VectorRight.png"

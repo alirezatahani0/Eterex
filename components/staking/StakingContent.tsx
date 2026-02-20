@@ -298,7 +298,7 @@ export default function StakingContent() {
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="ثبت نام"
-						className="h-14 w-40 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
+						className="h-14 w-28 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 					>
 						<Text variant="Main/14px/Bold" color="text-white!">
 							ثبت نام
@@ -394,7 +394,7 @@ export default function StakingContent() {
 				</div>
 			</div>
 			{/* Statistics Section - from API Staking/overal/detail, rotates per asset every 5s */}
-			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] 2xl:w-[65%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 overflow-hidden">
+			<div className="p-6 xl:p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 xl:gap-6 lg:w-[75%] 2xl:w-[65%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 overflow-hidden">
 				{isLoadingOveral ? (
 					Array.from({ length: 4 }).map((_, index) => (
 						<div
@@ -412,7 +412,7 @@ export default function StakingContent() {
 								استیک‌های فعال{' '}
 								{currentItem ? `(${currentItem.assetSymbol})` : ''}
 							</Text>
-							<Text variant="Main/24px/Bold" className="text-grayscale-07!">
+							<Text variant="Main/20px/Bold" className="text-grayscale-07!">
 								{currentItem
 									? formatStatValue(currentItem.activeStaksCount)
 									: isLoadingOveral
@@ -428,7 +428,7 @@ export default function StakingContent() {
 								دوره‌های تکمیل‌شده{' '}
 								{currentItem ? `(${currentItem.assetSymbol})` : ''}
 							</Text>
-							<Text variant="Main/24px/Bold" className="text-grayscale-07!">
+							<Text variant="Main/20px/Bold" className="text-grayscale-07!">
 								{currentItem
 									? formatStatValue(currentItem.allStaksCount)
 									: isLoadingOveral
@@ -451,7 +451,7 @@ export default function StakingContent() {
 									{currentItem ? currentItem.assetSymbol : '—'}
 								</Text>
 								<Text
-									variant="Main/24px/Bold"
+									variant="Main/20px/Bold"
 									className="text-brand-secondary-variant!"
 								>
 									{currentItem
@@ -476,7 +476,7 @@ export default function StakingContent() {
 								>
 									{currentItem ? currentItem.assetSymbol : '—'}
 								</Text>
-								<Text variant="Main/24px/Bold" className="text-brand-primary!">
+								<Text variant="Main/20px/Bold" className="text-brand-primary!">
 									{currentItem
 										? formatStatValue(currentItem.allStaksAmount)
 										: isLoadingOveral
@@ -628,7 +628,7 @@ export default function StakingContent() {
 						</Text>
 					</div>
 				</div>
-				<div className="flex flex-row items-center justify-center mb-14 gap-2">
+				<div className="flex flex-col md:flex-row items-center justify-center mb-14 gap-2">
 					<Text
 						variant="Main/24px/Bold"
 						className="text-grayscale-07! lg:font-bold lg:text-[32px] lg:leading-[48px]"
@@ -698,7 +698,7 @@ export default function StakingContent() {
 						در اتراکس
 					</Text>
 				</div>
-				<div className="w-full p-6 bg-brand-primary lg:rounded-4xl lg:container relative overflow-hidden">
+				<div className="w-full p-6 bg-brand-primary xl:rounded-4xl xl:container relative overflow-hidden">
 					{/* Mobile & Tablet: Ticker with coin cards */}
 					<Image
 						src="/assets/staking/patternWhite.svg"
@@ -757,7 +757,7 @@ export default function StakingContent() {
 					</div>
 
 					{/* Desktop: Grid of all 8 */}
-					<div className="hidden lg:grid grid-cols-4 gap-6">
+					<div className="hidden lg:grid grid-cols-4">
 						{FEATURES.map((coin) => (
 							<FeatureCard key={coin.id} {...coin} />
 						))}
@@ -817,7 +817,7 @@ export default function StakingContent() {
 							استیک کنیم؟
 						</Text>
 					</div>
-					<div className="hidden lg:block w-full lg:container lg:m-auto">
+					<div className="hidden xl:block w-full xl:container xl:m-auto">
 						<Timeline
 							align="alternate"
 							value={[
@@ -879,7 +879,7 @@ export default function StakingContent() {
 							)}
 						/>
 					</div>
-					<div className="lg:hidden ">
+					<div className="xl:hidden ">
 						<Timeline
 							align="left"
 							value={[
@@ -941,7 +941,7 @@ export default function StakingContent() {
 							)}
 						/>
 					</div>
-					<div className="w-full flex items-center justify-end lg:container lg:m-auto">
+					<div className="w-full flex items-center justify-end xl:container xl:m-auto">
 						<a
 							href="https://app.eterex.com/"
 							target="_blank"
@@ -972,7 +972,7 @@ export default function StakingContent() {
 				</PrimeReactProvider>
 			</section>
 
-			<section className="flex flex-col pt-30 px-6 gap-10 items-start justify-start lg:container lg:m-auto">
+			<section className="flex flex-col pt-30 px-6 gap-10 items-start justify-start xl:container xl:m-auto">
 				<Text
 					variant="Main/24px/Bold"
 					gradient="primary"
@@ -1000,7 +1000,7 @@ export default function StakingContent() {
 				</Text>
 			</section>
 
-			<section className="px-6 lg:container lg:m-auto">
+			<section className="px-6 xl:container xl:m-auto">
 				<DownloadSection />
 			</section>
 		</div>
@@ -1028,7 +1028,7 @@ const FeaturedCoinsSection = () => {
 	}));
 
 	return (
-		<div className="w-full px-4 md:px-8">
+		<div className="w-full">
 			{/* Mobile & Tablet: Ticker with coin cards */}
 			<div className="block lg:hidden w-full space-y-4 ">
 				<Swiper
@@ -1039,7 +1039,6 @@ const FeaturedCoinsSection = () => {
 					centeredSlides={true}
 					loop
 					initialSlide={1}
-					pagination={{ clickable: true }}
 					breakpoints={{
 						640: {
 							slidesPerView: 2.2,
@@ -1077,7 +1076,6 @@ const FeaturedCoinsSection = () => {
 					grabCursor={true}
 					loop
 					initialSlide={1}
-					pagination={{ clickable: true }}
 					breakpoints={{
 						640: {
 							slidesPerView: 2.2,
@@ -1111,7 +1109,7 @@ const FeaturedCoinsSection = () => {
 			</div>
 
 			{/* Desktop: Grid of all 8 */}
-			<div className="hidden lg:grid grid-cols-4 gap-6 lg:container lg:m-auto">
+			<div className="hidden lg:grid grid-cols-4 gap-6 xl:container xl:m-auto">
 				{featuredCoinsWithAvailability.map((coin) => (
 					<FeaturedCoinCard key={coin.id} {...coin} />
 				))}
@@ -1156,7 +1154,10 @@ export const FeaturedCoinCard = ({
 				}}
 			/>
 			<div className="flex flex-col items-center justify-center gap-2 relative z-10">
-				<Text variant="Main/20px/Bold" className="text-grayscale-07!">
+				<Text
+					variant="Main/20px/Bold"
+					className="text-grayscale-07! overflow-hidden text-nowrap text-ellipsis"
+				>
 					استیکینگ {name}
 				</Text>
 				<Text variant="Main/14px/SemiBold" className="text-grayscale-06!">
@@ -1254,12 +1255,12 @@ const StakingCards = () => {
 	}
 
 	return (
-		<div className="w-full px-4 md:px-8">
+		<div className="w-full">
 			{/* Swiper for screens < XL */}
 
 			<div className="w-full">
 				<Swiper
-					modules={[Pagination, Autoplay]}
+					modules={[Autoplay]}
 					spaceBetween={18}
 					slidesPerView={1.3}
 					effect={'coverflow'}
@@ -1267,7 +1268,6 @@ const StakingCards = () => {
 					centeredSlides={true}
 					loop
 					initialSlide={1}
-					pagination={{ clickable: true }}
 					autoplay={
 						isMobile ? { delay: 3500, disableOnInteraction: false } : false
 					}
@@ -1277,7 +1277,7 @@ const StakingCards = () => {
 							initialSlide: 1,
 						},
 						1024: {
-							slidesPerView: 4,
+							slidesPerView: 2.5,
 							initialSlide: 2,
 						},
 						1440: {
@@ -1510,9 +1510,9 @@ const FeatureCard = ({
 	desc: string;
 }) => {
 	return (
-		<div className="w-full h-[300px] flex flex-col gap-6 items-center justify-start p-6">
+		<div className="w-full flex flex-col gap-6 items-center justify-start p-2">
 			{icon}
-			<Text variant="Main/24px/Bold" className="text-white!">
+			<Text variant="Main/20px/Bold" className="text-white!">
 				{name}
 			</Text>
 			<Text

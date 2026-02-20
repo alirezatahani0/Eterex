@@ -130,7 +130,7 @@ export default function StakingCalculator() {
 
 	return (
 		<div
-			className="relative w-full flex flex-col overflow-hidden lg:flex-row-reverse justify-center lg:justify-between items-center gap-6 p-6 self-stretch rounded-[36px] border-2 border-grayscale-03 lg:container lg:m-auto"
+			className="relative w-full flex flex-col overflow-hidden lg:flex-row-reverse justify-center lg:justify-between items-center gap-6 p-4 md:p-6 self-stretch rounded-[36px] border-2 border-grayscale-03 lg:container lg:m-auto"
 			style={{
 				background:
 					'linear-gradient(180deg, var(--grayscale-01-blur-0) 50%, var(--glass-white-12) 100%)',
@@ -197,7 +197,7 @@ export default function StakingCalculator() {
 				/>
 			</div>
 
-			<div className="flex flex-col justify-center items-center lg:items-start gap-6 lg:w-2/3 w-full">
+			<div className="flex flex-col justify-center items-center lg:items-start gap-6 lg:w-2/3 w-full relative z-30">
 				{/* Title */}
 				<div className="text-center lg:text-right! mb-8">
 					<Text
@@ -255,7 +255,7 @@ export default function StakingCalculator() {
 						<div className="absolute top-2 left-1.5 z-10 ">
 							<button
 								onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-								className="w-full h-11 px-6 bg-glass-gray-11 backdrop-blur-xl rounded-[40px] flex items-center justify-between"
+								className="w-full h-11 px-2 bg-glass-gray-11 backdrop-blur-xl rounded-[40px] flex items-center justify-between"
 							>
 								<div className="flex items-center gap-3">
 									<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">

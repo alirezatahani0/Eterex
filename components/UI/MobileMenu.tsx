@@ -371,7 +371,7 @@ export default function MobileMenu() {
 		{ href: 'https://app.eterex.com/wallet', label: nav.wallet },
 		{ href: '/blog', label: nav.blog },
 		{ href: '/about-us', label: nav.about },
-		{ href: '/fees', label: nav.fees },
+		{ href: '/staking', label: nav.staking },
 		{ href: '/faq', label: nav.faq },
 	];
 

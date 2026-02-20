@@ -11,6 +11,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface EventCardProps {
 	event: {
@@ -52,7 +53,7 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 			{/* Title and Description and CTA Button */}
 			<div className="flex flex-col gap-4 h-full justify-between">
 				<div className="p-6 flex flex-col justify-between bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl h-full">
-					<div>
+					<div >
 						<Text
 							variant="LongText/14px/SemiBold"
 							className="text-grayscale-07!"
@@ -63,7 +64,7 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 							<div className="line-clamp-2">
 								<Text
 									variant="LongText/14px/Regular"
-									className="text-grayscale-06! hidden lg:block"
+									className="text-grayscale-06!"
 								>
 									{event.description}
 								</Text>
@@ -104,12 +105,13 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 export default function LatestEvents() {
 	const { latestEvents } = useTranslation();
 	const { data: blogPosts = [], isLoading } = useBlogQuery({ limit: 10 });
-
+	const isMobile = useIsMobile();
+	const eventsLimit = isMobile ? 6 : 2;
 	// Get the two most important blog posts (first 2)
 	const events = useMemo(() => {
 		if (!blogPosts.length) return [];
 
-		return blogPosts.slice(0, 2).map((post) => {
+		return blogPosts.slice(0, eventsLimit).map((post) => {
 			// Format date to Persian format
 			const date = new Date(post.date);
 			const formattedDate = date.toLocaleDateString('fa-IR', {
@@ -132,7 +134,7 @@ export default function LatestEvents() {
 				featured_image: post.featured_image || '/assets/main/News.png',
 			};
 		});
-	}, [blogPosts]);
+	}, [blogPosts, eventsLimit]);
 
 	return (
 		<Container className="py-12 md:py-16 lg:py-20 lg:pl-0 xl:pl-0 2xl:pl-0">
@@ -233,10 +235,11 @@ export default function LatestEvents() {
 							spaceBetween={16}
 							slidesPerView={1}
 							navigation={false}
-							autoplay={{
-								delay: 3500,
-								disableOnInteraction: false,
-							}}
+							// loop
+							// autoplay={{
+							// 	delay: 3500,
+							// 	disableOnInteraction: false,
+							// }}
 							className="latest-events-swiper"
 						>
 							{events.map((event) => (
