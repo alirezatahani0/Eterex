@@ -366,7 +366,7 @@ export default function MobileMenu() {
 
 	const navLinks = [
 		{ href: '/', label: nav.home },
-		{ href: '/markets', label: nav.markets },
+		{ href: '/market', label: nav.markets },
 		{ href: 'https://app.eterex.com/advanced-trade/USDTIRT', label: nav.trade },
 		{ href: 'https://app.eterex.com/wallet', label: nav.wallet },
 		{ href: '/blog', label: nav.blog },

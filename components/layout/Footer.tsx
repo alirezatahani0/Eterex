@@ -345,7 +345,7 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
-				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
+				{ href: '/terms', label: footer.aboutEterex.rules },
 				{
 					href: 'https://app.eterex.com/login',
 					label: footer.aboutEterex.userPanel,
@@ -356,9 +356,9 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 			title: footer.guideSupport.title,
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
-				{ href: '/fees', label: footer.guideSupport.fees },
+				{ href: '/fee', label: footer.guideSupport.fees },
 				{
-					href: '/identity-verification',
+					href: '/authentication',
 					label: footer.guideSupport.identityVerification,
 				},
 				{ href: 'https://eterex.com/blog/', label: footer.guideSupport.blog },
@@ -432,9 +432,9 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 			title: footer.guideSupport.title,
 			links: [
 				{ href: '/login', label: footer.guideSupport.onlineSupport },
-				{ href: '/fees', label: footer.guideSupport.fees },
+				{ href: '/fee', label: footer.guideSupport.fees },
 				{
-					href: '/identity-verification',
+					href: '/authentication',
 					label: footer.guideSupport.identityVerification,
 				},
 				{ href: 'https://eterex.com/blog/', label: footer.guideSupport.blog },
@@ -447,7 +447,7 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 				{ href: '/security', label: footer.aboutEterex.security },
 				{ href: '/about-us', label: footer.aboutEterex.aboutUs },
 				{ href: '/contact-us', label: footer.aboutEterex.contactUs },
-				{ href: '/terms-and-conditions', label: footer.aboutEterex.rules },
+				{ href: '/terms', label: footer.aboutEterex.rules },
 				{
 					href: 'https://app.eterex.com/login',
 					label: footer.aboutEterex.userPanel,

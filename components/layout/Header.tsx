@@ -131,7 +131,7 @@ export default function Header() {
 	// Navigation Links (for desktop)
 	const navLinks = [
 		{ href: '/', label: nav.home, external: false },
-		{ href: '/markets', label: nav.markets, external: false },
+		{ href: '/market', label: nav.markets, external: false },
 		{
 			href: 'https://app.eterex.com/advanced-trade/USDTIRT',
 			label: nav.trade,
@@ -187,7 +187,7 @@ export default function Header() {
 									</svg>
 								</Link>
 								<Link
-									href="/markets"
+									href="/market"
 									aria-label="بازارها"
 									className="relative hidden z-30 md:flex items-center justify-center bg-brand-tertiary w-14 h-14 border border-grayscale-03 rounded-full hover:opacity-80 transition-opacity"
 								>

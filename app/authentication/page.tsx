@@ -1,43 +1,41 @@
 import type { Metadata } from 'next';
 import { getSection } from '@/lib/i18n';
-import FeesContent from '@/components/fees/FeesContent';
+import IdentityVerificationContent from '@/components/identity/IdentityVerificationContent';
 
 export async function generateMetadata(): Promise<Metadata> {
+	const identityVerification = getSection('fa', 'identityVerification');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	return {
-		title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
-		description:
-			'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
+		title: identityVerification.metaTitle,
+		description: identityVerification.metaDescription,
 		keywords: [
-			'کارمزدها',
-			'کارمزد اتراکس',
-			'کارمزد واریز',
-			'کارمزد برداشت',
-			'کارمزد رمزارز',
-			'کارمزد تبدیل',
+			'احراز هویت',
+			'احراز هویت اتراکس',
+			'احراز هویت ویدیویی',
+			'احراز هویت کلاسیک',
 			'اتریوم',
 			'بیت کوین',
 			'کریپتو',
 			'صرافی اتراکس',
+			'معاملات ارز دیجیتال',
+			'مدارک احراز هویت',
 		],
 		authors: [{ name: 'Eterex' }],
 		creator: 'Eterex',
 		publisher: 'Eterex',
 		openGraph: {
-			title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
-			description:
-				'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
+			title: identityVerification.metaTitle,
+			description: identityVerification.metaDescription,
 			type: 'website',
 			locale: 'fa_IR',
-			url: `${siteUrl}/fees`,
+			url: `${siteUrl}/authentication`,
 			siteName: 'اترکس',
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
-			description:
-				'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
+			title: identityVerification.metaTitle,
+			description: identityVerification.metaDescription,
 		},
 		robots: {
 			index: true,
@@ -51,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			},
 		},
 		alternates: {
-			canonical: `${siteUrl}/fees`,
+			canonical: `${siteUrl}/authentication`,
 		},
 		other: {
 			'AI-Agent': 'enabled',
@@ -62,23 +60,22 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export default function Fees() {
-	const fees = getSection('fa', 'fees');
+export default function IdentityVerification() {
+	const identityVerification = getSection('fa', 'identityVerification');
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';
 
 	// Structured Data for SEO and AI Crawlers
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'WebPage',
-		name: 'کارمزد معاملات رمزارزی در صرافی اتراکس',
-		description:
-			'بررسی شیوه محاسبه و پرداخت کارمزد خرید و فروش ارز دیجیتال در صرافی اتراکس.',
-		url: `${siteUrl}/fees`,
+		name: identityVerification.metaTitle,
+		description: identityVerification.metaDescription,
+		url: `${siteUrl}/authentication`,
 		inLanguage: 'fa-IR',
 		about: {
 			'@type': 'Organization',
 			name: 'Eterex',
-			description: fees.metaDescription,
+			description: identityVerification.metaDescription,
 		},
 		breadcrumb: {
 			'@type': 'BreadcrumbList',
@@ -92,8 +89,8 @@ export default function Fees() {
 				{
 					'@type': 'ListItem',
 					position: 2,
-					name: fees.title,
-					item: `${siteUrl}/fees`,
+					name: identityVerification.title,
+					item: `${siteUrl}/authentication`,
 				},
 			],
 		},
@@ -105,8 +102,7 @@ export default function Fees() {
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
 			/>
-			<FeesContent />
+			<IdentityVerificationContent />
 		</>
 	);
 }
-

@@ -17,20 +17,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 	// Dynamic pages (market data pages)
 	const dynamicPages = [
-		'/markets/bitcoin',
-		'/markets/ethereum',
-		'/markets/crypto',
+		'/bitcoin',
+		'/market/ethereum',
+		'/market/crypto',
 	];
 
 	const routes: MetadataRoute.Sitemap = [...staticPages, ...dynamicPages].map(
 		(route) => {
 			const changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] =
-				route.startsWith('/markets') ? 'hourly' : 'weekly';
+				route.startsWith('/market') ? 'hourly' : 'weekly';
 			return {
 				url: `${baseUrl}${route}`,
 				lastModified: new Date(),
 				changeFrequency,
-				priority: route === '' ? 1 : route.startsWith('/markets') ? 0.8 : 0.7,
+				priority: route === '' ? 1 : route.startsWith('/market') ? 0.8 : 0.7,
 			};
 		},
 	);

@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 				'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
 			type: 'website',
 			locale: 'fa_IR',
-			url: `${siteUrl}/terms-and-conditions`,
+			url: `${siteUrl}/terms`,
 			siteName: 'اترکس',
 		},
 		twitter: {
@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			},
 		},
 		alternates: {
-			canonical: `${siteUrl}/terms-and-conditions`,
+			canonical: `${siteUrl}/terms`,
 		},
 		other: {
 			'AI-Agent': 'enabled',
@@ -72,7 +72,7 @@ export default function TermsAndConditions() {
 		name: 'قوانین و مقررات صرافی اتراکس',
 		description:
 			'قوانین و شرایط استفاده از خدمات خرید و فروش ارز دیجیتال در صرافی اتراکس را بخوانید.',
-		url: `${siteUrl}/terms-and-conditions`,
+		url: `${siteUrl}/terms`,
 		inLanguage: 'fa-IR',
 		about: {
 			'@type': 'Organization',
@@ -92,7 +92,7 @@ export default function TermsAndConditions() {
 					'@type': 'ListItem',
 					position: 2,
 					name: rules.title,
-					item: `${siteUrl}/terms-and-conditions`,
+					item: `${siteUrl}/terms`,
 				},
 			],
 		},
