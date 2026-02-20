@@ -274,9 +274,7 @@ export default function CoinPageContent() {
 
 					<div className="w-14 h-20 flex items-start justify-start pt-2">
 						<Image
-							src={`${ICON_BASE_URL}/${String(
-								symbol,
-							).toLowerCase()}_.svg`}
+							src={`${ICON_BASE_URL}/${String(symbol).toLowerCase()}_.svg`}
 							width={56}
 							height={56}
 							alt={String(symbol) ?? 'Coin'}
@@ -360,9 +358,7 @@ export default function CoinPageContent() {
 					<div className="relative w-full min-h-[460px] rounded-4xl overflow-hidden">
 						{/* Skeleton: while markets loading or chart iframe loading */}
 						{(isLoadingMarkets || (chartMarketId && !chartLoaded)) && (
-							<Skeleton
-								className="absolute inset-0 w-full min-h-[460px] rounded-4xl bg-grayscale-03"
-							/>
+							<Skeleton className="absolute inset-0 w-full min-h-[460px] rounded-4xl bg-grayscale-03" />
 						)}
 						{chartMarketId ? (
 							<iframe
@@ -730,7 +726,7 @@ export default function CoinPageContent() {
 								</Text>
 							</div>
 							<Image
-								src="/assets/main/howtoBuy.png"
+								src="/assets/main/howtoBuy2.png"
 								alt="Download"
 								width={200}
 								height={200}
@@ -776,8 +772,9 @@ export default function CoinPageContent() {
 								<div className="flex flex-col justify-center items-start gap-3">
 									<Text variant="Main/20px/Bold">شارژ حساب</Text>
 									<Text variant="Main/16px/Regular">
-										از درگاه بانکی، شماره شبا و یا حتی واریز مستقیم استفاده کنید
-										تا کیف‌پول خود را در سریع‌ترین زمان شارژ کنید.{' '}
+										پس از ثبت کارت بانکی یا شماره شبا مربوط به خود، از بخش
+										«واریز تومان» به کیف پول اتراکس «کارت به کارت» یا «شبا»
+										کنید.
 									</Text>
 								</div>
 							</div>

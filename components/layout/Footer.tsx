@@ -34,6 +34,7 @@ type FooterData = {
 		advancedTrading: string;
 		depositWithdrawal: string;
 		kycTutorial: string;
+		stakingTutorial: string;
 	};
 	copyright: string;
 };
@@ -315,7 +316,6 @@ const ActionButtons = ({ mobile }: { mobile: MobileData }) => (
 	</div>
 );
 
-
 const LinkColumn = ({
 	title,
 	links,
@@ -383,6 +383,10 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 				{
 					href: 'https://eterex.com/blog/kyc/',
 					label: footer.educationNews.kycTutorial,
+				},
+				{
+					href: 'https://eterex.com/blog/how-to-stake-eterex/',
+					label: footer.educationNews.stakingTutorial,
 				},
 			],
 		},

@@ -940,12 +940,7 @@ export default function MarketContent({
 					<MarketTable
 						headers={tableHeaders}
 						rows={marketTableRows}
-						onOperations={(row) => {
-							console.log('Operations clicked for:', row);
-						}}
-						onChart={(row) => {
-							console.log('Chart clicked for:', row);
-						}}
+						baseTransaction={baseTransaction}
 					/>
 				)}
 

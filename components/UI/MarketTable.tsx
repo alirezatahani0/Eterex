@@ -24,15 +24,15 @@ interface MarketTableProps {
 	onOperations?: (row: MarketTableRow) => void;
 	onChart?: (row: MarketTableRow) => void;
 	className?: string;
+	baseTransaction?: string;
 	emptyMessage?: string;
 }
 
 export default function MarketTable({
 	headers,
 	rows,
-	onOperations,
-	onChart,
 	className,
+	baseTransaction,
 	emptyMessage = 'هیچ داده‌ای یافت نشد',
 }: MarketTableProps) {
 	const router = useRouter();
@@ -208,7 +208,6 @@ export default function MarketTable({
 												<button
 													onClick={() => {
 														router.push(`/coin/${row.symbol.toLowerCase()}`);
-														onChart?.(row);
 													}}
 													aria-label="نمودار"
 													className={cn(
@@ -258,8 +257,10 @@ export default function MarketTable({
 													</Text>
 												</button>
 												{/* Operations Button */}
-												<button
-													onClick={() => onOperations?.(row)}
+												<Link
+													href={`https://app.eterex.com/advanced-trade/${row.symbol.toLowerCase()}${baseTransaction}`}
+													target="_blank"
+													rel="noopener noreferrer"
 													aria-label="خرید و فروش"
 													className={cn(
 														'h-10 md:h-14 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2',
@@ -296,7 +297,7 @@ export default function MarketTable({
 													>
 														عملیات
 													</Text>
-												</button>
+												</Link>
 											</div>
 										</td>
 									</tr>
