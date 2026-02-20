@@ -20,6 +20,7 @@ import { useTheme } from '@/hooks/useTheme';
 import type { StakingPlan } from '@/types/api';
 import type { StakingOveralDetailItem } from '@/types/api';
 import { ICON_BASE_URL } from '@/lib/constants';
+import Skeleton from '../UI/Skeleton';
 
 const FEATURES = [
 	{
@@ -394,94 +395,98 @@ export default function StakingContent() {
 			</div>
 			{/* Statistics Section - from API Staking/overal/detail, rotates per asset every 5s */}
 			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] 2xl:w-[65%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 overflow-hidden">
-				<div
-					className={cn(
-						'flex flex-col gap-4 items-center justify-between ',
-						overalDetails.length ? 'slideInAndOutUp' : '',
-					)}
-				>
-					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						استیک‌های فعال {currentItem ? `(${currentItem.assetSymbol})` : ''}
-					</Text>
-					<Text variant="Main/24px/Bold" className="text-grayscale-07!">
-						{currentItem
-							? formatStatValue(currentItem.activeStaksCount)
-							: isLoadingOveral
-								? '...'
-								: '—'}
-					</Text>
-				</div>
-				<div
-					className={cn(
-						'flex flex-col gap-4 items-center justify-between ',
-						overalDetails.length ? 'slideInAndOutUp' : '',
-					)}
-					style={{ animationDelay: '100ms' }}
-				>
-					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						دوره‌های تکمیل‌شده{' '}
-						{currentItem ? `(${currentItem.assetSymbol})` : ''}
-					</Text>
-					<Text variant="Main/24px/Bold" className="text-grayscale-07!">
-						{currentItem
-							? formatStatValue(currentItem.allStaksCount)
-							: isLoadingOveral
-								? '...'
-								: '—'}
-					</Text>
-				</div>
-				<div
-					className={cn(
-						'flex flex-col gap-4 items-center justify-between ',
-						overalDetails.length ? 'slideInAndOutUp' : '',
-					)}
-					style={{ animationDelay: '150ms' }}
-				>
-					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						مجموع سود پرداخت‌شده{' '}
-					</Text>
-					<div className="flex flex-row items-center gap-2">
-						<Text
-							variant="Main/14px/SemiBold"
-							className="text-brand-secondary-variant!"
+				{isLoadingOveral ? (
+					Array.from({ length: 4 }).map((_, index) => (
+						<div
+							key={index}
+							className="flex flex-col gap-4 items-center justify-between "
 						>
-							{currentItem ? currentItem.assetSymbol : '—'}
-						</Text>
-						<Text
-							variant="Main/24px/Bold"
-							className="text-brand-secondary-variant!"
+							<Skeleton className="w-full h-4" />
+							<Skeleton className="w-full h-10" />
+						</div>
+					))
+				) : (
+					<>
+						<div className="flex flex-col gap-4 items-center justify-between slideInAndOutUp">
+							<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
+								استیک‌های فعال{' '}
+								{currentItem ? `(${currentItem.assetSymbol})` : ''}
+							</Text>
+							<Text variant="Main/24px/Bold" className="text-grayscale-07!">
+								{currentItem
+									? formatStatValue(currentItem.activeStaksCount)
+									: isLoadingOveral
+										? '...'
+										: '—'}
+							</Text>
+						</div>
+						<div
+							className="flex flex-col gap-4 items-center justify-between slideInAndOutUp"
+							style={{ animationDelay: '100ms' }}
 						>
-							{currentItem
-								? formatStatValue(currentItem.allStaksProfitAmount)
-								: isLoadingOveral
-									? '...'
-									: '—'}
-						</Text>
-					</div>
-				</div>
-				<div
-					className={cn(
-						'flex flex-col gap-4 items-center justify-between ',
-						overalDetails.length ? 'slideInAndOutUp' : '',
-					)}
-					style={{ animationDelay: '200ms' }}
-				>
-					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
-						مجموع دارایی قفل‌شده{' '}
-					</Text>
-					<div className="flex flex-row items-center gap-2">
-						<Text variant="Main/14px/SemiBold" className="text-brand-primary!">
-							{currentItem ? currentItem.assetSymbol : '—'}
-						</Text>
-						<Text variant="Main/24px/Bold" className="text-brand-primary!">
-							{currentItem
-								? formatStatValue(currentItem.allStaksAmount)
-								: isLoadingOveral
-									? '...'
-									: '—'}
-						</Text>
-					</div>
-				</div>
+							<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
+								دوره‌های تکمیل‌شده{' '}
+								{currentItem ? `(${currentItem.assetSymbol})` : ''}
+							</Text>
+							<Text variant="Main/24px/Bold" className="text-grayscale-07!">
+								{currentItem
+									? formatStatValue(currentItem.allStaksCount)
+									: isLoadingOveral
+										? '...'
+										: '—'}
+							</Text>
+						</div>
+						<div
+							className="flex flex-col gap-4 items-center justify-between slideInAndOutUp"
+							style={{ animationDelay: '150ms' }}
+						>
+							<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
+								مجموع سود پرداخت‌شده{' '}
+							</Text>
+							<div className="flex flex-row items-center gap-2">
+								<Text
+									variant="Main/14px/SemiBold"
+									className="text-brand-secondary-variant!"
+								>
+									{currentItem ? currentItem.assetSymbol : '—'}
+								</Text>
+								<Text
+									variant="Main/24px/Bold"
+									className="text-brand-secondary-variant!"
+								>
+									{currentItem
+										? formatStatValue(currentItem.allStaksProfitAmount)
+										: isLoadingOveral
+											? '...'
+											: '—'}
+								</Text>
+							</div>
+						</div>
+						<div
+							className="flex flex-col gap-4 items-center justify-between slideInAndOutUp"
+							style={{ animationDelay: '200ms' }}
+						>
+							<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
+								مجموع دارایی قفل‌شده{' '}
+							</Text>
+							<div className="flex flex-row items-center gap-2">
+								<Text
+									variant="Main/14px/SemiBold"
+									className="text-brand-primary!"
+								>
+									{currentItem ? currentItem.assetSymbol : '—'}
+								</Text>
+								<Text variant="Main/24px/Bold" className="text-brand-primary!">
+									{currentItem
+										? formatStatValue(currentItem.allStaksAmount)
+										: isLoadingOveral
+											? '...'
+											: '—'}
+								</Text>
+							</div>
+						</div>
+					</>
+				)}
 			</div>
 
 			<section className="flex flex-col pt-30 gap-10 items-center justify-start">
