@@ -28,10 +28,7 @@ interface EventCardProps {
 
 function EventCard({ event, latestEvents }: EventCardProps) {
 	return (
-		<div
-			className="h-full rounded-[28px] border border-grayscale-03 flex flex-col justify-between relative overflow-hidden min-h-[420px]"
-
-		>
+		<div className="h-full rounded-[28px] border border-grayscale-03 flex flex-col justify-start relative overflow-hidden min-h-[420px]">
 			<Image
 				src={event.featured_image}
 				alt={event.title}
@@ -53,21 +50,26 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 			</div> */}
 
 			{/* Title and Description and CTA Button */}
-			<div className="flex flex-col gap-4 ">
-				<div className="p-6 bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl ">
-					<Text variant="LongText/14px/SemiBold" className="text-grayscale-07!">
-						{event.title}
-					</Text>
-					{event.description && (
-						<div className="line-clamp-2">
-							<Text
-								variant="LongText/14px/Regular"
-								className="text-grayscale-06! hidden lg:block"
-							>
-								{event.description}
-							</Text>
-						</div>
-					)}
+			<div className="flex flex-col gap-4 h-full justify-between">
+				<div className="p-6 flex flex-col justify-between bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl h-full">
+					<div>
+						<Text
+							variant="LongText/14px/SemiBold"
+							className="text-grayscale-07!"
+						>
+							{event.title}
+						</Text>
+						{event.description && (
+							<div className="line-clamp-2">
+								<Text
+									variant="LongText/14px/Regular"
+									className="text-grayscale-06! hidden lg:block"
+								>
+									{event.description}
+								</Text>
+							</div>
+						)}
+					</div>
 
 					<Link
 						href={event.link}

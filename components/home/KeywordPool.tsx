@@ -3,7 +3,30 @@
 import { useEffect, useRef, useState } from 'react';
 import Container from '@/components/UI/Container';
 import Text from '@/components/UI/Text';
-import Collapse2 from '../UI/Collapse2';
+import { cn } from '@/lib/utils';
+
+// Chevron Icon
+const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		className={cn(
+			'transition-transform duration-300 ease-in-out shrink-0 text-brand-primary',
+			isOpen ? 'rotate-180' : 'rotate-0',
+		)}
+	>
+		<path
+			d="M6 9L12 15L18 9"
+			stroke="currentColor"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
 
 const KEYWORD_POOL_BLOCKS: { title: string; description: string }[] = [
 	{
@@ -65,7 +88,7 @@ export default function KeywordPool() {
 	};
 
 	return (
-		<Container className={'w-full mb-40'}>
+		<Container className={'w-full mb-40 relative'}>
 			<div className="space-y-2">
 				<Text
 					variant="Main/16px/Regular"
@@ -86,17 +109,28 @@ export default function KeywordPool() {
 					بزنیم.
 				</Text>
 			</div>
-
-			{/* Content */}
+			{/* Fade overlay: transparent at top → solid at bottom (only when collapsed) */}
+			<div
+				className={cn(
+					'absolute top-0 left-0 right-0 h-24 pointer-events-none transition-opacity duration-300',
+					isOpen ? 'opacity-0' : 'opacity-100',
+				)}
+				aria-hidden
+				style={{
+					background:
+						'linear-gradient(to bottom, transparent 0%, var(--color-grayscale-01) 100%)',
+				}}
+			/>
+			{/* Content with bottom fade overlay when collapsed */}
 			<div
 				id="collapse-content"
-				className="overflow-hidden transition-all duration-300 ease-in-out mt-6"
+				className="overflow-hidden transition-all duration-500 ease-in-out"
 				style={{
 					height: typeof height === 'number' ? `${height}px` : height,
 					opacity: isOpen ? 1 : 0,
 				}}
 			>
-				<div ref={contentRef} className={'flex flex-col gap-6'}>
+				<div ref={contentRef} className="flex flex-col gap-6">
 					{KEYWORD_POOL_BLOCKS.map((block, index) => (
 						<div key={index} className="space-y-2">
 							<Text
@@ -117,17 +151,15 @@ export default function KeywordPool() {
 				</div>
 			</div>
 			{/* Trigger */}
-			<button
-				type="button"
+			<div
+				className="flex flex-row w-full items-center justify-center mt-4 "
 				onClick={toggle}
-				className="mt-4 text-brand-primary focus:outline-none "
-				aria-expanded={isOpen}
-				aria-controls="collapse-content"
 			>
 				<Text variant="Main/14px/Bold" className="block">
 					{isOpen ? 'نمایش کمتر' : 'نمایش بیشتر'}
 				</Text>
-			</button>
+				<ChevronIcon isOpen={isOpen} />
+			</div>
 		</Container>
 	);
 }
