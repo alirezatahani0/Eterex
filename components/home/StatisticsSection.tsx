@@ -58,7 +58,7 @@ export default function StatisticsSection() {
 
 				{/* Title */}
 				<div className="flex flex-col md:flex-row items-center gap-1">
-					<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
+					<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07! text-center!">
 						{statistics.title.prefix}
 					</Text>
 					<Text variant="Main/32px/Bold" gradient="primary" className="w-fit">
