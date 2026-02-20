@@ -238,7 +238,7 @@ export default function Header() {
 						<Link href="/" aria-label="صفحه اصلی" className="flex items-center">
 							{mounted ? (
 								<Image
-									src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
+									src={theme === 'light' ? '/Logo-Black.png' : '/Logo-white.png'}
 									alt="Eterex logo"
 									width={120}
 									height={36}

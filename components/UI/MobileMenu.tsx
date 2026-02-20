@@ -426,7 +426,7 @@ export default function MobileMenu() {
 									src={
 										mounted && theme === 'light'
 											? '/Logo-Black.png'
-											: '/Logo.png'
+											: '/Logo-white.png'
 									}
 									alt="Eterex logo"
 									width={120}

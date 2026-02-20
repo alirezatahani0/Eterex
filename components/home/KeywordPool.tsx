@@ -112,7 +112,7 @@ export default function KeywordPool() {
 			{/* Fade overlay: transparent at top → solid at bottom (only when collapsed) */}
 			<div
 				className={cn(
-					'absolute top-0 left-0 right-0 h-24 pointer-events-none transition-opacity duration-300',
+					'absolute top-0 left-0 right-0 h-[calc(100%-24px)] pointer-events-none transition-opacity duration-300',
 					isOpen ? 'opacity-0' : 'opacity-100',
 				)}
 				aria-hidden

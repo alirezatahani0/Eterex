@@ -215,7 +215,7 @@ const Logo = () => {
 		<Link href="/" aria-label="صفحه اصلی" className="flex items-center mb-6">
 			{mounted ? (
 				<Image
-					src={theme === 'light' ? '/Logo-Black.png' : '/Logo.png'}
+					src={theme === 'light' ? '/Logo-Black.png' : '/Logo-white.png'}
 					alt="Eterex logo"
 					width={120}
 					height={36}
@@ -421,6 +421,10 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 				{
 					href: 'https://eterex.com/blog/kyc/',
 					label: footer.educationNews.kycTutorial,
+				},
+				{
+					href: 'https://eterex.com/blog/how-to-stake-eterex/',
+					label: footer.educationNews.stakingTutorial,
 				},
 			],
 		},
