@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useCallback } from 'react';
-import Image from 'next/image';
 
 type AssetModalProps = {
 	isOpen: boolean;
@@ -42,7 +41,7 @@ export default function AssetModal({
 
 	if (!isOpen) return null;
 
-	const preventDownload = (e: React.MouseEvent | React.DragEvent) => {
+	const preventDownload = (e: React.MouseEvent | React.DragEvent | React.ClipboardEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 	};
@@ -94,17 +93,22 @@ export default function AssetModal({
 							userSelect: 'none',
 							WebkitUserSelect: 'none',
 							WebkitUserDrag: 'none',
+							pointerEvents: 'auto',
 						} as React.CSSProperties}
 						onContextMenu={preventDownload}
 						onDragStart={preventDownload}
+						onCopy={preventDownload}
+						onCut={preventDownload}
 					>
-						<Image
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
 							src={src}
 							alt={title ?? ''}
-							fill
-							className="object-contain"
+							className="absolute inset-0 h-full w-full object-contain"
 							draggable={false}
-							unoptimized
+							onContextMenu={preventDownload}
+							onDragStart={preventDownload}
+							referrerPolicy="no-referrer"
 						/>
 					</div>
 				)}

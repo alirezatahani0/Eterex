@@ -20,11 +20,11 @@ export default function AssociationLogos() {
 		title: string;
 	} | null>(null);
 
-	const openPdfModal = () => {
+	const openFintechModal = () => {
 		setModalState({
 			isOpen: true,
-			type: 'pdf',
-			src: '/assets/footer/eterexFintech.pdf',
+			type: 'image',
+			src: '/assets/footer/eterexFintech.jpg',
 			title: 'انجمن فین‌تک',
 		});
 	};
@@ -41,10 +41,10 @@ export default function AssociationLogos() {
 	return (
 		<>
 			<div className="flex flex-row items-center justify-between gap-6">
-				{/* Fintech - opens PDF modal */}
+				{/* Fintech - opens image modal (view only, no download) */}
 				<button
 					type="button"
-					onClick={openPdfModal}
+					onClick={openFintechModal}
 					aria-label="انجمن فین‌تک"
 					className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
 				>
