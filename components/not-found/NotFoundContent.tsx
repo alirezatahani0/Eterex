@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Text from '../UI/Text';
+import Image from 'next/image';
 
 /* Pixel-perfect 404 page from Figma */
 
@@ -129,86 +130,25 @@ const UserSolidIcon = () => (
 
 export default function NotFoundContent() {
 	return (
-		<main
-			className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-12 md:py-16"
-			style={{
-				background:
-					'radial-gradient(ellipse 120% 80% at 100% 0%, rgba(237, 238, 242, 0.6) 0%, transparent 55%)',
-			}}
-		>
-			<div className="flex flex-col items-center text-center max-w-[520px] w-full">
-				{/* Illustration */}
-				<div className="relative w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] mb-8 flex items-center justify-center">
-					{/* Main squircle - tilted, gradient, shadow */}
-					<div
-						className="absolute inset-0 rounded-[28%] flex flex-col items-center justify-center"
-						style={{
-							transform: 'rotate(-12deg)',
-							background:
-								'linear-gradient(135deg, #5F50ED 0%, #6B5CF5 40%, #998BFC 100%)',
-							boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
-						}}
-					>
-						<span
-							className="text-white font-bold text-[72px] sm:text-[88px] leading-none tracking-tight"
-							style={{ fontFamily: 'var(--font-vazirmatn), sans-serif' }}
-						>
-							۴۰۴
-						</span>
-						<div
-							className="mt-2 w-10 h-10 rounded-[22%] bg-white flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
-							style={{ color: '#0F34F4' }}
-						>
-							<MagnifyingGlassIcon className="w-5 h-5" />
-						</div>
-					</div>
-
-					{/* Accent: top-right red-orange */}
-					<div
-						className="absolute w-10 h-10 sm:w-12 sm:h-12 rounded-[28%] -top-1 -right-1 sm:top-0 sm:right-0"
-						style={{
-							background: 'linear-gradient(135deg, #FF4B3A 0%, #FF7B5F 100%)',
-						}}
-					/>
-					{/* Accent: bottom-left dark blue-purple */}
-					<div
-						className="absolute w-10 h-10 sm:w-12 sm:h-12 rounded-[28%] -bottom-1 -left-1 sm:bottom-0 sm:left-0"
-						style={{
-							background: 'linear-gradient(135deg, #3A3070 0%, #504890 100%)',
-						}}
-					/>
-					{/* Small accent above-left of ۴ */}
-					<div
-						className="absolute w-5 h-5 sm:w-6 sm:h-6 rounded-[28%]"
-						style={{
-							top: '18%',
-							right: '22%',
-							background: '#CED2FA',
-						}}
-					/>
-					{/* Small accent below-right of ۴ */}
-					<div
-						className="absolute w-5 h-5 sm:w-6 sm:h-6 rounded-[28%]"
-						style={{
-							bottom: '32%',
-							left: '22%',
-							background: '#998BFC',
-						}}
-					/>
-				</div>
-
+		<main className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-12 md:py-16">
+			<Image src="/assets/main/404.png" alt="404" width={500} height={500} />
+			<div className="flex flex-col items-center text-center justify-start w-full -mt-14">
 				{/* Heading */}
-				<h1 className="text-grayscale-07 font-bold text-2xl sm:text-[28px] leading-tight mb-3">
+				<Text
+					type="h1"
+					variant="Main/32px/Black"
+					className="text-grayscale-07! my-6"
+				>
 					چیزی که دنبالش بودی اینجا نیست!
-				</h1>
+				</Text>
 
 				{/* Paragraphs */}
-				<p className="text-grayscale-06 text-base leading-relaxed mb-2">
+				<Text variant="Main/16px/Regular" className="text-grayscale-06! my-4">
 					ممکنه لینک اشتباه باشه یا صفحه منتقل شده باشه.
-				</p>
-				<p className="text-grayscale-06 text-base leading-relaxed mb-8">
+				</Text>
+				<Text variant="Main/16px/Regular" className="text-grayscale-06! mb-8">
 					اگر نیاز به راهنمایی دارید از گزینه‌های زیر استفاده کنید
-				</p>
+				</Text>
 
 				{/* Buttons */}
 				<div className="flex flex-wrap items-center justify-center gap-3 w-full">
@@ -221,7 +161,7 @@ export default function NotFoundContent() {
 						<UserSolidIcon />
 						<Text
 							variant="Main/14px/Bold"
-							className="leading-tight text-grayscale-01"
+							className="leading-tight text-white!"
 						>
 							حساب کاربری
 						</Text>
