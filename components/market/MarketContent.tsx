@@ -663,7 +663,7 @@ export default function MarketContent({
 				<Text
 					variant="Main/32px/Black"
 					gradient="primary"
-					className="mb-4 px-6"
+					className="mb-4 px-6 text-center!"
 					type="h1"
 				>
 					{market.title}

@@ -4,11 +4,15 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import AssetModal from '@/components/UI/AssetModal';
+import { useTheme } from '@/hooks/useTheme';
 
 const logoClass =
 	'h-[99px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity cursor-pointer';
 
 export default function AssociationLogos() {
+	const { theme, mounted } = useTheme();
+	const isDark = mounted && theme === 'dark';
+
 	const [modalState, setModalState] = useState<{
 		isOpen: boolean;
 		type: 'pdf' | 'image';
@@ -48,7 +52,11 @@ export default function AssociationLogos() {
 						loading="lazy"
 						width={78}
 						height={99}
-						src="/assets/footer/fintech.svg"
+						src={
+							isDark
+								? '/assets/footer/fintech_light.png'
+								: '/assets/footer/fintech.svg'
+						}
 						alt="انجمن فین‌تک"
 						className={logoClass}
 					/>
@@ -66,7 +74,11 @@ export default function AssociationLogos() {
 						loading="lazy"
 						width={108}
 						height={91}
-						src="/assets/footer/blockchain.svg"
+						src={
+							isDark
+								? '/assets/footer/blockchain_light.png'
+								: '/assets/footer/blockchain.svg'
+						}
 						alt="انجمن فناوران زنجیره بلوک"
 						className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
 					/>
@@ -83,7 +95,11 @@ export default function AssociationLogos() {
 						loading="lazy"
 						width={115}
 						height={91}
-						src="/assets/footer/nezamSenfi.png"
+						src={
+							isDark
+								? '/assets/footer/nezamSenfi_light.png'
+								: '/assets/footer/nezamSenfi.png'
+						}
 						alt="سازمان نظام صنفی رایانه‌ای"
 						className="h-[91px] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
 					/>
