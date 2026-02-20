@@ -245,7 +245,7 @@ export default function Coins() {
 				</div>
 
 				<div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4 md:gap-0">
-					<div className="flex flex-col md:flex-row items-start md:items-center gap-1">
+					<div className="flex flex-col md:flex-row items-center w-full gap-1">
 						<Text variant="Main/32px/Bold" className="w-fit text-grayscale-07!">
 							{coins.title.prefix}
 						</Text>
@@ -260,7 +260,7 @@ export default function Coins() {
 							'border-grayscale-03',
 						)}
 					>
-						<Text variant="Main/14px/Bold" className={'text-grayscale-07!'}>
+						<Text variant="Main/14px/Bold" className={'text-grayscale-07! text-nowrap'}>
 							{priceInToman ? 'قیمت به تومان' : 'قیمت به USDT'}
 						</Text>
 						<svg

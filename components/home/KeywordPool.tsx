@@ -4,6 +4,102 @@ import { useEffect, useRef, useState } from 'react';
 import Container from '@/components/UI/Container';
 import Text from '@/components/UI/Text';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+
+/** Ordered by length desc so longer phrases match first (e.g. "احراز هویت دوعاملی" before "احراز هویت") */
+const PHRASE_LINKS: { phrase: string; href: string; external?: boolean }[] = [
+	{ phrase: 'احراز هویت دوعاملی', href: 'https://eterex.com/blog/two-factor-authentication-on-eterex-exchange/', external: true },
+	{ phrase: 'خرید ارز دیجیتال بدون احراز هویت', href: 'https://eterex.com/blog/buy-cryptocurrency-without-kyc/', external: true },
+	{ phrase: 'قوانین ارز دیجیتال در ایران', href: 'https://eterex.com/blog/cryptocurrency-laws-in-iran/', external: true },
+	{ phrase: 'کیف پول\u200c کریپتوکارنسی', href: 'https://eterex.com/blog/8-%d9%88%db%8c%da%98%da%af%db%8c-%d8%a8%d8%b1%d8%aa%d8%b1-%da%a9%db%8c%d9%81-%d9%be%d9%88%d9%84/', external: true },
+	{ phrase: 'ثبت\u200cنام اتراکس', href: 'https://app.eterex.com/register', external: true },
+	{ phrase: 'احراز هویت', href: 'https://eterex.com/blog/kyc/', external: true },
+	{ phrase: 'مقالات اتراکس', href: 'https://eterex.com/blog/', external: true },
+	{ phrase: 'اپلیکیشن اتراکس', href: '/download', external: false },
+];
+
+/** Coin name (Persian) + (SYMBOL) or standalone name → /coin/symbol. Longer phrases first. */
+const COIN_LINKS: { phrase: string; symbol: string }[] = [
+	{ phrase: 'بیت\u200cکوین (BTC)', symbol: 'btc' },
+	{ phrase: 'اتریوم (ETH)', symbol: 'eth' },
+	{ phrase: 'تتر (USDT)', symbol: 'usdt' },
+	{ phrase: 'ترون (TRX)', symbol: 'trx' },
+	{ phrase: 'شیبا (SHIB)', symbol: 'shib' },
+	{ phrase: 'کیک (CAKE)', symbol: 'cake' },
+	{ phrase: 'سولانا (SOL)', symbol: 'sol' },
+	{ phrase: 'پپه (PEPE)', symbol: 'pepe' },
+	{ phrase: 'فت (FET)', symbol: 'fet' },
+	{ phrase: 'چیلیز (CHZ)', symbol: 'chz' },
+	{ phrase: 'ای سی پی (ICP)', symbol: 'icp' },
+	{ phrase: 'کارتسی (CTSI)', symbol: 'ctsi' },
+	{ phrase: 'بیت کوین', symbol: 'btc' },
+	{ phrase: 'تتر', symbol: 'usdt' },
+];
+
+const ALL_LINKS = [
+	...PHRASE_LINKS.map(({ phrase, href, external }) => ({ phrase, href, external })),
+	...COIN_LINKS.map(({ phrase, symbol }) => ({ phrase, href: `/coin/${symbol}`, external: false })),
+].sort((a, b) => b.phrase.length - a.phrase.length);
+
+function parseDescriptionWithLinks(
+	description: string,
+	blockIndex: number,
+): (string | React.ReactElement)[] {
+	const segments: (string | React.ReactElement)[] = [];
+	let remaining = description;
+	let linkSeq = 0;
+
+	while (remaining.length > 0) {
+		let earliestIndex = -1;
+		let matchedPhrase: string | null = null;
+		let matchedHref: string | null = null;
+		let matchedExternal: boolean = false;
+
+		for (const { phrase, href, external } of ALL_LINKS) {
+			const idx = remaining.indexOf(phrase);
+			if (idx !== -1 && (earliestIndex === -1 || idx < earliestIndex)) {
+				earliestIndex = idx;
+				matchedPhrase = phrase;
+				matchedHref = href;
+				matchedExternal = external ?? false;
+			}
+		}
+
+		if (matchedPhrase === null || matchedHref === null || earliestIndex === -1) {
+			segments.push(remaining);
+			break;
+		}
+
+		if (earliestIndex > 0) {
+			segments.push(remaining.slice(0, earliestIndex));
+		}
+		const key = `kw-b${blockIndex}-${linkSeq++}`;
+		segments.push(
+			matchedExternal ? (
+				<Link
+					key={key}
+					href={matchedHref}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-brand-primary hover:opacity-90"
+				>
+					{matchedPhrase}
+				</Link>
+			) : (
+				<Link
+					key={key}
+					href={matchedHref}
+					className="text-brand-primary hover:opacity-90"
+				>
+					{matchedPhrase}
+				</Link>
+			),
+		);
+		remaining = remaining.slice(earliestIndex + matchedPhrase.length);
+	}
+
+	return segments;
+}
 
 // Chevron Icon
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
@@ -144,7 +240,7 @@ export default function KeywordPool() {
 								variant="LongText/14px/Regular"
 								className="text-grayscale-06! whitespace-pre-line"
 							>
-								{block.description}
+								<>{parseDescriptionWithLinks(block.description, index)}</>
 							</Text>
 						</div>
 					))}
