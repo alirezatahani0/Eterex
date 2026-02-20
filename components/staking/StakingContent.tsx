@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import Text from '@/components/UI/Text';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -206,6 +206,67 @@ function formatStatValue(value: string): string {
 	});
 }
 
+const STAT_ANIM_DURATION_MS = 350;
+
+/** Wraps stat content; when `value` changes, old slides up and out, new slides up from bottom */
+function AnimatedStatValue({
+	value,
+	children,
+	className,
+}: {
+	value: string;
+	children: ReactNode;
+	className?: string;
+}) {
+	const [prevValue, setPrevValue] = useState(value);
+	const [prevChildren, setPrevChildren] = useState<ReactNode>(null);
+	const [isAnimating, setIsAnimating] = useState(false);
+	const lastChildrenRef = useRef<ReactNode>(children);
+
+	if (value !== prevValue && !isAnimating) {
+		setPrevChildren(lastChildrenRef.current);
+		setPrevValue(value);
+		setIsAnimating(true);
+	}
+	if (!isAnimating) lastChildrenRef.current = children;
+
+	useEffect(() => {
+		if (!isAnimating) return;
+		const id = setTimeout(() => {
+			setPrevChildren(null);
+			setIsAnimating(false);
+		}, STAT_ANIM_DURATION_MS);
+		return () => clearTimeout(id);
+	}, [isAnimating]);
+
+	return (
+		<div className={cn('overflow-hidden min-h-[2rem] flex flex-col justify-center', className)}>
+			{isAnimating && prevChildren != null ? (
+				<>
+					<div
+						className="animate-stat-slide-out-up"
+						style={{
+							animationDuration: `${STAT_ANIM_DURATION_MS}ms`,
+						}}
+					>
+						{prevChildren}
+					</div>
+					<div
+						className="animate-stat-slide-in-from-bottom"
+						style={{
+							animationDuration: `${STAT_ANIM_DURATION_MS}ms`,
+						}}
+					>
+						{children}
+					</div>
+				</>
+			) : (
+				<div className="min-h-[2rem] flex flex-col justify-center">{children}</div>
+			)}
+		</div>
+	);
+}
+
 export default function StakingContent() {
 	const { data: overalDetails = [], isLoading: isLoadingOveral } =
 		useStakingOveralDetailQuery();
@@ -388,7 +449,7 @@ export default function StakingContent() {
 				</div>
 			</div>
 			{/* Statistics Section - from API Staking/overal/detail, rotates per asset every 5s */}
-			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] xl:w-[55%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 ">
+			<div className="p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:w-[75%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 ">
 				<div className="flex flex-col gap-4 items-center justify-between">
 					<Text variant="Main/14px/SemiBold" className="text-grayscale-05!">
 						استیک‌های فعال {currentItem ? `(${currentItem.assetSymbol})` : ''}

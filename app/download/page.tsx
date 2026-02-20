@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getSection } from '@/lib/i18n';
 import DownloadContent from '@/components/download/DownloadContent';
-import KeywordPool from '@/components/home/KeywordPool';
+import KeywordPool from '@/components/download/KeywordPool';
 
 export async function generateMetadata(): Promise<Metadata> {
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eterex.com';

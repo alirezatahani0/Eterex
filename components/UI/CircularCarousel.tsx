@@ -172,7 +172,7 @@ export default function CircularCarousel({
 			{/* Center logo */}
 			<div className="relative z-10">
 				<Image
-					src="/assets/carousel/Logo.png"
+					src="/assets/carousel/Logo.avif"
 					alt="Logo"
 					width={sizes.logo}
 					height={sizes.logo}
