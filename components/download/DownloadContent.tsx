@@ -246,7 +246,7 @@ export default function DownloadContent() {
 									}
 									icon={
 										<Image
-											src="/assets/Download/iapps.png"
+											src="/assets/Download/iApps.png"
 											alt="Iapps"
 											width={20}
 											height={20}
@@ -278,7 +278,7 @@ export default function DownloadContent() {
 									}
 									icon={
 										<Image
-											src="/assets/Download/sibapp.png"
+											src="/assets/Download/sibApp.png"
 											alt="Sibapp"
 											width={20}
 											height={20}
@@ -294,7 +294,7 @@ export default function DownloadContent() {
 									}
 									icon={
 										<Image
-											src="/assets/Download/sibirani.png"
+											src="/assets/Download/sibIrani.png"
 											alt="Sibirani"
 											width={20}
 											height={20}
