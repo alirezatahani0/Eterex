@@ -15,11 +15,9 @@ const MAP_VIEW_CENTER: [number, number] = [
 /** Opens in Google Maps app on mobile or browser on desktop */
 const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${MAP_CENTER[0]},${MAP_CENTER[1]}`;
 
-const STADIA_ALIDADE_SMOOTH =
-	'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png';
-const STADIA_ATTRIBUTION =
-	'&copy; <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener noreferrer">Stadia Maps</a> ' +
-	'&copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> ' +
+/** OpenStreetMap: no API key, works globally without VPN */
+const OSM_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const OSM_ATTRIBUTION =
 	'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors';
 
 /** Default marker icon: anchor at bottom-center (tip of pin) so marker is exactly on coordinates */
@@ -36,8 +34,8 @@ const defaultIcon = L.icon({
 
 const tileLayerOptions = {
 	minZoom: 0,
-	maxZoom: 20,
-	attribution: STADIA_ATTRIBUTION,
+	maxZoom: 19,
+	attribution: OSM_ATTRIBUTION,
 };
 
 export default function ContactMap() {
@@ -55,10 +53,7 @@ export default function ContactMap() {
 			scrollWheelZoom: true,
 		});
 
-		const initialLayer = L.tileLayer(
-			STADIA_ALIDADE_SMOOTH,
-			tileLayerOptions,
-		).addTo(map);
+		const initialLayer = L.tileLayer(OSM_TILE_URL, tileLayerOptions).addTo(map);
 		tileLayerRef.current = initialLayer;
 
 		L.marker(MAP_CENTER, { icon: defaultIcon }).addTo(map).bindPopup('اتراکس');
@@ -76,8 +71,9 @@ export default function ContactMap() {
 		if (!mapRef.current) return;
 
 		tileLayerRef.current?.remove();
-		const url = STADIA_ALIDADE_SMOOTH;
-		const layer = L.tileLayer(url, tileLayerOptions).addTo(mapRef.current);
+		const layer = L.tileLayer(OSM_TILE_URL, tileLayerOptions).addTo(
+			mapRef.current,
+		);
 		tileLayerRef.current = layer;
 	}, []);
 
