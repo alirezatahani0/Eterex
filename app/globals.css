@@ -643,3 +643,31 @@ html {
   width: 2px;
   background: var(--color-grayscale-03);
 }
+
+/* Staking stats: old value slides up and out, new value slides up from bottom */
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+
+.slideInAndOutUp {
+  animation: slideUp 10s infinite;
+}
