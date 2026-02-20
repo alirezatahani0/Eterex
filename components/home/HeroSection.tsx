@@ -25,11 +25,11 @@ export default function HeroSection() {
 		<>
 			<div
 				className={cn(
-					'bg-cover bg-center bg-no-repeat h-[calc(100vh-89px)] lg:hidden overflow-hidden relative',
+					'bg-cover bg-center bg-no-repeat h-[calc(100vh-89px)] min-h-[800px] lg:hidden overflow-hidden relative',
 					"bg-[url('/assets/main/Header.avif')] md:bg-[url('/assets/main/Header-MD.avif')] lg:bg-[url('/assets/main/Header-LG.avif')] 2xl:bg-[url('/assets/main/Header-XL.avif')]",
 				)}
 			>
-				<Container className="relative z-10 py-12 md:py-16 lg:py-20">
+				<Container className="relative z-10 py-12 md:py-16 lg:py-20 ">
 					<div className="flex flex-col items-center">
 						{/* Tagline */}
 						<div className="inline-flex items-center gap-2 px-4 py-2 bg-grayscale-02 rounded-2xl border border-grayscale-03 w-fit">
