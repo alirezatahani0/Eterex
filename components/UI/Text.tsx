@@ -65,7 +65,7 @@ const variantStyles: Record<Variant, string> = {
 	'Main/24px/Regular':
 		'text-[24px] text-grayscale-07 leading-[36px] font-[400]',
 	'Main/24px/Bold': 'text-[24px] text-grayscale-07 leading-[36px] font-[700]',
-	'Main/32px/Bold': 'text-grayscale-07 font-[700] text-[32px] leading-[48px] ',
+	'Main/32px/Bold': 'text-grayscale-07 font-[700] text-[26px] md:text-[32px] leading-[48px] ',
 	'Main/32px/Black':
 		'text-grayscale-07 font-[900] text-[32px] leading-[48px] md:text-[32px] md:leading-[48px] xl:text-[50.4px] xl:leading-[72px] 2xl:text-[56px] 2xl:leading-[80px] ',
 };

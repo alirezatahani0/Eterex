@@ -14,7 +14,12 @@ export default function HeroSection() {
 	const [phoneNumber, setPhoneNumber] = useState('');
 
 	const handleRegister = () => {
-		const mobile = phoneNumber.trim().replace(/\s/g, '');
+		const normalized = phoneNumber
+			.trim()
+			.replace(/\s/g, '')
+			.replace(/[۰-۹]/g, (d) => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
+			.replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)));
+		const mobile = normalized;
 		const url = mobile
 			? `${APP_REGISTER_URL}?phone=${encodeURIComponent(mobile)}`
 			: APP_REGISTER_URL;

@@ -18,13 +18,7 @@ interface BrandTickerProps {
 	className?: string;
 }
 
-const GAP = 80;
-
-export default function BrandTicker({
-	logos,
-	duration = 20,
-	className,
-}: BrandTickerProps) {
+export default function BrandTicker({ logos, className }: BrandTickerProps) {
 	const duplicatedBrands = [...logos, ...logos];
 
 	return (
@@ -40,7 +34,11 @@ export default function BrandTicker({
 							ease: 'linear',
 							repeatType: 'loop',
 						}}
-						style={{ width: 'fit-content', flexDirection: 'row-reverse', gap: 80 }}
+						style={{
+							width: 'fit-content',
+							flexDirection: 'row-reverse',
+							gap: 80,
+						}}
 					>
 						{duplicatedBrands.map((logo, index) => (
 							<motion.div
@@ -54,7 +52,7 @@ export default function BrandTicker({
 									alt={logo.alt}
 									width={logo.width || 120}
 									height={logo.height || 60}
-									className="h-auto object-contain"
+									className=" object-contain w-12 h-12 md:w-14 md:h-14 2xl:w-[64px] 2xl:h-[64px]"
 								/>
 								<Text variant="Main/24px/Bold" className="text-white!">
 									{logo.text}

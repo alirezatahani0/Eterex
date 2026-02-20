@@ -722,7 +722,6 @@ export default function CoinPageContent() {
 								</div>
 								<Text variant="Main/16px/Regular">
 									فرایند خرید {getCoinPersianName(symbolUpper)} در صرافی اتراکس
-									را به طور کلی در ویدئو زیر توضیح دادیم:
 								</Text>
 							</div>
 							<Image
@@ -803,15 +802,6 @@ export default function CoinPageContent() {
 						>
 							<div className="flex flex-col gap-3 text-right">
 								<div className="grid grid-cols-2 gap-10">
-									<Text variant="LongText/16px/Regular">رتبه در بازار</Text>
-									<Text
-										variant="LongText/16px/Regular"
-										className="text-grayscale-05"
-									>
-										—
-									</Text>
-								</div>
-								<div className="grid grid-cols-2 gap-10">
 									<Text variant="LongText/16px/Regular">تغییرات ۲۴ ساعته</Text>
 									<Text
 										variant="LongText/16px/Regular"
@@ -849,15 +839,6 @@ export default function CoinPageContent() {
 										{tomanPriceForInfo != null
 											? `${tomanPriceForInfo.toLocaleString('fa-IR')} تومان`
 											: '—'}
-									</Text>
-								</div>
-								<div className="grid grid-cols-2 gap-10">
-									<Text variant="LongText/16px/Regular">ارز در دسترس</Text>
-									<Text
-										variant="LongText/16px/Regular"
-										className="text-grayscale-05"
-									>
-										—
 									</Text>
 								</div>
 								<div className="grid grid-cols-2 gap-10">

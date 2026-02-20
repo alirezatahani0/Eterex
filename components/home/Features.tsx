@@ -162,6 +162,7 @@ export default function FeaturesSection() {
 					spaceBetween={32}
 					slidesPerView={1}
 					effect={'coverflow'}
+					loop
 					grabCursor={true}
 					centeredSlides={true}
 					autoplay={{

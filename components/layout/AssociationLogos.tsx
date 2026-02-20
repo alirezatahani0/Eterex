@@ -36,7 +36,7 @@ export default function AssociationLogos() {
 
 	return (
 		<>
-			<div className="flex flex-wrap items-center gap-6">
+			<div className="flex flex-row items-center justify-between gap-6">
 				{/* Fintech - opens PDF modal */}
 				<button
 					type="button"

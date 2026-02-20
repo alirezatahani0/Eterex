@@ -292,7 +292,7 @@ export default function Coins() {
 			<div className="grid grid-cols-1 lg:grid-cols-[5fr_3fr] gap-6">
 				{/* Table */}
 				<div
-					className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-6 lg:p-8"
+					className="rounded-[28px] border-2 border-grayscale-03 overflow-hidden p-3 md:p-6 lg:p-8"
 					style={
 						{
 							background:
@@ -490,7 +490,7 @@ export default function Coins() {
 																)
 															}
 															aria-label="نمودار"
-															className="hidden md:flex h-14 w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2"
+															className="hidden md:flex h-10 md:h-14 w-10 md:w-14 2xl:w-[140px] rounded-[40px] bg-brand-primary-container hover:bg-[rgba(15,91,244,0.12)] transition-colors flex-row items-center justify-center gap-2"
 														>
 															<svg
 																xmlns="http://www.w3.org/2000/svg"
@@ -534,7 +534,7 @@ export default function Coins() {
 														</button>
 														<button
 															aria-label="خرید و فروش"
-															className="h-14 w-14 lg:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
+															className="h-10 md:h-14 w-10 md:w-14 lg:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 														>
 															<Text
 																variant="Main/14px/Bold"
@@ -627,12 +627,18 @@ export default function Coins() {
 													{coins.table.headers2[0]}
 												</Text>
 											</th>
-											<th key="1" className={cn('pb-2 text-right')}>
+											<th key="1" className={cn('pb-2 text-left! flex flex-col gap-1')}>
 												<Text
 													variant="Main/14px/SemiBold"
-													className="text-[#ACB9FF]! font-normal"
+													className="text-[#ACB9FF]! font-normal text-left!"
 												>
-													{`${coins.table.headers2[1]} ${priceInToman ? 'IRT' : 'USDT'} / ${coins.table.headers2[2]}`}
+													{`${coins.table.headers2[1]} ${priceInToman ? 'IRT' : 'USDT'} / `}
+												</Text>
+												<Text
+													variant="Main/14px/SemiBold"
+													className="text-[#ACB9FF]! font-normal text-left!"
+												>
+													{`${coins.table.headers2[2]}`}
 												</Text>
 											</th>
 										</>
