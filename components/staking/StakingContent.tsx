@@ -394,7 +394,7 @@ export default function StakingContent() {
 				</div>
 			</div>
 			{/* Statistics Section - from API Staking/overal/detail, rotates per asset every 5s */}
-			<div className="p-6 xl:p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 xl:gap-6 lg:w-[75%] 2xl:w-[65%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 overflow-hidden">
+			<div className="p-3 md:p-6 xl:p-8 bg-grayscale-01 border-2 border-grayscale-03 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 xl:gap-6 lg:w-[75%] 2xl:w-[65%] lg:m-auto lg:rounded-4xl lg:-mt-24 lg:relative lg:z-30 overflow-hidden">
 				{isLoadingOveral ? (
 					Array.from({ length: 4 }).map((_, index) => (
 						<div

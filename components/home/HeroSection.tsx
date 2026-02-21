@@ -4,8 +4,8 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import CircularCarousel from '../UI/CircularCarousel';
+import Image from 'next/image';
 
 const APP_REGISTER_URL = 'https://app.eterex.com/register';
 
@@ -28,12 +28,18 @@ export default function HeroSection() {
 
 	return (
 		<>
-			<div
-				className={cn(
-					'bg-cover bg-center bg-no-repeat h-[calc(100vh-89px)] min-h-[800px] lg:hidden overflow-hidden relative',
-					"bg-[url('/assets/main/Header.avif')] md:bg-[url('/assets/main/Header-MD.avif')] lg:bg-[url('/assets/main/Header-LG.avif')] 2xl:bg-[url('/assets/main/Header-XL.avif')]",
-				)}
-			>
+			{/* Mobile/tablet hero: priority image for LCP (preloaded in layout) */}
+			<div className="relative h-[calc(100vh-89px)] min-h-[800px] lg:hidden overflow-hidden">
+				<Image
+					src="/assets/main/Header.avif"
+					alt=""
+					fill
+					className="object-cover object-center"
+					priority
+					sizes="100vw"
+					unoptimized
+					fetchPriority="high"
+				/>
 				<Container className="relative z-10 py-12 md:py-16 lg:py-20 ">
 					<div className="flex flex-col items-center">
 						{/* Tagline */}
@@ -183,14 +189,19 @@ export default function HeroSection() {
 			</div>
 
 			<Container className="hidden lg:flex relative z-10 py-12 md:py-16 lg:py-20">
-				<div
-					className={cn(
-						'bg-cover bg-center bg-no-repeat h-full',
-						'grid grid-cols-2 border-2 border-grayscale-03 rounded-3xl',
-						"bg-[url('/assets/main/Header.avif')] md:bg-[url('/assets/main/Header-MD.avif')] lg:bg-[url('/assets/main/Header-LG.avif')] 2xl:bg-[url('/assets/main/Header-XL.avif')]",
-					)}
-				>
-					<div className="flex flex-col items-start justify-center pr-[96px]">
+				<div className="relative grid grid-cols-2 border-2 border-grayscale-03 rounded-3xl overflow-hidden h-full min-h-[500px]">
+					{/* Desktop hero LCP: priority image so browser loads it early (preloaded in layout) */}
+					<Image
+						src="/assets/main/Header-LG.avif"
+						alt=""
+						fill
+						className="object-cover object-center z-0"
+						priority
+						sizes="(min-width: 1024px) 50vw, 100vw"
+						unoptimized
+						fetchPriority="high"
+					/>
+					<div className="flex flex-col items-start justify-center pr-[96px] relative z-10">
 						{/* Tagline */}
 						<div className="inline-flex items-center gap-2 px-4 py-2 bg-grayscale-02 rounded-2xl border border-grayscale-03 w-fit">
 							<svg
@@ -328,7 +339,7 @@ export default function HeroSection() {
 							</button>
 						</div>
 					</div>
-					<div className="flex flex-col h-full items-center justify-center">
+					<div className="flex flex-col h-full items-center justify-center relative z-10">
 						<CircularCarousel />
 					</div>
 				</div>

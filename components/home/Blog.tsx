@@ -211,14 +211,14 @@ export default function BlogSection() {
 										href={event.link}
 										target="_blank"
 										rel="noopener noreferrer"
-										aria-label={`${blog.viewNews}: ${event.title}`}
 										className="w-fit h-12 min-h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
 									>
 										<Text
 											variant="Main/14px/Bold"
-											className="text-brand-primary!"
+											className="text-brand-primary! line-clamp-1 max-w-[220px] lg:max-w-[280px]"
+											title={event.title}
 										>
-											{blog.viewNews}
+											{blog.viewNews}: {event.title}
 										</Text>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"

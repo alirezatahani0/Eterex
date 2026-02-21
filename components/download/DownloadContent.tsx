@@ -16,7 +16,7 @@ export default function DownloadContent() {
 	const [device, setDevice] = useState<'android' | 'ios'>('android');
 	const { DownloadAppSection, common } = useTranslation();
 
-	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff3d]';
+	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff66]';
 	const activeStyle = 'bg-[#fff] border border-[#ffffff3d]';
 
 	// Use light theme as default for SSR, only use actual theme after mount
@@ -109,6 +109,9 @@ export default function DownloadContent() {
 								variant="Main/14px/SemiBold"
 								color={device === 'android' ? 'text-black!' : 'text-white!'}
 								className="leading-5 font-medium"
+								style={{
+									color: device === 'android' ? '#000000' : '#FFFFFF',
+								}}
 							>
 								{common.android}
 							</Text>
@@ -142,6 +145,9 @@ export default function DownloadContent() {
 								variant="Main/14px/SemiBold"
 								color={device === 'ios' ? 'text-black!' : 'text-white!'}
 								className="leading-5 font-medium"
+								style={{
+									color: device === 'ios' ? '#000000' : '#FFFFFF',
+								}}
 							>
 								{common.ios}
 							</Text>

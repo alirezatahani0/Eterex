@@ -1,26 +1,37 @@
 import type { NextConfig } from "next";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const nextConfig: NextConfig = {
   // Base path configuration (for subdirectory deployment)
   basePath: basePath,
-  
+
   // Asset prefix (if using CDN)
   assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined,
-  
-  // Performance optimizations
+
+  // Production & security
+  reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  
-  // Production optimizations
-  output: 'standalone', // Enable standalone output for Docker
-  
-  // Image optimization
+  generateEtags: isProduction,
+
+  // Production: standalone output for Docker
+  output: 'standalone',
+
+  // Minification: no source maps in production (smaller, more secure)
+  productionBrowserSourceMaps: false,
+
+  // Strip console.* in production (keep error/warn for logging)
+  compiler: {
+    removeConsole: isProduction ? { exclude: ['error', 'warn'] } : false,
+  },
+
+  // Image optimization (imageSizes for smaller/UI images, deviceSizes for layout)
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    imageSizes: [16, 32, 48, 64, 96, 128, 144, 256, 288, 384, 520],
     minimumCacheTTL: 60,
     unoptimized: false,
     remotePatterns: [
@@ -62,16 +73,32 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Referrer-Policy",
-            value: "origin-when-cross-origin",
+            value: "strict-origin-when-cross-origin",
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
           {
             key: "X-XSS-Protection",
             value: "1; mode=block",
           },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "same-origin",
+          },
+          ...(isProduction
+            ? [
+                {
+                  key: "Strict-Transport-Security",
+                  value: "max-age=31536000; includeSubDomains; preload",
+                },
+              ]
+            : []),
         ],
       },
       {

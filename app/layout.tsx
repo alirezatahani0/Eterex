@@ -73,6 +73,31 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light" />
         <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://eterex.com"} />
+        {/* Preload LCP hero image (home) so browser starts loading immediately, reducing resource load delay */}
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/main/Header.avif"
+          media="(max-width: 767px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/main/Header-MD.avif"
+          media="(min-width: 768px) and (max-width: 1023px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/main/Header-LG.avif"
+          media="(min-width: 1024px) and (max-width: 1535px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/main/Header-XL.avif"
+          media="(min-width: 1536px)"
+        />
       </head>
       <body
         className={`${vazirmatn.variable} font-sans antialiased bg-white`}

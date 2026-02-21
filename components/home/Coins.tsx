@@ -199,7 +199,8 @@ export default function Coins() {
 		{ key: 'spotTrades', label: coins.filters.tabs.spot },
 	];
 
-	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff3d]';
+	// Border #ffffff66 for sufficient contrast on blue (AA)
+	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff66]';
 	const activeStyle = 'bg-[#fff] border border-[#ffffff3d]';
 
 	return (
@@ -606,6 +607,11 @@ export default function Coins() {
 										selectedTab === tab.key
 											? 'text-black! font-normal'
 											: 'text-white! font-light'
+									}
+									style={
+										selectedTab === tab.key
+											? { color: '#000000' }
+											: { color: '#FFFFFF' }
 									}
 								>
 									{tab.label}

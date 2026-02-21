@@ -28,6 +28,10 @@ services:
         - NEXT_PUBLIC_SOCIAL_LINKEDIN=${NEXT_PUBLIC_SOCIAL_LINKEDIN:-https://www.linkedin.com/company/eterexchange}
         - NEXT_PUBLIC_SOCIAL_TWITTER=${NEXT_PUBLIC_SOCIAL_TWITTER:-https://x.com/eterex_official}
         - NEXT_PUBLIC_BLOG_URL=${NEXT_PUBLIC_BLOG_URL:-https://eterex.com}
+        - NEXT_PUBLIC_STAKING_API_URL=${NEXT_PUBLIC_STAKING_API_URL:-https://api.eterex.com/api}
+        - NEXT_PUBLIC_GAPIFY_WEBSITE_TOKEN=${NEXT_PUBLIC_GAPIFY_WEBSITE_TOKEN:-}
+        - NEXT_PUBLIC_GTM_ID=${NEXT_PUBLIC_GTM_ID:-}
+        - NEXT_PUBLIC_GA_MEASUREMENT_ID=${NEXT_PUBLIC_GA_MEASUREMENT_ID:-}
     ports:
       - "${PORT:-3000}:3000"
     environment:
@@ -54,6 +58,8 @@ services:
       - NEXT_PUBLIC_SOCIAL_LINKEDIN=${NEXT_PUBLIC_SOCIAL_LINKEDIN:-https://www.linkedin.com/company/eterexchange}
       - NEXT_PUBLIC_SOCIAL_TWITTER=${NEXT_PUBLIC_SOCIAL_TWITTER:-https://x.com/eterex_official}
       - NEXT_PUBLIC_BLOG_URL=${NEXT_PUBLIC_BLOG_URL:-https://eterex.com}
+      - NEXT_PUBLIC_STAKING_API_URL=${NEXT_PUBLIC_STAKING_API_URL:-https://api.eterex.com/api}
+      - NEXT_PUBLIC_GAPIFY_WEBSITE_TOKEN=${NEXT_PUBLIC_GAPIFY_WEBSITE_TOKEN:-}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000${NEXT_PUBLIC_BASE_PATH:-}/"]

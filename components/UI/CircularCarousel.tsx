@@ -162,23 +162,24 @@ export default function CircularCarousel({
 							alt={`Carousel image ${index + 1}`}
 							width={sizes.coins}
 							height={sizes.coins}
+							sizes="(max-width: 640px) 115px, 288px"
 							className="object-contain"
-							unoptimized
+						
 						/>
 					</div>
 				))}
 			</div>
 
-			{/* Center logo */}
+			{/* Center logo - sizes hint so Next serves ~260–520w instead of full 1664px */}
 			<div className="relative z-10">
 				<Image
 					src="/assets/carousel/Logo.avif"
 					alt="Logo"
 					width={sizes.logo}
 					height={sizes.logo}
-					className="object-contain relative top-5 right-5 "
+					sizes="(max-width: 640px) 208px, (max-width: 1280px) 208px, 520px"
+					className="object-contain relative top-5 right-5"
 					priority
-					unoptimized
 				/>
 			</div>
 		</div>

@@ -246,7 +246,7 @@ export default function CoinPageContent() {
 			: "bg-[url('/assets/Download/Header.avif')] md:bg-[url('/assets/Download/Header-MD.avif')] lg:bg-[url('/assets/Download/Header-LG.avif')] 2xl:bg-[url('/assets/Download/Header-XL.avif')] ";
 	}, [theme, mounted]);
 
-	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff3d]';
+	const baseStyle = 'bg-[#4D6CFF] border border-[#ffffff66]';
 	const activeStyle = 'bg-[#fff] border border-[#ffffff3d]';
 	const nameFa = getCoinPersianName(symbolUpper);
 	// Use empty string when Farsi name not found (getCoinPersianName returns symbol as fallback)
@@ -445,6 +445,9 @@ export default function CoinPageContent() {
 									variant="Main/14px/SemiBold"
 									color={buyOrSell === 'buy' ? 'text-black!' : 'text-white!'}
 									className="leading-5 font-medium"
+									style={{
+										color: buyOrSell === 'buy' ? '#000000' : '#FFFFFF',
+									}}
 								>
 									{common.buy}
 								</Text>
@@ -518,6 +521,9 @@ export default function CoinPageContent() {
 									variant="Main/14px/SemiBold"
 									color={buyOrSell === 'sell' ? 'text-black!' : 'text-white!'}
 									className="leading-5 font-medium"
+									style={{
+										color: buyOrSell === 'sell' ? '#000000' : '#FFFFFF',
+									}}
 								>
 									{common.sell}
 								</Text>

@@ -117,8 +117,9 @@ const Text = ({
 	const shouldApplyGradient = gradient !== undefined && gradient !== false;
 	const finalColorClass = shouldApplyGradient ? '' : colorClass;
 
+	// Put variant first so consumer className (e.g. text-white!) can override variant color for contrast
 	const allClass =
-		`${className} ${weightClass} ${finalColorClass} ${variantClass}`.trim();
+		`${variantClass} ${weightClass} ${finalColorClass} ${className}`.trim();
 
 	// Build style object
 	const style: React.CSSProperties = {};
