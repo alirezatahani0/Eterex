@@ -533,9 +533,12 @@ export default function Coins() {
 																نمودار
 															</Text>
 														</button>
-														<button
+														<a
+															href={`https://app.eterex.com/advanced-trade/${crypto.symbol.toUpperCase()}IRT`}
+															target="_blank"
+															rel="noopener noreferrer"
 															aria-label="خرید و فروش"
-															className="h-10 md:h-14 w-10 md:w-14 lg:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
+															className="h-10 md:h-14 w-10 md:w-14 lg:w-[170px] rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2 hover:opacity-90"
 														>
 															<Text
 																variant="Main/14px/Bold"
@@ -559,7 +562,7 @@ export default function Coins() {
 																	strokeLinejoin="round"
 																/>
 															</svg>
-														</button>
+														</a>
 													</div>
 												</td>
 											</tr>

@@ -82,7 +82,7 @@ export default function StatisticsSection() {
 						alt="white pattern"
 						className="absolute top-0 left-0 z-10"
 					/>
-					<div className="flex flex-col">
+					<div className="flex flex-col relative z-20">
 						<Text variant="Main/32px/Black" className="text-grayscale-07! mb-3">
 							{statistics.weeklyVolume.value}
 						</Text>

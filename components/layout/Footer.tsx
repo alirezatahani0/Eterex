@@ -316,23 +316,40 @@ const ActionButtons = ({ mobile }: { mobile: MobileData }) => (
 	</div>
 );
 
+type FooterLink = { href: string; label: string; openGapify?: boolean };
+
 const LinkColumn = ({
 	title,
 	links,
 }: {
 	title: string;
-	links: Array<{ href: string; label: string }>;
+	links: Array<FooterLink>;
 }) => (
 	<div>
 		<Text variant="Main/24px/Regular">{title}</Text>
 		<div className="flex flex-col gap-2 mt-6">
-			{links.map((link, index) => (
-				<Link key={`${link.href}-${index}-${link.label}`} href={link.href}>
-					<Text variant="Main/14px/SemiBold" color="#808080">
-						{link.label}
-					</Text>
-				</Link>
-			))}
+			{links.map((link, index) =>
+				link.openGapify ? (
+					<button
+						key={`gapify-${index}-${link.label}`}
+						type="button"
+						onClick={() => {
+							window?.$gapify?.toggle('open');
+						}}
+						className="text-right w-fit"
+					>
+						<Text variant="Main/14px/SemiBold" color="#808080">
+							{link.label}
+						</Text>
+					</button>
+				) : (
+					<Link key={`${link.href}-${index}-${link.label}`} href={link.href}>
+						<Text variant="Main/14px/SemiBold" color="#808080">
+							{link.label}
+						</Text>
+					</Link>
+				),
+			)}
 		</div>
 	</div>
 );
@@ -355,7 +372,11 @@ const LinkColumns = ({ footer }: { footer: FooterData }) => {
 		{
 			title: footer.guideSupport.title,
 			links: [
-				{ href: '/login', label: footer.guideSupport.onlineSupport },
+				{
+					href: '#',
+					label: footer.guideSupport.onlineSupport,
+					openGapify: true,
+				},
 				{ href: '/fee', label: footer.guideSupport.fees },
 				{
 					href: '/authentication',
@@ -431,7 +452,11 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 		{
 			title: footer.guideSupport.title,
 			links: [
-				{ href: '/login', label: footer.guideSupport.onlineSupport },
+				{
+					href: '#',
+					label: footer.guideSupport.onlineSupport,
+					openGapify: true,
+				},
 				{ href: '/fee', label: footer.guideSupport.fees },
 				{
 					href: '/authentication',
@@ -464,14 +489,27 @@ const CollapsibleLinks = ({ footer }: { footer: FooterData }) => {
 					header={section.title}
 					contentClassName="flex flex-col gap-2"
 				>
-					{section.links.map((link, linkIndex) => (
-						<Link
-							key={`${link.href}-${linkIndex}-${link.label}`}
-							href={link.href}
-						>
-							<Text variant="Main/14px/SemiBold">{link.label}</Text>
-						</Link>
-					))}
+					{section.links.map((link, linkIndex) =>
+						(link as FooterLink).openGapify ? (
+							<button
+								key={`gapify-${linkIndex}-${link.label}`}
+								type="button"
+								onClick={() => {
+									window?.$gapify?.toggle('open');
+								}}
+								className="text-right w-fit"
+							>
+								<Text variant="Main/14px/SemiBold">{link.label}</Text>
+							</button>
+						) : (
+							<Link
+								key={`${link.href}-${linkIndex}-${link.label}`}
+								href={link.href}
+							>
+								<Text variant="Main/14px/SemiBold">{link.label}</Text>
+							</Link>
+						),
+					)}
 				</Collapse>
 			))}
 		</div>

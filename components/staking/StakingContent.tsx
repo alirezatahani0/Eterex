@@ -943,14 +943,14 @@ export default function StakingContent() {
 					</div>
 					<div className="w-full flex items-center justify-end xl:container xl:m-auto">
 						<a
-							href="https://app.eterex.com/"
+							href="https://app.eterex.com/staking"
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label="شروع کنیم"
+							aria-label="شروع کنید"
 							className="h-14 w-40 rounded-[40px] bg-brand-primary transition-colors flex flex-row items-center justify-center gap-2"
 						>
 							<Text variant="Main/14px/Bold" color="text-white!">
-								شروع کنیم{' '}
+								شروع کنید{' '}
 							</Text>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

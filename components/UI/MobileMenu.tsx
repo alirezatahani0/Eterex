@@ -405,9 +405,9 @@ export default function MobileMenu() {
 				ref={menuRef}
 				className="absolute w-[350px] h-auto opacity-0 2xl:hidden rounded-l-[40px] right-0 top-0 overflow-hidden bg-grayscale-01 z-50 transition-all duration-300 ease-in-out translate-x-full"
 			>
-				<div className="flex flex-col h-full p-6 bg-grayscale-01">
+				<div className="flex flex-col h-full p-3 md:p-6 bg-grayscale-01">
 					{/* Header */}
-					<div className="flex items-center justify-between mb-8">
+					<div className="flex items-center justify-between mb-4 md:mb-8">
 						{/* Logo */}
 						<div className="flex flex-row items-center gap-2">
 							<button
@@ -441,8 +441,8 @@ export default function MobileMenu() {
 					</div>
 
 					{/* Navigation Links */}
-					<nav className="flex-1 mb-10">
-						<ul className="space-y-2">
+					<nav className="flex-1 mb-6 md:mb-10">
+						<ul className="space-y-1 md:space-y-2">
 							{navLinks.map((link) => {
 								const isExternal = link.href.startsWith('http');
 								return (
@@ -467,12 +467,12 @@ export default function MobileMenu() {
 					</nav>
 
 					{/* Action Buttons */}
-					<div className="border-t border-grayscale-03 pt-10 flex flex-row items-center gap-2">
+					<div className="border-t border-grayscale-03 pt-6 md:pt-10 flex flex-row items-center gap-2">
 						{/* Account Button */}
 						<Link
 							href="/login"
 							onClick={handleClick}
-							className="flex items-center justify-between w-full pr-3 pl-4 h-14 rounded-[40px] bg-primary "
+							className="flex items-center justify-between w-full pr-3 pl-4 h-12 md:h-14 rounded-[40px] bg-primary "
 						>
 							<UserIcon />
 							<span className="font-bold text-sm leading-5 text-white">
@@ -484,7 +484,7 @@ export default function MobileMenu() {
 						<Link
 							href="/download"
 							onClick={handleClick}
-							className="flex items-center justify-between w-full pr-3 pl-2 h-14 rounded-[40px] bg-brand-primary-container"
+							className="flex items-center justify-between w-full pr-3 pl-2 h-12 md:h-14 rounded-[40px] bg-brand-primary-container"
 						>
 							<DownloadIcon />
 							<span className="font-bold text-sm leading-5 text-primary">
@@ -494,7 +494,7 @@ export default function MobileMenu() {
 					</div>
 
 					{/* Social Media Icons */}
-					<div className="flex items-center justify-center flex-row-reverse gap-4 pt-10">
+					<div className="flex items-center justify-center flex-row-reverse gap-4 pt-3 md:pt-10">
 						<a
 							href={process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM}
 							target="_blank"

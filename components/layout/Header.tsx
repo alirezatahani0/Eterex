@@ -137,12 +137,8 @@ export default function Header() {
 			label: nav.trade,
 			external: true,
 		},
-		{
-			href: 'https://app.eterex.com/wallet',
-			label: nav.wallet,
-			external: true,
-		},
 		{ href: '/staking', label: nav.staking, external: false },
+		{ href: '/blog', label: nav.blog },
 		// { href: '/about-us', label: nav.about, external: false },
 		// { href: '/contact-us', label: nav.contact, external: false },
 	];
