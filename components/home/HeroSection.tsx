@@ -6,6 +6,7 @@ import Container from '@/components/UI/Container';
 import { useState } from 'react';
 import CircularCarousel from '../UI/CircularCarousel';
 import Image from 'next/image';
+import Button from '../UI/Button';
 
 const APP_REGISTER_URL = 'https://app.eterex.com/register';
 
@@ -150,33 +151,30 @@ export default function HeroSection() {
 								</svg>
 							</div>
 
-							<button
-								type="button"
+							<Button
+								variant="primary"
 								onClick={handleRegister}
-								className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2"
+								className="w-14 md:w-[160px]"
+								rightIcon={
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+									>
+										<path
+											d="M21 12H3M3 12L8 7M3 12L8 17"
+											stroke="currentColor"
+											strokeWidth="1.5"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								}
 							>
-								<Text
-									variant="Main/14px/Bold"
-									className="hidden md:flex w-fit text-white!"
-								>
-									{hero.registerButton}
-								</Text>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-								>
-									<path
-										d="M21 12H3M3 12L8 7M3 12L8 17"
-										stroke="#FAF8F4"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</button>
+								<span className="hidden md:inline">{hero.registerButton}</span>
+							</Button>
 						</div>
 					</div>
 				</Container>
@@ -310,33 +308,30 @@ export default function HeroSection() {
 								</svg>
 							</div>
 
-							<button
-								type="button"
+							<Button
+								variant="primary"
 								onClick={handleRegister}
-								className="h-14 rounded-full w-14 px-4 bg-brand-primary flex items-center justify-center md:w-[160px] md:gap-2"
+								className="w-14 md:w-[160px]"
+								rightIcon={
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+									>
+										<path
+											d="M21 12H3M3 12L8 7M3 12L8 17"
+											stroke="currentColor"
+											strokeWidth="1.5"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								}
 							>
-								<Text
-									variant="Main/14px/Bold"
-									className="hidden md:flex w-fit text-white!"
-								>
-									{hero.registerButton}
-								</Text>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-								>
-									<path
-										d="M21 12H3M3 12L8 7M3 12L8 17"
-										stroke="#FAF8F4"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</button>
+								<span className="hidden md:inline">{hero.registerButton}</span>
+							</Button>
 						</div>
 					</div>
 					<div className="flex flex-col h-full items-center justify-center relative z-10">

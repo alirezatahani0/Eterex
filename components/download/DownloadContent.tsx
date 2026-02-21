@@ -376,7 +376,7 @@ const DownloadButton = ({ href, icon, label }: DownloadButtonProps) => {
 	return (
 		<Link
 			href={href}
-			className="h-12 pl-4 pr-3 flex flex-row gap-2 items-center justify-center bg-white rounded-[40px]"
+			className="h-12 pl-4 pr-3 flex flex-row gap-2 items-center justify-center bg-white rounded-[40px] hover:brightness-90 transition-[background-color,filter] duration-200 ease-out"
 		>
 			{icon}
 			<Text variant="Main/14px/Bold" color="text-[#000]! text-[12px]!">

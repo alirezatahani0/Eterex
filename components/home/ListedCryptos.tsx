@@ -3,6 +3,7 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
+import Button from '@/components/UI/Button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +13,6 @@ import {
 } from '@/hooks/useAssetsQuery';
 import { useMemo, useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
-import { useRouter } from 'next/navigation';
 import { useMarketsQuery } from '@/hooks/useMarketsQuery';
 import { ICON_BASE_URL } from '@/lib/constants';
 
@@ -20,7 +20,6 @@ export default function ListedCryptos() {
 	const { listedCryptos } = useTranslation();
 	const { theme, mounted } = useTheme();
 	const [currentPage, setCurrentPage] = useState(0);
-	const router = useRouter();
 
 	const { data: assetsData, isLoading: isLoadingAssets } = useAssetsListQuery();
 	const { data: pricesData = [], isLoading: isLoadingPrices } =
@@ -175,66 +174,69 @@ export default function ListedCryptos() {
 						</Text>
 					</div>
 					<div className="flex flex-row items-center gap-3">
-						<button
+					
+						<Button
+							variant="ghost"
+							size="icon"
 							onClick={handleNextPage}
 							disabled={isLastPage || isLoading}
 							aria-label="صفحه بعدی"
 							className={cn(
-								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
-								isLastPage || isLoading
-									? 'opacity-50 cursor-not-allowed'
-									: 'hover:opacity-80 cursor-pointer',
+								'w-13 h-13 min-w-13 min-h-13 bg-grayscale-02!',
+								!(isLastPage || isLoading) && 'hover:opacity-80',
 							)}
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="7"
-								viewBox="0 0 16 7"
-								fill="none"
-								className={
-									mounted && theme === 'light'
-										? '[&>path]:stroke-black'
-										: '[&>path]:stroke-white'
-								}
-							>
-								<path
-									d="M0.5 0.500136C0.5 0.500136 2.62066 6.50014 8 6.50014C13.3793 6.50014 15.2719 0.500136 15.5 0.500136"
-									strokeLinecap="round"
-									strokeWidth="1.5"
-								/>
-							</svg>
-						</button>
-						<button
+							rightIcon={
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="7"
+									viewBox="0 0 16 7"
+									fill="none"
+									className={
+										mounted && theme === 'light'
+											? '[&>path]:stroke-black'
+											: '[&>path]:stroke-white'
+									}
+								>
+									<path
+										d="M0.5 0.500136C0.5 0.500136 2.62066 6.50014 8 6.50014C13.3793 6.50014 15.2719 0.500136 15.5 0.500136"
+										strokeLinecap="round"
+										strokeWidth="1.5"
+									/>
+								</svg>
+							}
+						/>
+						<Button
+							variant="ghost"
+							size="icon"
 							onClick={handlePreviousPage}
 							disabled={isFirstPage || isLoading}
 							aria-label="صفحه قبلی"
 							className={cn(
-								'w-13 h-13 rounded-full bg-grayscale-02 flex items-center justify-center transition-opacity',
-								isFirstPage || isLoading
-									? 'opacity-50 cursor-not-allowed'
-									: 'hover:opacity-80 cursor-pointer',
+								'w-13 h-13 min-w-13 min-h-13 bg-grayscale-02!',
+								!(isFirstPage || isLoading) && 'hover:opacity-80',
 							)}
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="7"
-								viewBox="0 0 16 7"
-								fill="none"
-								className={
-									mounted && theme === 'light'
-										? '[&>path]:stroke-black'
-										: '[&>path]:stroke-white'
-								}
-							>
-								<path
-									d="M0.5 6.5C0.5 6.5 2.62066 0.5 8 0.5C13.3793 0.5 15.2719 6.5 15.5 6.5"
-									strokeLinecap="round"
-									strokeWidth="1.5"
-								/>
-							</svg>
-						</button>
+							rightIcon={
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="7"
+									viewBox="0 0 16 7"
+									fill="none"
+									className={
+										mounted && theme === 'light'
+											? '[&>path]:stroke-black'
+											: '[&>path]:stroke-white'
+									}
+								>
+									<path
+										d="M0.5 6.5C0.5 6.5 2.62066 0.5 8 0.5C13.3793 0.5 15.2719 6.5 15.5 6.5"
+										strokeLinecap="round"
+										strokeWidth="1.5"
+									/>
+								</svg>
+							}
+						/>
 					</div>
 				</div>
 			</div>
@@ -354,29 +356,30 @@ export default function ListedCryptos() {
 											</td>
 											{/* Operations */}
 											<td>
-												<button
-													onClick={() =>
-														router.push(`/coin/${crypto.symbol.toLowerCase()}`)
-													}
+												<Button
+													href={`/coin/${crypto.symbol.toLowerCase()}`}
+													variant="secondary"
+													size="iconSm"
 													aria-label="خرید و فروش"
-													className="h-11 w-11 rounded-full bg-brand-primary-container flex items-center justify-center gap-2"
-												>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														width="24"
-														height="24"
-														viewBox="0 0 24 24"
-														fill="none"
-													>
-														<path
-															d="M21 12H3M3 12L8 7M3 12L8 17"
-															stroke="#294BFF"
-															strokeWidth="1.5"
-															strokeLinecap="round"
-															strokeLinejoin="round"
-														/>
-													</svg>
-												</button>
+													className="h-11 w-11 min-h-11 min-w-11"
+													rightIcon={
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="24"
+															height="24"
+															viewBox="0 0 24 24"
+															fill="none"
+														>
+															<path
+																d="M21 12H3M3 12L8 7M3 12L8 17"
+																stroke="currentColor"
+																strokeWidth="1.5"
+																strokeLinecap="round"
+																strokeLinejoin="round"
+															/>
+														</svg>
+													}
+												/>
 											</td>
 										</tr>
 									);

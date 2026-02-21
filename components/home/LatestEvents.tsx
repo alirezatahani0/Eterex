@@ -5,7 +5,7 @@ import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container';
 import { useBlogQuery } from '@/hooks/useBlogQuery';
 import { useMemo } from 'react';
-import Link from 'next/link';
+import Button from '@/components/UI/Button';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
@@ -53,7 +53,7 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 			{/* Title and Description and CTA Button */}
 			<div className="flex flex-col gap-4 h-full justify-between">
 				<div className="p-6 flex flex-col justify-between bg-grayscale-01-blur-74 backdrop-blur-sm rounded-3xl h-full">
-					<div >
+					<div>
 						<Text
 							variant="LongText/14px/SemiBold"
 							className="text-grayscale-07!"
@@ -72,29 +72,38 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 						)}
 					</div>
 
-					<Link
+					<Button
 						href={event.link}
-						className="w-fit h-12 px-6 rounded-[40px] bg-brand-primary flex items-center justify-center gap-2 hover:bg-[#0A7CFF] transition-colors mt-5"
+						variant="primary"
+						size="md"
+						className="mt-5"
+						rightIcon={
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								className="min-w-5"
+							>
+								<path
+									d="M17.5 10H2.5M2.5 10L6.66667 5.83334M2.5 10L6.66667 14.1667"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						}
 					>
-						<Text variant="Main/14px/Bold" className="text-white! line-clamp-1 max-w-[240px] md:max-w-[280px]" title={event.title}>
+						<Text
+							variant="Main/14px/Bold"
+							className="text-white! line-clamp-1 max-w-[240px] md:max-w-[240px]"
+							title={event.title}
+						>
 							{latestEvents.viewNews}: {event.title}
 						</Text>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 20 20"
-							fill="none"
-						>
-							<path
-								d="M17.5 10H2.5M2.5 10L6.66667 5.83334M2.5 10L6.66667 14.1667"
-								stroke="white"
-								strokeWidth="1.5"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
-					</Link>
+					</Button>
 				</div>
 			</div>
 		</div>

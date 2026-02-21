@@ -90,7 +90,7 @@ export function GapifyWidget() {
 			useBrowserLanguage: false,
 			type: 'expanded_bubble',
 			darkMode: 'auto',
-			showPopoutButton: true,
+			showPopoutButton: false,
 			launcherTitle: 'پشتیبانی اتراکس',
 		};
 
