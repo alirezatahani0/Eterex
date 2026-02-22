@@ -5,7 +5,6 @@ import ConditionalShell from '@/components/layout/ConditionalShell';
 import QueryProvider from '@/components/providers/QueryProvider';
 import ScrollToTop from '@/components/UI/ScrollToTop';
 import { Analytics } from '@/components/analytics/GoogleAnalytics';
-import { GapifyWidget } from '@/components/gapify/GapifyWidget';
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const vazirmatn = Vazirmatn({
@@ -111,7 +110,7 @@ export default function RootLayout({
 				dir="rtl"
 			>
 				<Analytics />
-				<GapifyWidget />
+			
 				<QueryProvider>
 					<ScrollToTop />
 					<ConditionalShell>{children}</ConditionalShell>

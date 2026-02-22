@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { GapifyWidget } from '../gapify/GapifyWidget';
 
 /** Renders Header and Footer only when the route is not a campaign (or other minimal layout). */
 export default function ConditionalShell({
@@ -18,7 +19,7 @@ export default function ConditionalShell({
 	}
 
 	return (
-		<>
+		<>	<GapifyWidget />
 			<Header />
 			{children}
 			<Footer />
