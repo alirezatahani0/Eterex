@@ -218,7 +218,7 @@ export default function BlogSection() {
 											className="text-brand-primary! line-clamp-1 max-w-[220px] lg:max-w-[280px]"
 											title={event.title}
 										>
-											{blog.viewNews}: {event.title}
+											{blog.viewNews}
 										</Text>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"

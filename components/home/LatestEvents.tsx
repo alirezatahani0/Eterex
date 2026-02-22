@@ -101,7 +101,7 @@ function EventCard({ event, latestEvents }: EventCardProps) {
 							className="text-white! line-clamp-1 max-w-[240px] md:max-w-[240px]"
 							title={event.title}
 						>
-							{latestEvents.viewNews}: {event.title}
+							{latestEvents.viewNews}
 						</Text>
 					</Button>
 				</div>
