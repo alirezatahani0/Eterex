@@ -671,3 +671,15 @@ html {
 .slideInAndOutUp {
   animation: slideUp 10s infinite;
 }
+
+/* Gelatine runs 0.5s, then holds 1s, repeat (cycle = 1.5s) */
+.gelatine {
+  animation: gelatine 1.5s ease-in-out infinite;
+}
+@keyframes gelatine {
+  0%, 33.33% { transform: scale(1, 1); }
+  8.33% { transform: scale(0.9, 1.1); }
+  16.67% { transform: scale(1.1, 0.9); }
+  25% { transform: scale(0.95, 1.05); }
+  33.34%, 100% { transform: scale(1, 1); }
+}
