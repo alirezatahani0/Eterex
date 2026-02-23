@@ -7,9 +7,10 @@ export const metadata: Metadata = {
 		title: 'استیک در اتراکس',
 		description: 'کمپین جاذبه ۱۴۰۴ اترکس - استیکینگ',
 	},
+	keywords: [],
 	robots: {
-		index: true,
-		follow: true,
+		index: false,
+		follow: false,
 	},
 };
 

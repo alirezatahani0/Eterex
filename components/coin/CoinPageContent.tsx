@@ -388,11 +388,11 @@ export default function CoinPageContent() {
 						</div>
 						<div className="flex flex-row items-center gap-4">
 							<Text variant="Main/16px/Regular" className="text-grayscale-05!">
-								تبدیل با احتساب کارمزد 0.01%{' '}
+								تبدیل با احتساب کارمزد 0.02%{' '}
 							</Text>
 						</div>
 					</div>
-					<div className="overflow-hidden bg-brand-primary rounded-[40px] p-8 flex flex-col items-center justify-start h-fit relative">
+					<div className="overflow-hidden bg-brand-primary rounded-[40px] p-4 md:p-8 flex flex-col items-center justify-start h-fit relative">
 						<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
 							<div
 								className={cn(

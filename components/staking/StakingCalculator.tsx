@@ -21,26 +21,32 @@ export default function StakingCalculator() {
 	const { data: configs } = useConfigsQuery();
 	const { data: pricesData = [] } = useAssetsPriceListQuery();
 
-	// فقط این چهار دارایی در UI به‌عنوان استیکینگ فعال نمایش داده می‌شوند
-	const ACTIVE_STAKING_SYMBOLS = new Set(['USDT', 'TRX', 'PAXG', 'IRT']);
-
 	const activePlans = stakingPlans.filter((p) => p.status === 'Active');
 
-	const coins = useMemo(() => {
-		const seen = new Set<string>();
-		return activePlans
-			.filter((p) => {
-				const key = p.asset.toUpperCase();
-				if (!ACTIVE_STAKING_SYMBOLS.has(key) || seen.has(key)) return false;
-				seen.add(key);
-				return true;
-			})
-			.map((p) => ({
-				symbol: p.asset.toUpperCase(),
-				icon: `${p.asset.toLowerCase()}_.svg`,
-				dailyPercent: parseFloat(p.dailyPercent) || 0,
-			}));
+	// Only 365-day plans; if multiple per asset, take the one with higher dailyPercent
+	const plans365 = useMemo(() => {
+		const with365 = activePlans.filter(
+			(p) => Number(p.activeDays) === 365 || parseInt(p.activeDays, 10) === 365,
+		);
+		const byAsset = new Map<string, (typeof activePlans)[0]>();
+		for (const p of with365) {
+			const key = p.asset.toUpperCase();
+			const existing = byAsset.get(key);
+			const daily = parseFloat(p.dailyPercent) || 0;
+			if (!existing || daily > (parseFloat(existing.dailyPercent) || 0)) {
+				byAsset.set(key, p);
+			}
+		}
+		return Array.from(byAsset.values());
 	}, [activePlans]);
+
+	const coins = useMemo(() => {
+		return plans365.map((p) => ({
+			symbol: p.asset.toUpperCase(),
+			icon: `${p.asset.toLowerCase()}_.svg`,
+			dailyPercent: parseFloat(p.dailyPercent) || 0,
+		}));
+	}, [plans365]);
 
 	const defaultCoin = coins[0]?.symbol ?? 'USDT';
 	const effectiveCoin = selectedCoin || defaultCoin;
@@ -55,17 +61,10 @@ export default function StakingCalculator() {
 			: (days[0] ?? 30);
 
 	const matchingPlan = useMemo(() => {
-		const plansForAsset = activePlans.filter(
-			(p) => p.asset.toUpperCase() === effectiveCoin,
+		return (
+			plans365.find((p) => p.asset.toUpperCase() === effectiveCoin) ?? null
 		);
-		if (plansForAsset.length === 0) return null;
-		const sorted = [...plansForAsset].sort(
-			(a, b) =>
-				Math.abs(parseInt(a.activeDays, 10) - effectiveDaysForPlan) -
-				Math.abs(parseInt(b.activeDays, 10) - effectiveDaysForPlan),
-		);
-		return sorted[0];
-	}, [activePlans, effectiveCoin, effectiveDaysForPlan]);
+	}, [plans365, effectiveCoin]);
 
 	const dailyPercent = matchingPlan
 		? parseFloat(matchingPlan.dailyPercent) || 0
@@ -249,13 +248,13 @@ export default function StakingCalculator() {
 								}
 								setAmount(rawValue);
 							}}
-							className="w-full h-15 px-2 pr-4 bg-glass-white-1 rounded-[40px] border border-grayscale-03 text-grayscale-07 text-xl font-semibold text-center focus:outline-none focus:border-brand-primary"
+							className="w-full h-15 px-2  pr-4 bg-glass-white-1 rounded-[40px] border border-grayscale-03 text-grayscale-07 text-xl font-semibold text-center focus:outline-none focus:border-brand-primary"
 							placeholder="1000"
 						/>
 						<div className="absolute top-2 left-1.5 z-10 ">
 							<button
 								onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-								className="w-full h-11 px-2 bg-glass-gray-11 backdrop-blur-xl rounded-[40px] flex items-center justify-between"
+								className="h-11 min-w-28 px-2 bg-glass-gray-11 backdrop-blur-xl rounded-[40px] flex items-center justify-between"
 							>
 								<div className="flex items-center gap-3">
 									<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
@@ -267,33 +266,35 @@ export default function StakingCalculator() {
 											className="w-full h-full object-cover"
 										/>
 									</div>
-									<Text
-										variant="Main/16px/Regular"
-										className="text-grayscale-07!"
-									>
-										{effectiveCoin}
-									</Text>
+									<div className="flex items-center justify-center gap-1 overflow-hidden">
+										<Text
+											variant="Main/16px/Regular"
+											className="text-grayscale-07!"
+										>
+											{effectiveCoin}
+										</Text>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="20"
+											height="20"
+											viewBox="0 0 20 20"
+											fill="none"
+											className={cn(
+												'transition-transform',
+												isDropdownOpen && 'rotate-180',
+											)}
+										>
+											<path
+												d="M5 7.5L10 12.5L15 7.5"
+												stroke="currentColor"
+												strokeWidth="1.5"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												className="stroke-grayscale-05"
+											/>
+										</svg>
+									</div>
 								</div>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="20"
-									height="20"
-									viewBox="0 0 20 20"
-									fill="none"
-									className={cn(
-										'transition-transform',
-										isDropdownOpen && 'rotate-180',
-									)}
-								>
-									<path
-										d="M5 7.5L10 12.5L15 7.5"
-										stroke="currentColor"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										className="stroke-grayscale-05"
-									/>
-								</svg>
 							</button>
 
 							{/* Dropdown */}
@@ -316,15 +317,15 @@ export default function StakingCalculator() {
 													setSelectedCoin(coin.symbol);
 													setIsDropdownOpen(false);
 												}}
-												className="w-full px-6 py-3 flex items-center gap-3 hover:bg-grayscale-03 transition-colors"
+												className="w-full px-3 py-3 flex items-center justify-between gap-3 hover:bg-grayscale-03 transition-colors"
 											>
-												<div className="w-8 h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
+												<div className="w-8 h-8 min-w-8 min-h-8 rounded-full bg-grayscale-03 flex items-center justify-center overflow-hidden">
 													<Image
 														src={`${ICON_BASE_URL}/${coin.icon}`}
 														alt={coin.symbol}
 														width={32}
 														height={32}
-														className="w-full h-full object-cover"
+														className="w-full h-full object-cover min-w-8 min-h-8"
 													/>
 												</div>
 												<Text

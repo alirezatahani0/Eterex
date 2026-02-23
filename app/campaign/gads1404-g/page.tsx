@@ -20,7 +20,7 @@ const Page = () => {
 				href="https://app.eterex.com/register"
 				target="_blank"
 				rel="noopener noreferrer"
-				className="absolute left-1/2 -translate-x-1/2 w-[80%] max-w-[420px] bottom-[10%] rounded-[120px] flex flex-col items-center justify-center py-4 gap-2 gelatine cursor-pointer hover:opacity-95 transition-opacity border-6 border-white border-double"
+				className="absolute left-1/2 -translate-x-1/2 w-[80%] max-w-[420px] bottom-[7%] rounded-[120px] flex flex-col items-center justify-center py-4 gap-2 gelatine cursor-pointer hover:opacity-95 transition-opacity border-6 border-white border-double"
 			>
 				<Text variant="Main/20px/Bold" className="text-white">
 					ثبت نام و شروع معامله
