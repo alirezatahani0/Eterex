@@ -159,7 +159,10 @@ export default function TermsAndConditionsContent() {
 					<ul className="space-y-6 list-disc list-inside">
 						{Object.values(rules.serviceProvision.points).map(
 							(point, index) => (
-								<li key={index}>
+								<li
+									key={index}
+									className={index >= 10 && index <= 15 ? 'pr-8' : ''}
+								>
 									<Text
 										variant="LongText/16px/Regular"
 										color="text-grayscale-06!"
@@ -309,7 +312,7 @@ export default function TermsAndConditionsContent() {
 					<ul className="space-y-6 list-disc list-inside">
 						{Object.values(rules.suspendingBlocking.points).map(
 							(point, index) => (
-								<li key={index}>
+								<li key={index} className={index >= 2 ? 'pr-8' : ''}>
 									<Text
 										variant="LongText/16px/Regular"
 										color="text-grayscale-06!"

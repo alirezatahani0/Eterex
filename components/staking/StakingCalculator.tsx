@@ -203,13 +203,13 @@ export default function StakingCalculator() {
 						variant="Main/24px/Bold"
 						className="text-grayscale-07! lg:font-bold lg:text-[32px] lg:leading-[48px]"
 					>
-						محاسبه{' '}
+						ماشین حساب{' '}
 						<Text
 							variant="Main/24px/Bold"
 							gradient="primary"
 							className="lg:font-bold lg:text-[32px] lg:leading-[48px]"
 						>
-							بازدهی استیکینگ
+							استیکینگ
 						</Text>
 					</Text>
 				</div>
