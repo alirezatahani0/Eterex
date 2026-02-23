@@ -212,6 +212,7 @@ export default function BlogSection() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className="w-fit h-12 min-h-12 px-6 rounded-[40px] bg-brand-primary-container flex items-center justify-center gap-2 transition-colors hover:bg-[rgba(15,91,244,0.12)]"
+										aria-label={`${blog.viewNews}: ${event.title}`}
 									>
 										<Text
 											variant="Main/14px/Bold"

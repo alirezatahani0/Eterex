@@ -165,10 +165,10 @@ export default function FeaturesSection() {
 					loop
 					grabCursor={true}
 					centeredSlides={true}
-					autoplay={{
-						delay: 3500,
-						disableOnInteraction: false,
-					}}
+					// autoplay={{
+					// 	delay: 3500,
+					// 	disableOnInteraction: false,
+					// }}
 					breakpoints={{
 						640: {
 							slidesPerView: 1.5,
@@ -193,7 +193,13 @@ export default function FeaturesSection() {
 									'rounded-[36px] p-10 relative overflow-hidden z-10 flex flex-col gap-4 items-center bg-feature-card min-h-[530px]',
 								)}
 							>
-								<div className="bg-[url('/assets/main/Vector-Dark.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0 w-full h-[250px] z-0 opacity-10" />
+								<Image
+									src={`/assets/main/${theme === 'light' && mounted ? 'patterns3Light' : 'patterns3'}.svg`}
+									width={300}
+									height={300}
+									alt="white pattern"
+									className="absolute top-0 left-0 z-10"
+								/>
 								<Image
 									className="relative z-10"
 									src={`/assets/main/${card.key}.avif`}

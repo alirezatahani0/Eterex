@@ -106,7 +106,7 @@ const UserSolidIcon = () => (
 export default function NotFoundContent() {
 	return (
 		<main className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-12 md:py-16">
-			<Image src="/assets/main/404.png" alt="404" width={500} height={500} />
+			<Image src="/assets/main/404.avif" alt="404" width={500} height={500} />
 			<div className="flex flex-col items-center text-center justify-start w-full -mt-14">
 				{/* Heading */}
 				<Text
