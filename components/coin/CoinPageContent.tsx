@@ -396,7 +396,7 @@ export default function CoinPageContent() {
 						<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
 							<div
 								className={cn(
-									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
+									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[126px] md:w-[146px]',
 									buyOrSell === 'buy' ? activeStyle : baseStyle,
 								)}
 								onClick={() => setBuyOrSell('buy')}
@@ -454,7 +454,7 @@ export default function CoinPageContent() {
 							</div>
 							<div
 								className={cn(
-									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[146px]',
+									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[126px] md:w-[146px]',
 									buyOrSell === 'sell' ? activeStyle : baseStyle,
 								)}
 								onClick={() => setBuyOrSell('sell')}
@@ -846,7 +846,7 @@ export default function CoinPageContent() {
 						</div>
 
 						<div className="pt-8 flex flex-col gap-8">
-							<div className="flex flex-row items-center justify-between gap-8 w-full">
+							<div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 w-full">
 								<div className="flex flex-row items-center gap-8">
 									<Text variant="Main/24px/Bold" gradient="primary">
 										۱
