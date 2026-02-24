@@ -393,10 +393,10 @@ export default function CoinPageContent() {
 						</div>
 					</div>
 					<div className="overflow-hidden bg-brand-primary rounded-[40px] p-4 md:p-8 flex flex-col items-center justify-start h-fit relative">
-						<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
+						<div className="border-2 border-[#ffffff3d] rounded-4xl p-2 max-w-[400px] bg-[#2649FF] h-16 flex flex-row items-center justify-center gap-4 mb-10 relative z-10 w-full">
 							<div
 								className={cn(
-									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[126px] md:w-[146px]',
+									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-1/2',
 									buyOrSell === 'buy' ? activeStyle : baseStyle,
 								)}
 								onClick={() => setBuyOrSell('buy')}
@@ -454,7 +454,7 @@ export default function CoinPageContent() {
 							</div>
 							<div
 								className={cn(
-									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-[126px] md:w-[146px]',
+									'cursor-pointer p-3 flex flex-row items-center justify-center gap-2 rounded-4xl w-1/2',
 									buyOrSell === 'sell' ? activeStyle : baseStyle,
 								)}
 								onClick={() => setBuyOrSell('sell')}
